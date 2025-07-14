@@ -1,0 +1,113 @@
+% \section{Methodology}
+
+%\subsection{SBAB-InSAR Processing}
+%\label{subsec:sbas}
+
+\subsection{Geographically Temporally Weighted Regression}
+\label{subsec:gtwr}
+
+% ================================================================================
+% ================================================================================
+
+\subsubsection{Model Calibration}
+\label{subsec:gtwr_calib}
+
+% ========================================
+% Section: Recap GWR concept
+% ========================================
+
+Prior to discussing the GTWR model, it is useful to recap the fundamental concept of the geographically weighted regression (GWR) approach \citep{fotheringham2002geographically}, defined as:
+
+\begin{equation}
+y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
+\label{eq:gwr}
+\end{equation}
+
+
+% ========================================
+% Section: Introduce GTWR
+% ========================================
+
+\noindent where \(x_{i0} = 1\) for the intercept, \((u_i, v_i)\) are the spatial coordinates of the \(i\)-th point, \(\beta_k(u_i, v_i)\) and \(x_{ik}\) are the coefficient and observed value for the \(k\)-th independent variable, respectively; \(\varepsilon_i\) is the random error, and \(p\) is the number of independent variables (excluding the intercept). \Cref{eq:gwr} indicates that the relationships between dependent and independent variables are spatially nonstationary, which provides a more effective model than the global regression, which assumes spatially constant relationships. However, the environmental quantities not only exhibit spatial but also temporal relationships. Therefore, \citet{huang2010geographically} introduced the GTWR model to account for spatiotemporal nonstationarity. The general form of the GTWR model can be expressed as:
+
+\begin{equation}
+y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i, t_i) x_{ik} + \varepsilon_i
+\label{eq:gtwr}
+\end{equation}
+
+Here, the terms mirror those in GWR, adding the temporal dimension $t_i$. The GTWR model is calibrated based on the assumption that observations closer to the $i$-th point in spatiotemporal coordinate system have greater influence on the estimation of $\beta_k(u_i, v_i, t_i)$ than more distant ones. The estimated parameters $\hat{\boldsymbol{\beta}}(u_i, v_i, t_i)$ can be obtained by:
+
+\begin{equation}
+\hat{\boldsymbol{\beta}}(u_i, v_i, t_i) = (\mathbf{X}^T\mathbf{W}(u_i, v_i, t_i)\mathbf{X})^{-1}\mathbf{X}^T\mathbf{W}(u_i, v_i, t_i) \mathbf{y}
+\label{eq:coeff_gtwr}
+\end{equation}
+
+% =================================================
+% emphasize the weight matrix construction
+% =================================================
+\noindent where $\mathbf{W}(u_i, v_i, t_i)$ is a diagonal matrix with elements denoting the spatiotemporal weights assigned to the observations associated with the $i$-th point. The weights are usually obtained through a kernel function that implement either fixed kernels (using specific distance thresholds) or adaptive kernels (seeking an optimal number of nearest observations), as described by \citet{Paez2002Framework}. Due to the sparse distribution of the MLCW stations across the study area, this study employed the adaptive bi-square kernel function, defined as:
+
+\begin{equation}
+W_{ij} = \begin{cases} 
+	[1 - (d^{ST}_{ij}/h_i)^2]^2, & \text{if } d^{ST}_{ij} < h_i \\
+	0, & \text{otherwise}
+\end{cases}
+\label{eq:bisquare}
+\end{equation}
+
+\noindent where $d^{ST}_{ij}$ denotes the spatiotemporal distances between location $i$ and $j$, and $h_i$ is the adaptive bandwidth, ensuring the same number of observations for each local regression. Since spatial and temporal distances are measured in different units and exhibit different scale effects, \citet{Wu2014Geographically} proposed an integrated formulation, expressed as:
+
+\begin{equation}
+\begin{cases}
+	d_{ij}^{\text{ST}} = \lambda d_{ij}^{\text{S}} + (1-\lambda) d_{ij}^{\text{T}} + 2 \sqrt{\lambda (1-\lambda) d_{ij}^{\text{S}} d_{ij}^{\text{T}}} \cos(\xi), & t_j < t_i \\
+	d_{ij}^{\text{ST}} = \infty, & t_j > t_i
+\end{cases}
+\label{eq:st_dist}
+\end{equation}
+
+\noindent where $t_i$ and $t_j$ are sampled times at locations $i$ and $j$; \( \lambda \text{ and } \xi \in [0, \pi] \) are adjustment parameters. Noticeably, \Cref{eq:st_dist} implies that the GTWR model will simplify to GWR (\cref{eq:gwr}) when $\lambda=1$, and space-time interaction effects reach their maximum when $\xi=0$. In practice, the bandwidths $h_i$, $\lambda$, and $\xi$ can be determined and optimized using a corrected version of the Akaike Information Criterion (AICc) \citep{Hurvich2002_AICc}, defined as:
+
+\begin{equation}
+	\text{AICc} = 2n \log_e (\hat{\sigma}) + n \log_e (2\pi) + n \left\{ \frac{n + \text{tr}(\mathbf{S})}{n - 2 - \text{tr}(\mathbf{S})} \right\}
+\label{eq:aicc}
+\end{equation}
+
+\noindent where \(n\) is the sample size, \(\hat{\sigma}\) is the estimated standard deviation of the error term, and \(\text{tr}(\mathbf{S})\) denotes the trace of the hat matrix $\mathbf{S}$. The hat matrix $\mathbf{S}$ is defined as:
+
+\begin{equation}
+	\mathbf{S} = \{S_{ij}\}, \text{ where } S_{ij} = \mathbf{x}_i^T(\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i) \mathbf{X})^{-1}\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i)
+	\label{eq:hat_matrix}
+\end{equation}
+
+\noindent  where $\mathbf{x}_i^T$ represents the values of independent variables at the $i$-th point. The hat matrix $\mathbf{S}$ transforms observed values into fitted values through spatiotemporal weightings, as in $\hat{\mathbf{y}} = \mathbf{S}\mathbf{y}$, with its trace representing the effective number of parameters in the model \citet{hat_matrix}. The detailed information of these components can be found in \citet{fotheringham2002geographically}.
+
+% In this study, the parameters $\lambda$ and $\xi$ were set to $0.05$ and $0$, respectively, assuming that the temporal effect is dominant and space-time interactive effects are maximized. This configuration constrains the optimization process to focus on determining the optimal bandwidths $h_i$, thereby enhancing the computational efficiency during the calibration procedure.
+
+% ================================================================================
+% ================================================================================
+
+\subsubsection{Posterior Uncertainty Assessment}
+\label{subsec:gtwr_prediction}
+
+When the optimal bandwidth is obtained through the calibration process, the fitted value $\hat{\mathbf{y}}$ at any unsampled location can be calculated using the hat matrix relationship as previously mentioned. The prediction error variance for each fitted value $\hat{\mathbf{y}}$ is defined as:
+
+\begin{equation}
+	\sigma_i^2 = \hat{\sigma}^2 \left(1 + \mathbf{x}_i^T (\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i) \mathbf{X})^{-1} \mathbf{x}_i \right)
+	\label{eq:gtwr_variance}
+\end{equation}
+
+\noindent where $\hat{\sigma}^2$ represents the overall model error variance, which is defined as:
+
+\begin{equation}
+	\hat{\sigma}^2 = \frac{\sum_{i=1}^{N} (y_i - \hat{y}_i)^2}{n - 2\text{tr}(\mathbf{S}) + \text{tr}(\mathbf{S}^T \mathbf{S})}
+	\label{eq:model_error_variance}
+\end{equation}
+
+The first term in \Cref{eq:gtwr_variance} accounts for the intrinsic model residual variance, while the second term assesses the additional uncertainty that arises when estimating local relationships from limited neighboring observations.
+
+
+% ================================================================================
+% ================================================================================
+
+\subsection{Curve Fitting}
+\label{subsec:curve_fit}

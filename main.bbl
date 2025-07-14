@@ -1,0 +1,184 @@
+\begin{thebibliography}{20}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Doin et~al.(2009)Doin, Lasserre, Peltzer, Cavalié, and
+  Doubre]{height_correlation}
+M.-P. Doin, C.~Lasserre, G.~Peltzer, O.~Cavalié, and C.~Doubre.
+\newblock Corrections of stratified tropospheric delays in sar interferometry:
+  Validation with global atmospheric models.
+\newblock \emph{Journal of Applied Geophysics}, 69\penalty0 (1):\penalty0
+  35--50, 2009.
+\newblock ISSN 0926-9851.
+\newblock \doi{https://doi.org/10.1016/j.jappgeo.2009.03.010}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0926985109000603}.
+\newblock Advances in SAR Interferometry from the 2007 Fringe Workshop.
+
+\bibitem[Fattahi et~al.(2017)Fattahi, Agram, and Simons]{nesd_tops}
+Heresh Fattahi, Piyush Agram, and Mark Simons.
+\newblock A network-based enhanced spectral diversity approach for tops
+  time-series analysis.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  55\penalty0 (2):\penalty0 777--786, 2017.
+\newblock \doi{10.1109/TGRS.2016.2614925}.
+
+\bibitem[Fotheringham(2002)]{fotheringham2002geographically}
+AS~Fotheringham.
+\newblock Geographically weighted regression: the analysis of spatially varying
+  relationships.
+\newblock \emph{John Wily and Sons Ltd}, 2002.
+
+\bibitem[Hanssen(2001)]{hanssen_book}
+Ramon~F. Hanssen.
+\newblock \emph{Radar Interferometry: Data Interpretation and Error Analysis},
+  volume~2 of \emph{Remote Sensing and Digital Image Processing}.
+\newblock Springer Dordrecht, 1 edition, 2001.
+\newblock ISBN 978-0-7923-6945-5.
+\newblock \doi{10.1007/0-306-47633-9}.
+\newblock URL \url{https://doi.org/10.1007/0-306-47633-9}.
+
+\bibitem[Hoaglin and Welsch(1978)]{hat_matrix}
+David~C Hoaglin and Roy~E Welsch.
+\newblock The hat matrix in regression and anova.
+\newblock \emph{The American Statistician}, 32\penalty0 (1):\penalty0 17--22,
+  1978.
+
+\bibitem[Hogenson et~al.(2025)Hogenson, Kristenson, Kennedy, Johnston, Rine,
+  Logan, Zhu, Williams, Herrmann, Smale, and Meyer]{hyp3-isce2}
+Kirk Hogenson, Heidi Kristenson, Joseph Kennedy, Andrew Johnston, James Rine,
+  Thomas Logan, Jiang Zhu, Forrest Williams, Jake Herrmann, Jacquelyn Smale,
+  and Franz Meyer.
+\newblock Hybrid pluggable processing pipeline (hyp3): A cloud-native
+  infrastructure for generic processing of sar data, May 2025.
+\newblock URL \url{https://doi.org/10.5281/zenodo.15498989}.
+
+\bibitem[Huang et~al.(2010)Huang, Wu, and Barry]{huang2010geographically}
+Bo~Huang, Bo~Wu, and Michael Barry.
+\newblock Geographically and temporally weighted regression for modeling
+  spatio-temporal variation in house prices.
+\newblock \emph{International journal of geographical information science},
+  24\penalty0 (3):\penalty0 383--401, 2010.
+
+\bibitem[Hung et~al.(2015)Hung, Wang, Hwang, Chen, Chiu, and Lin]{RN47}
+W.~C. Hung, C.~Wang, C.~Hwang, Y.~A. Chen, H.~C. Chiu, and S.~H. Lin.
+\newblock Multiple sensors applied to monitor land subsidence in central
+  taiwan.
+\newblock \emph{Proc. IAHS}, 372:\penalty0 385--391, 2015.
+\newblock ISSN 2199-899X.
+\newblock \doi{10.5194/piahs-372-385-2015}.
+\newblock URL \url{https://piahs.copernicus.org/articles/372/385/2015/}.
+
+\bibitem[Hung et~al.(2021)Hung, Hwang, Sneed, Chen, Chu, and
+  Lin]{Hung2021_MLCW}
+Wei-Chia Hung, Cheinway Hwang, Michelle Sneed, Yi-An Chen, Chi-Hua Chu, and
+  Shao-Hung Lin.
+\newblock Measuring and interpreting multilayer aquifer-system compactions for
+  a sustainable groundwater-system development.
+\newblock \emph{Water Resources Research}, 57\penalty0 (4):\penalty0
+  e2020WR028194, 2021.
+\newblock \doi{https://doi.org/10.1029/2020WR028194}.
+\newblock URL
+  \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020WR028194}.
+\newblock e2020WR028194 2020WR028194.
+
+\bibitem[Hurvich et~al.(2002)Hurvich, Simonoff, and Tsai]{Hurvich2002_AICc}
+Clifford~M. Hurvich, Jeffrey~S. Simonoff, and Chih-Ling Tsai.
+\newblock Smoothing parameter selection in nonparametric regression using an
+  improved akaike information criterion.
+\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
+  Methodology}, 60\penalty0 (2):\penalty0 271--293, 01 2002.
+\newblock ISSN 1369-7412.
+\newblock \doi{10.1111/1467-9868.00125}.
+\newblock URL \url{https://doi.org/10.1111/1467-9868.00125}.
+
+\bibitem[Liu et~al.(2004)Liu, Pan, Liao, Huang, and Ouyang]{RN17}
+Chih-Hsi Liu, Yii-Wen Pan, Jyh-Jong Liao, Chen-Tair Huang, and Shoung Ouyang.
+\newblock Characterization of land subsidence in the choshui river alluvial
+  fan, taiwan.
+\newblock \emph{Environmental Geology}, 45\penalty0 (8):\penalty0 1154--1166,
+  2004.
+\newblock ISSN 1432-0495.
+\newblock \doi{10.1007/s00254-004-0983-6}.
+\newblock URL \url{https://doi.org/10.1007/s00254-004-0983-6}.
+
+\bibitem[Pepe and Lanari(2006)]{temporal_coherence}
+A.~Pepe and R.~Lanari.
+\newblock On the extension of the minimum cost flow algorithm for phase
+  unwrapping of multitemporal differential sar interferograms.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  44\penalty0 (9):\penalty0 2374--2383, 2006.
+\newblock \doi{10.1109/TGRS.2006.873207}.
+
+\bibitem[Perissin and Wang(2012)]{mst_perissin}
+Daniele Perissin and Teng Wang.
+\newblock Repeat-pass sar interferometry with partially coherent targets.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  50\penalty0 (1):\penalty0 271--280, 2012.
+\newblock \doi{10.1109/TGRS.2011.2160644}.
+
+\bibitem[Páez et~al.(2002)Páez, Uchida, and Miyamoto]{Paez2002Framework}
+Antonio Páez, Takashi Uchida, and Kazuaki Miyamoto.
+\newblock A general framework for estimation and inference of geographically
+  weighted regression models: 1. location-specific kernel bandwidths and a test
+  for locational heterogeneity.
+\newblock \emph{Environment and Planning A}, 34\penalty0 (4):\penalty0
+  733--754, 2002.
+\newblock \doi{10.1068/a34110}.
+\newblock URL \url{https://doi.org/10.1068/a34110}.
+
+\bibitem[Rosen et~al.(2012)Rosen, Gurrola, Sacco, and Zebker]{isce2_rosen}
+Paul~A. Rosen, Eric Gurrola, Gian~Franco Sacco, and Howard Zebker.
+\newblock The insar scientific computing environment.
+\newblock In \emph{EUSAR 2012; 9th European Conference on Synthetic Aperture
+  Radar}, pages 730--733, 2012.
+
+\bibitem[Survey(1999)]{RN46}
+Central~Geological Survey.
+\newblock Project of groundwater monitoring network in taiwan during first
+  stage: Research report of choushui river alluvial fan.
+\newblock Report, 1999.
+
+\bibitem[Tough et~al.(1995)Tough, Blacknell, and Quegan]{networkinverse_var}
+J.~A. Tough, D.~Blacknell, and S.~Quegan.
+\newblock A statistical description of polarimetric and interferometric
+  synthetic aperture radar data.
+\newblock \emph{Proceedings of the Royal Society of London. Series A:
+  Mathematical and Physical Sciences}, 449\penalty0 (1937):\penalty0 567--589,
+  1995.
+\newblock \doi{10.1098/rspa.1995.0059}.
+\newblock URL
+  \url{https://royalsocietypublishing.org/doi/abs/10.1098/rspa.1995.0059}.
+
+\bibitem[Wu et~al.(2014)Wu, Li, and Huang]{Wu2014Geographically}
+Bo~Wu, Rongrong Li, and Bo~Huang.
+\newblock A geographically and temporally weighted autoregressive model with
+  application to housing prices.
+\newblock \emph{International Journal of Geographical Information Science},
+  28\penalty0 (5):\penalty0 1186--1204, 2014.
+\newblock \doi{10.1080/13658816.2013.878463}.
+\newblock URL \url{https://doi.org/10.1080/13658816.2013.878463}.
+
+\bibitem[Yagüe-Martínez et~al.(2016)Yagüe-Martínez, Prats-Iraola,
+  Rodríguez~González, Brcic, Shau, Geudtner, Eineder, and Bamler]{tops}
+Néstor Yagüe-Martínez, Pau Prats-Iraola, Fernando Rodríguez~González,
+  Ramon Brcic, Robert Shau, Dirk Geudtner, Michael Eineder, and Richard Bamler.
+\newblock Interferometric processing of sentinel-1 tops data.
+\newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
+  54\penalty0 (4):\penalty0 2220--2234, 2016.
+\newblock \doi{10.1109/TGRS.2015.2497902}.
+
+\bibitem[Yunjun et~al.(2019)Yunjun, Fattahi, and Amelung]{mintpy_yunjun}
+Zhang Yunjun, Heresh Fattahi, and Falk Amelung.
+\newblock Small baseline insar time series analysis: Unwrapping error
+  correction and noise reduction.
+\newblock \emph{Computers \& Geosciences}, 133:\penalty0 104331, 2019.
+\newblock ISSN 0098-3004.
+\newblock \doi{10.1016/j.cageo.2019.104331}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0098300419304194}.
+
+\end{thebibliography}

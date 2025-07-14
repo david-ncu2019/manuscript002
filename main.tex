@@ -1,0 +1,170 @@
+\documentclass[12pt,twoside]{article}
+
+% ===================================================================
+% 1. GEOMETRY
+% ===================================================================
+\usepackage[a4paper,top=25mm,bottom=25mm,left=25mm,right=25mm,headheight=15pt]{geometry}
+
+% ===================================================================
+% 2. FONTS
+% ===================================================================
+\usepackage{newtxtext} % Times-like text font
+\usepackage{newtxmath} % Times-like math font
+% \usepackage{DejaVuSans} % Commented out to avoid conflicts
+
+% ===================================================================
+% 3. CORE PACKAGES (MATH, GRAPHICS, TABLES)
+% ===================================================================
+% -- Mathematics --
+\usepackage{amsmath}     % Essential for advanced math typesetting. Recommended with newtxmath.
+% \usepackage{amssymb,amsthm} % Enable if you need extra symbols or theorem environments
+% \usepackage{bm}        % Enable for bold math symbols, e.g., \bm{v}
+
+% -- Figures, Tables, and Captions --
+\usepackage{graphicx}    % For including images with \includegraphics
+\usepackage{booktabs}    % For professional-quality tables (e.g., \toprule, \midrule)
+\usepackage{float}       % Provides the [H] placement option for figures
+\usepackage{caption}     % Required by subcaption for customizing captions
+\usepackage{subcaption}  % For creating subfigures and subtables (e.g., Figure 1a, 1b)
+
+% ===================================================================
+% 4. PAGE LAYOUT, SPACING, AND FORMATTING
+% ===================================================================
+% -- Headers and Footers --
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\textit{Manuscript Draft}}
+%\fancyhead[LO]{\textit{\rightmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+% \setlength{\headheight}{15pt} % Already set in geometry, but good practice to keep if warning appears
+
+% -- Line and Paragraph Spacing --
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{indentfirst} % Ensures the first paragraph after a heading is indented
+
+% Manually set paragraph indent and spacing for a custom hybrid style
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.5em}
+
+% -- Section Title Formatting --
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\section}{0pt}{*1}{*0.5}
+\titlespacing*{\subsection}{0pt}{*0.5}{*0.5}
+\titlespacing*{\subsubsection}{0pt}{*0.25}{*0.25}
+%\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+%\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+%\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+%\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+%\titlespacing*{\section}{0pt}{*0.5}{*0.25}
+%                 |       |    |     |
+%                 |       |    |     └─ After-title space (1/4 default)
+%                 |       |    └─ Before-title space (1/2 default)
+%                 |       └─ Horizontal left indent (0 points)
+%                 └─ Section type
+
+% ===================================================================
+% 5. BIBLIOGRAPHY
+% ===================================================================
+\usepackage[authoryear]{natbib}
+\bibliographystyle{plainnat}
+
+% ===================================================================
+% 6. HYPERLINKS AND CROSS-REFERENCING (CRITICAL LOADING ORDER!)
+%    Load hyperref late, and cleveref AFTER hyperref.
+% ===================================================================
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=blue,
+	urlcolor=blue,
+	pdftitle={High-Resolution Subsurface Mapping},
+	pdfauthor={Author One et al.},
+	pdfkeywords={land subsidence, mitigation, layer-wise compaction},
+	pdfdisplaydoctitle=true,
+	bookmarksnumbered=true,
+	bookmarksopen=true,
+	pdfstartview=FitH
+}
+\usepackage{cleveref} % For smart cross-referencing (e.g., "figure 1" instead of just "1")
+\creflabelformat{equation}{#2#1#3}
+
+% ===================================================================
+% 7. UTILITIES AND CUSTOM COMMANDS
+% ===================================================================
+\usepackage{xcolor}      % For defining and using colors
+\usepackage{soul}        % For highlighting text with \hl{}
+\usepackage{lineno}      % For line numbering
+
+% -- Your custom commands --
+\newcommand{\keywords}[1]{\vspace{2mm}\noindent\textbf{Keywords:} #1}
+
+%% ========== DOCUMENT CONTENT ==========
+\begin{document}
+
+% Front matter
+\pagenumbering{roman}
+\title{\textbf{High-Resolution Subsurface Mapping Using SBAS-InSAR and Multilayer Compaction Monitoring Wells for Land Subsidence Mitigation}}
+\author{
+  Author One\thanks{Department of X, University A, Country. \texttt{author.one@example.com}} \and
+  Author Two\footnotemark[1] \and
+  Author Three\thanks{Department of Y, University B, Country. \texttt{author.three@example.com}} \and
+  Author Four\thanks{Department of Z, University C, Country. \texttt{author.four@example.com}}
+}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+Land subsidence from excessive groundwater extraction has long affected the Choushui River Fluvial Plain (CRFP) in Taiwan, increasing flood risks and threatening infrastructure like the Taiwan High Speed Rail (THSR). A network of multilayer compaction monitoring wells (MLCWs) aids in understanding subsidence mechanisms, but their high installation costs limit dense deployment. This study integrates SBAS-InSAR surface deformation data with MLCW measurements using geographically weighted regression (GWR) to map layer-wise compaction regionally. This approach enables cost-effective, high-resolution monitoring to inform groundwater management and infrastructure protection.
+\end{abstract}
+
+\keywords{land subsidence; mitigation; layer-wise compaction}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+% Main content
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\linenumbers % Start line numbering here
+
+\section{Introduction}
+\label{sec:intro}
+
+\section{Study Area Background}
+\label{sec:studyarea}
+\input{sections/studyarea001}
+
+\section{Data Sets}
+\label{sec:dataset}
+\input{sections/dataset001}
+
+\section{Methodology}
+\label{sec:method}
+
+\input{sections/methods001}
+
+\section{Results}
+\label{sec:result}
+
+\section{Discussion}
+\label{sec:discuss}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\section*{Acknowledgements}
+Acknowledge any funding, institutional support, or personal contributions that helped your research.
+
+\bibliography{ref_manu2}
+\end{document}

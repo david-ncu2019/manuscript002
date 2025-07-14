@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: plainnat.bst
+Reallocating 'name_of_file' (item size: 1) to 10 items.
+Database file #1: ref_manu2.bib
+Warning--entry type for "hyp3-isce2" isn't style-file defined
+--line 127 of file ref_manu2.bib
+Warning--empty institution in RN46
+You've used 20 entries,
+            2773 wiz_defined-function locations,
+            768 strings with 10258 characters,
+and the built_in function-call counts, 10961 in all, are:
+= -- 984
+> -- 729
+< -- 8
++ -- 245
+- -- 225
+* -- 1015
+:= -- 1737
+add.period$ -- 92
+call.type$ -- 20
+change.case$ -- 136
+chr.to.int$ -- 20
+cite$ -- 41
+duplicate$ -- 416
+empty$ -- 793
+format.name$ -- 251
+if$ -- 2268
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 19
+newline$ -- 140
+num.names$ -- 80
+pop$ -- 216
+preamble$ -- 1
+purify$ -- 115
+quote$ -- 0
+skip$ -- 331
+stack$ -- 0
+substring$ -- 418
+swap$ -- 33
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 215
+warning$ -- 1
+while$ -- 79
+width$ -- 0
+write$ -- 329
+(There were 2 warnings)

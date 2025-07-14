@@ -1,0 +1,85 @@
+% ================================================================================
+
+\subsection{Multilayer Compaction}
+\label{subsubsec:mlcw}
+
+A multilayer compaction monitoring well (MLCW) is a specialized borehole extensometer that captures the subtle subsurface compaction by reading measurements at magnetic rings, strategically installed at boundaries between significant aquifers, or transitions between fine and coarse sedimentary materials, as defined by the Geological Survey and Mining Management Agency (GSMMA).  The depth of each MLCW often extends up to 300 m, with 21 to 26 magnetic rings anchored throughout the profile. Based on hydrogeological properties, aquifer units at each well are determined, each containing a number of corresponding magnetic rings, providing measurements of aquifer-specific compaction. The installation and measurement approaches of the MLCWs have been comprehensively described by \citep{Hung2021_MLCW}. In this study, 29 MLCWs were employed, with monthly data collected from April 2016 to November 2021.
+
+
+\subsection{Cumulative vertical displacement}
+\label{subsubsec:vert_disp}
+
+% raw writing first, do not care about structure
+
+This study derived cumulative vertical displacement from an 8-year dataset of Sentinel-1 SAR images \text{(2016 - 2024)}, acquired from both ascending and descending orbits; the image properties are summarized in \Cref{tab:sentinel1_info}. First, the images from each acquisition orbit were processed separately applying the \textbf{\textit{hyp3-isce2}} plugin, part of the Hybrid Pluggable Processing Pipeline (HyP3) \citep{hyp3-isce2}. For interferogram formation, each SAR image was paired with up to four subsequent consecutive images to minimize temporal decorrelation. Next, each image pair was analyzed using the InSAR Scientific Computing Environment 2 (ISCE2) TOPS workflow, which sequentially performs burst-level coregistration of Single Look Complex (SLC) images, interferogram generation, waterbody masking and topographic phase correction with the Copernicus GLO-30 DEM, phase unwrapping via the SNAPHU algorithm, and geocoding to produce unwrapped interferograms suitable for further time-series InSAR analysis. A detailed description of the ISCE2 workflow is available in \citep{isce2_rosen, tops, nesd_tops}.
+
+\begin{table}[H]
+	\centering
+	\caption{Summary of the Sentinel-1A datasets used in this study.}
+	\label{tab:sentinel1_info}
+	
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Parameters} & \textbf{Ascending} & \textbf{Descending} \\
+		\midrule
+		Relative Orbit (Path) & 69 & 105 \\
+		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{4/2016 – 11/2021} \\
+		Number of Images      & 266 & 264 \\
+		\multicolumn{1}{l}{Acquisition Mode} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
+		\multicolumn{1}{l}{Polarization} & \multicolumn{2}{c}{VV} \\
+		Incidence Angles & 32° – 38° & 38° – 43° \\
+		Satellite Headings & 347.63° & 192.37° \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Subsequently, a time-series analysis was conducted on the unwrapped interferograms from ascending and descending orbits separately using the small baseline subset approach, provided by Miami InSAR Time-series software (MintPy) \citep{mintpy_yunjun}. The valid interferogram network was formed through a two-stage selection. The minimum spanning tree (MST) \citep{mst_perissin} first identified the most coherent interferograms to connect all SAR images, by using the inverse of the average spatial coherence of all interferograms as weight. After this, any interferograms not included in the MST were excluded if their average spatial coherence was lower than $\text{0.3}$. After network formation, the optimal values of the interferometric phase timeseries were estimated through a network inversion using the inverse of the phase variance as weight \citep{networkinverse_var}. The temporal coherence, as a product of the network inversion process, was utilized to evaluate the reliability of the estimated value at each pixel \citep{temporal_coherence}. Pixels with temporal coherence ($\gamma_\textit{temp}$) below 0.65 were then masked from further processing. Regarding atmospheric correction, the tropospheric delay components were removed based on the empirical linear relationship between InSAR phase delay and elevation \citep{height_correlation}. All interferograms from both ascending and descending orbits were referenced to a single stable point, which was located far from the subsiding area (\Cref{fig:insar_leveling_a}). Finally, the line-of-sight deformation (${d_\textit{LOS}}$) was decomposed into the east-west (${d_\textit{E-W}}$) and vertical (${d_\textit{U}}$) components, assuming the deformation in north-south direction (${d_\textit{N-S}}$) was negligible. The decomposition employed the incidence angles ($\theta$) and satellite heading angles ($\alpha$) from both ascending ($\textit{asc}$) and descending ($\textit{desc}$) images \citep{hanssen_book}:
+
+\begin{equation}
+	\begin{bmatrix}
+		d_{\textit{U}} \\
+		d_{\textit{E-W}}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\cos(\theta^{\text{asc}}) & \sin(\theta^{\text{asc}}) \cos(\alpha^{\text{asc}}) \\
+		\cos(\theta^{\text{desc}}) & \sin(\theta^{\text{desc}}) \cos(\alpha^{\text{desc}})
+	\end{bmatrix}^{-1}
+	\begin{bmatrix}
+		d_{\textit{LOS}}^{\text{asc}} \\
+		d_{\textit{LOS}}^{\text{desc}}
+	\end{bmatrix}.
+	\label{eq:decomposition} %<-- Correct placement and spelling
+\end{equation}
+
+
+Validation of the vertical displacements was performed against precise leveling survey, with benchmarks locations shown in \Cref{fig:studyarea}. First, reliable measurement points ($\gamma_\textit{temp} \ge 0.65$) within a 200 m radius of each benchmark were selected. Average velocities were then derived for these points from both the InSAR and annual leveling survey time series, calculated as the slope of the best-fitting line to their respective displacement time series. Such a comparison based on rates was required due to the different temporal sampling intervals of the two datasets \Cref{fig:insar_leveling}.
+
+\begin{figure}[H]
+	\centering
+	
+	% --- Left Subplot (Figure A) ---
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\framebox{\rule{0pt}{8cm}\rule{\textwidth}{0pt}}
+		\caption{} % <-- ADD THIS BACK. An empty caption just creates the "(a)".
+		\label{fig:insar_leveling_a} % <-- ADD THIS BACK. Give it a unique label.
+	\end{subfigure}
+	\quad
+	% --- Right Subplot (Figure B) ---
+	\begin{subfigure}[b]{0.3\textwidth}
+		\centering
+		\framebox{\rule{0pt}{8cm}\rule{\textwidth}{0pt}}
+		\caption{} % <-- ADD THIS BACK. This will create the "(b)".
+		\label{fig:insar_leveling_b} % <-- ADD THIS BACK. Give it another unique label.
+	\end{subfigure}
+	
+	% --- Main Caption for the Entire Figure ---
+	% You can now refer to (a) and (b) in your main caption if you wish.
+	\caption{Comparison of InSAR results and leveling data. (a) The results from InSAR processing. (b) The ground truth data from leveling surveys.}
+	\label{fig:insar_leveling} % This label is for the whole figure.
+\end{figure}
+
+
+
+

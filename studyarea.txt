@@ -1,0 +1,71 @@
+To obtain the values of \(d_u\) (up-down deformation) and \(d_e\) (east-west deformation) using the measurements from both ascending and descending orbits, we start with the matrix equation previously derived, where the north-south deformation (\(d_n\)) is ignored. The goal is to solve for \(d_u\) and \(d_e\) given the line-of-sight (LOS) displacements \(d_{r,a}\) (ascending) and \(d_{r,d}\) (descending).
+
+### Starting Equation
+The combined matrix form is:
+
+\[
+\begin{bmatrix} d_{r,a} \\ d_{r,d} \end{bmatrix} = \begin{bmatrix} \cos(\theta_{inc,a}) & \sin(\theta_{inc,a}) \cos(\alpha_{h,a}) \\ \cos(\theta_{inc,d}) & \sin(\theta_{inc,d}) \cos(\alpha_{h,d}) \end{bmatrix} \begin{bmatrix} d_u \\ d_e \end{bmatrix}.
+\]
+
+This can be written as:
+
+\[
+\mathbf{d_r} = \mathbf{A} \mathbf{d},
+\]
+
+where:
+- \(\mathbf{d_r} = \begin{bmatrix} d_{r,a} \\ d_{r,d} \end{bmatrix}\),
+- \(\mathbf{A} = \begin{bmatrix} \cos(\theta_{inc,a}) & \sin(\theta_{inc,a}) \cos(\alpha_{h,a}) \\ \cos(\theta_{inc,d}) & \sin(\theta_{inc,d}) \cos(\alpha_{h,d}) \end{bmatrix}\),
+- \(\mathbf{d} = \begin{bmatrix} d_u \\ d_e \end{bmatrix}\).
+
+### Solving for \(d_u\) and \(d_e\)
+To isolate \(\mathbf{d}\), we need to solve the system of equations. Assuming \(\mathbf{A}\) is invertible (which it generally is, given distinct incidence and heading angles for ascending and descending orbits), we can use the inverse of \(\mathbf{A}\):
+
+\[
+\mathbf{d} = \mathbf{A}^{-1} \mathbf{d_r}.
+\]
+
+Thus, the matrix form to obtain \(\begin{bmatrix} d_u \\ d_e \end{bmatrix}\) is:
+
+\[
+\begin{bmatrix} d_u \\ d_e \end{bmatrix} = \begin{bmatrix} \cos(\theta_{inc,a}) & \sin(\theta_{inc,a}) \cos(\alpha_{h,a}) \\ \cos(\theta_{inc,d}) & \sin(\theta_{inc,d}) \cos(\alpha_{h,d}) \end{bmatrix}^{-1} \begin{bmatrix} d_{r,a} \\ d_{r,d} \end{bmatrix}.
+\]
+
+### Inverse of \(\mathbf{A}\)
+For a \(2 \times 2\) matrix \(\mathbf{A} = \begin{bmatrix} a & b \\ c & d \end{bmatrix}\), the inverse is:
+
+\[
+\mathbf{A}^{-1} = \frac{1}{\text{det}(\mathbf{A})} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix},
+\]
+
+where \(\text{det}(\mathbf{A}) = ad - bc\). For our matrix:
+- \(a = \cos(\theta_{inc,a})\),
+- \(b = \sin(\theta_{inc,a}) \cos(\alpha_{h,a})\),
+- \(c = \cos(\theta_{inc,d})\),
+- \(d = \sin(\theta_{inc,d}) \cos(\alpha_{h,d})\).
+
+The determinant is:
+
+\[
+\text{det}(\mathbf{A}) = \cos(\theta_{inc,a}) \sin(\theta_{inc,d}) \cos(\alpha_{h,d}) - \sin(\theta_{inc,a}) \cos(\alpha_{h,a}) \cos(\theta_{inc,d}).
+\]
+
+The inverse matrix becomes:
+
+\[
+\mathbf{A}^{-1} = \frac{1}{\text{det}(\mathbf{A})} \begin{bmatrix} \sin(\theta_{inc,d}) \cos(\alpha_{h,d}) & -\sin(\theta_{inc,a}) \cos(\alpha_{h,a}) \\ -\cos(\theta_{inc,d}) & \cos(\theta_{inc,a}) \end{bmatrix}.
+\]
+
+### Final Matrix Form
+Substituting \(\mathbf{A}^{-1}\), the explicit matrix form to compute \(d_u\) and \(d_e\) is:
+
+\[
+\begin{bmatrix} d_u \\ d_e \end{bmatrix} = \frac{1}{\cos(\theta_{inc,a}) \sin(\theta_{inc,d}) \cos(\alpha_{h,d}) - \sin(\theta_{inc,a}) \cos(\alpha_{h,a}) \cos(\theta_{inc,d})} \begin{bmatrix} \sin(\theta_{inc,d}) \cos(\alpha_{h,d}) & -\sin(\theta_{inc,a}) \cos(\alpha_{h,a}) \\ -\cos(\theta_{inc,d}) & \cos(\theta_{inc,a}) \end{bmatrix} \begin{bmatrix} d_{r,a} \\ d_{r,d} \end{bmatrix}.
+\]
+
+### Practical Notes
+- **Invertibility**: The matrix \(\mathbf{A}\) is invertible if the determinant is non-zero, which is typically true for distinct orbit geometries (e.g., \(\alpha_{h,a} \approx 190^\circ\), \(\alpha_{h,d} \approx 10^\circ\) for Sentinel-1).
+- **Evidence**: This inversion method is standard in InSAR studies combining ascending and descending data, as seen in works like Fattahi & Amelung (2015), ensuring robust estimation of deformation components.
+- **Caution**: If angles are too similar, the determinant may approach zero, making the system ill-conditioned. In such cases, additional constraints or data (e.g., GPS) may be necessary.
+
+This matrix form allows direct computation of \(d_u\) and \(d_e\) from the LOS measurements.

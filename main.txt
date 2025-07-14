@@ -1,0 +1,11 @@
+## 4.6. Tropospheric delay correction
+
+Two different approaches for tropospheric delay correction are available. In the first approach, the tropospheric delay is estimated using Global Atmospheric Models (GAMs). The estimated relative double path tropospheric delay at \( t_i \) between a given pixel \( p \) and a reference pixel is given in radians as:
+
+$$
+\hat{\varphi}_{\text{tropo}}^i (p) = \left( \delta L_p^i - \delta L_p^1 \right) \frac{4\pi}{\lambda} - \left( \delta L_{\text{ref}}^i - \delta L_{\text{ref}}^1 \right) \frac{4\pi}{\lambda}
+$$
+
+where \( i \in [1, \ldots, N] \), \( \delta L_x^i \) is the integrated absolute single path tropospheric delay at \( t_i \) on pixels \( x \) in meters in satellite line-of-sight (LOS) direction (\( \delta L_p^1 \) for \( t_i \)) and \( \lambda \) is the radar wavelength in meters. The supported datasets include ERA-5 and ERA-Interim from European Center for Medium-Range Weather Forecast, NARR (North American Regional Reanalysis) from NOAA and MERRA (Modern-Era Retrospective Analysis) from NASA (applied by default, using PyAPS software from Jolivet et al.).
+
+The second approach is based on the empirical linear relationship between the InSAR phase delay and elevation (Doin et al., 2009) which in areas with strong topographic variations sometimes outperforms corrections using GAMs. On the other hand, the empirical approach cannot distinguish between the stratified tropospheric delay and the ground deformation correlated with topography such as at volcanoes.
