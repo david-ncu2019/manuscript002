@@ -45,14 +45,14 @@ y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
 
 %\(x_{i0} = 1\) for the intercept, \((u_i, v_i)\) are the spatial coordinates of the \(i\)-th point, \(\beta_k(u_i, v_i)\) and \(x_{ik}\) are the coefficient and observed value for the \(k\)-th independent variable, respectively; \(\varepsilon_i\) is the random error, and \(p\) is the number of independent variables (excluding the intercept). 
 
-\noindent where the coefficients seemingly replicate ones from OLS, but the significant difference is that the regression coefficients \(\beta_k\) are indexed by \((u_i, v_i)\), which is the spatial coordinates of the \(i\)-th point. \Cref{eq:gwr} indicates that the relationships between dependent and independent variables are spatially nonstationary, which provides a more effective model than the global regression, which assumes spatially constant relationships. However, the environmental quantities not only exhibit spatial but also temporal relationships. Therefore, \citet{huang2010geographically} introduced the GTWR model to account for spatiotemporal nonstationarity. The general form of the GTWR model can be expressed as:
+\noindent where the coefficients appear similar to those in an OLS model. However, the key difference is that the GWR coefficients \(\beta_k\) are indexed by the spatial coordinates \((u_i, v_i)\) of the \(i\)-th point. \Cref{eq:gwr} indicates that the relationships between dependent and independent variables are spatially nonstationary, which provides a more realistic model than the global regression, which assumes spatially constant relationships. However, the environmental quantities not only exhibit spatial but also temporal relationships. Therefore, \citet{huang2010geographically} introduced the GTWR model to account for spatiotemporal nonstationarity. The general form of the GTWR model can be expressed as:
 
 \begin{equation}
 y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i, t_i) x_{ik} + \varepsilon_i
 \label{eq:gtwr}
 \end{equation}
 
-Here, the terms mirror those in GWR, adding the temporal dimension $t_i$. The GTWR model is calibrated based on the assumption that observations closer to the $i$-th point in spatiotemporal coordinate system have greater influence on the estimation of $\beta_k(u_i, v_i, t_i)$ than more distant ones. The estimated parameters $\hat{\boldsymbol{\beta}}(u_i, v_i, t_i)$ can be obtained by:
+The GTWR terms mirror those in GWR, adding the temporal dimension $t_i$. The GTWR model is calibrated based on the assumption that observations closer to the $i$-th point in spatiotemporal coordinate system have greater influence on the estimation of $\beta_k(u_i, v_i, t_i)$ than more distant ones. The estimated parameters $\hat{\boldsymbol{\beta}}(u_i, v_i, t_i)$ can be obtained by:
 
 \begin{equation}
 \hat{\boldsymbol{\beta}}(u_i, v_i, t_i) = (\mathbf{X}^T\mathbf{W}(u_i, v_i, t_i)\mathbf{X})^{-1}\mathbf{X}^T\mathbf{W}(u_i, v_i, t_i) \mathbf{y}
