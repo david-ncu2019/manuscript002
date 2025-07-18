@@ -11,12 +11,28 @@
 
 \subsubsection{Model Calibration}
 \label{subsec:gtwr_calib}
-
+%
 % ========================================
 % Section: Recap GWR concept
 % ========================================
+%
+Before discussing the GTWR model, it is useful to review the fundamental concepts of ordinary least squares (OLS) regression and geographically weighted regression (GWR). The OLS models the relationship between a dependent variable and one or more predictors, under the assumption that the relationships being modeled are spatially stationary, represented as:
 
-Prior to discussing the GTWR model, it is useful to recap the fundamental concept of the geographically weighted regression (GWR) approach \citep{fotheringham2002geographically}, defined as:
+\begin{equation}
+	y_i = \sum_{k=0}^{p} \beta_k x_{ik} + \varepsilon_i
+	\label{eq:ols}
+\end{equation}
+
+\noindent where \(y_i\) denotes the dependent variable at the \(i\)-th location; \(x_{ik}\) represents the independent variables (or predictors), with \(x_{i0} = 1\) at the intercept \(\beta_0\); \(\beta_k\) indicates the regression coefficient corresponding to the \(k\)-th predictor; \(\varepsilon_i\) is the random error at the \(i\)-th point, and \(p\) is the number of independent variables (excluding the intercept).
+%
+The OLS assigns a single set of coefficients to all observations regardless of their geographical locations, which deliberately neglects potential spatial variation and might cause model misspecification \citet{mgwr_book_2017}.
+%
+% ========================================
+% Section: Recap GWR concept
+% ========================================
+%
+The GWR approach allows the relationships to vary spatially, 
+Prior to discussing the GTWR model, it is useful to recap the fundamental concept of the geographically weighted regression (GWR) approach \citep{brunsdon1996, fotheringham2002geographically}, defined as:
 
 \begin{equation}
 y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
@@ -45,7 +61,7 @@ Here, the terms mirror those in GWR, adding the temporal dimension $t_i$. The GT
 % =================================================
 % emphasize the weight matrix construction
 % =================================================
-\noindent where $\mathbf{W}(u_i, v_i, t_i)$ is a diagonal matrix with elements denoting the spatiotemporal weights assigned to the observations associated with the $i$-th point. The weights are usually obtained through a kernel function that implement either fixed kernels (using specific distance thresholds) or adaptive kernels (seeking an optimal number of nearest observations), as described by \citet{Paez2002Framework}. Due to the sparse distribution of the MLCW stations across the study area, this study employed the adaptive bi-square kernel function, defined as:
+\noindent where $\mathbf{W}(u_i, v_i, t_i)$ is a diagonal matrix with elements denoting the spatiotemporal weights assigned to the observations associated with the $i$-th point. The weights are usually obtained through a kernel function that implement either a fixed bandwidth (using specific distance thresholds) or an adaptive bandwidth (seeking an optimal number of nearest observations), as described by \citet{Paez2002Framework}. A fixed bandwidth can introduce estimation bias dependent on observation density. More specifically, in regions with dense observations, an excessive number of neighbors might lead to over-smoothing, while an insufficient number is more likely to cause uncertain estimates. The adaptive bandwidth ensures each regression point is informed by exactly the same number of neighbors, regardless of data density. Due to the sparse distribution of the MLCW stations across the study area, this study employed the adaptive bi-square kernel function, defined as:
 
 \begin{equation}
 W_{ij} = \begin{cases} 
@@ -55,7 +71,7 @@ W_{ij} = \begin{cases}
 \label{eq:bisquare}
 \end{equation}
 
-\noindent where $d^{ST}_{ij}$ denotes the spatiotemporal distances between location $i$ and $j$, and $h_i$ is the adaptive bandwidth, ensuring the same number of observations for each local regression. Since spatial and temporal distances are measured in different units and exhibit different scale effects, \citet{Wu2014Geographically} proposed an integrated formulation, expressed as:
+\noindent where $d^{ST}_{ij}$ denotes the spatiotemporal distances between location $i$ and $j$, and $h_i$ is the adaptive bandwidth. Since spatial and temporal distances are measured in different units and exhibit different scale effects, \citet{Wu2014Geographically} proposed an integrated formulation, expressed as:
 
 \begin{equation}
 \begin{cases}

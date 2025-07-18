@@ -1,0 +1,222 @@
+\begin{thebibliography}{20}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Doin et~al.(2009)Doin, Lasserre, Peltzer, Cavalié and
+  Doubre}]{height_correlation}
+\bibinfo{author}{Doin, M.P.}, \bibinfo{author}{Lasserre, C.},
+  \bibinfo{author}{Peltzer, G.}, \bibinfo{author}{Cavalié, O.},
+  \bibinfo{author}{Doubre, C.}, \bibinfo{year}{2009}.
+\newblock \bibinfo{title}{Corrections of stratified tropospheric delays in sar
+  interferometry: Validation with global atmospheric models}.
+\newblock \bibinfo{journal}{Journal of Applied Geophysics}
+  \bibinfo{volume}{69}, \bibinfo{pages}{35--50}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0926985109000603},
+  \DOIprefix\doi{https://doi.org/10.1016/j.jappgeo.2009.03.010}.
+  \bibinfo{note}{advances in SAR Interferometry from the 2007 Fringe Workshop}.
+%Type = Article
+\bibitem[{Fattahi et~al.(2017)Fattahi, Agram and Simons}]{nesd_tops}
+\bibinfo{author}{Fattahi, H.}, \bibinfo{author}{Agram, P.},
+  \bibinfo{author}{Simons, M.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{A network-based enhanced spectral diversity approach
+  for tops time-series analysis}.
+\newblock \bibinfo{journal}{IEEE Transactions on Geoscience and Remote Sensing}
+  \bibinfo{volume}{55}, \bibinfo{pages}{777--786}.
+\newblock \DOIprefix\doi{10.1109/TGRS.2016.2614925}.
+%Type = Article
+\bibitem[{Fotheringham(2002)}]{fotheringham2002geographically}
+\bibinfo{author}{Fotheringham, A.}, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{Geographically weighted regression: the analysis of
+  spatially varying relationships}.
+\newblock \bibinfo{journal}{John Wily and Sons Ltd} .
+%Type = Book
+\bibitem[{Hanssen(2001)}]{hanssen_book}
+\bibinfo{author}{Hanssen, R.F.}, \bibinfo{year}{2001}.
+\newblock \bibinfo{title}{Radar Interferometry: Data Interpretation and Error
+  Analysis}. volume~\bibinfo{volume}{2} of \textit{\bibinfo{series}{Remote
+  Sensing and Digital Image Processing}}.
+\newblock \bibinfo{edition}{1} ed., \bibinfo{publisher}{Springer Dordrecht}.
+\newblock \URLprefix \url{https://doi.org/10.1007/0-306-47633-9},
+  \DOIprefix\doi{10.1007/0-306-47633-9}.
+%Type = Article
+\bibitem[{Hoaglin and Welsch(1978)}]{hat_matrix}
+\bibinfo{author}{Hoaglin, D.C.}, \bibinfo{author}{Welsch, R.E.},
+  \bibinfo{year}{1978}.
+\newblock \bibinfo{title}{The hat matrix in regression and anova}.
+\newblock \bibinfo{journal}{The American Statistician} \bibinfo{volume}{32},
+  \bibinfo{pages}{17--22}.
+%Type = Misc
+\bibitem[{Hogenson et~al.(2025)Hogenson, Kristenson, Kennedy, Johnston, Rine,
+  Logan, Zhu, Williams, Herrmann, Smale and Meyer}]{hyp3-isce2}
+\bibinfo{author}{Hogenson, K.}, \bibinfo{author}{Kristenson, H.},
+  \bibinfo{author}{Kennedy, J.}, \bibinfo{author}{Johnston, A.},
+  \bibinfo{author}{Rine, J.}, \bibinfo{author}{Logan, T.},
+  \bibinfo{author}{Zhu, J.}, \bibinfo{author}{Williams, F.},
+  \bibinfo{author}{Herrmann, J.}, \bibinfo{author}{Smale, J.},
+  \bibinfo{author}{Meyer, F.}, \bibinfo{year}{2025}.
+\newblock \bibinfo{title}{Hybrid pluggable processing pipeline (hyp3): A
+  cloud-native infrastructure for generic processing of sar data}.
+\newblock \URLprefix \url{https://doi.org/10.5281/zenodo.15498989},
+  \DOIprefix\doi{10.5281/zenodo.15498989}.
+%Type = Article
+\bibitem[{Huang et~al.(2010)Huang, Wu and Barry}]{huang2010geographically}
+\bibinfo{author}{Huang, B.}, \bibinfo{author}{Wu, B.}, \bibinfo{author}{Barry,
+  M.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Geographically and temporally weighted regression for
+  modeling spatio-temporal variation in house prices}.
+\newblock \bibinfo{journal}{International journal of geographical information
+  science} \bibinfo{volume}{24}, \bibinfo{pages}{383--401}.
+%Type = Article
+\bibitem[{Hung et~al.(2021)Hung, Hwang, Sneed, Chen, Chu and
+  Lin}]{Hung2021_MLCW}
+\bibinfo{author}{Hung, W.C.}, \bibinfo{author}{Hwang, C.},
+  \bibinfo{author}{Sneed, M.}, \bibinfo{author}{Chen, Y.A.},
+  \bibinfo{author}{Chu, C.H.}, \bibinfo{author}{Lin, S.H.},
+  \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Measuring and interpreting multilayer aquifer-system
+  compactions for a sustainable groundwater-system development}.
+\newblock \bibinfo{journal}{Water Resources Research} \bibinfo{volume}{57},
+  \bibinfo{pages}{e2020WR028194}.
+\newblock \URLprefix
+  \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020WR028194},
+  \DOIprefix\doi{https://doi.org/10.1029/2020WR028194},
+  \href{http://arxiv.org/abs/https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020WR028194}{\tt
+  arXiv:https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020WR028194}.
+  \bibinfo{note}{e2020WR028194 2020WR028194}.
+%Type = Article
+\bibitem[{Hung et~al.(2015)Hung, Wang, Hwang, Chen, Chiu and Lin}]{RN47}
+\bibinfo{author}{Hung, W.C.}, \bibinfo{author}{Wang, C.},
+  \bibinfo{author}{Hwang, C.}, \bibinfo{author}{Chen, Y.A.},
+  \bibinfo{author}{Chiu, H.C.}, \bibinfo{author}{Lin, S.H.},
+  \bibinfo{year}{2015}.
+\newblock \bibinfo{title}{Multiple sensors applied to monitor land subsidence
+  in central taiwan}.
+\newblock \bibinfo{journal}{Proc. IAHS} \bibinfo{volume}{372},
+  \bibinfo{pages}{385--391}.
+\newblock \URLprefix \url{https://piahs.copernicus.org/articles/372/385/2015/},
+  \DOIprefix\doi{10.5194/piahs-372-385-2015}.
+%Type = Article
+\bibitem[{Hurvich et~al.(2002)Hurvich, Simonoff and Tsai}]{Hurvich2002_AICc}
+\bibinfo{author}{Hurvich, C.M.}, \bibinfo{author}{Simonoff, J.S.},
+  \bibinfo{author}{Tsai, C.L.}, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{Smoothing parameter selection in nonparametric
+  regression using an improved akaike information criterion}.
+\newblock \bibinfo{journal}{Journal of the Royal Statistical Society Series B:
+  Statistical Methodology} \bibinfo{volume}{60}, \bibinfo{pages}{271--293}.
+\newblock \URLprefix \url{https://doi.org/10.1111/1467-9868.00125},
+  \DOIprefix\doi{10.1111/1467-9868.00125},
+  \href{http://arxiv.org/abs/https://academic.oup.com/jrsssb/article-pdf/60/2/271/49589041/jrsssb\_60\_2\_271.pdf}{\tt
+  arXiv:https://academic.oup.com/jrsssb/article-pdf/60/2/271/49589041/jrsssb\_60\_2\_271.pdf}.
+%Type = Article
+\bibitem[{Liu et~al.(2004)Liu, Pan, Liao, Huang and Ouyang}]{RN17}
+\bibinfo{author}{Liu, C.H.}, \bibinfo{author}{Pan, Y.W.},
+  \bibinfo{author}{Liao, J.J.}, \bibinfo{author}{Huang, C.T.},
+  \bibinfo{author}{Ouyang, S.}, \bibinfo{year}{2004}.
+\newblock \bibinfo{title}{Characterization of land subsidence in the choshui
+  river alluvial fan, taiwan}.
+\newblock \bibinfo{journal}{Environmental Geology} \bibinfo{volume}{45},
+  \bibinfo{pages}{1154--1166}.
+\newblock \URLprefix \url{https://doi.org/10.1007/s00254-004-0983-6},
+  \DOIprefix\doi{10.1007/s00254-004-0983-6}.
+%Type = Article
+\bibitem[{Pepe and Lanari(2006)}]{temporal_coherence}
+\bibinfo{author}{Pepe, A.}, \bibinfo{author}{Lanari, R.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{On the extension of the minimum cost flow algorithm
+  for phase unwrapping of multitemporal differential sar interferograms}.
+\newblock \bibinfo{journal}{IEEE Transactions on Geoscience and Remote Sensing}
+  \bibinfo{volume}{44}, \bibinfo{pages}{2374--2383}.
+\newblock \DOIprefix\doi{10.1109/TGRS.2006.873207}.
+%Type = Article
+\bibitem[{Perissin and Wang(2012)}]{mst_perissin}
+\bibinfo{author}{Perissin, D.}, \bibinfo{author}{Wang, T.},
+  \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{Repeat-pass sar interferometry with partially
+  coherent targets}.
+\newblock \bibinfo{journal}{IEEE Transactions on Geoscience and Remote Sensing}
+  \bibinfo{volume}{50}, \bibinfo{pages}{271--280}.
+\newblock \DOIprefix\doi{10.1109/TGRS.2011.2160644}.
+%Type = Article
+\bibitem[{Páez et~al.(2002)Páez, Uchida and Miyamoto}]{Paez2002Framework}
+\bibinfo{author}{Páez, A.}, \bibinfo{author}{Uchida, T.},
+  \bibinfo{author}{Miyamoto, K.}, \bibinfo{year}{2002}.
+\newblock \bibinfo{title}{A general framework for estimation and inference of
+  geographically weighted regression models: 1. location-specific kernel
+  bandwidths and a test for locational heterogeneity}.
+\newblock \bibinfo{journal}{Environment and Planning A} \bibinfo{volume}{34},
+  \bibinfo{pages}{733--754}.
+\newblock \URLprefix \url{https://doi.org/10.1068/a34110},
+  \DOIprefix\doi{10.1068/a34110}.
+%Type = Inproceedings
+\bibitem[{Rosen et~al.(2012)Rosen, Gurrola, Sacco and Zebker}]{isce2_rosen}
+\bibinfo{author}{Rosen, P.A.}, \bibinfo{author}{Gurrola, E.},
+  \bibinfo{author}{Sacco, G.F.}, \bibinfo{author}{Zebker, H.},
+  \bibinfo{year}{2012}.
+\newblock \bibinfo{title}{The insar scientific computing environment}, in:
+  \bibinfo{booktitle}{EUSAR 2012; 9th European Conference on Synthetic Aperture
+  Radar}, pp. \bibinfo{pages}{730--733}.
+%Type = Techreport
+\bibitem[{Survey(1999)}]{RN46}
+\bibinfo{author}{Survey, C.G.}, \bibinfo{year}{1999}.
+\newblock \bibinfo{title}{Project of groundwater monitoring network in Taiwan
+  during first stage: Research report of Choushui River alluvial fan}.
+\newblock \bibinfo{type}{Report}.
+%Type = Article
+\bibitem[{Tough et~al.(1995)Tough, Blacknell and Quegan}]{networkinverse_var}
+\bibinfo{author}{Tough, J.A.}, \bibinfo{author}{Blacknell, D.},
+  \bibinfo{author}{Quegan, S.}, \bibinfo{year}{1995}.
+\newblock \bibinfo{title}{A statistical description of polarimetric and
+  interferometric synthetic aperture radar data}.
+\newblock \bibinfo{journal}{Proceedings of the Royal Society of London. Series
+  A: Mathematical and Physical Sciences} \bibinfo{volume}{449},
+  \bibinfo{pages}{567--589}.
+\newblock \URLprefix
+  \url{https://royalsocietypublishing.org/doi/abs/10.1098/rspa.1995.0059},
+  \DOIprefix\doi{10.1098/rspa.1995.0059},
+  \href{http://arxiv.org/abs/https://royalsocietypublishing.org/doi/pdf/10.1098/rspa.1995.0059}{\tt
+  arXiv:https://royalsocietypublishing.org/doi/pdf/10.1098/rspa.1995.0059}.
+%Type = Article
+\bibitem[{Wu et~al.(2014)Wu, Li and Huang}]{Wu2014Geographically}
+\bibinfo{author}{Wu, B.}, \bibinfo{author}{Li, R.}, \bibinfo{author}{Huang,
+  B.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{A geographically and temporally weighted
+  autoregressive model with application to housing prices}.
+\newblock \bibinfo{journal}{International Journal of Geographical Information
+  Science} \bibinfo{volume}{28}, \bibinfo{pages}{1186--1204}.
+\newblock \URLprefix \url{https://doi.org/10.1080/13658816.2013.878463},
+  \DOIprefix\doi{10.1080/13658816.2013.878463}.
+%Type = Article
+\bibitem[{Yagüe-Martínez et~al.(2016)Yagüe-Martínez, Prats-Iraola,
+  Rodríguez~González, Brcic, Shau, Geudtner, Eineder and Bamler}]{tops}
+\bibinfo{author}{Yagüe-Martínez, N.}, \bibinfo{author}{Prats-Iraola, P.},
+  \bibinfo{author}{Rodríguez~González, F.}, \bibinfo{author}{Brcic, R.},
+  \bibinfo{author}{Shau, R.}, \bibinfo{author}{Geudtner, D.},
+  \bibinfo{author}{Eineder, M.}, \bibinfo{author}{Bamler, R.},
+  \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Interferometric processing of sentinel-1 tops data}.
+\newblock \bibinfo{journal}{IEEE Transactions on Geoscience and Remote Sensing}
+  \bibinfo{volume}{54}, \bibinfo{pages}{2220--2234}.
+\newblock \DOIprefix\doi{10.1109/TGRS.2015.2497902}.
+%Type = Article
+\bibitem[{Yunjun et~al.(2019)Yunjun, Fattahi and Amelung}]{mintpy_yunjun}
+\bibinfo{author}{Yunjun, Z.}, \bibinfo{author}{Fattahi, H.},
+  \bibinfo{author}{Amelung, F.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Small baseline insar time series analysis: Unwrapping
+  error correction and noise reduction}.
+\newblock \bibinfo{journal}{Computers \& Geosciences} \bibinfo{volume}{133},
+  \bibinfo{pages}{104331}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0098300419304194},
+  \DOIprefix\doi{10.1016/j.cageo.2019.104331}.
+
+\end{thebibliography}
