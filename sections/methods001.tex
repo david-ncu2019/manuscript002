@@ -16,23 +16,22 @@
 % Section: Recap GWR concept
 % ========================================
 %
-Before discussing the GTWR model, it is useful to review the fundamental concepts of ordinary least squares (OLS) regression and geographically weighted regression (GWR). The OLS models the relationship between a dependent variable and one or more predictors, under the assumption that the relationships being modeled are spatially stationary, represented as:
+Before discussing the GTWR model, it is useful to review the fundamental concepts of ordinary least squares (OLS) regression and geographically weighted regression (GWR). The OLS models the relationship between a dependent variable and one or more predictors, under the assumption that the relationships being modeled are spatially stationary, expressed as:
 
 \begin{equation}
 	y_i = \sum_{k=0}^{p} \beta_k x_{ik} + \varepsilon_i
 	\label{eq:ols}
 \end{equation}
 
-\noindent where \(y_i\) denotes the dependent variable at the \(i\)-th location; \(x_{ik}\) represents the independent variables (or predictors), with \(x_{i0} = 1\) at the intercept \(\beta_0\); \(\beta_k\) indicates the regression coefficient corresponding to the \(k\)-th predictor; \(\varepsilon_i\) is the random error at the \(i\)-th point, and \(p\) is the number of independent variables (excluding the intercept).
+\noindent where \(y_i\) denotes the dependent variable at the \(i\)-th location; \(x_{ik}\) represents the independent variables (or predictors), with \(x_{i0} = 1\) for the intercept \(\beta_0\); \(\beta_k\) indicates the regression coefficient corresponding to the \(k\)-th predictor; \(\varepsilon_i\) is the random error at the \(i\)-th location, and \(p\) is the number of independent variables (excluding the intercept).
 %
-The OLS assigns a single set of coefficients to all observations regardless of their geographical locations, which deliberately neglects potential spatial variation and might cause model misspecification \citet{mgwr_book_2017}.
+The OLS method assigns a single set of coefficients to all observations regardless of their geographical locations, which deliberately neglects potential spatial variation and can cause model misspecification \citet{mgwr_book_2017}.
 %
 % ========================================
 % Section: Recap GWR concept
 % ========================================
 %
-The GWR approach allows the relationships to vary spatially, 
-Prior to discussing the GTWR model, it is useful to recap the fundamental concept of the geographically weighted regression (GWR) approach \citep{brunsdon1996, fotheringham2002geographically}, defined as:
+The GWR approach allows the regression coefficients of the predictors to vary at different locations, thereby capturing local variations \citep{brunsdon1996, fotheringham2002geographically}. The GWR is formulated as follows:
 
 \begin{equation}
 y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
@@ -44,7 +43,9 @@ y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
 % Section: Introduce GTWR
 % ========================================
 
-\noindent where \(x_{i0} = 1\) for the intercept, \((u_i, v_i)\) are the spatial coordinates of the \(i\)-th point, \(\beta_k(u_i, v_i)\) and \(x_{ik}\) are the coefficient and observed value for the \(k\)-th independent variable, respectively; \(\varepsilon_i\) is the random error, and \(p\) is the number of independent variables (excluding the intercept). \Cref{eq:gwr} indicates that the relationships between dependent and independent variables are spatially nonstationary, which provides a more effective model than the global regression, which assumes spatially constant relationships. However, the environmental quantities not only exhibit spatial but also temporal relationships. Therefore, \citet{huang2010geographically} introduced the GTWR model to account for spatiotemporal nonstationarity. The general form of the GTWR model can be expressed as:
+%\(x_{i0} = 1\) for the intercept, \((u_i, v_i)\) are the spatial coordinates of the \(i\)-th point, \(\beta_k(u_i, v_i)\) and \(x_{ik}\) are the coefficient and observed value for the \(k\)-th independent variable, respectively; \(\varepsilon_i\) is the random error, and \(p\) is the number of independent variables (excluding the intercept). 
+
+\noindent where the coefficients seemingly replicate ones from OLS, but the significant difference is that the regression coefficients \(\beta_k\) are indexed by \((u_i, v_i)\), which is the spatial coordinates of the \(i\)-th point. \Cref{eq:gwr} indicates that the relationships between dependent and independent variables are spatially nonstationary, which provides a more effective model than the global regression, which assumes spatially constant relationships. However, the environmental quantities not only exhibit spatial but also temporal relationships. Therefore, \citet{huang2010geographically} introduced the GTWR model to account for spatiotemporal nonstationarity. The general form of the GTWR model can be expressed as:
 
 \begin{equation}
 y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i, t_i) x_{ik} + \varepsilon_i
