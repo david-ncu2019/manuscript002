@@ -9,15 +9,65 @@ The hydrogeological structures of the study area are divided into three sections
 \begin{figure}[H]
 	\centering
 	
-	% This is your placeholder for the image.
-	\framebox{\rule{0pt}{7cm}\rule{12.5cm}{0pt}}
+	% Left large subfigure (A) - takes up left half, full height
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{figures/studyarea_dpi150.png}
+%		\framebox{\rule{0pt}{10cm}\rule{\textwidth}{0pt}}
+%		\caption{}
+		\label{fig:studyarea_a}
+	\end{subfigure}
+	\hfill
+	% Right column with three subfigures (B, C, D)
+	\begin{minipage}[b]{0.48\textwidth}
+		% Top right subfigure (B)
+		\begin{subfigure}[b]{\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{figures/crosssection.png}
+%			\framebox{\rule{0pt}{3cm}\rule{\textwidth}{0pt}}
+%			\caption{}
+			\label{fig:studyarea_b}
+		\end{subfigure}
+		
+		\vspace{0.1cm}
+		
+		% Middle right subfigure (C)
+		\begin{subfigure}[b]{\textwidth}
+			\centering
+			\framebox{\rule{0pt}{3cm}\rule{\textwidth}{0pt}}
+%			\caption{}
+			\label{fig:studyarea_c}
+		\end{subfigure}
+		
+		\vspace{0.1cm}
+		
+		% Bottom right subfigure (D)
+		\begin{subfigure}[b]{\textwidth}
+			\centering
+			\framebox{\rule{0pt}{3cm}\rule{\textwidth}{0pt}}
+%			\caption{}
+			\label{fig:studyarea_d}
+		\end{subfigure}
+	\end{minipage}
 	
-	% Use a short caption in [] for the TOC, and the long one in {} for the figure itself.
-	\caption[Study Area]{% <-- SHORT CAPTION for TOC
-		The location of the study area (bounded by a gray line) and the coverage of Sentinel-1’s SAR images (blue rectangle). The green triangles and black squares stand for GPS stations and leveling benchmarks, respectively. The hydrogeological structures are roughly separated by purple lines.% <-- LONG CAPTION for below the figure
-		\label{fig:studyarea}% The label should be inside the caption.
+	\caption[Study Area]{%
+		Study Area, Cross Section, and Borehole
+		\label{fig:studyarea}
 	}	
 \end{figure}
+%
+%\begin{figure}[H]
+%	\centering
+%	
+%	% This is your placeholder for the image.
+%	\framebox{\rule{0pt}{7cm}\rule{12.5cm}{0pt}}
+%	
+%	% Use a short caption in [] for the TOC, and the long one in {} for the figure itself.
+%	\caption[Study Area]{% <-- SHORT CAPTION for TOC
+%		The location of the study area (bounded by a gray line) and the coverage of Sentinel-1’s SAR images (blue rectangle). The green triangles and black squares stand for GPS stations and leveling benchmarks, respectively. The hydrogeological structures are roughly separated by purple lines.% <-- LONG CAPTION for below the figure
+%		\label{fig:studyarea}% The label should be inside the caption.
+%	}	
+%\end{figure}
 
 
 % ================================================================================
