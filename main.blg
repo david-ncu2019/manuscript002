@@ -6,47 +6,47 @@ The style file: plainnat.bst
 Reallocating 'name_of_file' (item size: 1) to 10 items.
 Database file #1: ref_manu2.bib
 Warning--entry type for "hyp3-isce2" isn't style-file defined
---line 143 of file ref_manu2.bib
+--line 162 of file ref_manu2.bib
 Warning--empty institution in RN46
-You've used 22 entries,
+You've used 24 entries,
             2773 wiz_defined-function locations,
-            785 strings with 10831 characters,
-and the built_in function-call counts, 12037 in all, are:
-= -- 1087
-> -- 789
+            806 strings with 11346 characters,
+and the built_in function-call counts, 13105 in all, are:
+= -- 1187
+> -- 858
 < -- 8
-+ -- 265
-- -- 243
-* -- 1120
-:= -- 1904
-add.period$ -- 102
-call.type$ -- 22
-change.case$ -- 148
-chr.to.int$ -- 22
-cite$ -- 45
-duplicate$ -- 458
-empty$ -- 877
-format.name$ -- 271
-if$ -- 2492
++ -- 288
+- -- 264
+* -- 1222
+:= -- 2078
+add.period$ -- 114
+call.type$ -- 24
+change.case$ -- 161
+chr.to.int$ -- 24
+cite$ -- 49
+duplicate$ -- 500
+empty$ -- 953
+format.name$ -- 294
+if$ -- 2712
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 21
-newline$ -- 154
-num.names$ -- 88
-pop$ -- 232
+missing$ -- 23
+newline$ -- 170
+num.names$ -- 96
+pop$ -- 248
 preamble$ -- 1
-purify$ -- 125
+purify$ -- 136
 quote$ -- 0
-skip$ -- 361
+skip$ -- 392
 stack$ -- 0
-substring$ -- 474
-swap$ -- 35
+substring$ -- 505
+swap$ -- 37
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 237
+type$ -- 259
 warning$ -- 1
-while$ -- 88
+while$ -- 96
 width$ -- 0
-write$ -- 363
+write$ -- 401
 (There were 2 warnings)

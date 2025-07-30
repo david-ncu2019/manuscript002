@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{24}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -15,6 +15,14 @@ Chris Brunsdon, A.~Stewart Fotheringham, and Martin~E. Charlton.
 \newblock \doi{https://doi.org/10.1111/j.1538-4632.1996.tb00936.x}.
 \newblock URL
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.1996.tb00936.x}.
+
+\bibitem[Chang et~al.(2020)Chang, Chen, Wang, and Chang]{RN64}
+Lena Chang, Yi-Ting Chen, Jung-Hua Wang, and Yang-Lang Chang.
+\newblock Rice-field mapping with sentinel-1a sar time-series data.
+\newblock \emph{Remote Sensing}, 13\penalty0 (1):\penalty0 103, 2020.
+\newblock ISSN 2072-4292.
+\newblock \doi{10.3390/rs13010103}.
+\newblock URL \url{https://doi.org/10.3390/rs13010103}.
 
 \bibitem[Doin et~al.(2009)Doin, Lasserre, Peltzer, Cavalié, and
   Doubre]{height_correlation}
@@ -171,6 +179,16 @@ J.~A. Tough, D.~Blacknell, and S.~Quegan.
 \newblock \doi{10.1098/rspa.1995.0059}.
 \newblock URL
   \url{https://royalsocietypublishing.org/doi/abs/10.1098/rspa.1995.0059}.
+
+\bibitem[Tseng et~al.(2024)Tseng, Lin, and Yu]{craf_pumping}
+Hua-Ting Tseng, Ying-Fan Lin, and Hwa-Lung Yu.
+\newblock Estimating spatiotemporal pumping amounts using multiple signal
+  decomposition methods.
+\newblock \emph{Journal of Hydrology}, 633:\penalty0 130856, 2024.
+\newblock ISSN 0022-1694.
+\newblock \doi{https://doi.org/10.1016/j.jhydrol.2024.130856}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0022169424002506}.
 
 \bibitem[Wu et~al.(2014)Wu, Li, and Huang]{Wu2014Geographically}
 Bo~Wu, Rongrong Li, and Bo~Huang.
