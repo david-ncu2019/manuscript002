@@ -3,13 +3,14 @@
 %\subsection{SBAB-InSAR Processing}
 %\label{subsec:sbas}
 
-\subsection{Geographically Temporally Weighted Regression}
-\label{subsec:gtwr}
+%\subsection{Geographically Temporally Weighted Regression}
+%\label{subsec:gtwr}
 
 % ================================================================================
 % ================================================================================
 
-\subsubsection{Model Calibration}
+%\subsubsection{Model Calibration}
+\subsection{Model Calibration}
 \label{subsec:gtwr_calib}
 %
 % ========================================
@@ -103,7 +104,15 @@ W_{ij} = \begin{cases}
 % ================================================================================
 % ================================================================================
 
-\subsubsection{Posterior Uncertainty Assessment}
+%\subsubsection{Model Validation}
+\subsection{Model Validation}
+\label{subsec:gtwr_validation}
+
+% ================================================================================
+% ================================================================================
+
+%\subsubsection{Posterior Uncertainty Assessment}
+\subsection{Posterior Uncertainty Assessment}
 \label{subsec:gtwr_prediction}
 
 When the optimal bandwidth is obtained through the calibration process, the fitted value $\hat{\mathbf{y}}$ at any unsampled location can be calculated using the hat matrix relationship as previously mentioned. The prediction error variance for each fitted value $\hat{\mathbf{y}}$ is defined as:
@@ -122,9 +131,8 @@ When the optimal bandwidth is obtained through the calibration process, the fitt
 
 The first term in \Cref{eq:gtwr_variance} accounts for the intrinsic model residual variance, while the second term assesses the additional uncertainty that arises when estimating local relationships from limited neighboring observations.
 
-
 % ================================================================================
 % ================================================================================
 
-\subsection{Curve Fitting}
-\label{subsec:curve_fit}
+%\subsection{Curve Fitting}
+%\label{subsec:curve_fit}
