@@ -1,27 +1,21 @@
 {
     "InternalPDFViewer": {
         "Embedded": false,
-        "File": ""
+        "File": "main.pdf"
     },
     "Session": {
         "Bookmarks": [
-            {
-                "bookmarkNumber": 1,
-                "fileName": "ref_manu2.bib",
-                "lineNumber": 283,
-                "text": "ref_manu2.bib\n@article{mgwr_book,"
-            }
         ],
-        "CurrentFile": "sections/studyarea001.tex",
+        "CurrentFile": "sections/methods001.tex",
         "FileVersion": 1,
         "Files": [
             {
-                "Col": 39,
+                "Col": 0,
                 "EditorGroup": 0,
                 "FileName": "main.tex",
-                "FirstLine": 17,
+                "FirstLine": 128,
                 "FoldedLines": "",
-                "Line": 57
+                "Line": 152
             },
             {
                 "Col": 0,
@@ -32,7 +26,7 @@
                 "Line": 0
             },
             {
-                "Col": 258,
+                "Col": 0,
                 "EditorGroup": 0,
                 "FileName": "sections/studyarea001.tex",
                 "FirstLine": 0,
@@ -40,20 +34,20 @@
                 "Line": 6
             },
             {
-                "Col": 46,
+                "Col": 30,
                 "EditorGroup": 0,
                 "FileName": "sections/dataset001.tex",
-                "FirstLine": 0,
+                "FirstLine": 47,
                 "FoldedLines": "",
-                "Line": 65
+                "Line": 61
             },
             {
-                "Col": 14,
+                "Col": 82,
                 "EditorGroup": 0,
                 "FileName": "sections/methods001.tex",
                 "FirstLine": 0,
                 "FoldedLines": "",
-                "Line": 59
+                "Line": 8
             },
             {
                 "Col": 31,
@@ -72,20 +66,12 @@
                 "Line": 0
             },
             {
-                "Col": 21,
+                "Col": 13,
                 "EditorGroup": 0,
                 "FileName": "ref_manu2.bib",
-                "FirstLine": 0,
-                "FoldedLines": "17,24,35,48,61,77,93,100,114,127,142,166,177,189,201,215,227,243,255,272,283",
-                "Line": 1
-            },
-            {
-                "Col": 51,
-                "EditorGroup": 0,
-                "FileName": "main.bbl",
-                "FirstLine": 22,
-                "FoldedLines": "",
-                "Line": 149
+                "FirstLine": 130,
+                "FoldedLines": "1,17,24,35,48,61,77,93,100,114,161,185,196,208,220,234,246,262,274,291,302,322",
+                "Line": 127
             }
         ],
         "MasterFile": "",

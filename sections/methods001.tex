@@ -52,8 +52,17 @@ y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
 y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i, t_i) x_{ik} + \varepsilon_i
 \label{eq:gtwr}
 \end{equation}
-
-The GTWR terms mirror those in GWR, adding the temporal dimension $t_i$. The GTWR model is calibrated based on the assumption that observations closer to the $i$-th point in spatiotemporal coordinate system have greater influence on the estimation of $\beta_k(u_i, v_i, t_i)$ than more distant ones. The estimated parameters $\hat{\boldsymbol{\beta}}(u_i, v_i, t_i)$ can be obtained by:
+%
+The GTWR terms mirror those in GWR but add the temporal dimension $t_i$. To apply this framework to our study, we model the compaction within a specific aquifer layer as a function of the corresponding surface deformation derived from SBAS-InSAR. The general GTWR model from \Cref{eq:gtwr} is therefore specified for this research as:
+%
+\begin{equation}
+	\text{MLCW}_{i,n}(t) = \beta_0(u_i, v_i, t) + \beta_1(u_i, v_i, t) \cdot \text{InSAR}_i(t) + \varepsilon_i
+	\label{eq:gtwr_mlcw_insar}
+\end{equation}
+%
+\noindent where the compaction within a specific layer \(n\) at well \(i\), represented by \(\text{MLCW}_{i,n}(t)\), is modeled as a function of the corresponding InSAR-derived surface deformation, denoted by \(\text{InSAR}_i(t)\). The spatiotemporally varying terms \(\beta_0\) and \(\beta_1\) capture the relationship across space and time between these variables, respectively.
+%
+The GTWR model is calibrated based on the assumption that observations closer to the $i$-th point in spatiotemporal coordinate system have greater influence on the estimation of $\beta_k(u_i, v_i, t_i)$ than more distant ones. The estimated parameters $\hat{\boldsymbol{\beta}}(u_i, v_i, t_i)$ can be obtained by:
 
 \begin{equation}
 \hat{\boldsymbol{\beta}}(u_i, v_i, t_i) = (\mathbf{X}^T\mathbf{W}(u_i, v_i, t_i)\mathbf{X})^{-1}\mathbf{X}^T\mathbf{W}(u_i, v_i, t_i) \mathbf{y}
@@ -93,11 +102,19 @@ W_{ij} = \begin{cases}
 \noindent where \(n\) is the sample size, \(\hat{\sigma}\) is the estimated standard deviation of the error term, and \(\text{tr}(\mathbf{S})\) denotes the trace of the hat matrix $\mathbf{S}$. The hat matrix $\mathbf{S}$ is defined as:
 
 \begin{equation}
-	\mathbf{S} = \{S_{ij}\}, \text{ where } S_{ij} = \mathbf{x}_i^T(\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i) \mathbf{X})^{-1}\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i)
-	\label{eq:hat_matrix}
+	\mathbf{s}_i^T = \mathbf{x}_i^T(\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i) \mathbf{X})^{-1}\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i)
+	\label{eq:hat_matrix_row}
 \end{equation}
 
-\noindent  where $\mathbf{x}_i^T$ represents the values of independent variables at the $i$-th point. The hat matrix $\mathbf{S}$ transforms observed values into fitted values through spatiotemporal weightings, as in $\hat{\mathbf{y}} = \mathbf{S}\mathbf{y}$, with its trace representing the effective number of parameters in the model \citet{hat_matrix}. The detailed information of these components can be found in \citet{fotheringham2002geographically}.
+\noindent where $\mathbf{s}_i^T$ is the \textit{i}-th row of the hat matrix $\mathbf{S}$.
+%
+%\begin{equation}
+%	\mathbf{S} = \{S_{ij}\}, \text{ where } S_{ij} = \mathbf{x}_i^T(\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i) \mathbf{X})^{-1}\mathbf{X}^T \mathbf{W}(u_i, v_i, t_i)
+%	\label{eq:hat_matrix}
+%\end{equation}
+%
+%\noindent  where $\mathbf{x}_i^T$ represents the values of independent variables at the $i$-th point.
+The hat matrix $\mathbf{S}$ transforms observed values into fitted values through spatiotemporal weightings, as in $\hat{\mathbf{y}} = \mathbf{S}\mathbf{y}$, with its trace representing the effective number of parameters in the model \citet{hat_matrix}. The detailed information of these components can be found in \citet{fotheringham2002geographically}.
 
 % In this study, the parameters $\lambda$ and $\xi$ were set to $0.05$ and $0$, respectively, assuming that the temporal effect is dominant and space-time interactive effects are maximized. This configuration constrains the optimization process to focus on determining the optimal bandwidths $h_i$, thereby enhancing the computational efficiency during the calibration procedure.
 
@@ -113,6 +130,7 @@ W_{ij} = \begin{cases}
 
 %\subsubsection{Posterior Uncertainty Assessment}
 \subsection{Posterior Uncertainty Assessment}
+
 \label{subsec:gtwr_prediction}
 
 When the optimal bandwidth is obtained through the calibration process, the fitted value $\hat{\mathbf{y}}$ at any unsampled location can be calculated using the hat matrix relationship as previously mentioned. The prediction error variance for each fitted value $\hat{\mathbf{y}}$ is defined as:
