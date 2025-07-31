@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  18 JUL 2025 15:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  31 JUL 2025 17:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -675,13 +675,49 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibsep=\skip72
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count352
-) (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+) (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/siunitx\siunitx.sty
+Package: siunitx 2025-07-09 v3.4.14 A comprehensive (SI) units package
+\l__siunitx_number_uncert_offset_int=\count353
+\l__siunitx_number_exponent_fixed_int=\count354
+\l__siunitx_number_min_decimal_int=\count355
+\l__siunitx_number_min_integer_int=\count356
+\l__siunitx_number_round_precision_int=\count357
+\l__siunitx_number_lower_threshold_int=\count358
+\l__siunitx_number_upper_threshold_int=\count359
+\l__siunitx_number_group_first_int=\count360
+\l__siunitx_number_group_size_int=\count361
+\l__siunitx_number_group_minimum_int=\count362
+\l__siunitx_angle_tmp_dim=\dimen271
+\l__siunitx_angle_marker_box=\box66
+\l__siunitx_angle_unit_box=\box67
+\l__siunitx_compound_count_int=\count363
+
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/translations\translat
+ions.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages
+ (CN)
+)
+\l__siunitx_table_tmp_box=\box68
+\l__siunitx_table_tmp_dim=\dimen272
+\l__siunitx_table_column_width_dim=\dimen273
+\l__siunitx_table_integer_box=\box69
+\l__siunitx_table_decimal_box=\box70
+\l__siunitx_table_uncert_box=\box71
+\l__siunitx_table_before_box=\box72
+\l__siunitx_table_after_box=\box73
+\l__siunitx_table_before_dim=\dimen274
+\l__siunitx_table_carry_dim=\dimen275
+\l__siunitx_unit_tmp_int=\count364
+\l__siunitx_unit_position_int=\count365
+\l__siunitx_unit_total_int=\count366
+)
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count353
+\c@float@type=\count367
 \float@exts=\toks35
-\float@box=\box66
+\float@box=\box74
 \@float@everytoks=\toks36
-\@floatcapt=\box67
+\@floatcapt=\box75
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.st
 y
@@ -690,32 +726,32 @@ Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen271
-\captionmargin=\dimen272
-\caption@leftmargin=\dimen273
-\caption@rightmargin=\dimen274
-\caption@width=\dimen275
-\caption@indent=\dimen276
-\caption@parindent=\dimen277
-\caption@hangindent=\dimen278
+\caption@tempdima=\dimen276
+\captionmargin=\dimen277
+\caption@leftmargin=\dimen278
+\caption@rightmargin=\dimen279
+\caption@width=\dimen280
+\caption@indent=\dimen281
+\caption@parindent=\dimen282
+\caption@hangindent=\dimen283
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count354
-\c@continuedfloat=\count355
+\c@caption@flags=\count368
+\c@continuedfloat=\count369
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: wrapfig package is loaded.
 )
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count356
+\c@subfigure=\count370
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count357
+\c@subtable=\count371
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 49.
-Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 49.
+Package hyperref Info: Option `colorlinks' set `true' on input line 51.
+Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 51.
 
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 49.
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 49.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 51.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 51.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -741,20 +777,20 @@ Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
 \SOUL@cmds=\toks40
 \SOUL@buffer=\toks41
 \SOUL@token=\toks42
-\SOUL@syllgoal=\dimen279
-\SOUL@syllwidth=\dimen280
-\SOUL@charkern=\dimen281
-\SOUL@hyphkern=\dimen282
-\SOUL@dimen=\dimen283
-\SOUL@dimeni=\dimen284
-\SOUL@minus=\count358
-\SOUL@comma=\count359
-\SOUL@apo=\count360
-\SOUL@grave=\count361
+\SOUL@syllgoal=\dimen284
+\SOUL@syllwidth=\dimen285
+\SOUL@charkern=\dimen286
+\SOUL@hyphkern=\dimen287
+\SOUL@dimen=\dimen288
+\SOUL@dimeni=\dimen289
+\SOUL@minus=\count372
+\SOUL@comma=\count373
+\SOUL@apo=\count374
+\SOUL@grave=\count375
 \SOUL@spaceskip=\skip73
-\SOUL@ttwidth=\dimen285
-\SOUL@uldp=\dimen286
-\SOUL@ulht=\dimen287
+\SOUL@ttwidth=\dimen290
+\SOUL@uldp=\dimen291
+\SOUL@ulht=\dimen292
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.s
 ty
@@ -762,25 +798,27 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 ))
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/lineno\lineno.sty
 Package: lineno 2025/01/29 line numbers on paragraphs v5.4
-\linenopenalty=\count362
+\linenopenalty=\count376
 \output=\toks43
-\linenoprevgraf=\count363
-\linenumbersep=\dimen288
-\linenumberwidth=\dimen289
-\c@linenumber=\count364
-\c@pagewiselinenumber=\count365
-\c@LN@truepage=\count366
-\c@internallinenumber=\count367
-\c@internallinenumbers=\count368
-\quotelinenumbersep=\dimen290
-\bframerule=\dimen291
-\bframesep=\dimen292
-\bframebox=\box68
-\@LN@amsmath@ams@eqpen=\count369
+\linenoprevgraf=\count377
+\linenumbersep=\dimen293
+\linenumberwidth=\dimen294
+\c@linenumber=\count378
+\c@pagewiselinenumber=\count379
+\c@LN@truepage=\count380
+\c@internallinenumber=\count381
+\c@internallinenumbers=\count382
+\quotelinenumbersep=\dimen295
+\bframerule=\dimen296
+\bframesep=\dimen297
+\bframebox=\box76
+\@LN@amsmath@ams@eqpen=\count383
 LaTeX Info: Redefining \\ on input line 3187.
 )
+Package translations Info: No language package found. I am going to use `englis
+h' as default language. on input line 66.
 LaTeX Font Info:    Trying to load font information for T1+stix on input line 6
-4.
+6.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\t1stix.fd
 File: t1stix.fd 2015/04/17 v1.1.2-latex STIX T1 font definitions
@@ -788,54 +826,54 @@ File: t1stix.fd 2015/04/17 v1.1.2-latex STIX T1 font definitions
 (main_elsevier.aux)
 \openout1 = `main_elsevier.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 64.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 66.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for LS1/stix/m/n on input line 66.
 LaTeX Font Info:    Trying to load font information for LS1+stix on input line 
-64.
+66.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stix.fd
 File: ls1stix.fd 2015/04/17 v1.1.2-latex STIX LS1 font definitions
 )
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 64.
+LaTeX Font Info:    ... okay on input line 66.
+LaTeX Font Info:    Checking defaults for LS2/stix/m/n on input line 66.
 LaTeX Font Info:    Trying to load font information for LS2+stix on input line 
-64.
+66.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stix.fd
 File: ls2stix.fd 2015/04/17 v1.1.2-latex STIX LS2 font definitions
 )
-LaTeX Font Info:    ... okay on input line 64.
+LaTeX Font Info:    ... okay on input line 66.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
 mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count370
-\scratchdimen=\dimen293
-\scratchbox=\box69
-\nofMPsegments=\count371
-\nofMParguments=\count372
+\scratchcounter=\count384
+\scratchdimen=\dimen298
+\scratchbox=\box77
+\nofMPsegments=\count385
+\nofMParguments=\count386
 \everyMPshowfont=\toks44
-\MPscratchCnt=\count373
-\MPscratchDim=\dimen294
-\MPnumerator=\count374
-\makeMPintoPDFobject=\count375
+\MPscratchCnt=\count387
+\MPscratchDim=\dimen299
+\MPnumerator=\count388
+\makeMPintoPDFobject=\count389
 \everyMPtoPDFconversion=\toks45
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
@@ -848,9 +886,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 .cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Command `\dddot' is already robust on input line 64.
-LaTeX Info: Command `\ddddot' is already robust on input line 64.
-Package hyperref Info: Link coloring ON on input line 64.
+LaTeX Info: Command `\dddot' is already robust on input line 66.
+LaTeX Info: Command `\ddddot' is already robust on input line 66.
+Package hyperref Info: Link coloring ON on input line 66.
  (main_elsevier.out) (main_elsevier.out)
 \@outlinefile=\write3
 \openout3 = `main_elsevier.out'.
@@ -894,127 +932,135 @@ tim
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/translations/dicts\tr
+anslations-basic-dictionary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `tra
+nslations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' f
+or `english'. on input line 66.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 \verbatim@out=\write4
 \openout4 = `main_elsevier.abs'.
 
 LaTeX Font Info:    Trying to load font information for LS1+stixscr on input li
-ne 121.
+ne 123.
+
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixscr.fd
 File: ls1stixscr.fd 2015/04/17 v1.1.2-latex STIX script LS1 font definitions
 )
 LaTeX Font Info:    Trying to load font information for LS2+stixex on input lin
-e 121.
+e 123.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixex.fd
 File: ls2stixex.fd 2015/04/17 v1.1.2-latex STIX extentions LS2 font definitions
 
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 121
+LaTeX Font Info:    Trying to load font information for U+msa on input line 123
 .
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 121
+LaTeX Font Info:    Trying to load font information for U+msb on input line 123
 .
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for LS1+stixfrak on input l
-ine 121.
+ine 123.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixfrak.fd
 File: ls1stixfrak.fd 2015/04/17 v1.1.2-latex STIX fraktur LS1 font definitions
 )
 LaTeX Font Info:    Trying to load font information for LS1+stixbb on input lin
-e 121.
+e 123.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixbb.fd
 File: ls1stixbb.fd 2015/04/17 v1.1.2-latex STIX blackboard LS1 font definitions
 
 )
 LaTeX Font Info:    Trying to load font information for LS2+stixcal on input li
-ne 121.
+ne 123.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixcal.fd
 File: ls2stixcal.fd 2015/04/17 v1.1.2-latex STIX calligraphic LS2 font definiti
 ons
 )
 LaTeX Font Info:    Trying to load font information for LS1+stixsf on input lin
-e 121.
+e 123.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls1stixsf.fd
 File: ls1stixsf.fd 2015/04/17 v1.1.2-latex STIX sans-serif LS1 font definitions
 
 )
 LaTeX Font Info:    Trying to load font information for LS2+stixtt on input lin
-e 121.
+e 123.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/stix\ls2stixtt.fd
 File: ls2stixtt.fd 2015/04/17 v1.1.2-latex STIX typewriter LS2 font definitions
 
 )
-Overfull \hbox (123.62721pt too wide) detected at line 121
+Overfull \hbox (123.62721pt too wide) detected at line 123
 []
  []
 
 (main_elsevier.abs)
 
-Package hyperref Warning: Ignoring empty anchor on input line 121.
+Package hyperref Warning: Ignoring empty anchor on input line 123.
 
 
-Package hyperref Warning: Ignoring empty anchor on input line 121.
+Package hyperref Warning: Ignoring empty anchor on input line 123.
 
 <thumbnails/cas-email.jpeg, id=3, 225.84375pt x 225.84375pt>
 File: thumbnails/cas-email.jpeg Graphic file (type jpg)
 <use thumbnails/cas-email.jpeg>
-Package pdftex.def Info: thumbnails/cas-email.jpeg  used on input line 121.
+Package pdftex.def Info: thumbnails/cas-email.jpeg  used on input line 123.
 (pdftex.def)             Requested size: 7.99838pt x 8.0pt.
 LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 12
-1.
+3.
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 6.80005pt on input line 121.
+(Font)              scaled to size 6.80005pt on input line 123.
 
-Package hyperref Warning: Ignoring empty anchor on input line 121.
+Package hyperref Warning: Ignoring empty anchor on input line 123.
 
 (sections/studyarea001.tex
 
+
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `') on input line 9.
+               Default added (so using `') on input line 16.
 
 
-Overfull \hbox (124.20499pt too wide) in paragraph at lines 13--14
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 23--26
+ [][] 
+ []
+
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 34--37
+ [][] 
+ []
+
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 45--48
  [][] 
  []
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `') on input line 25.
+               Default added (so using `') on input line 83.
 
 
-Overfull \hbox (263.05443pt too wide) in paragraph at lines 28--33
+Overfull \hbox (263.05443pt too wide) in paragraph at lines 86--91
  [][] 
  []
 
 ) (sections/dataset001.tex
-
-
-Underfull \hbox (badness 1242) in paragraph at lines 14--15
-[]\T1/stix/m/n/10 This study de-rived cu-mu-la-tive ver-ti-cal dis-place-ment
- []
-
-
-Overfull \hbox (11.2747pt too wide) in paragraph at lines 14--15
-\T1/stix/m/n/10 from an 8-year dataset of Sentinel-1 SAR im-ages [],
- []
-
-
 
 [1{C:/Users/FAFALAB/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/
 FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-t1.enc}
@@ -1023,206 +1069,275 @@ FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-t1.enc}
 {C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-sup
 er-t1.enc}{C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/incon
 solata/i4-t1-0.enc} <./thumbnails/cas-email.jpeg>]
+Underfull \hbox (badness 1242) in paragraph at lines 62--63
+[]\T1/stix/m/n/10 This study de-rived cu-mu-la-tive ver-ti-cal dis-place-ment
+ []
 
 
-Overfull \hbox (3.04645pt too wide) in paragraph at lines 56--57
+Overfull \hbox (11.2747pt too wide) in paragraph at lines 62--63
+\T1/stix/m/n/10 from an 8-year dataset of Sentinel-1 SAR im-ages [],
+ []
+
+
+
+
+Overfull \hbox (3.04645pt too wide) in paragraph at lines 104--105
 \T1/stix/m/n/10 shown in Fig-ure [][]1[][]. First, re-li-able mea-sure-ment poi
 nts ($\LS1/stix/m/it/10 ^^M[] \LS2/stixcal/m/n/10 g
  []
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 56--57
+Underfull \hbox (badness 1490) in paragraph at lines 104--105
 \LS1/stix/m/n/10 0\LS1/stix/m/it/10 :\LS1/stix/m/n/10 65$\T1/stix/m/n/10 ) with
 in a 200 m ra-dius of each bench-mark were
  []
 
 
+
+[2{C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-s
+uper-ts1.enc}]
+
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `') on input line 58.
+               Default added (so using `') on input line 106.
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 64--65
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 112--113
  [][] 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 72--73
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 120--121
  [][] 
  []
 
 ) (sections/methods001.tex
 
-[2{C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-s
-uper-ts1.enc}]
-Overfull \hbox (12.92763pt too wide) detected at line 66
+
+Overfull \hbox (12.92763pt too wide) detected at line 93
  $[]$  
  []
 
 
-Overfull \hbox (13.91678pt too wide) detected at line 80
- $\LS1/stix/b/n/10 S \LS1/stix/m/n/10 = ^\LS1/stix/m/it/10 S[]\LS1/stix/m/n/10 
-`\LS1/stix/m/it/10 ; []S[] \LS1/stix/m/n/10 = \LS1/stix/b/n/10 x[]\LS1/stix/m/n
-/10 .\LS1/stix/b/n/10 X[]W\LS1/stix/m/n/10 .\LS1/stix/m/it/10 u[]; v[]; t[]\LS1
-/stix/m/n/10 /\LS1/stix/b/n/10 X\LS1/stix/m/n/10 /[]\LS1/stix/b/n/10 X[]W\LS1/s
-tix/m/n/10 .\LS1/stix/m/it/10 u[]; v[]; t[]\LS1/stix/m/n/10 /$  
+
+[3]) (main_elsevier.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+[]\T1/stix/m/n/8 Brunsdon, C., Fother-ing-ham, A.S., Charl-ton, M.E., 1996.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+\T1/stix/m/n/8 Ge-o-graph-i-cally weighted re-gres-sion: A method for ex-plor-i
+ng
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+[][]$\T1/zi4/m/n/8 https : / / onlinelibrary . wiley . com / doi / abs / 10 . 1
+111 / j . 1538-[]4632 . 1996 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--29
+\T1/zi4/m/n/8 tb00936 . x$[][]\T1/stix/m/n/8 , doi:[][]$\T1/zi4/m/n/8 https : /
+ / doi . org / 10 . 1111 / j . 1538-[]4632 . 1996 . tb00936 . x$[][]\T1/stix/m/
+n/8 ,
+ []
+
+
+Overfull \hbox (45.74507pt too wide) in paragraph at lines 17--29
+[][]\T1/zi4/m/n/8 arXiv:https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1538-
+4632.1996.tb00936.x[][]\T1/stix/m/n/8 . 
  []
 
 
 
-) (main_elsevier.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--54
 []\T1/stix/m/n/8 Doin, M.P., Lasserre, C., Peltzer, G., Cav-alié, O., Doubre, C
 .,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 42--54
 \T1/stix/m/n/8 2009.  Cor-rec-tions of strat-i-fied tro-po-spheric de-lays in s
 ar
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 42--54
 \T1/stix/m/n/8 in-ter-fer-om-e-try: Val-i-da-tion with global at-mo-spheric mod
 -els.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 42--54
 \T1/stix/m/n/8 Jour-nal of Ap-plied Geo-physics 69, 35--50.  URL: [][]$\T1/zi4/
 m/n/8 https :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--29
+Underfull \hbox (badness 10000) in paragraph at lines 42--54
 \T1/zi4/m/n/8 / / www . sciencedirect . com / science / article / pii / S092698
 5109000603$[][]\T1/stix/m/n/8 ,
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 71--82
+\T1/stix/m/n/8 of Ge-og-ra-phers 107, 1247--1265.  URL: [][]$\T1/zi4/m/n/8 http
+s : / / doi . org / 10 .
+ []
 
-[3]
-Underfull \hbox (badness 3333) in paragraph at lines 83--98
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--82
+\T1/zi4/m/n/8 1080 / 24694452 . 2017 . 1352480$[][]\T1/stix/m/n/8 , doi:[][]$\T
+1/zi4/m/n/8 10 . 1080 / 24694452 . 2017 . 1352480$[][]\T1/stix/m/n/8 ,
+ []
+
+
+Underfull \hbox (badness 3333) in paragraph at lines 121--136
 []\T1/stix/m/n/8 Hung, W.C., Hwang, C., Sneed, M., Chen, Y.A., Chu, C.H., Lin,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--98
+Underfull \hbox (badness 10000) in paragraph at lines 121--136
 \T1/stix/m/n/8 S.H., 2021.  Mea-sur-ing and in-ter-pret-ing mul-ti-layer aquife
 r-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--98
+Underfull \hbox (badness 10000) in paragraph at lines 121--136
 \T1/stix/m/n/8 system com-pactions for a sus-tain-able groundwater-system
  []
 
 
-Underfull \hbox (badness 3525) in paragraph at lines 83--98
+Underfull \hbox (badness 3525) in paragraph at lines 121--136
 \T1/stix/m/n/8 de-vel-op-ment.  Wa-ter Re-sources Re-search 57, e2020WR028194.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--98
+Underfull \hbox (badness 10000) in paragraph at lines 121--136
 \T1/stix/m/n/8 URL: [][]$\T1/zi4/m/n/8 https : / / agupubs . onlinelibrary . wi
 ley . com / doi / abs / 10 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--98
+Underfull \hbox (badness 10000) in paragraph at lines 121--136
 \T1/zi4/m/n/8 1029 / 2020WR028194$[][]\T1/stix/m/n/8 , doi:[][]$\T1/zi4/m/n/8 h
 ttps : / / doi . org / 10 . 1029 / 2020WR028194$[][]\T1/stix/m/n/8 ,
  []
 
 
-Overfull \hbox (25.34492pt too wide) in paragraph at lines 83--98
+Overfull \hbox (25.34492pt too wide) in paragraph at lines 121--136
 [][]\T1/zi4/m/n/8 arXiv:https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029
 /2020WR028194[][]\T1/stix/m/n/8 .
  []
 
 
-Underfull \hbox (badness 4279) in paragraph at lines 111--122
+Underfull \hbox (badness 4279) in paragraph at lines 149--160
 \T1/stix/m/n/8 se-lec-tion in non-para-met-ric re-gres-sion us-ing an im-proved
  akaike
  []
 
 
-Underfull \hbox (badness 3701) in paragraph at lines 111--122
+Underfull \hbox (badness 3701) in paragraph at lines 149--160
 \T1/stix/m/n/8 in-for-ma-tion cri-te-rion.  Jour-nal of the Royal Sta-tis-ti-ca
 l So-ci-ety
  []
 
 
-Underfull \hbox (badness 3965) in paragraph at lines 111--122
+Underfull \hbox (badness 3965) in paragraph at lines 149--160
 \T1/stix/m/n/8 Se-ries B: Sta-tis-ti-cal Method-ol-ogy 60, 271--293.  URL: [][]
 $\T1/zi4/m/n/8 https :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--122
+Underfull \hbox (badness 10000) in paragraph at lines 149--160
 \T1/zi4/m/n/8 / / doi . org / 10 . 1111 / 1467-[]9868 . 00125$[][]\T1/stix/m/n/
 8 , doi:[][]$\T1/zi4/m/n/8 10 . 1111 / 1467-[]9868 . 00125$[][]\T1/stix/m/n/8 ,
 
  []
 
 
-Overfull \hbox (69.54524pt too wide) in paragraph at lines 111--122
+Overfull \hbox (69.54524pt too wide) in paragraph at lines 149--160
 [][]\T1/zi4/m/n/8 arXiv:https://academic.oup.com/jrsssb/article-pdf/60/2/271/49
 589041/jrsssb_60_2_271.pdf[][]\T1/stix/m/n/8 . 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--189
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 227--240
 []\T1/stix/m/n/8 Tough, J.A., Black-nell, D., Que-gan, S., 1995.  A sta-tis-ti-
 cal
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--189
+Underfull \hbox (badness 10000) in paragraph at lines 227--240
 \T1/stix/m/n/8 de-scrip-tion of po-lari-met-ric and in-ter-fer-o-met-ric syn-th
 etic
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--189
+Underfull \hbox (badness 10000) in paragraph at lines 227--240
 \T1/stix/m/n/8 aper-ture radar data.  Pro-ceed-ings of the Royal So-ci-ety
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--189
+Underfull \hbox (badness 10000) in paragraph at lines 227--240
 \T1/stix/m/n/8 of Lon-don. Se-ries A: Math-e-mat-i-cal and Phys-i-cal Sci-ences
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--189
+Underfull \hbox (badness 10000) in paragraph at lines 227--240
 \T1/stix/m/n/8 449, 567--589.  URL: [][]$\T1/zi4/m/n/8 https : / / royalsociety
 publishing . org /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--189
+Underfull \hbox (badness 10000) in paragraph at lines 227--240
 \T1/zi4/m/n/8 doi / abs / 10 . 1098 / rspa . 1995 . 0059$[][]\T1/stix/m/n/8 , d
 oi:[][]$\T1/zi4/m/n/8 10 . 1098 / rspa . 1995 . 0059$[][]\T1/stix/m/n/8 ,
  []
 
 
-Overfull \hbox (15.14485pt too wide) in paragraph at lines 176--189
+Overfull \hbox (15.14485pt too wide) in paragraph at lines 227--240
 [][]\T1/zi4/m/n/8 arXiv:https://royalsocietypublishing.org/doi/pdf/10.1098/rspa
 .1995.0059[][]\T1/stix/m/n/8 . 
+ []
+
+
+Underfull \hbox (badness 1735) in paragraph at lines 241--251
+[]\T1/stix/m/n/8 Tseng, H.T., Lin, Y.F., Yu, H.L., 2024.  Es-ti-mat-ing spa-tio
+tem-po-ral
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 241--251
+\T1/stix/m/n/8 pump-ing amounts us-ing mul-ti-ple sig-nal de-com-po-si-tion
+ []
+
+
+Underfull \hbox (badness 3417) in paragraph at lines 241--251
+\T1/stix/m/n/8 meth-ods.  Jour-nal of Hy-drol-ogy 633, 130856.  URL: [][]$\T1/z
+i4/m/n/8 https :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 241--251
+\T1/zi4/m/n/8 / / www . sciencedirect . com / science / article / pii / S002216
+9424002506$[][]\T1/stix/m/n/8 ,
  []
 
 )
 
 
 
-[4]
+[5]
 
 
 
-[5
-
-] (main_elsevier.aux)
+[6] (main_elsevier.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
@@ -1231,13 +1346,13 @@ Package rerunfilecheck Info: File `main_elsevier.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 20652 strings out of 469940
- 335855 string characters out of 5468441
- 753616 words of memory out of 5000000
- 47061 multiletter control sequences out of 15000+600000
- 756884 words of font info for 199 fonts, out of 8000000 for 9000
+ 24527 strings out of 469940
+ 457515 string characters out of 5468441
+ 843509 words of memory out of 5000000
+ 50915 multiletter control sequences out of 15000+600000
+ 751353 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,14n,131p,2059b,760s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,16n,131p,2059b,1220s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolat
 a/Inconsolata-zi4r.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/stix/STIXGeneral-Bold.pfb><C:/Users/FAFALAB/AppData/Local/Programs/M
@@ -1254,10 +1369,11 @@ ppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathit-bold.pfb><C:/U
 sers/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathit.
 pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/sti
 x-mathrm-bold.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/stix/stix-mathrm.pfb>
-Output written on main_elsevier.pdf (5 pages, 343486 bytes).
+ublic/stix/stix-mathrm.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/font
+s/type1/public/stix/stix-mathscr.pfb>
+Output written on main_elsevier.pdf (6 pages, 369978 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 55 named destinations out of 1000 (max. 500000)
+ 333 PDF objects out of 1000 (max. 8388607)
+ 63 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

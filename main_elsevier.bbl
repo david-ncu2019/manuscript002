@@ -1,4 +1,4 @@
-\begin{thebibliography}{20}
+\begin{thebibliography}{25}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -11,6 +11,31 @@
 \providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Brunsdon et~al.(1996)Brunsdon, Fotheringham and
+  Charlton}]{brunsdon1996}
+\bibinfo{author}{Brunsdon, C.}, \bibinfo{author}{Fotheringham, A.S.},
+  \bibinfo{author}{Charlton, M.E.}, \bibinfo{year}{1996}.
+\newblock \bibinfo{title}{Geographically weighted regression: A method for
+  exploring spatial nonstationarity}.
+\newblock \bibinfo{journal}{Geographical Analysis} \bibinfo{volume}{28},
+  \bibinfo{pages}{281--298}.
+\newblock \URLprefix
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.1996.tb00936.x},
+  \DOIprefix\doi{https://doi.org/10.1111/j.1538-4632.1996.tb00936.x},
+  \href{http://arxiv.org/abs/https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1538-4632.1996.tb00936.x}{\tt
+  arXiv:https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1538-4632.1996.tb00936.x}.
+%Type = Article
+\bibitem[{Chang et~al.(2020)Chang, Chen, Wang and Chang}]{RN64}
+\bibinfo{author}{Chang, L.}, \bibinfo{author}{Chen, Y.T.},
+  \bibinfo{author}{Wang, J.H.}, \bibinfo{author}{Chang, Y.L.},
+  \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Rice-field mapping with sentinel-1a sar time-series
+  data}.
+\newblock \bibinfo{journal}{Remote Sensing} \bibinfo{volume}{13},
+  \bibinfo{pages}{103}.
+\newblock \URLprefix \url{https://doi.org/10.3390/rs13010103},
+  \DOIprefix\doi{10.3390/rs13010103}.
 %Type = Article
 \bibitem[{Doin et~al.(2009)Doin, Lasserre, Peltzer, Cavalié and
   Doubre}]{height_correlation}
@@ -40,6 +65,19 @@
 \newblock \bibinfo{title}{Geographically weighted regression: the analysis of
   spatially varying relationships}.
 \newblock \bibinfo{journal}{John Wily and Sons Ltd} .
+%Type = Article
+\bibitem[{Fotheringham et~al.(2017)Fotheringham, Yang and
+  Kang}]{mgwr_book_2017}
+\bibinfo{author}{Fotheringham, A.S.}, \bibinfo{author}{Yang, W.},
+  \bibinfo{author}{Kang, W.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Multiscale geographically weighted regression
+  (mgwr)}.
+\newblock \bibinfo{journal}{Annals of the American Association of Geographers}
+  \bibinfo{volume}{107}, \bibinfo{pages}{1247--1265}.
+\newblock \URLprefix \url{https://doi.org/10.1080/24694452.2017.1352480},
+  \DOIprefix\doi{10.1080/24694452.2017.1352480},
+  \href{http://arxiv.org/abs/https://doi.org/10.1080/24694452.2017.1352480}{\tt
+  arXiv:https://doi.org/10.1080/24694452.2017.1352480}.
 %Type = Book
 \bibitem[{Hanssen(2001)}]{hanssen_book}
 \bibinfo{author}{Hanssen, R.F.}, \bibinfo{year}{2001}.
@@ -130,6 +168,20 @@
 \newblock \URLprefix \url{https://doi.org/10.1007/s00254-004-0983-6},
   \DOIprefix\doi{10.1007/s00254-004-0983-6}.
 %Type = Article
+\bibitem[{Nguyen et~al.(2024)Nguyen, Ni, Hsu, Chen, Hiep, Lee, Lin and
+  Gosselin}]{my_paper}
+\bibinfo{author}{Nguyen, T.V.T.}, \bibinfo{author}{Ni, C.F.},
+  \bibinfo{author}{Hsu, Y.J.}, \bibinfo{author}{Chen, P.E.R.},
+  \bibinfo{author}{Hiep, N.H.}, \bibinfo{author}{Lee, I.H.},
+  \bibinfo{author}{Lin, C.P.}, \bibinfo{author}{Gosselin, G.},
+  \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Quantitative evaluations of pumping-induced land
+  subsidence and mitigation strategies by integrated remote sensing and
+  site-specific hydrogeological observations}.
+\newblock \bibinfo{journal}{Remote Sensing} \bibinfo{volume}{16}.
+\newblock \URLprefix \url{https://www.mdpi.com/2072-4292/16/20/3789},
+  \DOIprefix\doi{10.3390/rs16203789}.
+%Type = Article
 \bibitem[{Pepe and Lanari(2006)}]{temporal_coherence}
 \bibinfo{author}{Pepe, A.}, \bibinfo{author}{Lanari, R.}, \bibinfo{year}{2006}.
 \newblock \bibinfo{title}{On the extension of the minimum cost flow algorithm
@@ -165,12 +217,11 @@
 \newblock \bibinfo{title}{The insar scientific computing environment}, in:
   \bibinfo{booktitle}{EUSAR 2012; 9th European Conference on Synthetic Aperture
   Radar}, pp. \bibinfo{pages}{730--733}.
-%Type = Techreport
+%Type = Misc
 \bibitem[{Survey(1999)}]{RN46}
 \bibinfo{author}{Survey, C.G.}, \bibinfo{year}{1999}.
-\newblock \bibinfo{title}{Project of groundwater monitoring network in Taiwan
-  during first stage: Research report of Choushui River alluvial fan}.
-\newblock \bibinfo{type}{Report}.
+\newblock \bibinfo{title}{Project of groundwater monitoring network in taiwan
+  during first stage: Research report of choushui river alluvial fan}.
 %Type = Article
 \bibitem[{Tough et~al.(1995)Tough, Blacknell and Quegan}]{networkinverse_var}
 \bibinfo{author}{Tough, J.A.}, \bibinfo{author}{Blacknell, D.},
@@ -185,6 +236,17 @@
   \DOIprefix\doi{10.1098/rspa.1995.0059},
   \href{http://arxiv.org/abs/https://royalsocietypublishing.org/doi/pdf/10.1098/rspa.1995.0059}{\tt
   arXiv:https://royalsocietypublishing.org/doi/pdf/10.1098/rspa.1995.0059}.
+%Type = Article
+\bibitem[{Tseng et~al.(2024)Tseng, Lin and Yu}]{craf_pumping}
+\bibinfo{author}{Tseng, H.T.}, \bibinfo{author}{Lin, Y.F.},
+  \bibinfo{author}{Yu, H.L.}, \bibinfo{year}{2024}.
+\newblock \bibinfo{title}{Estimating spatiotemporal pumping amounts using
+  multiple signal decomposition methods}.
+\newblock \bibinfo{journal}{Journal of Hydrology} \bibinfo{volume}{633},
+  \bibinfo{pages}{130856}.
+\newblock \URLprefix
+  \url{https://www.sciencedirect.com/science/article/pii/S0022169424002506},
+  \DOIprefix\doi{https://doi.org/10.1016/j.jhydrol.2024.130856}.
 %Type = Article
 \bibitem[{Wu et~al.(2014)Wu, Li and Huang}]{Wu2014Geographically}
 \bibinfo{author}{Wu, B.}, \bibinfo{author}{Li, R.}, \bibinfo{author}{Huang,

@@ -5,6 +5,54 @@
 
 A multilayer compaction monitoring well (MLCW) is a specialized borehole extensometer that captures the subtle subsurface compaction by reading measurements at magnetic rings, strategically installed at boundaries between significant aquifers, or transitions between fine and coarse sedimentary materials, as defined by the Geological Survey and Mining Management Agency (GSMMA).  The depth of each MLCW often extends up to 300 m, with 21 to 26 magnetic rings anchored throughout the profile. Based on hydrogeological properties, aquifer units at each well are determined, each containing a number of corresponding magnetic rings, providing measurements of aquifer-specific compaction. The installation and measurement approaches of the MLCWs have been comprehensively described by \citep{Hung2021_MLCW}. In this study, 29 MLCWs were employed, with monthly data collected from April 2016 to November 2021.
 
+% Add these lines to your document's preamble if they're not already there
+% \usepackage{siunitx}
+% \usepackage{makecell}
+
+\begin{table}[h!]
+	% Use \small to reduce the font size just for this table
+	\small
+	% Reduce the space between columns
+	\setlength{\tabcolsep}{2.5pt}
+	\centering
+	\caption{Monitoring Well Locations, Elevations, and Bottom Depths}
+	\label{tab:mlcw_locations_sorted}
+	\begin{tabular}{llrrrr}
+		\hline
+		\textbf{No.} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{\makecell{Bottom \\ Depth (m)}} \\
+		\hline
+		1 & Beichen            & 120.3031           & 23.5760           & 16                     & 320.0                     \\
+		2 & Canlin             & 120.2465           & 23.5750           & 9                      & 300.0                     \\
+		3 & Dongguang          & 120.2725           & 23.6527           & 10                     & 300.0                     \\
+		4 & Erlun              & 120.4155           & 23.7717           & 28                     & 300.0                     \\
+		5 & Fengan             & 120.2332           & 23.7892           & 4                      & 300.0                     \\
+		6 & Fengrong           & 120.3110           & 23.7907           & 10                     & 300.0                     \\
+		7 & Guangfu            & 120.4025           & 23.7414           & 22                     & 300.0                     \\
+		8 & Haifeng            & 120.2264           & 23.7643           & 1                      & 200.0                     \\
+		9 & Honglun           & 120.3478           & 23.6866           & 17                     & 340.0                     \\
+		10 & Hunan            & 120.4791           & 23.9484           & 19                     & 300.0                     \\
+		11 & Huwei             & 120.4316           & 23.7153           & 25                     & 300.0                     \\
+		12 & Jianyang          & 120.1523           & 23.6341           & 3                      & 200.0                     \\
+		13 & Jiaxing           & 120.4596           & 23.6480           & 32                     & 300.0                     \\
+		14 & Kecuo             & 120.3343           & 23.6266           & 14                     & 300.0                     \\
+		15 & Longyan           & 120.3061           & 23.7227           & 13                     & 300.0                     \\
+		16 & Neiliao           & 120.3546           & 23.6077           & 13                     & 300.0                     \\
+		17 & Qiaoyi            & 120.4793           & 23.8437           & 34                     & 300.0                     \\
+		18 & Tuku              & 120.3898           & 23.6881           & 23                     & 300.0                     \\
+		19 & Xigang            & 120.2895           & 23.8603           & 3                      & 300.0                     \\
+		20 & Xinjie            & 120.3122           & 23.9025           & 8                      & 300.0                     \\
+		21 & Xinsheng          & 120.3943           & 23.9379           & 12                     & 300.0                     \\
+		22 & Xinxing           & 120.2223           & 23.7392           & 4                      & 300.0                     \\
+		23 & Xinghua           & 120.3947           & 23.8921           & 18                     & 300.0                     \\
+		24 & Xiutan            & 120.3496           & 23.6589           & 14                     & 300.0                     \\
+		25 & Xizhou            & 120.4981           & 23.8524           & 38                     & 300.0                     \\
+		26 & Yiwu              & 120.1953           & 23.5460           & 3                      & 300.0                     \\
+		27 & Yuanzhang         & 120.3088           & 23.6533           & 10                     & 300.0                     \\
+		28 & Zhennan           & 120.5385           & 23.6986           & 56                     & 300.0                     \\
+		29 & Zutang            & 120.4283           & 23.8601           & 27                     & 300.0                     \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \subsection{Cumulative vertical displacement}
 \label{subsubsec:vert_disp}

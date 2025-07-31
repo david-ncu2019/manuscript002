@@ -52,15 +52,15 @@ y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
 y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i, t_i) x_{ik} + \varepsilon_i
 \label{eq:gtwr}
 \end{equation}
-%
-The GTWR terms mirror those in GWR but add the temporal dimension $t_i$. To apply this framework to our study, we model the compaction within a specific aquifer layer as a function of the corresponding surface deformation derived from SBAS-InSAR. The general GTWR model from \Cref{eq:gtwr} is therefore specified for this research as:
+
+The GTWR terms mirror those in GWR but add the temporal dimension $t_i$. In this study, the compaction within a specific aquifer layer is modeled as a function of the corresponding surface deformation derived from SBAS-InSAR. The general GTWR model from \Cref{eq:gtwr} is therefore specified as:
 %
 \begin{equation}
 	\text{MLCW}_{i,n}(t) = \beta_0(u_i, v_i, t) + \beta_1(u_i, v_i, t) \cdot \text{InSAR}_i(t) + \varepsilon_i
 	\label{eq:gtwr_mlcw_insar}
 \end{equation}
 %
-\noindent where the compaction within a specific layer \(n\) at well \(i\), represented by \(\text{MLCW}_{i,n}(t)\), is modeled as a function of the corresponding InSAR-derived surface deformation, denoted by \(\text{InSAR}_i(t)\). The spatiotemporally varying terms \(\beta_0\) and \(\beta_1\) capture the relationship across space and time between these variables, respectively.
+\noindent where the dependent variable, \(\text{MLCW}_{i,n}(t)\), is the compaction in layer \(n\) at location \(i\), and the independent variable, \(\text{InSAR}_i(t)\), is the corresponding InSAR-derived surface deformation. The spatiotemporally varying terms \(\beta_0\) and \(\beta_1\) represent the local intercept and the dynamic coefficient linking the two variables, respectively.
 %
 The GTWR model is calibrated based on the assumption that observations closer to the $i$-th point in spatiotemporal coordinate system have greater influence on the estimation of $\beta_k(u_i, v_i, t_i)$ than more distant ones. The estimated parameters $\hat{\boldsymbol{\beta}}(u_i, v_i, t_i)$ can be obtained by:
 
@@ -124,6 +124,8 @@ The hat matrix $\mathbf{S}$ transforms observed values into fitted values throug
 %\subsubsection{Model Validation}
 \subsection{Model Validation}
 \label{subsec:gtwr_validation}
+
+
 
 % ================================================================================
 % ================================================================================

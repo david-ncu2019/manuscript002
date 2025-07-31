@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  30 JUL 2025 22:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  31 JUL 2025 17:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -346,7 +346,67 @@ LaTeX Font Info:    Redeclaring math accent \ddot on input line 992.
 LaTeX Font Info:    Redeclaring math accent \vec on input line 2057.
 LaTeX Info: Redefining \Bbbk on input line 2847.
 LaTeX Info: Redefining \not on input line 2995.
+) (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/siunitx\siunitx.sty
+Package: siunitx 2025-07-09 v3.4.14 A comprehensive (SI) units package
+\l__siunitx_number_uncert_offset_int=\count305
+\l__siunitx_number_exponent_fixed_int=\count306
+\l__siunitx_number_min_decimal_int=\count307
+\l__siunitx_number_min_integer_int=\count308
+\l__siunitx_number_round_precision_int=\count309
+\l__siunitx_number_lower_threshold_int=\count310
+\l__siunitx_number_upper_threshold_int=\count311
+\l__siunitx_number_group_first_int=\count312
+\l__siunitx_number_group_size_int=\count313
+\l__siunitx_number_group_minimum_int=\count314
+\l__siunitx_angle_tmp_dim=\dimen178
+\l__siunitx_angle_marker_box=\box55
+\l__siunitx_angle_unit_box=\box56
+\l__siunitx_compound_count_int=\count315
+
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/translations\translat
+ions.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages
+ (CN)
+
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcm
+ds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
+
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr
+.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+\l__siunitx_table_tmp_box=\box57
+\l__siunitx_table_tmp_dim=\dimen179
+\l__siunitx_table_column_width_dim=\dimen180
+\l__siunitx_table_integer_box=\box58
+\l__siunitx_table_decimal_box=\box59
+\l__siunitx_table_uncert_box=\box60
+\l__siunitx_table_before_box=\box61
+\l__siunitx_table_after_box=\box62
+\l__siunitx_table_before_dim=\dimen181
+\l__siunitx_table_carry_dim=\dimen182
+\l__siunitx_unit_tmp_int=\count316
+\l__siunitx_unit_position_int=\count317
+\l__siunitx_unit_total_int=\count318
+ (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
+\col@sep=\dimen183
+\ar@mcellbox=\box63
+\extrarowheight=\dimen184
+\NC@list=\toks29
+\extratabsurround=\skip54
+\backup@length=\skip55
+\ar@cellbox=\box64
+))
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -361,81 +421,87 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
 )
-\Gin@req@height=\dimen178
-\Gin@req@width=\dimen179
+\Gin@req@height=\dimen185
+\Gin@req@width=\dimen186
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen180
-\lightrulewidth=\dimen181
-\cmidrulewidth=\dimen182
-\belowrulesep=\dimen183
-\belowbottomsep=\dimen184
-\aboverulesep=\dimen185
-\abovetopsep=\dimen186
-\cmidrulesep=\dimen187
-\cmidrulekern=\dimen188
-\defaultaddspace=\dimen189
-\@cmidla=\count305
-\@cmidlb=\count306
-\@aboverulesep=\dimen190
-\@belowrulesep=\dimen191
-\@thisruleclass=\count307
-\@lastruleclass=\count308
-\@thisrulewidth=\dimen192
+\heavyrulewidth=\dimen187
+\lightrulewidth=\dimen188
+\cmidrulewidth=\dimen189
+\belowrulesep=\dimen190
+\belowbottomsep=\dimen191
+\aboverulesep=\dimen192
+\abovetopsep=\dimen193
+\cmidrulesep=\dimen194
+\cmidrulekern=\dimen195
+\defaultaddspace=\dimen196
+\@cmidla=\count319
+\@cmidlb=\count320
+\@aboverulesep=\dimen197
+\@belowrulesep=\dimen198
+\@thisruleclass=\count321
+\@lastruleclass=\count322
+\@thisrulewidth=\dimen199
 ) (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count309
-\float@exts=\toks29
-\float@box=\box55
-\@float@everytoks=\toks30
-\@floatcapt=\box56
+\c@float@type=\count323
+\float@exts=\toks30
+\float@box=\box65
+\@float@everytoks=\toks31
+\@floatcapt=\box66
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen193
-\captionmargin=\dimen194
-\caption@leftmargin=\dimen195
-\caption@rightmargin=\dimen196
-\caption@width=\dimen197
-\caption@indent=\dimen198
-\caption@parindent=\dimen199
-\caption@hangindent=\dimen256
+\caption@tempdima=\dimen256
+\captionmargin=\dimen257
+\caption@leftmargin=\dimen258
+\caption@rightmargin=\dimen259
+\caption@width=\dimen260
+\caption@indent=\dimen261
+\caption@parindent=\dimen262
+\caption@hangindent=\dimen263
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count310
-\c@continuedfloat=\count311
+\c@caption@flags=\count324
+\c@continuedfloat=\count325
 Package caption Info: float package is loaded.
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.st
 y
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count312
+\c@subfigure=\count326
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count313
+\c@subtable=\count327
+)
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/makecell\makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen264
+\c@nlinenum=\count328
+\TeXr@lab=\toks32
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 
-\f@nch@headwidth=\skip54
-\f@nch@offset@elh=\skip55
-\f@nch@offset@erh=\skip56
-\f@nch@offset@olh=\skip57
-\f@nch@offset@orh=\skip58
-\f@nch@offset@elf=\skip59
-\f@nch@offset@erf=\skip60
-\f@nch@offset@olf=\skip61
-\f@nch@offset@orf=\skip62
-\f@nch@height=\skip63
-\f@nch@footalignment=\skip64
-\f@nch@widthL=\skip65
-\f@nch@widthC=\skip66
-\f@nch@widthR=\skip67
-\@temptokenb=\toks31
+\f@nch@headwidth=\skip56
+\f@nch@offset@elh=\skip57
+\f@nch@offset@erh=\skip58
+\f@nch@offset@olh=\skip59
+\f@nch@offset@orh=\skip60
+\f@nch@offset@elf=\skip61
+\f@nch@offset@erf=\skip62
+\f@nch@offset@olf=\skip63
+\f@nch@offset@orf=\skip64
+\f@nch@height=\skip65
+\f@nch@footalignment=\skip66
+\f@nch@widthL=\skip67
+\f@nch@widthC=\skip68
+\f@nch@widthR=\skip69
+\@temptokenb=\toks33
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
@@ -445,21 +511,21 @@ Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box57
-\beforetitleunit=\skip68
-\aftertitleunit=\skip69
-\ttl@plus=\dimen257
-\ttl@minus=\dimen258
-\ttl@toksa=\toks32
-\titlewidth=\dimen259
-\titlewidthlast=\dimen260
-\titlewidthfirst=\dimen261
+\ttl@box=\box67
+\beforetitleunit=\skip70
+\aftertitleunit=\skip71
+\ttl@plus=\dimen265
+\ttl@minus=\dimen266
+\ttl@toksa=\toks34
+\titlewidth=\dimen267
+\titlewidthlast=\dimen268
+\titlewidthfirst=\dimen269
 ) (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip70
-\bibsep=\skip71
+\bibhang=\skip72
+\bibsep=\skip73
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count314
+\c@NAT@ctr=\count329
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
@@ -475,23 +541,7 @@ Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape
 .sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-
-(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
-Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
-(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcm
-ds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr
-.sty
-Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
-)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-))
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
 )
@@ -509,16 +559,16 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 ty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count315
+\c@section@level=\count330
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc
 .sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen262
-\Hy@linkcounter=\count316
-\Hy@pagecounter=\count317
+\@linkdim=\dimen270
+\Hy@linkcounter=\count331
+\Hy@pagecounter=\count332
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
@@ -528,7 +578,7 @@ Now handling font encoding PD1 ...
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count318
+\Hy@SavedSpaceFactor=\count333
  (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -541,13 +591,13 @@ Package hyperref Info: Plain pages OFF on input line 4172.
 Package hyperref Info: Backreferencing OFF on input line 4177.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4424.
-\c@Hy@tempcnt=\count319
+\c@Hy@tempcnt=\count334
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4763.
-\XeTeXLinkMargin=\dimen263
+\XeTeXLinkMargin=\dimen271
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -557,9 +607,9 @@ lc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count320
-\Field@Width=\dimen264
-\Fld@charsize=\dimen265
+\Fld@menulength=\count335
+\Field@Width=\dimen272
+\Fld@charsize=\dimen273
 Package hyperref Info: Hyper figures OFF on input line 6042.
 Package hyperref Info: Link nesting OFF on input line 6047.
 Package hyperref Info: Hyper index ON on input line 6050.
@@ -572,9 +622,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6072.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count321
-\c@Item=\count322
-\c@Hfootnote=\count323
+\Hy@abspage=\count336
+\c@Item=\count337
+\c@Hfootnote=\count338
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 
@@ -587,8 +637,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\Fld@listcount=\count324
-\c@bookmark@seq@number=\count325
+\Fld@listcount=\count339
+\c@bookmark@seq@number=\count340
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunf
 ilecheck.sty
@@ -601,13 +651,13 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 85.
 )
-\Hy@SectionHShift=\skip72
+\Hy@SectionHShift=\skip74
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 96.
-Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 96.
+Package hyperref Info: Option `colorlinks' set `true' on input line 98.
+Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 98.
 
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 96.
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 96.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 98.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 98.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -627,26 +677,26 @@ Package: soul 2023-06-14 v3.1 Permit use of UTF-8 characters in soul (HO)
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/soul\soul-ori.sty
 Package: soul-ori 2023-06-14 v3.1 letterspacing/underlining (mf)
-\SOUL@word=\toks33
-\SOUL@lasttoken=\toks34
-\SOUL@syllable=\toks35
-\SOUL@cmds=\toks36
-\SOUL@buffer=\toks37
-\SOUL@token=\toks38
-\SOUL@syllgoal=\dimen266
-\SOUL@syllwidth=\dimen267
-\SOUL@charkern=\dimen268
-\SOUL@hyphkern=\dimen269
-\SOUL@dimen=\dimen270
-\SOUL@dimeni=\dimen271
-\SOUL@minus=\count326
-\SOUL@comma=\count327
-\SOUL@apo=\count328
-\SOUL@grave=\count329
-\SOUL@spaceskip=\skip73
-\SOUL@ttwidth=\dimen272
-\SOUL@uldp=\dimen273
-\SOUL@ulht=\dimen274
+\SOUL@word=\toks35
+\SOUL@lasttoken=\toks36
+\SOUL@syllable=\toks37
+\SOUL@cmds=\toks38
+\SOUL@buffer=\toks39
+\SOUL@token=\toks40
+\SOUL@syllgoal=\dimen274
+\SOUL@syllwidth=\dimen275
+\SOUL@charkern=\dimen276
+\SOUL@hyphkern=\dimen277
+\SOUL@dimen=\dimen278
+\SOUL@dimeni=\dimen279
+\SOUL@minus=\count341
+\SOUL@comma=\count342
+\SOUL@apo=\count343
+\SOUL@grave=\count344
+\SOUL@spaceskip=\skip75
+\SOUL@ttwidth=\dimen280
+\SOUL@uldp=\dimen281
+\SOUL@ulht=\dimen282
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.s
 ty
@@ -654,81 +704,83 @@ Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 ))
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/lineno\lineno.sty
 Package: lineno 2025/01/29 line numbers on paragraphs v5.4
-\linenopenalty=\count330
-\output=\toks39
-\linenoprevgraf=\count331
-\linenumbersep=\dimen275
-\linenumberwidth=\dimen276
-\c@linenumber=\count332
-\c@pagewiselinenumber=\count333
-\c@LN@truepage=\count334
-\c@internallinenumber=\count335
-\c@internallinenumbers=\count336
-\quotelinenumbersep=\dimen277
-\bframerule=\dimen278
-\bframesep=\dimen279
-\bframebox=\box58
-\@LN@amsmath@ams@eqpen=\count337
+\linenopenalty=\count345
+\output=\toks41
+\linenoprevgraf=\count346
+\linenumbersep=\dimen283
+\linenumberwidth=\dimen284
+\c@linenumber=\count347
+\c@pagewiselinenumber=\count348
+\c@LN@truepage=\count349
+\c@internallinenumber=\count350
+\c@internallinenumbers=\count351
+\quotelinenumbersep=\dimen285
+\bframerule=\dimen286
+\bframesep=\dimen287
+\bframebox=\box68
+\@LN@amsmath@ams@eqpen=\count352
 LaTeX Info: Redefining \\ on input line 3187.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ntxtlf on input lin
-e 111.
+e 113.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\ot1ntxtlf.fd
 File: ot1ntxtlf.fd 2021/05/24 v1.0 font definition file for OT1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 12.0pt on input line 111.
+(Font)              scaled to size 12.0pt on input line 113.
+Package translations Info: No language package found. I am going to use `englis
+h' as default language. on input line 113.
 
 (main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 111.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 113.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line
- 111.
+ 113.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 113.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 113.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 113.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 113.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 113.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 113.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-111.
+113.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 113.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 111.
+ 113.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 111.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 113.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 111.
+e 113.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 113.
+LaTeX Font Info:    ... okay on input line 113.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 113.
+LaTeX Font Info:    ... okay on input line 113.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -768,17 +820,17 @@ LaTeX Font Info:    ... okay on input line 111.
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.
 mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count338
-\scratchdimen=\dimen280
-\scratchbox=\box59
-\nofMPsegments=\count339
-\nofMParguments=\count340
-\everyMPshowfont=\toks40
-\MPscratchCnt=\count341
-\MPscratchDim=\dimen281
-\MPnumerator=\count342
-\makeMPintoPDFobject=\count343
-\everyMPtoPDFconversion=\toks41
+\scratchcounter=\count353
+\scratchdimen=\dimen288
+\scratchbox=\box69
+\nofMPsegments=\count354
+\nofMParguments=\count355
+\everyMPshowfont=\toks42
+\MPscratchCnt=\count356
+\MPscratchDim=\dimen289
+\MPnumerator=\count357
+\makeMPintoPDFobject=\count358
+\everyMPtoPDFconversion=\toks43
 )
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
 -base.sty
@@ -790,176 +842,184 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 .cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@mv@tabular=\count344
-\c@mv@boldtabular=\count345
-LaTeX Info: Command `\dddot' is already robust on input line 111.
-LaTeX Info: Command `\ddddot' is already robust on input line 111.
+\c@mv@tabular=\count359
+\c@mv@boldtabular=\count360
+LaTeX Info: Command `\dddot' is already robust on input line 113.
+LaTeX Info: Command `\ddddot' is already robust on input line 113.
+
+(C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/translations/dicts\tr
+anslations-basic-dictionary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `tra
+nslations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' f
+or `english'. on input line 113.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 111.
+Package hyperref Info: Link coloring ON on input line 113.
  (main.out) (main.out)
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 20.74pt on input line 124.
+(Font)              scaled to size 20.74pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 20.74pt on input line 124.
+(Font)              scaled to size 20.74pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Trying to load font information for OT1+minntx on input lin
-e 124.
+e 126.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\ot1minntx.fd
 File: ot1minntx.fd 2023/09/09 v1.1 font definition file for OT1/minntx
 )
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 
-124.
+126.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxmia.fd
 File: untxmia.fd 2024/04/09 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 
-124.
+126.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxsym.fd
 File: untxsym.fd 2023/08/16 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 
-124.
+126.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 14.4pt on input line 124.
+(Font)              scaled to size 14.4pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 7.9pt on input line 124.
+(Font)              scaled to size 7.9pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Trying to load font information for TS1+ntxtlf on input lin
-e 124.
+e 126.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\ts1ntxtlf.fd
 File: ts1ntxtlf.fd 2015/01/18 v1.0 fd file for TS1/ntxtlf
 )
 LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.5pt on input line 124.
+(Font)              scaled to size 10.5pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 5.5pt on input line 124.
+(Font)              scaled to size 5.5pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
-(Font)              scaled to size 7.3pt on input line 124.
+(Font)              scaled to size 7.3pt on input line 126.
 LaTeX Font Info:    Trying to load font information for OT1+ntxtt on input line
- 124.
+ 126.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/newtx\ot1ntxtt.fd
 File: ot1ntxtt.fd 2012/04/20 v3.1
 )
 LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
-(Font)              scaled to size 10.0pt on input line 124.
+(Font)              scaled to size 10.0pt on input line 126.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.95pt on input line 125.
+(Font)              scaled to size 10.95pt on input line 127.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 10.95pt on input line 125.
+(Font)              scaled to size 10.95pt on input line 127.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 12.0pt on input line 129.
+(Font)              scaled to size 12.0pt on input line 131.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 14.4pt on input line 131.
+(Font)              scaled to size 14.4pt on input line 133.
 
 (main.toc
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
@@ -1032,18 +1092,18 @@ sers/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ts1.enc}]
 
 
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/it' will be
-(Font)              scaled to size 12.0pt on input line 134.
+(Font)              scaled to size 12.0pt on input line 136.
 [2]
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 6.0pt on input line 141.
+(Font)              scaled to size 6.0pt on input line 143.
 LaTeX Font Info:    Trying to load font information for OT1+qhv on input line 1
-41.
+43.
 
 (C:\Users\FAFALAB\AppData\Local\Programs\MiKTeX\tex/latex/tex-gyre\ot1qhv.fd
 File: ot1qhv.fd 2009/09/25 v1.2 font definition file for OT1/qhv
 )
 LaTeX Font Info:    Font shape `OT1/qhv/m/n' will be
-(Font)              scaled to size 5.64001pt on input line 141.
+(Font)              scaled to size 5.64001pt on input line 143.
 
 (sections/studyarea001.tex
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
@@ -1051,17 +1111,17 @@ LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
 (Font)              scaled to size 6.6pt on input line 6.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 26--29
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 23--26
  [][] 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 37--40
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 34--37
  [][] 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 48--51
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 45--48
  [][] 
  []
 
@@ -1074,35 +1134,84 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 {C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-rm.e
 nc}]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 89--94
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 86--91
  [][] 
  []
 
 ) (sections/dataset001.tex
 
 [2]
+LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
+(Font)              scaled to size 6.1pt on input line 20.
+LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
+(Font)              scaled to size 6.1pt on input line 20.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
+(Font)              scaled to size 6.1pt on input line 20.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
+(Font)              scaled to size 6.1pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
+(Font)              scaled to size 6.1pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
+(Font)              scaled to size 6.1pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
+(Font)              scaled to size 6.1pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 10.95pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 8.0pt on input line 20.
+LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
+(Font)              scaled to size 6.1pt on input line 20.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/it' will be
-(Font)              scaled to size 12.0pt on input line 14.
-LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
-(Font)              scaled to size 12.0pt on input line 30.
+(Font)              scaled to size 12.0pt on input line 62.
 
 
 [3]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 64--65
+LaTeX Font Info:    Font shape `TS1/ntxtlf/m/n' will be
+(Font)              scaled to size 12.0pt on input line 78.
+
+Underfull \vbox (badness 6157) has occurred while \output is active []
+
+
+
+[4]
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 112--113
  [][] 
  []
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 72--73
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 120--121
  [][] 
  []
 
-)
-
-[4] (sections/methods001.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+) (sections/methods001.tex
 
 [5]
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
@@ -1158,21 +1267,23 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[6])
+[6]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[7] (main.bbl
+[7]) (main.bbl
 LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
 (Font)              scaled to size 12.0pt on input line 17.
 
 
 [8]
 
-[9])
+[9]
 
-[10] (main.aux)
+[10])
+
+[11] (main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2020/03/25>
@@ -1181,13 +1292,13 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: F51AFFA373148A945AB0E4270FB79AF8;1982.
  ) 
 Here is how much of TeX's memory you used:
- 19202 strings out of 469940
- 310743 string characters out of 5468441
- 711006 words of memory out of 5000000
- 45620 multiletter control sequences out of 15000+600000
- 703225 words of font info for 187 fonts, out of 8000000 for 9000
+ 23293 strings out of 469940
+ 435054 string characters out of 5468441
+ 797295 words of memory out of 5000000
+ 49688 multiletter control sequences out of 15000+600000
+ 714797 words of font info for 212 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,117p,2049b,631s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,15n,117p,2049b,1220s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewT
 XBMI.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/new
 tx/NewTXMI.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1201,9 +1312,9 @@ ograms/MiKTeX/fonts/type1/public/newtx/ztmb.pfb><C:/Users/FAFALAB/AppData/Local
 /Programs/MiKTeX/fonts/type1/public/newtx/ztmbi.pfb><C:/Users/FAFALAB/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/public/newtx/ztmr.pfb><C:/Users/FAFALAB/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmri.pfb>
-Output written on main.pdf (12 pages, 303267 bytes).
+Output written on main.pdf (13 pages, 306590 bytes).
 PDF statistics:
- 339 PDF objects out of 1000 (max. 8388607)
- 65 named destinations out of 1000 (max. 500000)
+ 347 PDF objects out of 1000 (max. 8388607)
+ 67 named destinations out of 1000 (max. 500000)
  97 words of extra memory for PDF output out of 10000 (max. 10000000)
 
