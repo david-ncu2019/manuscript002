@@ -2,11 +2,11 @@
 \contentsline {section}{\numberline {2}Study Area Background}{1}{section.2}%
 \contentsline {section}{\numberline {3}Data Sets}{2}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Multilayer Compaction}{2}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Cumulative vertical displacement}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.2}Cumulative vertical displacement}{2}{subsection.3.2}%
 \contentsline {section}{\numberline {4}Geographically Temporally Weighted Regression}{5}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Model Calibration}{5}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Model Validation}{8}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Posterior Uncertainty Assessment}{8}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.2}Model Validation}{7}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Posterior Uncertainty Assessment}{7}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Results}{8}{section.5}%
 \contentsline {section}{\numberline {6}Discussion}{8}{section.6}%
 \contentsline {section}{\numberline {7}Conclusion}{8}{section.7}%

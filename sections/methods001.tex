@@ -26,7 +26,7 @@ Before discussing the GTWR model, it is useful to review the fundamental concept
 
 \noindent where \(y_i\) denotes the dependent variable at the \(i\)-th location; \(x_{ik}\) represents the independent variables (or predictors), with \(x_{i0} = 1\) for the intercept \(\beta_0\); \(\beta_k\) indicates the regression coefficient corresponding to the \(k\)-th predictor; \(\varepsilon_i\) is the random error at the \(i\)-th location, and \(p\) is the number of independent variables (excluding the intercept).
 %
-The OLS method assigns a single set of coefficients to all observations regardless of their geographical locations, which deliberately neglects potential spatial variation and can cause model misspecification \citet{mgwr_book_2017}.
+The OLS method assigns a single set of coefficients to all observations regardless of their geographical locations, which deliberately neglects potential spatial variation and can cause model misspecification \citep{mgwr_book_2017}.
 %
 % ========================================
 % Section: Recap GWR concept
@@ -114,7 +114,7 @@ W_{ij} = \begin{cases}
 %\end{equation}
 %
 %\noindent  where $\mathbf{x}_i^T$ represents the values of independent variables at the $i$-th point.
-The hat matrix $\mathbf{S}$ transforms observed values into fitted values through spatiotemporal weightings, as in $\hat{\mathbf{y}} = \mathbf{S}\mathbf{y}$, with its trace representing the effective number of parameters in the model \citet{hat_matrix}. The detailed information of these components can be found in \citet{fotheringham2002geographically}.
+The hat matrix $\mathbf{S}$ transforms observed values into fitted values through spatiotemporal weightings, as in $\hat{\mathbf{y}} = \mathbf{S}\mathbf{y}$, with its trace representing the effective number of parameters in the model \citep{hat_matrix}. The detailed information of these components can be found in \citet{fotheringham2002geographically}.
 
 % In this study, the parameters $\lambda$ and $\xi$ were set to $0.05$ and $0$, respectively, assuming that the temporal effect is dominant and space-time interactive effects are maximized. This configuration constrains the optimization process to focus on determining the optimal bandwidths $h_i$, thereby enhancing the computational efficiency during the calibration procedure.
 
@@ -125,7 +125,9 @@ The hat matrix $\mathbf{S}$ transforms observed values into fitted values throug
 \subsection{Model Validation}
 \label{subsec:gtwr_validation}
 
+because I want to evaluate the reliability of the model when performing prediction at unsampled points located between the observations, I applied the very classical method leave-one-out cross-validation. the formulation for this process is as follows (add a formula here)
 
+for each data set of each aquifer, I remove one observation, assuming that we are blind about the information of that point, then I run the GTWR with remaining observations, using the parameters obtained from the previous calibration step. the drop-out point will be used as the regression point for this model run. the result will return the predicted time series of the regression point. here, I can compare the difference betwen the true values of this observation and the its predicted values from the model (performed without that observation). because this is a time series, I can calculate evaluation metrics with this, such as mean absolute error (MAE), root mean squared error (RMSE). then we put that point back, take out another, and repeat the process until all observations are used. after all, I have a set of evaluation metrics for each observation, we can calculate the average of them to evaluate the reability of the models.
 
 % ================================================================================
 % ================================================================================

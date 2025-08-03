@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  31 JUL 2025 17:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  3 AUG 2025 06:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1051,15 +1051,6 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 45--48
  [][] 
  []
 
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `') on input line 83.
-
-
-Overfull \hbox (263.05443pt too wide) in paragraph at lines 86--91
- [][] 
- []
-
 ) (sections/dataset001.tex
 
 [1{C:/Users/FAFALAB/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/
@@ -1337,7 +1328,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 241--251
 
 
 
-[6] (main_elsevier.aux)
+[6
+
+] (main_elsevier.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
@@ -1346,10 +1339,10 @@ Package rerunfilecheck Info: File `main_elsevier.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 24527 strings out of 469940
- 457515 string characters out of 5468441
- 843509 words of memory out of 5000000
- 50915 multiletter control sequences out of 15000+600000
+ 24524 strings out of 469940
+ 457434 string characters out of 5468441
+ 841509 words of memory out of 5000000
+ 50913 multiletter control sequences out of 15000+600000
  751353 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,16n,131p,2059b,1220s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1371,9 +1364,9 @@ pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/sti
 x-mathrm-bold.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/stix/stix-mathrm.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/font
 s/type1/public/stix/stix-mathscr.pfb>
-Output written on main_elsevier.pdf (6 pages, 369978 bytes).
+Output written on main_elsevier.pdf (6 pages, 369519 bytes).
 PDF statistics:
  333 PDF objects out of 1000 (max. 8388607)
- 63 named destinations out of 1000 (max. 500000)
+ 62 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
