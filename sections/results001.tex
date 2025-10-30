@@ -1,48 +1,5 @@
 \subsection{Model Results and Interpretation}
 
-
-
-\begin{table}[H]
-	\centering
-	\caption{Model parameter estimation summaries}
-	\label{tab:gtwr_calib_table}
-	\footnotesize % Matches document text size for CAS-DC class
-	\begin{tabular}{p{3.2cm}|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{1.4cm}|>{\centering\arraybackslash}p{1.4cm}}
-		\toprule
-		\textbf{Model Specification} & \textbf{Aquifer 1} & \textbf{Aquifer 2} & \textbf{Aquifer 3} & \textbf{Aquifer 4} \\
-		\midrule
-		\multicolumn{5}{l}{\textit{\textbf{Global Model (OLS) Diagnostics}}} \\
-		\addlinespace[0.5ex]
-		Adjusted $R^2$ & 0.398 & 0.553 & 0.624 & 0.300 \\ 
-		\midrule
-		\multicolumn{5}{l}{\textit{\textbf{GTWR -- Optimal Parameters \& Diagnostics}}} \\
-		\addlinespace[0.5ex]
-		Kernel Function & \multicolumn{4}{c}{Bisquare} \\
-		Bandwidth & 23 & 23 & 17 & 17 \\
-		Lambda & 0.006 & 0.001 & 0.004 & 0.005 \\
-		AICc & 9960.06 & 11831.60 & 10104.94 & 6636.46 \\
-		Adjusted $R^2$ & 0.942 & 0.930 & 0.954 & 0.945 \\
-		Residual Sum of Squares (RSS) & 13233.07 & 38036.91 & 14084.60 & 2916.52 \\
-		\midrule
-		\multicolumn{5}{l}{\textit{\textbf{GTWR -- Coefficient Summary}}} \\
-		\addlinespace[0.5ex]
-		\multicolumn{5}{l}{\textit{InSAR cumulative displacement ($\beta_1$)}} \\
-		\addlinespace[0.25ex]
-		\hspace{1em} Mean & 0.055 & 0.121 & 0.061 & 0.017 \\
-		\hspace{1em} Std. Dev. & 0.104 & 0.132 & 0.106 & 0.046 \\
-		\hspace{1em} Min & $-0.199$ & $-0.272$ & $-0.263$ & $-0.327$ \\
-		\hspace{1em} Max & 0.669 & 0.661 & 0.610 & 0.233 \\
-		\addlinespace[0.25ex]
-		\multicolumn{5}{l}{\textit{Intercept ($\beta_0$)}} \\
-		\addlinespace[0.25ex]
-		\hspace{1em} Mean & $-0.942$ & $-10.263$ & $-10.899$ & $-3.005$ \\
-		\hspace{1em} Std. Dev. & 6.137 & 11.201 & 9.567 & 4.999 \\
-		\hspace{1em} Min & $-48.624$ & $-54.368$ & $-54.027$ & $-35.089$ \\
-		\hspace{1em} Max & 45.060 & 22.036 & 10.105 & 25.474 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
 \subsection{The Aquifer's "Personality": Mapping the Field of Subsurface Sensitivity }
 
 \subsection{Decomposing the "Symphony": Identifying Dominant Modes of Behavior (EOF Analysis)}
