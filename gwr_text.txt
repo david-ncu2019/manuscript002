@@ -1,0 +1,145 @@
+### 3.4. Geographically weighted regression model
+
+The **GWR model** can both **describe** the **relationship** between **dependent** and explanatory variables, and **reflect spatial heterogeneity**. By introducing the spatial position of the data into the regression coefficients, a non-parametric estimation method is used to give a local estimator of the function at each geographic location. Based on the estimated values of the regression coefficients at each geographical location, the heterogeneity of the region and the spatial non-stationarity of the parameters are explored and analyzed. The model structure Eq. (7) is as follows:
+
+\[
+y_i = \beta_{i0}(u_i, v_i) + \sum_{k=1}^{i} \beta_{ik}(u_i, v_i)x_{ik} + \varepsilon \tag{7}
+\]
+
+In the equation, \(y_i\) is the fitted value of the land subsidence change for sample \(i\), \((u_i, v_i)\) is the geographic center coordinate of sample space unit, \(\beta_{i0}(u_i, v_i)\) is the constant term estimate of the i-th sample, \(\beta_{ik}(u_i, v_i)\) is the k-th regression parameter of the i-th sample, which is a function of geographic location, \(x_{ik}\) is the value of the k-th explanatory variable (the cumulative water level change of each aquifer) in sample \(i\), and \(\varepsilon\) is an error that follows an independent normal distribution with a mean of 0.
+
+\[
+\beta_i(u_i, v_i) = (X^T W(u_i, v_i) X)^{-1} X^T W(u_i, v_i) Y \tag{8}
+\]
+
+In the equation, \(\beta_i(u_i, v_i)\) is the regression parameter of the i-th sample, \(W(u_i, v_i)\) is a diagonal matrix of order n, and the elements on the diagonal are monotonically decreasing functions of the distance \(d_{ij}\) between the regression point i and other observation points. It is used to balance the effect of observations at different spatial locations on the regression point parameter estimates.
+
+For the evaluation of the GWR model, the **optimal bandwidth determined by the minimum AIC method** and **StandardResidual** are selected for evaluation.
+
+### 3.5. Model accuracy evaluation
+
+The model accuracy evaluation of MLR and GWR uses **Adjusted R²**, which is the square of the correlation coefficient between the actual and predicted values and which is used to measure the performance of the entire regression model. The higher its value, the better the model and the actual fitting effect. In addition, the **minimum AIC (Akaike's Information Criterion)** metric is selected to compare MLR and GWR models.
+
+Compared with other methods, the AIC method created and developed by Japanese statistician Akaike is more compatible and more convenient to solve problems. It is a **standard of measuring the goodness of statistical model** fitting based on the concept of entropy. Its expression is as follows:
+
+\[
+AIC = 2n \ln \sigma + n \ln 2\pi + n \left[ \frac{n + \operatorname{tr}(S)}{n - 2 - \operatorname{tr}(S)} \right] \tag{9}
+\]
+
+In the equation, \(AIC\) is the value of AIC, \(n\) is the number of samples, \(\sigma\) is the standard deviation of the difference estimate, \(\operatorname{tr}(S)\) is the trace of the projection matrix \(S\) of the GWR model and is a function of the bandwidth.
+
+Usually, the difference between the AIC values of the two models is greater than 3, which indicates that there is a significant difference between the two models, and that the model with a lower AIC value has a better fitting effect. AIC is not an absolute measure of fit, but it is useful to compare models that are applicable to the same dependent variable and have different explanatory variables.
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+The **basic OLS method** establishes the relationship between the dependent variable and one or more independent variables on a global scale. This relationship is also known as classical linear regression, represented by Eq. (3).
+
+\[
+y_i = \beta_0 + \sum_{k=1}^{m} \beta_k x_{ik} + \varepsilon_i \tag{3}
+\]
+
+where \(y_i\) represents the dependent variable at the \(i\)-th position; \(x_{ik}\) represents the \(k\)-th independent variable; \(\beta_0\) represents the constant term, often referred to as the intercept; \(\beta_k\) represents the regression coefficient associated with the \(k\)-th independent variable; \(m\) represents the total count of exogenous variables integrated into the model, and \(\varepsilon_i\) represents the error term corresponding to the \(i\)-th point.
+
+To address the scale limitations of traditional global regression models, Brunsdon et al. [52] and Fotheringham et al. [75] proposed a **GWR method**. This method enables the regression coefficients of the independent variables in the model to vary at different local points, thus incorporating local variation. By using GWR methods, a more precise relationship between variables in the data can be depicted, as shown in Eq. (4) [75].
+
+\[
+y_i = \beta_0(u_i, v_i) + \sum_{k=1}^{m} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i, i = 1, \cdots, n \tag{4}
+\]
+
+where the constant term at spatial position \(i\), denoted as \(\beta_0(u_i, v_i)\), represents the intercept. At the \(i\)-th position, the coefficient estimates of the \(k\)-th independent variable denoted as \(\beta_k(u_i, v_i)\), indicate the local effect of that variable. The spatial location \(i\) is characterized by its longitude, latitude, and altitude, denoted as \((u_i, v_i)\). Similar to global regression, \(y_i\), \(x_{ik}\) and \(\varepsilon_i\) have the same meanings here.
+
+The **GWR method** calculates the local independent variable coefficients through the weighted least square method in matrix form, as shown in Eq. (5) [75]. GWR computes a point-wise regression based on the distance between each geographic location, with nearby points exerting a greater influence on computing the coefficients than distant points.
+
+\[
+\widehat{\beta}_{ik} = [X^T W_i X]^{-1} X^T W_i Y \tag{5}
+\]
+
+where \(\widehat{\beta}_{ik} = (\beta_{i0}, \ldots, \beta_{im})^T\) is the \(m \times 1\) vector of local independent variable coefficients at the \(i\)-th position. \(X\) is the \(n \times m\) of the independent variable, and \(Y\) is the \(n \times 1\) vector of the dependent variable. \(W_i\) is the diagonal matrix of \(n \times n\) weighted based on the distance of each observation point to position \(i\). The composition of the geographic weighting matrix in the GWR method depends on the kernel function, which ensures a consistent optimal bandwidth.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+GWR is a linear regression that uses spatially-varying coefficient values (Brunsdon et al., 1996). It uses a kernel function to give weights to observation points as a function decaying by distance to regression points (i.e., the closer the observation is to a regression point in space, the higher weight the observation has for estimating the regression coefficients for that regression point).
+
+As shown in our previous study of annual modelling (Shen et al., 2022), GWR explained spatial variations in ground-based observations better than supervised linear regression (SLR) and random forests (RF), and one single model performed similarly or slightly worse than individual annual models. In our preliminary test for monthly modelling (shown in Supplementary Material’s section 1&2), we found that GWR and RF performed similarly better than SLR based on 5-fold cross-validation (CV). Moreover, we found that one single monthly model performed worse than individual monthly models. Therefore, we developed individual monthly GWR models to estimate the ambient monthly air pollution concentrations, because GWR offers a more interpretable model compared to RF.
+
+In GWR, we had spatially-varying linear regression coefficient values of predictors selected by SLR, following the same procedure used in our previous studies (Chen et al., 2021; de Hoogh et al., 2018a; Eeftens et al., 2012; Shen et al., 2022).
+
+In SLR, firstly we built a univariate linear regression with one predictor variable that had the highest adjusted coefficient of determination (adjusted R²) in air pollution observations and that had the statistically-significant coefficient value (P < 0.1), if the coefficient value matched the plausible direction of effect (as defined in Table A5). Then in each step we added one of the remaining variables that meet our above-mentioned criteria. After no additional variable would meet our criteria, we excluded variables with variance inflation factor larger than 3 to avoid multicollinearity in our final linear regression model.
+
+Then we used GWR to estimate the spatially-varying regression coefficient values of the predictors selected by SLR. The regression coefficients were at 200 km × 200 km spatial resolution. We used an exponential function as our decay function, and the bandwidth (i.e., how fast the kernel function decays to zero) was determined by CV within the training data. Details can be found in our previous study (Shen et al., 2022). The calculation was done in R using the GWmodel package version 2.2-4 (Gollini et al., 2015; Lu et al., 2014; R Core Team, 2020). We built a monthly LUR model from 2000 to 2019 for every calendar month in which the total number of monthly averaged observations was >200 sites across Europe. This meant that we were only able to build monthly PM₂.₅ models after 2006 and from 2000 to 2019 for the other pollutants (Tables A1-A4).
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+### 3.6. Geographically Weighted Regression (GWR) analysis
+
+Geographically Weighted Regression (GWR) was favored because it allows for the exploration of spatially varying relationships between variables, offering localized insights that other methods like kriging or machine learning models may not provide. Unlike kriging, which primarily focuses on spatial interpolation, GWR accounts for spatial heterogeneity by calibrating separate regression equations for different locations. Machine learning models, while effective for prediction, often act as "black boxes" and lack the interpretability required for understanding spatial processes. GWR's capability to identify regional variations in influencing factors makes it particularly valuable in groundwater potential studies, enabling more nuanced and actionable resource management strategies.
+
+GWR was conducted to investigate spatially varying relationships between groundwater potential and the nine topographic indices using the following equation:
+
+\[
+Y_i = \beta_0 (ui, vi) + \sum_{k=1}^{n} \beta_k (ui, vi)Xki + \varepsilon i
+\]
+
+Where,
+
+- \(Y_i\) = Dependent variable at location I (Groundwater potential).
+- \(\beta_0 (ui, vi)\) = Intercept that varies by location (ui, vi).
+- \(\beta_k(ui, vi)\) = Regression coefficients that vary spatially at each location.
+- \(Xki\) = Independent variables at location i (e.g., TPI, TWI, ChNBL, LS, Valley Depth).
+- \(\varepsilon i\) = Random error term.
+
+The indices included ChNBL, ValleyD, TPI, TWI, Planform curvature, ProC, LS, AnHS. DEMs were used to derive these indices, ProC using GIS and statistical software (Wilson and Gallant, 2000; Fotheringham et al., 2002). The coefficients for each topographic index showed notable spatial variability, with ChNBL and LS Factor exhibiting positive coefficients, indicating significant contributions to groundwater potential. ValleyD presented a mix of positive and negative coefficients, reflecting its complex role in groundwater dynamics. TPI and TWI coefficients underscored the importance of topographic and wetness features in groundwater accumulation, while Planform curvature and ProC had moderate coefficients, suggesting impacts on soil and water flow. AnHS coefficients provided visual insights into terrain shading, and the spatial distribution of standardized residuals indicated minimal spatial autocorrelation, affirming model robustness.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+The GWR model is able to capture spatial non-stationarity. By including the data’s geographic location in the regression coefficients, local estimates of the function at each geographic location are given using non-parametric estimation methods. Based on the estimations of the regression coefficients at each site, regional heterogeneity and spatial non-smoothness of the parameters are investigated and studied (Blachowski, 2016). The mathematical expression for the GWR model is as follows:
+
+\[
+y_i = \beta_0(u_i, v_i) + \sum_{k=1}^{i} \beta_k(u_i, v_i)x_{ik} + \varepsilon_i \tag{7}
+\]
+
+where \(y_i\) is the estimated value of the change in subsidence in unit \(i\); \((u_i, v_i)\) is the geocentric coordinates of unit \(i\); \(\beta_0(u_i, v_i)\) is the regression constant of unit \(i\); \(\beta_k(u_i, v_i)\) is the k-th regression coefficient of unit \(i\); \(x_{ik}\) is the k-th explanatory variable (the cumulative water level change of each aquifer) of unit \(i\); \(\varepsilon_i\) is the random error term of unit \(i\), obeying \(\varepsilon_i \sim N(0, \sigma^2)\) and \(\mathrm{Cov}(\varepsilon_i, \varepsilon_j) = 0 (i \neq j)\).
+
+The regression coefficient estimate \(\widehat{\beta}(u_i, v_i)\) for the i-th cell is:
+
+\[
+\widehat{\beta}(u_i, v_i) = (X^T W(u_i, v_i)X)^{-1} X^T W(u_i, v_i)y \tag{8}
+\]
+
+where \(X\) is the matrix of independent variables; \(y\) is the vector of dependent variables; \(W(u_i, v_i)\) is the diagonal matrix representing the geographical weight of each observation at regression point \(i\).
+
+### 3.5. Model performance evaluation
+
+In this study, **adjusted R², CV scores, and AICc** were used to assess the accuracy of the MLR and GWR models. R² can measure the effectiveness of the entire regression model. The model fitting effect improves as the value increases. The CV score indicates the predictive accuracy of the model and is used to detect and prevent overfitting. The smaller the value is, the better the prediction accuracy is (Bowman, 1984; Cleveland, 1979). AICc is the standard way to measure how well a statistical model fits the data. It is based on the concept of entropy, which is used to weigh the accuracy and complexity of model prediction. The equation is described as (Akaike, 1974):
+
+\[
+AICc = 2n \ln(\sigma) + n \ln(2\pi) + n \left\{ \frac{n + \operatorname{tr}(S)}{n - 2 - \operatorname{tr}(S)} \right\} \tag{9}
+\]
+
+where \(n\) is the sample size; \(\sigma\) is the standard deviation estimate of the error term; \(\operatorname{tr}(S)\) is the trace of the GWR model projection matrix \(S\). The two models are considered to be substantially different if the \(AIC_c\) value difference between them is larger than 3. The smaller the \(AIC_c\) value, the more accurate the model is. While not a perfect indicator of fit, \(AIC_c\) is more useful in models that have the same dependent variable and various explanatory factors.
+
+Moran’s I was used to test the overall spatial autocorrelation of various model residuals in the study area. The Z-score was used to evaluate the dispersion of the Moran’s I relative to its expected value and standard deviation. Positive values of Moran’s I indicate spatial clustering of attribute values, while negative values indicate spatial dispersion of attribute values. Values close to zero suggest random distribution of attribute values in space. The equation is as follows (Zhang et al., 2021):
+
+\[
+\text{moran's I} = \frac{n}{\sum_{i=1}^{n} \sum_{j=1}^{n} w_{ij}} \frac{\sum_{i=1}^{n} \sum_{j=1}^{n} w_{ij} (y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^{n} (y_i - \bar{y})^2} \tag{10}
+\]
+
+where \(n\) is the number of spatial units; \(w_{ij}\) is the weight between positions \(i\) and \(j\); \(y_i\) and \(y_j\) are the attribute values at positions \(i\) and \(j\) respectively; \(\bar{y}\) is the average of all observed values.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+The geographical time-slice weighted regression (GTSWR) is defined here by the following expression:
+
+\[
+Y_{i,t} = \beta_{0,t}(u_i, v_i) + \sum_{k} \beta_{k,t}(u_i, v_i) X_{ik,t} + \varepsilon_{i,t} \tag{2}
+\]
+
+where \(Y_{i,t}\) is the subsidence at observation \(i\) for time period \(t\); \(X_{i,t}\) is the drawdown at observation \(i\) for time period \(t\); \(\beta_{0,t}(u_i, v_i)\) is the intercept at location (longitude: \(u_i\), latitude: \(v_i\)) and time period \(t\), \(\beta_{k,t}(u_i, v_i)\) is the coefficient containing the location (latitude and longitude) of every data point \(i\) at time period \(t\) for variable \(k\). The **GTSWR model** is applied to develop a **spatio-temporal land subsidence map** representing the **spatial pattern of time-variable land subsidence** based on the **annual drawdown values**. For time-variable \(\mathbf{Y}_t = (Y_{1,t}, \ldots, Y_{n,t})^\mathrm{T}\) and \(\mathbf{X}_t\) is the corresponding matrix of covariates, \(\widehat{\beta}_t(u_i, v_i)\) is the **estimated coefficient matrix** at every time period which is derived as:
+
+\[
+\widehat{\beta}_t(u_i, v_i) = \left[ \mathbf{X}_t^\mathrm{T} \mathbf{W}(u_i, v_i) \mathbf{X}_t \right]^{-1} \mathbf{X}_t^\mathrm{T} \mathbf{W}(u_i, v_i) \mathbf{Y}_t \tag{3}
+\]
+
+where \(\widehat{\beta}_t(u_i, v_i) = \left( \widehat{\beta}_{1,t}(u_i, v_i), \ldots, \widehat{\beta}_{k,t}(u_i, v_i) \right)^\mathrm{T}\), \(\mathbf{W}(u_i, v_i)\) is a **spatial weight matrix** formulated from the Gaussian and Euclidean distance functions. The Gaussian decay-based function commonly used as a kernel is defined as \(e^{-(D_{ij}/h)^2}\), where **\(h\) is the non-negative bandwidth**, \(D_{ij}\) is the distance between the observed points \(i\) and \(j\) from the space domain and can be defined as \(D_{ij} = \sqrt{(u_i - u_j)^2 + (v_i - v_j)^2}\).
