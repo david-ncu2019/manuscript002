@@ -6,16 +6,16 @@
     "Session": {
         "Bookmarks": [
         ],
-        "CurrentFile": "sections/methods001.tex",
+        "CurrentFile": "sections/methods002.tex",
         "FileVersion": 1,
         "Files": [
             {
-                "Col": 17,
+                "Col": 61,
                 "EditorGroup": 0,
                 "FileName": "main.tex",
-                "FirstLine": 25,
+                "FirstLine": 110,
                 "FoldedLines": "",
-                "Line": 75
+                "Line": 135
             },
             {
                 "Col": 0,
@@ -36,18 +36,18 @@
             {
                 "Col": 0,
                 "EditorGroup": 0,
-                "FileName": "sections/dataset001.tex",
-                "FirstLine": 24,
+                "FileName": "sections/methods002.tex",
+                "FirstLine": 0,
                 "FoldedLines": "",
-                "Line": 129
+                "Line": 0
             },
             {
-                "Col": 938,
+                "Col": 0,
                 "EditorGroup": 0,
-                "FileName": "sections/methods001.tex",
-                "FirstLine": 157,
+                "FileName": "sections/dataset001.tex",
+                "FirstLine": 99,
                 "FoldedLines": "",
-                "Line": 147
+                "Line": 129
             },
             {
                 "Col": 31,
@@ -69,7 +69,7 @@
                 "Col": 17,
                 "EditorGroup": 0,
                 "FileName": "ref_manu2.bib",
-                "FirstLine": 95,
+                "FirstLine": 76,
                 "FoldedLines": "1,17,24,35,48,61,77,108,122,169,193,204,216,228,242,254,270,282,299,310,330",
                 "Line": 344
             }

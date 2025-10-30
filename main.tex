@@ -28,6 +28,7 @@
 \usepackage{caption}     % Required by subcaption for customizing captions
 \usepackage{subcaption}  % For creating subfigures and subtables (e.g., Figure 1a, 1b)
 \usepackage{makecell}
+\usepackage{tabularx}
 
 % ===================================================================
 % 4. PAGE LAYOUT, SPACING, AND FORMATTING
@@ -51,7 +52,8 @@
 
 % Manually set paragraph indent and spacing for a custom hybrid style
 \setlength{\parindent}{1.5em}
-\setlength{\parskip}{0.5em}
+%\setlength{\parskip}{0.5em}
+\setlength{\parskip}{0pt} % Change this value to 0pt
 
 % -- Section Title Formatting --
 \usepackage{titlesec}
@@ -60,6 +62,9 @@
 \titlespacing*{\section}{0pt}{*1}{*0.5}
 \titlespacing*{\subsection}{0pt}{*0.5}{*0.5}
 \titlespacing*{\subsubsection}{0pt}{*0.25}{*0.25}
+%\titleformat{\section}... % Redundant
+%\titleformat{\subsection}... % Redundant
+%\titlespacing*{\section}... % Redundant
 %\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
 %\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
 %\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
@@ -155,13 +160,15 @@ Land subsidence from excessive groundwater extraction has long affected the Chou
 \section{Geographically Temporally Weighted Regression}
 \label{sec:method}
 
-\input{sections/methods001}
+\input{sections/methods002}
 
-\section{Results}
+\section{Results \& Discussion}
 \label{sec:result}
 
-\section{Discussion}
-\label{sec:discuss}
+\input{sections/results001}
+
+%\section{Discussion}
+%\label{sec:discuss}
 
 \section{Conclusion}
 \label{sec:conclusion}

@@ -6,7 +6,10 @@
 \contentsline {section}{\numberline {4}Geographically Temporally Weighted Regression}{5}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Model Calibration}{5}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Model Validation}{7}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Posterior Uncertainty Assessment}{7}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Results}{8}{section.5}%
-\contentsline {section}{\numberline {6}Discussion}{8}{section.6}%
-\contentsline {section}{\numberline {7}Conclusion}{8}{section.7}%
+\contentsline {subsection}{\numberline {4.3}Posterior Uncertainty Assessment}{8}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Results \& Discussion}{9}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Model Results and Interpretation}{9}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}The Aquifer's "Personality": Mapping the Field of Subsurface Sensitivity }{9}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Decomposing the "Symphony": Identifying Dominant Modes of Behavior (EOF Analysis)}{9}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Validating the Narrative: Assessing Model Reliability}{9}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Conclusion}{9}{section.6}%

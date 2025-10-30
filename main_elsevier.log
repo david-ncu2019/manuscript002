@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  3 AUG 2025 06:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  22 SEP 2025 09:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1110,7 +1110,29 @@ Overfull \hbox (12.92763pt too wide) detected at line 93
 
 
 
-[3]) (main_elsevier.bbl
+[3]
+Underfull \hbox (badness 1418) in paragraph at lines 129--136
+[]\T1/stix/m/n/10 The pre-dic-tive re-li-a-bil-ity of the GTWR model was
+ []
+
+
+Underfull \hbox (badness 1997) in paragraph at lines 129--136
+\T1/stix/m/n/10 as-sessed us-ing leave-one-out cross-validation (LOOCV)
+ []
+
+
+Underfull \hbox (badness 1342) in paragraph at lines 129--136
+\T1/stix/m/n/10 to eval-u-ate model per-for-mance at un-sam-pled lo-ca-tions.
+ []
+
+
+Underfull \hbox (badness 1622) in paragraph at lines 129--136
+\T1/stix/m/n/10 the cal-i-bra-tion phase. The ex-cluded ob-ser-va-tion served
+ []
+
+
+
+) (main_elsevier.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 17--29
 []\T1/stix/m/n/8 Brunsdon, C., Fother-ing-ham, A.S., Charl-ton, M.E., 1996.
  []
@@ -1139,8 +1161,6 @@ Overfull \hbox (45.74507pt too wide) in paragraph at lines 17--29
 [][]\T1/zi4/m/n/8 arXiv:https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1538-
 4632.1996.tb00936.x[][]\T1/stix/m/n/8 . 
  []
-
-
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 42--54
@@ -1173,6 +1193,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 42--54
  []
 
 
+
+[4]
 Underfull \hbox (badness 10000) in paragraph at lines 71--82
 \T1/stix/m/n/8 of Ge-og-ra-phers 107, 1247--1265.  URL: [][]$\T1/zi4/m/n/8 http
 s : / / doi . org / 10 .
@@ -1256,7 +1278,7 @@ Overfull \hbox (69.54524pt too wide) in paragraph at lines 149--160
 
 
 
-[4]
+
 Underfull \hbox (badness 10000) in paragraph at lines 227--240
 []\T1/stix/m/n/8 Tough, J.A., Black-nell, D., Que-gan, S., 1995.  A sta-tis-ti-
 cal
@@ -1322,15 +1344,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 241--251
 
 )
 
-
-
 [5]
 
 
 
-[6
-
-] (main_elsevier.aux)
+[6] (main_elsevier.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
@@ -1339,13 +1357,13 @@ Package rerunfilecheck Info: File `main_elsevier.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 24524 strings out of 469940
- 457434 string characters out of 5468441
- 841509 words of memory out of 5000000
- 50913 multiletter control sequences out of 15000+600000
+ 24532 strings out of 469940
+ 457586 string characters out of 5468441
+ 838509 words of memory out of 5000000
+ 50919 multiletter control sequences out of 15000+600000
  751353 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,16n,131p,2059b,1220s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,16n,131p,2059b,1192s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolat
 a/Inconsolata-zi4r.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/stix/STIXGeneral-Bold.pfb><C:/Users/FAFALAB/AppData/Local/Programs/M
@@ -1364,9 +1382,9 @@ pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/sti
 x-mathrm-bold.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/stix/stix-mathrm.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/font
 s/type1/public/stix/stix-mathscr.pfb>
-Output written on main_elsevier.pdf (6 pages, 369519 bytes).
+Output written on main_elsevier.pdf (6 pages, 372310 bytes).
 PDF statistics:
- 333 PDF objects out of 1000 (max. 8388607)
- 62 named destinations out of 1000 (max. 500000)
+ 335 PDF objects out of 1000 (max. 8388607)
+ 64 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
