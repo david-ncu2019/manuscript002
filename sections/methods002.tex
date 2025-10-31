@@ -58,31 +58,25 @@ Validation of the vertical displacements was performed against precise leveling 
 % ================================================================================
 % ================================================================================
 
-%\subsubsection{Model Calibration}
-\subsection{Geographically Weighted Regression}
-\label{subsec:gwr_method}
+\section{Geographically Weighted Regression}
+\label{sec:gwr}
 
-this research apply the geographically time-slice weighted regression to model the relationship between the differential displacement from MLCW and InSAR. because the traditional or global regression assumes that the relationship between the response and predictor variables are constant over space and time. this assumption is relaxed in GWR by allowing the parameters to vary spatially. 
+This research models the complex relationship between monthly differential displacement from MLCW and InSAR. Traditional regression models, such as Ordinary Least Squares (OLS), are insufficient for this task. OLS assumes that the relationship between the response and predictor variables is constant, or \textbf{spatially stationary}, across the entire study area. This global model is expressed as:
+%
+\begin{equation}
+	y_i = \sum_{k=0}^{p} \beta_k x_{ik} + \varepsilon_i
+	\label{eq:ols}
+\end{equation}
+%
+\noindent where \(y_i\) is the dependent variable, \(x_{ik}\) represents the predictors, \(\beta_k\) are the global coefficients, and \(\varepsilon_i\) is the random error at location \(i\). This "one-size-fits-all" assumption, however, fails in hydrogeology. The local geology can dramatically alter the relationship between surface and subsurface deformation from one location to another. Consequently, a global model can misspecify the relationship and produce misleading results \citep{mgwr_book_2017}.
 
+Geographically Weighted Regression (GWR), a local regression technique, addresses this problem of spatial non-stationarity \citep{brunsdon1996, fotheringham2002geographically}. GWR relaxes the stationarity assumption by building a separate, local regression model for every point in the dataset. This approach allows the parameters to vary spatially, fitting a model defined as:
+%
+\begin{equation}
+	y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
+	\label{eq:gwr}
+\end{equation}
+%
+\noindent The key difference is that the coefficients \(\beta_k\) are no longer global, fixed values. Instead, they are specific functions of the geographic coordinates \((u_i, v_i)\) for each location \(i\). GWR calibrates this model using two fundamental components, a kernel and a bandwidth. The kernel function assigns weights to neighboring observations based on their distance from the regression point \(i\), ensuring that closer points have more influence on the local coefficient estimates. The bandwidth, in turn, is the most critical parameter, as it defines the "size" of the neighborhood used by the kernel. A small bandwidth captures highly local variations, whereas a large bandwidth produces a smoother, more averaged result. If the bandwidth becomes large enough to include all data, the GWR model simply converges to the global OLS model.
 
-%Before discussing the GTWR model, it is useful to review the fundamental concepts of ordinary least squares (OLS) regression and geographically weighted regression (GWR). The OLS models the relationship between a dependent variable and one or more predictors, under the assumption that the relationships being modeled are spatially stationary, expressed as:
-%
-%\begin{equation}
-%	y_i = \sum_{k=0}^{p} \beta_k x_{ik} + \varepsilon_i
-%	\label{eq:ols}
-%\end{equation}
-%
-%\noindent where \(y_i\) denotes the dependent variable at the \(i\)-th location; \(x_{ik}\) represents the independent variables (or predictors), with \(x_{i0} = 1\) for the intercept \(\beta_0\); \(\beta_k\) indicates the regression coefficient corresponding to the \(k\)-th predictor; \(\varepsilon_i\) is the random error at the \(i\)-th location, and \(p\) is the number of independent variables (excluding the intercept).
-%%
-%The OLS method assigns a single set of coefficients to all observations regardless of their geographical locations, which deliberately neglects potential spatial variation and can cause model misspecification \citep{mgwr_book_2017}.
-%%
-%% ========================================
-%% Section: Recap GWR concept
-%% ========================================
-%%
-%The GWR approach allows the regression coefficients of the predictors to vary at different locations, thereby capturing local variations \citep{brunsdon1996, fotheringham2002geographically}. The GWR is formulated as follows:
-%
-%\begin{equation}
-%y_i = \sum_{k=0}^{p} \beta_k(u_i, v_i) x_{ik} + \varepsilon_i
-%\label{eq:gwr}
-%\end{equation}
+GWR successfully accounts for spatial variability, but it is an inherently spatial model. The physical relationship between surface and subsurface deformation may also be \textbf{temporally non-stationary}. For instance, the aquifer system's mechanical response during a dry season likely differs from its response during a wet season. A standard GWR model with a single, fixed set of spatial parameters would fail to capture these dynamic changes. Calibrating the GWR model for separate, individual time steps, therefore, allows for the exploration of how these spatial relationships evolve, providing insight into the system's dynamic behavior over time.
