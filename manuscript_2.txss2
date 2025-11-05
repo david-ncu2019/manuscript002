@@ -1,12 +1,12 @@
 {
     "InternalPDFViewer": {
-        "Embedded": false,
+        "Embedded": true,
         "File": "main.pdf"
     },
     "Session": {
         "Bookmarks": [
         ],
-        "CurrentFile": "sections/methods001.tex",
+        "CurrentFile": "sections/methods002.tex",
         "FileVersion": 1,
         "Files": [
             {
@@ -39,28 +39,12 @@
                 "FileName": "sections/dataset001.tex",
                 "FirstLine": 24,
                 "FoldedLines": "",
-                "Line": 129
-            },
-            {
-                "Col": 938,
-                "EditorGroup": 0,
-                "FileName": "sections/methods001.tex",
-                "FirstLine": 157,
-                "FoldedLines": "",
-                "Line": 147
+                "Line": 0
             },
             {
                 "Col": 31,
                 "EditorGroup": 0,
                 "FileName": "sections/results001.tex",
-                "FirstLine": 0,
-                "FoldedLines": "",
-                "Line": 0
-            },
-            {
-                "Col": 38,
-                "EditorGroup": 0,
-                "FileName": "sections/discuss001.tex",
                 "FirstLine": 0,
                 "FoldedLines": "",
                 "Line": 0
@@ -72,6 +56,14 @@
                 "FirstLine": 95,
                 "FoldedLines": "1,17,24,35,48,61,77,108,122,169,193,204,216,228,242,254,270,282,299,310,330",
                 "Line": 344
+            },
+            {
+                "Col": 592,
+                "EditorGroup": 0,
+                "FileName": "sections/methods002.tex",
+                "FirstLine": 0,
+                "FoldedLines": "",
+                "Line": 5
             }
         ],
         "MasterFile": "",

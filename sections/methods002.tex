@@ -58,10 +58,10 @@ Validation of the vertical displacements was performed against precise leveling 
 % ================================================================================
 % ================================================================================
 
-\section{Geographically Weighted Regression}
+\subsection{Geographically Weighted Regression}
 \label{sec:gwr}
 
-This research models the complex relationship between monthly differential displacement from MLCW and InSAR. Traditional regression models, such as Ordinary Least Squares (OLS), are insufficient for this task. OLS assumes that the relationship between the response and predictor variables is constant, or \textbf{spatially stationary}, across the entire study area. This global model is expressed as:
+This research models the complex relationship between monthly differential displacement from MLCW and InSAR. Traditional regression models, such as Ordinary Least Squares (OLS), are insufficient for this task. OLS assumes that the relationship between the response and predictor variables is constant, or \textbf{spatial stationary}, across the entire study area. This global model is expressed as:
 %
 \begin{equation}
 	y_i = \sum_{k=0}^{p} \beta_k x_{ik} + \varepsilon_i
@@ -77,6 +77,77 @@ Geographically Weighted Regression (GWR), a local regression technique, addresse
 	\label{eq:gwr}
 \end{equation}
 %
-\noindent The key difference is that the coefficients \(\beta_k\) are no longer global, fixed values. Instead, they are specific functions of the geographic coordinates \((u_i, v_i)\) for each location \(i\). GWR calibrates this model using two fundamental components, a kernel and a bandwidth. The kernel function assigns weights to neighboring observations based on their distance from the regression point \(i\), ensuring that closer points have more influence on the local coefficient estimates. The bandwidth, in turn, is the most critical parameter, as it defines the "size" of the neighborhood used by the kernel. A small bandwidth captures highly local variations, whereas a large bandwidth produces a smoother, more averaged result. If the bandwidth becomes large enough to include all data, the GWR model simply converges to the global OLS model.
+\noindent The key difference is that the coefficients \(\beta_k\) are no longer global, fixed values, but are specific functions of the geographic coordinates \((u_i, v_i)\) for each location \(i\). In this study, the GWR model is specified to link the monthly differential subsurface compaction directly to the monthly differential surface deformation:
+%
+\begin{equation}
+	\Delta_{\text{MLCW}, n}(i) = \beta_0(u_i, v_i) + \beta_1(u_i, v_i) \cdot \Delta_{\text{InSAR}}(i) + \varepsilon_i
+	\label{eq:gwr_mlcw_insar}
+\end{equation}
+%
+\noindent where the dependent variable, \(\Delta_{\text{MLCW}, n}(i)\), is the monthly differential compaction in layer \(n\) at location \(i\), and the independent variable, \(\Delta_{\text{InSAR}}(i)\), is the corresponding InSAR-derived monthly differential surface deformation.
 
-GWR successfully accounts for spatial variability, but it is an inherently spatial model. The physical relationship between surface and subsurface deformation may also be \textbf{temporally non-stationary}. For instance, the aquifer system's mechanical response during a dry season likely differs from its response during a wet season. A standard GWR model with a single, fixed set of spatial parameters would fail to capture these dynamic changes. Calibrating the GWR model for separate, individual time steps, therefore, allows for the exploration of how these spatial relationships evolve, providing insight into the system's dynamic behavior over time.
+% ================================================================================
+% ================================================================================
+
+\subsubsection{Model Calibration}
+The GWR model is calibrated by estimating a separate set of coefficients for each location \(i\). This is achieved by assuming that observations closer to \(i\) have a greater influence on the local parameter estimates than more distant ones. The estimated parameters \(\hat{\boldsymbol{\beta}}(u_i, v_i)\) are obtained using a weighted least squares solution:
+
+\begin{equation}
+	\hat{\boldsymbol{\beta}}(u_i, v_i) = (\mathbf{X}^T\mathbf{W}(u_i, v_i)\mathbf{X})^{-1}\mathbf{X}^T\mathbf{W}(u_i, v_i) \mathbf{y}
+	\label{eq:coeff_gwr}
+\end{equation}
+
+\noindent where \(\hat{\boldsymbol{\beta}}(u_i, v_i)\) is the vector of local coefficient estimates, \(\mathbf{X}\) is the matrix of independent variables, \(\mathbf{y}\) is the vector of the dependent variable, and \(\mathbf{W}(u_i, v_i)\) is a diagonal weight matrix specific to location \(i\). The diagonal elements of \(\mathbf{W}(u_i, v_i)\) represent the spatial weights assigned to each observation relative to location \(i\).
+
+These weights are determined by a spatial kernel function and a bandwidth. Due to the sparse distribution of the MLCW stations, this study employed an adaptive bi-square kernel function, defined as:
+
+\begin{equation}
+	W_{ij} = \begin{cases} 
+		[1 - (d^{S}_{ij}/h_i)^2]^2, & \text{if } d^{S}_{ij} < h_i \\
+		0, & \text{otherwise}
+	\end{cases}
+	\label{eq:bisquare}
+\end{equation}
+
+\noindent where \(d^{S}_{ij}\) is the spatial distance between location \(i\) and \(j\). The adaptive bandwidth \(h_i\) is not a fixed distance; instead, it is the distance from \(i\) to its \(k\)-th nearest neighbor. This ensures that each local regression is informed by the same number of observations, regardless of data density. The optimal bandwidth, which is the optimal number of neighbors, is determined by minimizing a corrected version of the Akaike Information Criterion (AICc) \citep{Hurvich2002_AICc}, defined as:
+
+\begin{equation}
+	\text{AICc} = 2n \log_e (\hat{\sigma}) + n \log_e (2\pi) + n \left\{ \frac{n + \text{tr}(\mathbf{S})}{n - 2 - \text{tr}(\mathbf{S})} \right\}
+	\label{eq:aicc}
+\end{equation}
+
+\noindent where \(n\) is the sample size, \(\hat{\sigma}\) is the estimated standard deviation of the error term, and \(\text{tr}(\mathbf{S})\) is the trace of the hat matrix \(\mathbf{S}\).
+
+% ================================================================================
+% ================================================================================
+
+\subsubsection{Prediction and Uncertainty Estimation}
+Calibrating the local coefficients enables the prediction of the dependent variable \(\hat{y}_i\) at each location \(i\). The model calculates this predicted value as the product of the local independent variables and their corresponding estimated local coefficients:
+%
+\begin{equation}
+	\hat{y}_i = \mathbf{x}_i^T \hat{\boldsymbol{\beta}}(u_i, v_i)
+	\label{eq:prediction_gwr}
+\end{equation}
+%
+\noindent where \(\mathbf{x}_i^T\) is the row vector of independent variables at location \(i\). This entire prediction operation can be expressed compactly using the hat matrix \(\mathbf{S}\), which transforms the complete vector of observed values \(\mathbf{y}\) into the vector of predicted values \(\hat{\mathbf{y}}\) (where \(\hat{\mathbf{y}} = \mathbf{S}\mathbf{y}\)). The \(\textit{i}\)-th row of this hat matrix, \(\mathbf{s}_i^T\), defines the precise weighting function used for the prediction at location \(i\):
+%
+\begin{equation}
+	\mathbf{s}_i^T = \mathbf{x}_i^T(\mathbf{X}^T \mathbf{W}(u_i, v_i) \mathbf{X})^{-1}\mathbf{X}^T \mathbf{W}(u_i, v_i)
+	\label{eq:hat_matrix_row}
+\end{equation}
+%
+The local regression structure also provides a direct method for quantifying the uncertainty of each prediction. This first requires an estimate of the residual variance, \(\hat{\sigma}^2\), calculated as the residual sum of squares (RSS) divided by the model's effective residual degrees of freedom (RDF):
+%
+\begin{equation}
+	\hat{\sigma}^2 = \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{n - 2\text{tr}(\mathbf{S}) + \text{tr}(\mathbf{S}^T\mathbf{S})}
+	\label{eq:sigma_squared}
+\end{equation}
+%
+\noindent where \(n\) is the sample size, \((y_i - \hat{y}_i)\) is the residual for observation \(i\), and the denominator represents the effective degrees of freedom for the residuals \citep{fotheringham2002geographically}. The variance of the predicted mean value, \(\text{Var}(\hat{y}_i)\), is estimated from this residual variance and the specific leverage of the prediction point:
+%
+\begin{equation}
+	\text{Var}(\hat{y}_i) = \hat{\sigma}^2 \left( 1 + \underbrace{\mathbf{x}_i^T (\mathbf{X}^T\mathbf{W}(u_i, v_i)\mathbf{X})^{-1} \mathbf{x}_i}_{L_i} \right)
+	\label{eq:pred_variance_gwr}
+\end{equation}
+%
+\noindent The term \(L_i\), defined in \Cref{eq:pred_variance_gwr}, represents the leverage of the prediction point \(i\). The standard error of the prediction, \(\text{SE}(\hat{y}_i)\), is the square root of this variance. This standard error is essential, as it allows for the construction of confidence intervals around the predicted \(\hat{y}_i\) values, thereby providing a clear measure of model certainty \citep{fotheringham2002geographically}.
