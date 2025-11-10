@@ -1,1 +1,23 @@
-%\subsection{Validation of Predictions}
+%\section{Discussion}
+%\label{sec:discussion}
+
+The results demonstrate that a time-sliced GWR model can successfully translate 2D surface deformation data into 3D, layer-specific compaction maps. In this section, we synthesize these findings, discussing the physical meaning of the observed non-stationarity and the implications for using this method as a predictive monitoring tool.
+
+\subsection{Synthesis of Spatiotemporal Non-Stationarity}
+\label{subsec:discussion_synthesis}
+
+A central finding is that the \texttt{InSAR-to-MLCW} relationship is non-stationary in both space and time. Our results provide physical explanations for both. The spatial non-stationarity (RQ4, \Cref{fig:spatial_drivers}) is clearly linked to the underlying geology. The $\beta_1$ coefficient, representing aquifer sensitivity, was shown to be... [Discuss the findings from Fig 4, e.g., "significantly higher in the distal fan, which is rich in fine-grained materials (Source 128)..."]. This confirms that a single, global OLS model (Source 95) would be entirely inappropriate...
+
+The temporal non-stationarity (RQ3, \Cref{fig:temporal_drivers}) is driven by hydrogeological dynamics. The strong negative correlation between $\beta_1$ and groundwater levels... [Discuss the findings from Fig 5, e.g., "suggests that the aquifer system becomes more compressible as hydraulic head declines during the dry season (Source 132)..."].
+
+\subsection{Implications for Predictive Modeling (RQ1 \& RQ2)}
+\label{subsec:discussion_implications}
+
+The success of the spatial prediction (RQ1) provides a cost-effective tool for regional groundwater management... [Discuss the value of \Cref{fig:compaction_maps}]. The uncertainty maps (\Cref{fig:error_maps}) are just as crucial, as they show... [Discuss where the model is most/least reliable, and why].
+
+The forecasting analysis (RQ2) provides a pragmatic test of the model's utility. The aggregate performance (\Cref{fig:forecast_metrics}) showed that... [Discuss the findings from Fig 6, e.g., "shallow, elastic layers (1 and 2) were highly predictable (median $R^2 > 0.8$), while deeper layers (3 and 4) were less so..."]. This may be because the \texttt{utils.py} forecasting method, which relies on historical mean parameters, excels at capturing reversible, elastic responses but struggles to predict... [e.g., "inelastic compaction, which may dominate in deeper layers... "].
+
+\subsection{Limitations and Future Work}
+\label{subsec:discussion_limitations}
+
+While effective, the time-sliced GWR approach treats each time step independently... [Suggests that a full GTWR model could be a future step]. Furthermore, the forecasting method from \texttt{utils.py} relies on a historical mean... [Discuss the limitations of this assumption, e.g., in extreme droughts]. Future work could... [Suggest integrating pumping data or using machine learning to forecast the GWR parameters themselves].

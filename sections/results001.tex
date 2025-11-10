@@ -1,7 +1,252 @@
-%\subsection{Model Results and Interpretation}
-%
-%\subsection{The Aquifer's "Personality": Mapping the Field of Subsurface Sensitivity }
-%
-%\subsection{Decomposing the "Symphony": Identifying Dominant Modes of Behavior (EOF Analysis)}
-%
-%\subsection{Validating the Narrative: Assessing Model Reliability}
+%\section{Results}
+%\label{sec:results}
+
+% --- Short description of the section ---
+This section presents the findings of the time-sliced Geographically Weighted Regression (GWR) analysis. We first validate the InSAR input data, then present the primary high-resolution compaction maps for all four layers (RQ1). We subsequently deconstruct the model to analyze the spatial (RQ4) and temporal (RQ3) drivers of non-stationarity. Finally, we evaluate the model's forecasting performance (RQ2).
+
+% --- Subsection 1: Input Validation ---
+\subsection{Input Data Validation and Spatial Context}
+\label{subsec:results_validation}
+
+% --- Short description of the subsection ---
+Before applying the GWR model, we validate the InSAR-derived vertical displacement (our primary predictor variable). We also present the spatial distribution of the total subsidence, which provides essential context for the model outputs.
+
+% --- Figure 1: 1x2 grid (InSAR Map + Validation Scatter) ---
+\begin{figure}[H]
+	\centering
+	% Panel (a): Map of Cumulative InSAR Vertical Displacement
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{7cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Cumulative InSAR vertical displacement (2016--2021).}
+		\label{fig:insar_map}
+	\end{subfigure}
+	\hfill % Pushes the two subfigures apart
+	% Panel (b): InSAR vs. Leveling Survey Scatter Plot
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{7cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Validation: InSAR velocity vs. Leveling Survey velocity.}
+		\label{fig:insar_validation}
+	\end{subfigure}
+	\caption{Validation and spatial context of the InSAR input data. (a) The total cumulative vertical displacement (in mm) used as the primary predictor ($X$). (b) Scatter plot validating InSAR velocities against ground-truth leveling survey benchmarks, confirming the data's reliability (Source 84).}
+	\label{fig:input_validation}
+\end{figure}
+
+% --- Subsection 2: RQ1 (The 4 Compaction Maps) ---
+\subsection{RQ1: High-Resolution Spatial Mapping of Layer-wise Compaction}
+\label{subsec:results_rq1}
+
+% --- Short description of the subsection ---
+Here we present the primary model output (RQ1): high-resolution maps of cumulative compaction for each of the four subsurface layers, derived from the 67 time-sliced GWR models. We also present the corresponding uncertainty maps.
+
+% --- Figure 2: 2x2 grid (Compaction Maps L1-L4) ---
+\begin{figure}[H]
+	\centering
+	% Panel (a): Layer 1 Compaction
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 1: Predicted Cumulative Compaction (mm)}
+		\label{fig:compaction_l1}
+	\end{subfigure}
+	\hfill
+	% Panel (b): Layer 2 Compaction
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 2: Predicted Cumulative Compaction (mm)}
+		\label{fig:compaction_l2}
+	\end{subfigure}
+	
+	\vspace{0.5cm} % Adds vertical space between rows
+	
+	% Panel (c): Layer 3 Compaction
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 3: Predicted Cumulative Compaction (mm)}
+		\label{fig:compaction_l3}
+	\end{subfigure}
+	\hfill
+	% Panel (d): Layer 4 Compaction
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 4: Predicted Cumulative Compaction (mm)}
+		\label{fig:compaction_l4}
+	\end{subfigure}
+	
+	\caption{Predicted cumulative layer-wise compaction (RQ1) from April 2016 to November 2021. These maps show the high-resolution spatial prediction ($\hat{Y}$) for each of the four subsurface layers.}
+	\label{fig:compaction_maps}
+\end{figure}
+
+% --- Figure 3: 2x2 grid (Std. Error Maps L1-L4) ---
+\begin{figure}[H]
+	\centering
+	% Panel (a): Layer 1 Error
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 1: Mean Prediction Standard Error (mm)}
+		\label{fig:error_l1}
+	\end{subfigure}
+	\hfill
+	% Panel (b): Layer 2 Error
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 2: Mean Prediction Standard Error (mm)}
+		\label{fig:error_l2}
+	\end{subfigure}
+	
+	\vspace{0.5cm} 
+	
+	% Panel (c): Layer 3 Error
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 3: Mean Prediction Standard Error (mm)}
+		\label{fig:error_l3}
+	\end{subfigure}
+	\hfill
+	% Panel (d): Layer 4 Error
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 4: Mean Prediction Standard Error (mm)}
+		\label{fig:error_l4}
+	\end{subfigure}
+	
+	% --- CORRECTED CAPTION ---
+	\caption{Model reliability for the predictions in \Cref{fig:compaction_maps}. The maps show the temporal average of the prediction standard error (from \texttt{prediction\_var}), providing a spatial uncertainty estimate for each layer.}
+	\label{fig:error_maps}
+\end{figure}
+
+% --- Subsection 3: RQ4 (Spatial Drivers) ---
+\subsection{RQ4: Spatial Drivers of Model Non-Stationarity}
+\label{subsec:results_rq4}
+
+% --- Short description of the subsection ---
+We next address *why* the spatial patterns in \Cref{fig:compaction_maps} exist (RQ4). We test the hypothesis that the model's non-stationarity is driven by physical geology by correlating the GWR coefficient ($\beta_1$) with ground-truth soil composition data at the MLCW stations.
+
+% --- Figure 4: 2x2 grid (Scatter plots L1-L4) ---
+\begin{figure}[H]
+	\centering
+	% Panel (a): Layer 1 Scatter
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		% --- CORRECTED CAPTION ---
+		\caption{Layer 1: $\beta_1$ vs. Fine-Grained Material (\%)}
+		\label{fig:spatial_driver_l1}
+	\end{subfigure}
+	\hfill
+	% Panel (b): Layer 2 Scatter
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		% --- CORRECTED CAPTION ---
+		\caption{Layer 2: $\beta_1$ vs. Fine-Grained Material (\%)}
+		\label{fig:spatial_driver_l2}
+	\end{subfigure}
+	
+	\vspace{0.5cm}
+	
+	% Panel (c): Layer 3 Scatter
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		% --- CORRECTED CAPTION ---
+		\caption{Layer 3: $\beta_1$ vs. Fine-Grained Material (\%)}
+		\label{fig:spatial_driver_l3}
+	\end{subfigure}
+	\hfill
+	% Panel (d): Layer 4 Scatter
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		% --- CORRECTED CAPTION ---
+		\caption{Layer 4: $\beta_1$ vs. Fine-Grained Material (\%)}
+		\label{fig:spatial_driver_l4}
+	\end{subfigure}
+	
+	% --- CORRECTED CAPTION ---
+	\caption{Analysis of spatial drivers (RQ4). Each panel is a scatter plot comparing the temporally-averaged GWR slope coefficient ($\beta_1$) against the observed percentage of fine-grained material at each MLCW station.}
+	\label{fig:spatial_drivers}
+\end{figure}
+
+% --- Subsection 4: RQ3 (Temporal Drivers) ---
+\subsection{RQ3: Temporal Drivers of Model Non-Stationarity}
+\label{subsec:results_rq3}
+
+% --- Short description of the subsection ---
+Here we investigate the *temporal* drivers of non-stationarity (RQ3). We analyze the correlation between the monthly GWR coefficient ($\beta_1$) time series and monthly groundwater level (GWL) data to test the link between hydrogeology and model parameters.
+
+% --- Figure 5: Full-width plot (Box plot of correlations) ---
+\begin{figure}[H]
+	\centering
+	% Using 0.9\textwidth for a single plot, as full width is often too wide
+	\framebox{\rule{0pt}{7cm}\rule{0.9\textwidth}{0pt}}
+	% --- CORRECTED CAPTION ---
+	\caption{Analysis of temporal drivers (RQ3). This box plot shows the statistical distribution of Pearson correlation coefficients ($r$) computed between the monthly $\beta_1$ time series and the monthly GWL time series for all stations, grouped by layer.}
+	\label{fig:temporal_drivers}
+\end{figure}
+
+% --- Subsection 5: RQ2 (Forecasting) ---
+\subsection{RQ2: Temporal Forecasting of Future Compaction}
+\label{subsec:results_rq2}
+
+% --- Short description of the subsection ---
+Finally, we test the model's ability to forecast future compaction (RQ2). We use the trained model (from `utils.py`) to predict 2021 compaction and compare the results to the observed MLCW data.
+
+% --- Figure 6: Full-width plot (Box plot of R2 metrics) ---
+\begin{figure}[H]
+	\centering
+	\framebox{\rule{0pt}{7cm}\rule{0.9\textwidth}{0pt}}
+	% --- CORRECTED CAPTION ---
+	\caption{Aggregate forecasting performance (RQ2). This box plot summarizes the out-of-sample $R^2$ values (from \texttt{calc\_metrics} in \texttt{utils.py}) for all forecast models, grouped by layer.}
+	\label{fig:forecast_metrics}
+\end{figure}
+
+% --- Figure 7: 2x2 grid (Time Series examples) ---
+\begin{figure}[H]
+	\centering
+	% Panel (a): Layer 1 TS
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 1: Median Station Time Series}
+		\label{fig:forecast_ts_l1}
+	\end{subfigure}
+	\hfill
+	% Panel (b): Layer 2 TS
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 2: Median Station Time Series}
+		\label{fig:forecast_ts_l2}
+	\end{subfigure}
+	
+	\vspace{0.5cm}
+	
+	% Panel (c): Layer 3 TS
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 3: Median Station Time Series}
+		\label{fig:forecast_ts_l3}
+	\end{subfigure}
+	\hfill
+	% Panel (d): Layer 4 TS
+	\begin{subfigure}[b]{0.48\textwidth}
+		\centering
+		\framebox{\rule{0pt}{6cm}\rule{0.95\linewidth}{0pt}}
+		\caption{Layer 4: Median Station Time Series}
+		\label{fig:forecast_ts_l4}
+	\end{subfigure}
+	
+	% --- CORRECTED CAPTION ---
+	\caption{Representative time-series plots of forecasting performance (RQ2). Each panel (from \texttt{plot\_pred\_vs\_obs}) shows the observed vs. forecasted compaction for the station with the median $R^2$ value for its layer.}
+	\label{fig:forecast_timeseries}
+\end{figure}

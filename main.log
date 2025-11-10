@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  5 NOV 2025 11:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.14)  10 NOV 2025 13:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1091,19 +1091,24 @@ sers/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/tex-gyre/q-ts1.enc}]
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- (main.lof)
+ (main.lof
+LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
+(Font)              scaled to size 12.0pt on input line 5.
+)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
- (main.lot)
+ (main.lot
+
+LaTeX Font Info:    Font shape `OT1/ntxtlf/m/it' will be
+(Font)              scaled to size 12.0pt on input line 2.
+[2])
 \tf@lot=\write6
 \openout6 = `main.lot'.
 
 
 
-LaTeX Font Info:    Font shape `OT1/ntxtlf/m/it' will be
-(Font)              scaled to size 12.0pt on input line 141.
-[2]
+[3]
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
 (Font)              scaled to size 6.0pt on input line 148.
 LaTeX Font Info:    Trying to load font information for OT1+qhv on input line 1
@@ -1282,36 +1287,74 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[6]) (sections/results001.tex)
+[6]) (sections/results001.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[7] (main.bbl
-LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
-(Font)              scaled to size 12.0pt on input line 17.
+[7]
+Underfull \hbox (badness 2088) in paragraph at lines 21--21
+[]\OT1/minntx/m/n/10.95 (a) |Cu-mu-la-tive In-SAR ver-ti-cal dis-place-ment
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 [8]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[9])
 
-[10] (main.aux)
+
+[9]
+LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
+(Font)              scaled to size 10.95pt on input line 141.
+LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
+(Font)              scaled to size 8.0pt on input line 141.
+LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
+(Font)              scaled to size 6.1pt on input line 141.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[10]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[11])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[12] (sections/discuss001.tex
+
+[13]) (main.bbl
+
+[14]
+
+[15]
+
+[16])
+
+[17] (main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2020/03/25>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9FA853473AA5C695C7528E2AF3386C05;2371.
+(rerunfilecheck)             Checksum: 3E5C8B3D060332A7C92E9EBB34A27D3A;4966.
  ) 
 Here is how much of TeX's memory you used:
- 23354 strings out of 469940
- 436110 string characters out of 5468441
- 797658 words of memory out of 5000000
- 49743 multiletter control sequences out of 15000+600000
- 715783 words of font info for 215 fonts, out of 8000000 for 9000
+ 23507 strings out of 469940
+ 439385 string characters out of 5468441
+ 799658 words of memory out of 5000000
+ 49865 multiletter control sequences out of 15000+600000
+ 719135 words of font info for 221 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,15n,117p,2049b,1210s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,15n,117p,2049b,1218s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/NewT
 XBMI.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/new
 tx/NewTXMI.pfb><C:/Users/FAFALAB/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1327,9 +1370,9 @@ ata/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmb.pfb><C:/Users/FAFALAB/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmbi.pfb><C:/Users/FAFAL
 AB/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmr.pfb><C:/Users/FA
 FALAB/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztmri.pfb>
-Output written on main.pdf (12 pages, 313049 bytes).
+Output written on main.pdf (20 pages, 345888 bytes).
 PDF statistics:
- 339 PDF objects out of 1000 (max. 8388607)
- 64 named destinations out of 1000 (max. 500000)
- 97 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 463 PDF objects out of 1000 (max. 8388607)
+ 88 named destinations out of 1000 (max. 500000)
+ 169 words of extra memory for PDF output out of 10000 (max. 10000000)
 
