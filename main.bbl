@@ -1,9 +1,17 @@
-\begin{thebibliography}{24}
+\begin{thebibliography}{33}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bock and Melgar(2016)]{bock_2016_GPS}
+Yehuda Bock and Diego Melgar.
+\newblock Physical applications of gps geodesy: a review.
+\newblock \emph{Reports on Progress in Physics}, 79\penalty0 (10):\penalty0
+  106801, aug 2016.
+\newblock \doi{10.1088/0034-4885/79/10/106801}.
+\newblock URL \url{https://doi.org/10.1088/0034-4885/79/10/106801}.
 
 \bibitem[Brunsdon et~al.(1996)Brunsdon, Fotheringham, and
   Charlton]{brunsdon1996}
@@ -16,6 +24,15 @@ Chris Brunsdon, A.~Stewart Fotheringham, and Martin~E. Charlton.
 \newblock URL
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.1996.tb00936.x}.
 
+\bibitem[Buffardi and Ruberti(2023)]{buffardi_2023_coastalsub}
+Carla Buffardi and Daniela Ruberti.
+\newblock The issue of land subsidence in coastal and alluvial plains: A
+  bibliometric review.
+\newblock \emph{Remote Sensing}, 15\penalty0 (9), 2023.
+\newblock ISSN 2072-4292.
+\newblock \doi{10.3390/rs15092409}.
+\newblock URL \url{https://www.mdpi.com/2072-4292/15/9/2409}.
+
 \bibitem[Chang et~al.(2020)Chang, Chen, Wang, and Chang]{RN64}
 Lena Chang, Yi-Ting Chen, Jung-Hua Wang, and Yang-Lang Chang.
 \newblock Rice-field mapping with sentinel-1a sar time-series data.
@@ -23,6 +40,29 @@ Lena Chang, Yi-Ting Chen, Jung-Hua Wang, and Yang-Lang Chang.
 \newblock ISSN 2072-4292.
 \newblock \doi{10.3390/rs13010103}.
 \newblock URL \url{https://doi.org/10.3390/rs13010103}.
+
+\bibitem[Chaussard et~al.(2021)Chaussard, Havazli, Fattahi, Cabral-Cano, and
+  Solano-Rojas]{chaussard_2021_mexico}
+E.~Chaussard, E.~Havazli, H.~Fattahi, E.~Cabral-Cano, and D.~Solano-Rojas.
+\newblock Over a century of sinking in mexico city: No hope for significant
+  elevation and storage capacity recovery.
+\newblock \emph{Journal of Geophysical Research: Solid Earth}, 126\penalty0
+  (4):\penalty0 e2020JB020648, 2021.
+\newblock \doi{https://doi.org/10.1029/2020JB020648}.
+\newblock URL
+  \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020JB020648}.
+\newblock e2020JB020648 2020JB020648.
+
+\bibitem[Chaussard et~al.(2013)Chaussard, Amelung, Abidin, and
+  Hong]{chaussard_2013_Indonesia}
+Estelle Chaussard, Falk Amelung, Hasanudin Abidin, and Sang-Hoon Hong.
+\newblock Sinking cities in indonesia: Alos palsar detects rapid subsidence due
+  to groundwater and gas extraction.
+\newblock \emph{Remote Sensing of Environment}, 128:\penalty0 150--161, 2013.
+\newblock ISSN 0034-4257.
+\newblock \doi{https://doi.org/10.1016/j.rse.2012.10.015}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0034425712003975}.
 
 \bibitem[Doin et~al.(2009)Doin, Lasserre, Peltzer, Cavalié, and
   Doubre]{height_correlation}
@@ -36,6 +76,15 @@ M.-P. Doin, C.~Lasserre, G.~Peltzer, O.~Cavalié, and C.~Doubre.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0926985109000603}.
 \newblock Advances in SAR Interferometry from the 2007 Fringe Workshop.
+
+\bibitem[Erban et~al.(2014)Erban, Gorelick, and Zebker]{erban_2014_mekong}
+Laura~E Erban, Steven~M Gorelick, and Howard~A Zebker.
+\newblock Groundwater extraction, land subsidence, and sea-level rise in the
+  mekong delta, vietnam.
+\newblock \emph{Environmental Research Letters}, 9\penalty0 (8):\penalty0
+  084010, aug 2014.
+\newblock \doi{10.1088/1748-9326/9/8/084010}.
+\newblock URL \url{https://doi.org/10.1088/1748-9326/9/8/084010}.
 
 \bibitem[Fattahi et~al.(2017)Fattahi, Agram, and Simons]{nesd_tops}
 Heresh Fattahi, Piyush Agram, and Mark Simons.
@@ -59,6 +108,11 @@ AS~Fotheringham.
   relationships.
 \newblock \emph{John Wily and Sons Ltd}, 2002.
 
+\bibitem[Galloway et~al.(1999)Galloway, Jones, and Ingebritsen]{galloway_1999}
+Devin~L Galloway, David~Richard Jones, and Steven~E Ingebritsen.
+\newblock \emph{Land subsidence in the United States}, volume 1182.
+\newblock Geological Survey (USGS), 1999.
+
 \bibitem[Hanssen(2001)]{hanssen_book}
 Ramon~F. Hanssen.
 \newblock \emph{Radar Interferometry: Data Interpretation and Error Analysis},
@@ -68,11 +122,19 @@ Ramon~F. Hanssen.
 \newblock \doi{10.1007/0-306-47633-9}.
 \newblock URL \url{https://doi.org/10.1007/0-306-47633-9}.
 
-\bibitem[Hoaglin and Welsch(1978)]{hat_matrix}
-David~C Hoaglin and Roy~E Welsch.
-\newblock The hat matrix in regression and anova.
-\newblock \emph{The American Statistician}, 32\penalty0 (1):\penalty0 17--22,
-  1978.
+\bibitem[Herrera-García et~al.(2021)Herrera-García, Ezquerro, Tomás,
+  Béjar-Pizarro, López-Vinielles, Rossi, Mateos, Carreón-Freyre, Lambert,
+  Teatini, Cabral-Cano, Erkens, Galloway, Hung, Kakar, Sneed, Tosi, Wang, and
+  Ye]{herrera_2021}
+Gerardo Herrera-García, Pablo Ezquerro, Roberto Tomás, Marta Béjar-Pizarro,
+  Juan López-Vinielles, Mauro Rossi, Rosa~M. Mateos, Dora Carreón-Freyre,
+  John Lambert, Pietro Teatini, Enrique Cabral-Cano, Gilles Erkens, Devin
+  Galloway, Wei-Chia Hung, Najeebullah Kakar, Michelle Sneed, Luigi Tosi,
+  Hanmei Wang, and Shujun Ye.
+\newblock Mapping the global threat of land subsidence.
+\newblock \emph{Science}, 371\penalty0 (6524):\penalty0 34--36, 2021.
+\newblock \doi{10.1126/science.abb8549}.
+\newblock URL \url{https://www.science.org/doi/abs/10.1126/science.abb8549}.
 
 \bibitem[Hogenson et~al.(2025)Hogenson, Kristenson, Kennedy, Johnston, Rine,
   Logan, Zhu, Williams, Herrmann, Smale, and Meyer]{hyp3-isce2}
@@ -82,13 +144,6 @@ Kirk Hogenson, Heidi Kristenson, Joseph Kennedy, Andrew Johnston, James Rine,
 \newblock Hybrid pluggable processing pipeline (hyp3): A cloud-native
   infrastructure for generic processing of sar data, May 2025.
 \newblock URL \url{https://doi.org/10.5281/zenodo.15498989}.
-
-\bibitem[Huang et~al.(2010)Huang, Wu, and Barry]{huang2010geographically}
-Bo~Huang, Bo~Wu, and Michael Barry.
-\newblock Geographically and temporally weighted regression for modeling
-  spatio-temporal variation in house prices.
-\newblock \emph{International journal of geographical information science},
-  24\penalty0 (3):\penalty0 383--401, 2010.
 
 \bibitem[Hung et~al.(2015)Hung, Wang, Hwang, Chen, Chiu, and Lin]{RN47}
 W.~C. Hung, C.~Wang, C.~Hwang, Y.~A. Chen, H.~C. Chiu, and S.~H. Lin.
@@ -112,6 +167,22 @@ Wei-Chia Hung, Cheinway Hwang, Michelle Sneed, Yi-An Chen, Chi-Hua Chu, and
   \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020WR028194}.
 \newblock e2020WR028194 2020WR028194.
 
+\bibitem[Huning et~al.(2024)Huning, Love, Anjileli, Vahedifard, Zhao, Chaffe,
+  Cooper, Alborzi, Pleitez, Martinez, Ashraf, Mallakpour, Moftakhari, and
+  AghaKouchak]{huning_2024_globalsub}
+Laurie~S. Huning, Charlotte~A. Love, Hassan Anjileli, Farshid Vahedifard,
+  Yunxia Zhao, Pedro L.~B. Chaffe, Kevin Cooper, Aneseh Alborzi, Edward
+  Pleitez, Alexandre Martinez, Samaneh Ashraf, Iman Mallakpour, Hamed
+  Moftakhari, and Amir AghaKouchak.
+\newblock Global land subsidence: Impact of climate extremes and human
+  activities.
+\newblock \emph{Reviews of Geophysics}, 62\penalty0 (4):\penalty0
+  e2023RG000817, 2024.
+\newblock \doi{https://doi.org/10.1029/2023RG000817}.
+\newblock URL
+  \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2023RG000817}.
+\newblock e2023RG000817 2023RG000817.
+
 \bibitem[Hurvich et~al.(2002)Hurvich, Simonoff, and Tsai]{Hurvich2002_AICc}
 Clifford~M. Hurvich, Jeffrey~S. Simonoff, and Chih-Ling Tsai.
 \newblock Smoothing parameter selection in nonparametric regression using an
@@ -122,6 +193,17 @@ Clifford~M. Hurvich, Jeffrey~S. Simonoff, and Chih-Ling Tsai.
 \newblock \doi{10.1111/1467-9868.00125}.
 \newblock URL \url{https://doi.org/10.1111/1467-9868.00125}.
 
+\bibitem[Jasechko et~al.(2024)Jasechko, Seybold, Perrone, Fan, Shamsudduha,
+  Taylor, Fallatah, and Kirchner]{jasechko_2024}
+Scott Jasechko, Hansjörg Seybold, Debra Perrone, Ying Fan, Mohammad
+  Shamsudduha, Richard~G. Taylor, Othman Fallatah, and James~W. Kirchner.
+\newblock Rapid groundwater decline and some cases of recovery in aquifers
+  globally.
+\newblock \emph{Nature}, 625\penalty0 (7996):\penalty0 715--721, 2024.
+\newblock ISSN 1476-4687.
+\newblock \doi{10.1038/s41586-023-06879-8}.
+\newblock URL \url{https://doi.org/10.1038/s41586-023-06879-8}.
+
 \bibitem[Liu et~al.(2004)Liu, Pan, Liao, Huang, and Ouyang]{RN17}
 Chih-Hsi Liu, Yii-Wen Pan, Jyh-Jong Liao, Chen-Tair Huang, and Shoung Ouyang.
 \newblock Characterization of land subsidence in the choshui river alluvial
@@ -131,6 +213,30 @@ Chih-Hsi Liu, Yii-Wen Pan, Jyh-Jong Liao, Chen-Tair Huang, and Shoung Ouyang.
 \newblock ISSN 1432-0495.
 \newblock \doi{10.1007/s00254-004-0983-6}.
 \newblock URL \url{https://doi.org/10.1007/s00254-004-0983-6}.
+
+\bibitem[Miller et~al.(2020)Miller, Jones, Sangha, and
+  Bekaert]{Miller_2020_california}
+Megan~M. Miller, Cathleen~E. Jones, Simran~S. Sangha, and David~P. Bekaert.
+\newblock Rapid drought-induced land subsidence and its impact on the
+  california aqueduct.
+\newblock \emph{Remote Sensing of Environment}, 251:\penalty0 112063, 2020.
+\newblock ISSN 0034-4257.
+\newblock \doi{https://doi.org/10.1016/j.rse.2020.112063}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S0034425720304338}.
+
+\bibitem[Nicholls et~al.(2021)Nicholls, Lincke, Hinkel, Brown, Vafeidis,
+  Meyssignac, Hanson, Merkens, and Fang]{nicholls_2021}
+Robert~J. Nicholls, Daniel Lincke, Jochen Hinkel, Sally Brown, Athanasios~T.
+  Vafeidis, Benoit Meyssignac, Susan~E. Hanson, Jan-Ludolf Merkens, and Jiayi
+  Fang.
+\newblock A global analysis of subsidence, relative sea-level change and
+  coastal flood exposure.
+\newblock \emph{Nature Climate Change}, 11\penalty0 (4):\penalty0 338--342,
+  2021.
+\newblock ISSN 1758-6798.
+\newblock \doi{10.1038/s41558-021-00993-z}.
+\newblock URL \url{https://doi.org/10.1038/s41558-021-00993-z}.
 
 \bibitem[Pepe and Lanari(2006)]{temporal_coherence}
 A.~Pepe and R.~Lanari.
@@ -147,15 +253,13 @@ Daniele Perissin and Teng Wang.
   50\penalty0 (1):\penalty0 271--280, 2012.
 \newblock \doi{10.1109/TGRS.2011.2160644}.
 
-\bibitem[Páez et~al.(2002)Páez, Uchida, and Miyamoto]{Paez2002Framework}
-Antonio Páez, Takashi Uchida, and Kazuaki Miyamoto.
-\newblock A general framework for estimation and inference of geographically
-  weighted regression models: 1. location-specific kernel bandwidths and a test
-  for locational heterogeneity.
-\newblock \emph{Environment and Planning A}, 34\penalty0 (4):\penalty0
-  733--754, 2002.
-\newblock \doi{10.1068/a34110}.
-\newblock URL \url{https://doi.org/10.1068/a34110}.
+\bibitem[Poland(1984)]{poland_1984}
+Joseph~F. Poland.
+\newblock \emph{Guidebook to studies of land subsidence due to groundwater
+  withdrawal}.
+\newblock UNESCO, Paris, 1984.
+\newblock ISBN 92-3-102213-x.
+\newblock URL \url{https://wwwrcamnl.wr.usgs.gov/rgws/Unesco/}.
 
 \bibitem[Rosen et~al.(2012)Rosen, Gurrola, Sacco, and Zebker]{isce2_rosen}
 Paul~A. Rosen, Eric Gurrola, Gian~Franco Sacco, and Howard Zebker.
@@ -189,14 +293,16 @@ Hua-Ting Tseng, Ying-Fan Lin, and Hwa-Lung Yu.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0022169424002506}.
 
-\bibitem[Wu et~al.(2014)Wu, Li, and Huang]{Wu2014Geographically}
-Bo~Wu, Rongrong Li, and Bo~Huang.
-\newblock A geographically and temporally weighted autoregressive model with
-  application to housing prices.
-\newblock \emph{International Journal of Geographical Information Science},
-  28\penalty0 (5):\penalty0 1186--1204, 2014.
-\newblock \doi{10.1080/13658816.2013.878463}.
-\newblock URL \url{https://doi.org/10.1080/13658816.2013.878463}.
+\bibitem[Tzampoglou et~al.(2023)Tzampoglou, Ilia, Karalis, Tsangaratos, Zhao,
+  and Chen]{tzampoglou_2023_groundwater}
+Ploutarchos Tzampoglou, Ioanna Ilia, Konstantinos Karalis, Paraskevas
+  Tsangaratos, Xia Zhao, and Wei Chen.
+\newblock Selected worldwide cases of land subsidence due to groundwater
+  withdrawal.
+\newblock \emph{Water}, 15\penalty0 (6), 2023.
+\newblock ISSN 2073-4441.
+\newblock \doi{10.3390/w15061094}.
+\newblock URL \url{https://www.mdpi.com/2073-4441/15/6/1094}.
 
 \bibitem[Yagüe-Martínez et~al.(2016)Yagüe-Martínez, Prats-Iraola,
   Rodríguez~González, Brcic, Shau, Geudtner, Eineder, and Bamler]{tops}

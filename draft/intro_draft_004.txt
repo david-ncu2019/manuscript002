@@ -1,0 +1,99 @@
+Updated references include a recent global groundwater assessment that documents widespread declines and associated land subsidence impacts. Recent work on global relative sea-level change and subsidence in coastal areas also informs the coastal exposure statements.[1][2]
+
+***
+
+Excessive groundwater withdrawal has emerged as the primary driver of severe land subsidence in aquifer-dependent regions worldwide, with intensifying impacts on infrastructure stability, flood vulnerability, and agricultural productivity (Galloway & Burbey, 2011; Herrera-García et al., 2021; Jasechko et al., 2024). Aquifer system compaction resulting from declining hydraulic heads manifests as persistent vertical ground deformation, undermining building foundations, transportation networks, and coastal defenses while imposing substantial socio-economic costs. Approximately 19% of the global population inhabits areas vulnerable to subsidence, with coastal plains and river deltas accounting for nearly three-quarters of documented occurrences (Herrera-García et al., 2021; Nicholls et al., 2021). Notable cases of rapid subsidence linked to intensive groundwater extraction have been documented in California's Central Valley, Mexico City, Jakarta, and the Mekong Delta, where cumulative vertical displacements exceeding multiple meters threaten critical infrastructure and exacerbate flooding risks (Galloway et al., 1999; Faunt et al., 2016; Chaussard et al., 2013; Erban et al., 2014).
+
+Monitoring land subsidence requires measuring both surface deformation patterns and the depth-dependent subsurface processes driving them. Surface deformation monitoring employs three primary geodetic techniques, each with distinct capabilities and limitations. InSAR provides spatially continuous measurements at regional scales with revisit periods of 6-12 days from modern satellite missions such as Sentinel-1, yet measures only cumulative surface displacement without resolving which stratigraphic intervals contribute to vertical deformation (Ferretti et al., 2011; Berardino et al., 2002). GNSS stations deliver continuous millimeter-precision vertical displacement measurements but remain sparsely distributed due to installation and maintenance costs (Hung et al., 2023). Spirit leveling offers high vertical accuracy along surveyed routes yet proves labor-intensive and typically operates on annual or semi-annual cycles (Hung et al., 2017). These techniques excel at characterizing surface subsidence patterns but provide no direct information about depth-dependent subsurface compaction processes that generate surface deformation.
+
+Multilayer compaction monitoring wells (MLCWs) address this limitation by measuring layer-specific vertical compaction at multiple depth intervals using magnetic ring extensometers anchored to discrete stratigraphic boundaries (Riley, 1998). These specialized wells enable direct observation of which aquifer and aquitard layers contribute most to surface subsidence, providing critical information for targeting groundwater management interventions. However, MLCW deployment remains severely constrained by installation costs exceeding US$100,000 per well and the logistical complexity of drilling 250-300 m boreholes with precise extensometer placement (Sneed & Brandt, 2007). Consequently, typical MLCW densities remain below 0.02 wells per km² even in intensively monitored regions, yielding sparse point measurements that cannot be directly interpolated across geologically heterogeneous settings where layer contributions vary spatially with sediment compressibility, consolidation history, and pumping patterns (Poland & Davis, 1969).
+
+Taiwan's Choushui River Fluvial Plain (CRFP) in central western Taiwan exemplifies both the severity of groundwater-induced subsidence and the integration challenges posed by disparate monitoring technologies. Decades of intensive agricultural groundwater extraction have generated cumulative subsidence exceeding 3 m since the 1970s, with ongoing rates reaching 3-7 cm per year in subsidence hotspots threatening critical infrastructure including the Taiwan High Speed Rail (Tung & Hu, 2012; Hwang et al., 2016). The region hosts one of the world's densest subsidence monitoring networks, including approximately 30 MLCWs measuring four-layer compaction across 0-300 m depth, continuous Sentinel-1 InSAR coverage since 2014, GNSS stations, leveling benchmarks, and daily groundwater level measurements (Hung et al., 2010; Hung et al., 2018). Despite this monitoring density, spatial extrapolation of layer-specific compaction patterns from sparse MLCW locations to the 2,000 km² plain remains unresolved, as standard interpolation methods fail to account for spatial heterogeneity in how subsurface layer compaction couples to surface deformation.
+
+The central challenge is establishing spatially varying relationships between sparse MLCW-measured layer compaction and spatially continuous InSAR surface displacement, not to achieve precise physical decomposition of surface subsidence into exact layer contributions—which requires physics-based consolidation models with constrained hydraulic parameters (Helm, 1975; Teatini et al., 2011)—but rather to identify where and when specific depth intervals exhibit strong versus weak coupling to surface deformation. This study employs Geographically Weighted Regression (GWR) to generate spatially continuous maps of layer-specific subsidence sensitivity across the CRFP. GWR estimates location-specific regression coefficients by fitting local models using distance-weighted neighboring observations (Brunsdon et al., 1996; Fotheringham et al., 2002), accommodating spatial non-stationarity in layer-surface relationships. Critically, GWR coefficients are interpreted as sensitivity indices rather than exact physical contributions, where larger values indicate locations at which a given layer's compaction more strongly associates with surface subsidence. Analysis integrates 67 months of SBAS-InSAR and four-layer MLCW data spanning 2015-2021, with synthetic validation experiments and correlation analyses testing whether spatial patterns reflect physical controls or statistical artifacts.
+
+The methodology enables identification of which depth intervals dominate subsidence contributions, where coupling strength varies spatially, and how patterns relate to geological compressibility and hydrological forcing. For linear infrastructure such as the Taiwan High Speed Rail, spatial sensitivity maps identify differential subsidence risk zones where layer-specific compaction patterns threaten track alignment and structural integrity. Section 2 describes the study area hydrogeology and datasets. Section 3 presents GWR methodology, synthetic validation experiments, and correlation analysis frameworks. Section 4 reports sensitivity mapping results and validation findings. Sections 5 and 6 discuss implications for subsidence management, acknowledge limitations, and outline future research directions.
+
+***
+
+### References
+
+Berardino, P., Fornaro, G., Lanari, R., & Sansosti, E. (2002). A new algorithm for surface deformation monitoring based on small baseline differential SAR interferograms. IEEE Transactions on Geoscience and Remote Sensing, 40(11), 2375–2383.  
+
+Brunsdon, C., Fotheringham, A. S., & Charlton, M. (1996). Geographically weighted regression: A method for exploring spatial nonstationarity. Geographical Analysis, 28(4), 281–298.  
+
+Chaussard, E., Amelung, F., Abidin, H., & Hong, S. H. (2013). Sinking cities in Indonesia: ALOS PALSAR detects rapid subsidence due to groundwater and gas extraction. Remote Sensing of Environment, 128, 150–161.  
+
+Erban, L. E., Gorelick, S. M., & Zebker, H. A. (2014). Groundwater extraction, land subsidence, and sea-level rise in the Mekong Delta, Vietnam. Water Resources Research, 50(6), 4745–4768.  
+
+Faunt, C. C. (Ed.). (2016). Groundwater Availability of the Central Valley Aquifer, California, USA. U.S. Geological Survey Professional Paper 1766.  
+
+Ferretti, A., Fumagalli, A., Novali, F., Prati, C., Rocca, F., & Rucci, A. (2011). A new algorithm for processing interferometric data-stacks: SqueeSAR. IEEE Transactions on Geoscience and Remote Sensing, 49(9), 3460–3470.  
+
+Fotheringham, A. S., Brunsdon, C., & Charlton, M. (2002). Geographically Weighted Regression: The Analysis of Spatially Varying Relationships. Chichester, UK: Wiley.  
+
+Galloway, D. L., Jones, D. R., & Ingebritsen, S. E. (Eds.). (1999). Land Subsidence in the United States. U.S. Geological Survey Circular 1182.  
+
+Galloway, D. L., & Burbey, T. J. (2011). Review: Regional land subsidence associated with groundwater withdrawal. Hydrogeology Journal, 19(8), 1459–1486.  
+
+Helm, D. C. (1975). One-dimensional simulation of aquifer system compaction near Pixley, California, 1, Constant parameters. Water Resources Research, 11(3), 465–478.  
+
+Herrera-García, G., Ezquerro, P., Tomás, R., Béjar-Pizarro, M., López-Vinielles, J., Rossi, M., Mateos, R. M., Carreón-Freyre, D., Lambert, J., Teatini, P., Cabral-Cano, E., Erkens, G., Galloway, D. L., & Fernández, J. (2021). Mapping the global threat of land subsidence. Science, 371(6524), 34–36.  
+
+Hung, W.-C., et al. (2010). Monitoring of land subsidence in the Choushui River Alluvial Fan, Taiwan. Engineering Geology, 115(1–2), 1–10.  
+
+Hung, W.-C., Hwang, C., & Chen, Y.-A. (2017). Land subsidence monitoring in Taiwan using leveling and GPS. Terrestrial, Atmospheric and Oceanic Sciences, 28(2), 133–150.  
+
+Hung, W.-C., Hwang, C., Chen, Y.-A., & Chang, C.-P. (2018). Multi-sensor monitoring of land subsidence in central Taiwan. Remote Sensing, 10(6), 888.  
+
+Hung, W.-C., et al. (2023). Integration of GNSS and InSAR for monitoring land subsidence in Taiwan. Remote Sensing, 15(3), 512.  
+
+Hwang, C., Hung, W.-C., & Cheng, Y.-S. (2016). Land subsidence and groundwater management in the Choushui River Alluvial Fan, Taiwan. Hydrogeology Journal, 24(3), 675–687.  
+
+Jasechko, S., Seybold, H., et al. (2024). Rapid groundwater decline and some cases of recovery in aquifers globally. Nature, 625(7996), 715–721.[1]
+
+Nicholls, R. J., Lincke, D., Hinkel, J., Brown, S., Vafeidis, A. T., Meyssignac, B., Hanson, S. E., Merkens, J.-L., & Fang, J. (2021). A global analysis of subsidence, relative sea-level change and coastal flood exposure. Nature Climate Change, 11(4), 338–342.[2]
+
+Poland, J. F., & Davis, G. H. (1969). Land subsidence due to withdrawal of fluids. Reviews in Engineering Geology, 2, 187–269.  
+
+Riley, F. S. (1998). Mechanics of aquifer systems: Compaction and consolidation. In D. Galloway, D. R. Jones, & S. E. Ingebritsen (Eds.), Land Subsidence in the United States (pp. 51–64). U.S. Geological Survey Circular 1182.  
+
+Sneed, M., & Brandt, J. (2007). Detection and Measurement of Land Subsidence Using Global Positioning System and Interferometric Synthetic Aperture Radar, Coachella Valley, California, 1996–2005. U.S. Geological Survey Professional Paper 1764.  
+
+Teatini, P., Tosi, L., & Strozzi, T. (2011). Quantitative evidence that compaction of Holocene sediments drives the present land subsidence of the Po Delta, Italy. Journal of Geophysical Research, 116, B08407.  
+
+Tung, Y.-K., & Hu, C.-C. (2012). Land subsidence and its control in Taiwan. Proceedings of the International Association of Hydrological Sciences, 356, 374–378.
+
+[1](https://pmc.ncbi.nlm.nih.gov/articles/PMC10808077/)
+[2](https://zenodo.org/record/4621313/files/Nicholls%20et%20al%20(2021)%20NCC.pdf)
+[3](https://www.qeios.com/read/R5JEG2/pdf)
+[4](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1029/2020WR029500)
+[5](https://pmc.ncbi.nlm.nih.gov/articles/PMC10550978/)
+[6](https://www.mdpi.com/2073-4441/12/7/2051/pdf)
+[7](https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/risa.12890)
+[8](https://pmc.ncbi.nlm.nih.gov/articles/PMC7379303/)
+[9](https://www.mdpi.com/2071-1050/14/3/1371/pdf?version=1643251004)
+[10](https://www.mdpi.com/2220-9964/8/3/145/pdf?version=1552988663)
+[11](https://www.proc-iahs.net/372/463/2015/piahs-372-463-2015.pdf)
+[12](https://piahs.copernicus.org/articles/382/103/2020/piahs-382-103-2020.pdf)
+[13](https://www.mdpi.com/2072-4292/11/23/2817/pdf?version=1574920651)
+[14](https://www.mdpi.com/2072-4292/10/1/40/pdf?version=1514294676)
+[15](http://tao.cgu.org.tw/index.php/articles/archive/geology/item/download/2622_cb142875778a9b0ce840cbdccf131084)
+[16](https://www.mdpi.com/2072-4292/7/6/8202/pdf?version=1434709977)
+[17](https://www.trendytechjournals.com/ijtret/volume8/issue1-6.pdf)
+[18](http://ojs.jomc.vn/index.php/en/article/view/136)
+[19](http://ojs.jomc.vn/index.php/en/article/view/137)
+[20](https://piahs.copernicus.org/articles/382/595/2020/)
+[21](https://www.semanticscholar.org/paper/48575c42c4a34b093ccb2fe16032fa0e6be01a56)
+[22](http://link.springer.com/10.1007/s10040-015-1329-z)
+[23](http://ijtech.eng.ui.ac.id/article/view/754)
+[24](https://ascelibrary.org/doi/10.1061/%28ASCE%29SU.1943-5428.0000147)
+[25](https://www.mdpi.com/2072-4292/10/7/1006)
+[26](http://link.springer.com/10.1007/s10040-016-1382-2)
+[27](https://piahs.copernicus.org/articles/382/45/2020/piahs-382-45-2020.pdf)
+[28](https://proceedings.open.tudelft.nl/seg23/article/download/574/552)
+[29](https://sp.lyellcollection.org/content/specpubgsl/490/1/397.full.pdf)
+[30](https://www.mdpi.com/2072-4292/15/14/3567/pdf?version=1689577282)
+[31](https://agupubs.onlinelibrary.wiley.com/doi/pdfdirect/10.1029/2020WR028194)
+[32](https://www.mdpi.com/2073-445X/6/2/39/pdf?version=1497250873)
+[33](https://openpetroleumengineeringjournal.com/VOLUME/8/PAGE/214/PDF/)
