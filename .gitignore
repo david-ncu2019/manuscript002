@@ -1,0 +1,14 @@
+# Ignore everything
+*
+# Un-ignore directories so git can traverse them
+!*/
+# Track Python and Markdown files
+!*.py
+!*.ipynb
+!*.md
+# But re-ignore CSV and Excel
+*.csv
+*.xls
+*.xlsx
+# Track the gitignore itself
+!.gitignore
