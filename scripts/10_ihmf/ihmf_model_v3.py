@@ -19,8 +19,15 @@ Joint solve (fixed τ):
 τ rule: τ is always a non-negative integer (5-day epochs). Never passed to a
 continuous solver. τ=6 ≈ 1 month; τ=73 ≈ 1 year.
 
+Seasonal aliasing fix: τ grid search operates on anomaly signals — the
+climatological month mean is removed from inc_dH and inc_db before searching.
+This prevents the annual GWL cycle (autocorr r≈0.8 at τ=24,48) from masking
+genuine short-lag hydraulic responses. The full (non-anomaly) incremental
+signals are used in the joint solve for parameter estimation.
+
 Public API:
-    tau_grid_search_per_layer(dH, db, regime_mask, tau_max) -> (tau_opt, rss_curve)
+    remove_seasonal_cycle(signal, dates) -> (anomaly, monthly_means)
+    tau_grid_search_per_layer(dH, db, regime_mask, tau_max, dates) -> (tau_opt, rss_curve)
     build_regime_mask(head_m, h_c_head_m) -> (elastic_mask, inelastic_mask)
     joint_solve_fixed_tau(layer_data, insar_mm, lam) -> result_dict
     run_walk_forward_v3(layer_dfs, layer_metas, insar_mm, tau_max, fold_years) -> list[dict]
@@ -33,6 +40,84 @@ import pandas as pd
 from scipy.optimize import lsq_linear
 
 from ihmf_detrend import detrend_signal
+
+
+# ── Seasonal cycle removal ────────────────────────────────────────────────────
+
+def remove_seasonal_cycle(
+    signal: np.ndarray,
+    dates: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Remove the climatological calendar-month mean from an incremental signal.
+
+    For each of the 12 calendar months, computes the mean of all epochs in that
+    month across all years in the training window, then subtracts it. The result
+    (anomaly) retains inter-annual variability and genuine hydraulic responses
+    while removing the annual GWL/MLCW recharge cycle.
+
+    This is applied only for the τ grid search. The joint parameter solve uses
+    the original (non-anomaly) incremental signals so that S_k values retain
+    their physical units.
+
+    Parameters
+    ----------
+    signal : 1-D float array, shape (T,)
+        Incremental signal (np.diff of a cumulative series).
+    dates : array-like of datetime64, shape (T,)
+        Epoch dates corresponding to signal[t]. Must be the same length as signal
+        (i.e. dates[t] is the date at which the increment signal[t] was measured).
+
+    Returns
+    -------
+    anomaly : 1-D float array, shape (T,)
+        signal minus its climatological monthly mean. Mean of anomaly ≈ 0.
+    monthly_means : 1-D float array, shape (12,)
+        Mean value per calendar month (index 0 = January). Used in walk-forward
+        to subtract training-window climatology from the test window.
+    """
+    months = pd.DatetimeIndex(dates).month   # 1..12
+    monthly_means = np.zeros(12)
+    for m in range(1, 13):
+        mask = months == m
+        if mask.sum() > 0:
+            monthly_means[m - 1] = signal[mask].mean()
+
+    anomaly = signal.copy()
+    for m in range(1, 13):
+        mask = months == m
+        anomaly[mask] -= monthly_means[m - 1]
+
+    return anomaly, monthly_means
+
+
+def apply_seasonal_removal(
+    signal: np.ndarray,
+    dates: np.ndarray,
+    monthly_means: np.ndarray,
+) -> np.ndarray:
+    """
+    Subtract a pre-computed monthly climatology (from training window) from signal.
+
+    Used in walk-forward validation to remove the training-window seasonal cycle
+    from the test window without look-ahead contamination.
+
+    Parameters
+    ----------
+    signal : 1-D float array, shape (T,)
+    dates  : datetime64 array, shape (T,)
+    monthly_means : float array, shape (12,) — from remove_seasonal_cycle on train window
+
+    Returns
+    -------
+    anomaly : 1-D float array, shape (T,)
+    """
+    months = pd.DatetimeIndex(dates).month
+    anomaly = signal.copy()
+    for m in range(1, 13):
+        mask = months == m
+        anomaly[mask] -= monthly_means[m - 1]
+    return anomaly
 
 
 # ── Regime mask ───────────────────────────────────────────────────────────────
@@ -63,7 +148,8 @@ def tau_grid_search_per_layer(
     elastic_mask: np.ndarray,
     inelastic_mask: np.ndarray,
     tau_max: int = 73,
-) -> tuple[int, list[float]]:
+    dates: np.ndarray | None = None,
+) -> tuple[int, list[float], np.ndarray]:
     """
     Find the integer lag τ ∈ {0, …, tau_max} that minimises RSS for a single layer.
 
@@ -86,6 +172,11 @@ def tau_grid_search_per_layer(
         From build_regime_mask, evaluated on the SAME incremental-length array.
     tau_max : int
         Maximum lag to search. Default 73 (≈ 1 year at 5-day epochs).
+    dates : datetime64 array, shape (T,) or None
+        Epoch dates for dH/db. When provided, the climatological calendar-month
+        mean is removed from both signals before RSS computation, preventing the
+        annual GWL recharge cycle from masking genuine short hydraulic lags.
+        When None, raw incremental signals are used (no seasonal removal).
 
     Returns
     -------
@@ -93,8 +184,20 @@ def tau_grid_search_per_layer(
         Lag with minimum RSS. Always an integer.
     rss_curve : list of float, length tau_max+1
         RSS at each candidate τ ∈ {0, …, tau_max}.
+    monthly_means_dH : 1-D float array, shape (12,)
+        Climatological monthly means of dH used for seasonal removal.
+        All zeros if dates is None.
     """
-    T = len(dH)
+    # Remove seasonal cycle from both signals before τ search
+    if dates is not None:
+        dH_anom, monthly_means_dH = remove_seasonal_cycle(dH, dates)
+        db_anom, _                = remove_seasonal_cycle(db, dates)
+    else:
+        dH_anom = dH
+        db_anom = db
+        monthly_means_dH = np.zeros(12)
+
+    T = len(dH_anom)
     rss_curve: list[float] = []
 
     for tau in range(tau_max + 1):
@@ -103,8 +206,8 @@ def tau_grid_search_per_layer(
             rss_curve.append(np.inf)
             continue
 
-        dH_lag  = dH[tau:]            # GWL lagged by τ epochs
-        db_trim = db[:n]              # MLCW aligned to lagged window
+        dH_lag  = dH_anom[tau:]       # anomaly GWL lagged by τ epochs
+        db_trim = db_anom[:n]         # anomaly MLCW aligned to lagged window
         e_trim  = elastic_mask[:n]
         i_trim  = inelastic_mask[:n]
 
@@ -124,11 +227,11 @@ def tau_grid_search_per_layer(
             S_kv = max(0.0, np.dot(dH_i, db_i) / np.dot(dH_i, dH_i))
             db_pred[i_trim] = S_kv * dH_i
 
-        rss = float(np.sum((db_trim - db_pred) ** 2))
-        rss_curve.append(rss)
+        mse = float(np.mean((db_trim - db_pred) ** 2))   # MSE not RSS — prevents sample-size bias
+        rss_curve.append(mse)
 
     tau_opt = int(np.argmin(rss_curve))
-    return tau_opt, rss_curve
+    return tau_opt, rss_curve, monthly_means_dH
 
 
 # ── Joint solve ───────────────────────────────────────────────────────────────
@@ -139,136 +242,100 @@ def joint_solve_fixed_tau(
     lam: float | None = None,
 ) -> dict:
     """
-    Solve for [S_ke_j, S_kv_j for all j, β=1/α] jointly using lsq_linear.
+    Two-step solve following physics_rules_research_problem.md:
+
+    Step 1 — Fit S_ke_j, S_kv_j from MLCW increments only (no InSAR).
+      Per layer j: lsq_linear on [dH_elastic, dH_inelastic] → [S_ke_j, S_kv_j]
+      Bounds: S_ke_j ≥ 0, S_kv_j ≥ 0.
+
+    Step 2 — Fit α from cumulative InSAR given fixed S_j (simple scalar OLS).
+      cumsum(Σ_j db_pred_j) = α · cumsum(insar)
+      α = dot(cum_sum_pred, cum_insar) / dot(cum_insar, cum_insar)
+      Clamped to (0, 1].
+
+    The lam parameter is accepted for API compatibility but not used in this
+    two-step formulation.
 
     Parameters
     ----------
     layer_data : dict[layer_code -> dict]
         Each entry must have:
-          'dH_lagged'     : 1-D float array, shape (T,) — ΔH lagged by tau_opt epochs
-          'db'            : 1-D float array, shape (T,) — MLCW compaction
+          'dH_lagged'     : 1-D float array, shape (T,)
+          'db'            : 1-D float array, shape (T,)
           'elastic_mask'  : bool array, shape (T,)
           'inelastic_mask': bool array, shape (T,)
-        All arrays must have the same length T (trimmed to shortest layer window).
-    insar_mm : 1-D float array, shape (T_full,)
-        InSAR displacement. Trimmed inside this function to match T.
-    lam : float or None
-        Weight of the InSAR term relative to MLCW. None → 1/N where N = number of layers.
+    insar_mm : 1-D float array
+        Incremental InSAR (np.diff of cumulative). Cumsum applied inside.
 
     Returns
     -------
-    dict with keys:
-        layers      : dict[layer_code -> {S_ke, S_kv, tau_opt}]
-        alpha       : float in (0, 1]
-        beta        : float = 1/alpha
-        rmse_mlcw   : float — per-epoch RMSE across all layers (mm)
-        rmse_insar  : float — RMSE of reconstructed sum vs InSAR (mm)
-        r2_insar    : float
+    dict with keys: layers, alpha, beta, rmse_mlcw, rmse_insar, r2_insar
     """
     layers = list(layer_data.keys())
     N = len(layers)
-    if lam is None:
-        lam = 1.0 / N
-
-    # Determine T from the shortest lagged window
     T = min(len(d["dH_lagged"]) for d in layer_data.values())
     insar_trim = insar_mm[:T]
+    cum_insar  = np.cumsum(insar_trim)
 
-    # Build design matrix rows and RHS
-    # Columns: [S_ke_0, S_kv_0, S_ke_1, S_kv_1, ..., β]
-    n_params = 2 * N + 1  # 2 per layer + beta
-
-    A_rows: list[np.ndarray] = []
-    b_rows: list[float] = []
-
-    for j, layer in enumerate(layers):
-        d = layer_data[layer]
-        dH   = d["dH_lagged"][:T]
-        db   = d["db"][:T]
-        e_m  = d["elastic_mask"][:T]
-        i_m  = d["inelastic_mask"][:T]
-
-        for t in range(T):
-            row = np.zeros(n_params)
-            # S_ke column (elastic epochs only)
-            if e_m[t]:
-                row[2 * j] = dH[t]
-            # S_kv column (inelastic epochs only)
-            if i_m[t]:
-                row[2 * j + 1] = dH[t]
-            # β column: 0 in MLCW rows
-            A_rows.append(row)
-            b_rows.append(float(db[t]))
-
-    # InSAR rows: Σ_j S_j · ΔH_j(t) / β = Δd_v(t)
-    # Rearranged: Σ_j S_j · ΔH_j(t) - β · Δd_v(t) = 0
-    # With weight √λ on both sides
-    sqrt_lam = np.sqrt(lam)
-    for t in range(T):
-        row = np.zeros(n_params)
-        for j, layer in enumerate(layers):
-            d = layer_data[layer]
-            dH = d["dH_lagged"][:T]
-            e_m = d["elastic_mask"][:T]
-            i_m = d["inelastic_mask"][:T]
-            if e_m[t]:
-                row[2 * j] = sqrt_lam * dH[t]
-            if i_m[t]:
-                row[2 * j + 1] = sqrt_lam * dH[t]
-        row[-1] = -sqrt_lam * insar_trim[t]   # β coefficient
-        A_rows.append(row)
-        b_rows.append(0.0)
-
-    A = np.array(A_rows)
-    b = np.array(b_rows)
-
-    # Bounds: all S_j >= 0, β >= 1
-    lb = np.zeros(n_params)
-    lb[-1] = 1.0
-    ub = np.full(n_params, np.inf)
-
-    result = lsq_linear(A, b, bounds=(lb, ub), method="trf", max_iter=2000)
-    theta = result.x
-
-    # Unpack
+    # ── Step 1: Fit S_ke_j, S_kv_j per layer from MLCW increments only ──────
     layer_params: dict[str, dict] = {}
     db_pred_all = np.zeros(T)
-    for j, layer in enumerate(layers):
-        S_ke = float(theta[2 * j])
-        S_kv = float(theta[2 * j + 1])
-        tau  = layer_data[layer].get("tau_opt", 0)
-        layer_params[layer] = {"S_ke": S_ke, "S_kv": S_kv, "tau_opt": tau}
 
-        d   = layer_data[layer]
-        dH  = d["dH_lagged"][:T]
-        e_m = d["elastic_mask"][:T]
-        i_m = d["inelastic_mask"][:T]
-        db_pred_j = np.where(e_m, S_ke * dH, 0.0) + np.where(i_m, S_kv * dH, 0.0)
-        db_pred_all += db_pred_j
-
-    beta  = float(theta[-1])
-    alpha = 1.0 / beta if beta > 0 else np.nan
-
-    # RMSE MLCW (average over all layer-epoch pairs)
-    mlcw_resid_sq: list[float] = []
-    for j, layer in enumerate(layers):
+    for layer in layers:
         d   = layer_data[layer]
         dH  = d["dH_lagged"][:T]
         db  = d["db"][:T]
         e_m = d["elastic_mask"][:T]
         i_m = d["inelastic_mask"][:T]
+        tau = d.get("tau_opt", 0)
+
+        # Build 2-column design: [dH_elastic, dH_inelastic]
+        A_l = np.column_stack([
+            np.where(e_m, dH, 0.0),
+            np.where(i_m, dH, 0.0),
+        ])
+        # lsq_linear with S_ke >= 0, S_kv >= 0
+        res = lsq_linear(A_l, db, bounds=([0.0, 0.0], [np.inf, np.inf]),
+                         method="trf", max_iter=1000)
+        S_ke = float(res.x[0])
+        S_kv = float(res.x[1])
+        layer_params[layer] = {"S_ke": S_ke, "S_kv": S_kv, "tau_opt": tau}
+
+        db_pred_j = np.where(e_m, S_ke * dH, 0.0) + np.where(i_m, S_kv * dH, 0.0)
+        db_pred_all += db_pred_j
+
+    # RMSE MLCW (incremental)
+    mlcw_resid_sq: list[float] = []
+    for layer in layers:
+        d    = layer_data[layer]
+        dH   = d["dH_lagged"][:T]
+        db   = d["db"][:T]
+        e_m  = d["elastic_mask"][:T]
+        i_m  = d["inelastic_mask"][:T]
         S_ke = layer_params[layer]["S_ke"]
         S_kv = layer_params[layer]["S_kv"]
         db_pred_j = np.where(e_m, S_ke * dH, 0.0) + np.where(i_m, S_kv * dH, 0.0)
         mlcw_resid_sq.extend((db - db_pred_j) ** 2)
     rmse_mlcw = float(np.sqrt(np.mean(mlcw_resid_sq)))
 
-    # RMSE InSAR
-    insar_pred = db_pred_all / beta
-    insar_resid = insar_trim - insar_pred
+    # ── Step 2: Fit α from cumulative InSAR (scalar OLS, no bounds needed) ──
+    # α · cum_insar[t] = cum_sum_pred[t]
+    # α = dot(cum_pred, cum_insar) / dot(cum_insar, cum_insar)
+    cum_pred = np.cumsum(db_pred_all)
+    denom = float(np.dot(cum_insar, cum_insar))
+    if denom > 0:
+        alpha = float(np.dot(cum_pred, cum_insar) / denom)
+        alpha = float(np.clip(alpha, 1e-6, 1.0))   # enforce physical bounds
+    else:
+        alpha = 1.0
+    beta = 1.0 / alpha
+
+    # RMSE InSAR in cumulative domain
+    insar_pred = cum_pred / alpha
+    insar_resid = cum_insar - insar_pred
     rmse_insar = float(np.sqrt(np.mean(insar_resid ** 2)))
-    ss_res = np.sum(insar_resid ** 2)
-    ss_tot = np.sum((insar_trim - insar_trim.mean()) ** 2)
+    ss_res = float(np.sum(insar_resid ** 2))
+    ss_tot = float(np.sum((cum_insar - cum_insar.mean()) ** 2))
     r2_insar = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else np.nan
 
     return {
@@ -279,7 +346,7 @@ def joint_solve_fixed_tau(
         "rmse_insar": rmse_insar,
         "r2_insar":   r2_insar,
         "T":          T,
-        "lam":        lam,
+        "lam":        None,
     }
 
 
@@ -368,13 +435,15 @@ def run_walk_forward_v3(
             inc_db_train = inc_db[train_mask]
             e_m_train    = e_m_full[train_mask]
             i_m_train    = i_m_full[train_mask]
+            dates_train  = df["datetime"].values[:-1][train_mask]
 
             effective_tau_max = min(tau_max, len(inc_dH_train) - 4)
             if effective_tau_max < 0:
                 continue
 
-            tau_opt, rss_curve = tau_grid_search_per_layer(
-                inc_dH_train, inc_db_train, e_m_train, i_m_train, effective_tau_max
+            tau_opt, rss_curve, monthly_means_dH = tau_grid_search_per_layer(
+                inc_dH_train, inc_db_train, e_m_train, i_m_train, effective_tau_max,
+                dates=dates_train
             )
 
             # For the test window, we need τ context epochs from the end of training

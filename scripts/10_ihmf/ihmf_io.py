@@ -13,18 +13,20 @@ Public API:
                        gwl_feather_name, n_epochs
 """
 
+import numpy as np
 import pandas as pd
 from pathlib import Path
 
 
 def load_and_align(entry: dict, project_root: Path, insar_csv_path: Path) -> tuple:
     """Load MLCW CSV, GWL feather, and InSAR CSV then align all to the InSAR timeline."""
-    station     = entry["station"]
-    layer       = entry["layer"]
-    wellcode    = entry["assigned_wellcode"]
-    well_elev_m = entry["well_elev_m"]
-    gwl_feather = project_root / entry["gwl_feather"]
-    mlcw_csv    = project_root / entry["mlcw_reconst_csv"]
+    station      = entry["station"]
+    layer        = entry["layer"]
+    wellcode     = entry["assigned_wellcode"]
+    well_elev_m  = entry["well_elev_m"]
+    hc_pct       = entry.get("hc_percentile", 10)   # default 10th percentile
+    gwl_feather  = project_root / entry["gwl_feather"]
+    mlcw_csv     = project_root / entry["mlcw_reconst_csv"]
 
     # ── MLCW ─────────────────────────────────────────────────────────────
     mlcw = pd.read_csv(mlcw_csv, parse_dates=["datetime"])
@@ -63,8 +65,11 @@ def load_and_align(entry: dict, project_root: Path, insar_csv_path: Path) -> tup
         if dup in merged.columns:
             merged = merged.drop(columns=[dup])
 
-    # ── Pre-consolidation head from minimum observed head ─────────────────
-    h_c_head  = float(gwl_raw["head_m"].min())
+    # ── Pre-consolidation head at configured percentile ───────────────────
+    # Using the minimum (0th percentile) makes all epochs elastic by definition.
+    # hc_percentile (default 10) gives a threshold below which inelastic
+    # consolidation is triggered — approximately 10% of historical lows.
+    h_c_head  = float(np.percentile(gwl_raw["head_m"].dropna(), hc_pct))
     h_c_depth = well_elev_m - h_c_head
 
     meta = {

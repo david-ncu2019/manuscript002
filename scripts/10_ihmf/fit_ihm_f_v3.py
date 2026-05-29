@@ -71,19 +71,25 @@ def run_station(station: str, layer_filter: str | None = None) -> dict:
         h_c = meta["h_c_head_m"]
         e_m, i_m = build_regime_mask(head_m[:-1], h_c)   # length T-1
 
-        # τ grid search on incremental signals
-        tau_opt, rss_curve = tau_grid_search_per_layer(inc_dH, inc_db, e_m, i_m, TAU_MAX)
+        # Dates for incremental signal (epoch t drives the increment t→t+1)
+        inc_dates = df["datetime"].values[:-1]
+
+        # τ grid search on anomaly incremental signals (seasonal cycle removed)
+        tau_opt, rss_curve, monthly_means_dH = tau_grid_search_per_layer(
+            inc_dH, inc_db, e_m, i_m, TAU_MAX, dates=inc_dates
+        )
         print(f"  {layer}: τ_opt = {tau_opt} epochs ({tau_opt*5} days), "
               f"RSS_min = {rss_curve[tau_opt]:.4f}")
 
         T = len(inc_dH) - tau_opt
         layer_data[layer] = {
-            "dH_lagged":      inc_dH[tau_opt:],     # GWL increment lagged by τ
-            "db":             inc_db[:T],            # MLCW increment aligned to lagged window
-            "elastic_mask":   e_m[:T],
-            "inelastic_mask": i_m[:T],
-            "tau_opt":        tau_opt,
-            "rss_curve":      [round(r, 6) for r in rss_curve],
+            "dH_lagged":        inc_dH[tau_opt:],   # GWL increment lagged by τ (full signal)
+            "db":               inc_db[:T],          # MLCW increment aligned
+            "elastic_mask":     e_m[:T],
+            "inelastic_mask":   i_m[:T],
+            "tau_opt":          tau_opt,
+            "rss_curve":        [round(r, 6) for r in rss_curve],
+            "monthly_means_dH": monthly_means_dH.tolist(),
         }
 
     # Joint solve using optimal τ per layer
