@@ -114,10 +114,12 @@ def fit_one_tau(y_raw: np.ndarray, dh_raw: np.ndarray,
     n = len(y_raw)
     if tau >= n - 3:
         return None
-    dh_lag = dh_raw[tau:]
-    y_cut  = y_raw[:n - tau]
-    x_cut  = x_raw[:n - tau]
-    mask_e = is_elastic[:n - tau]
+    # Head at epoch j drives compaction at epoch j+tau (head leads by tau epochs).
+    # dh_raw[:n-tau] are the drivers; y_raw[tau:] are the responses.
+    dh_lag = dh_raw[:n - tau]
+    y_cut  = y_raw[tau:]
+    x_cut  = x_raw[tau:]
+    mask_e = is_elastic[tau:]
     mask_i = ~mask_e
     X      = np.column_stack([np.ones(len(y_cut)), dh_lag * mask_e, dh_lag * mask_i, x_cut])
     lb = [-np.inf, lb_ske, lb_skv, 0.0]
@@ -162,10 +164,11 @@ def fit_one_tau_bk(y_raw: np.ndarray, dh_raw: np.ndarray,
     n = len(y_raw)
     if tau >= n - 3:
         return None
-    dh_lag = dh_raw[tau:]
-    y_cut  = y_raw[:n - tau]
-    x_cut  = x_raw[:n - tau]
-    mask_e = is_elastic[:n - tau]
+    # Head at epoch j drives compaction at epoch j+tau (head leads by tau epochs).
+    dh_lag = dh_raw[:n - tau]
+    y_cut  = y_raw[tau:]
+    x_cut  = x_raw[tau:]
+    mask_e = is_elastic[tau:]
     mask_i = ~mask_e
     driver = dh_lag * mask_e * ske_fixed + dh_lag * mask_i * skv_fixed
     X      = np.column_stack([np.ones(len(y_cut)), driver, x_cut])

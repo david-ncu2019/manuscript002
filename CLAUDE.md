@@ -1,143 +1,94 @@
-# CLAUDE.md — InSAR-MLCW Scripts Repository
+# CLAUDE.md — InSAR-MLCW Scripts
 
-> **Read first:** The authoritative project context lives at `D:\112_PROJECT_002` (Windows) or `/mnt/hgfs/112_PROJECT_002` (Ubuntu VM).
-> Before working here, read `PROGRESS.md` (current status) and `discussions/discussion_memory.md` (work diary).
-> The research objectives, physical constraints, and sign conventions in `D:\112_PROJECT_002\CLAUDE.md` apply in full.
+> **Response rule (mandatory):** Every response must begin with:
+> Xin chào kình ngư Nguyễn Thái Vinh Trường, chúng ta lại tiếp tục bơi trong đống hỗn loạn này nhé!
+
+---
+
+> ## ⚠ STATUS: ACTIVE EXPLORATION — NOTHING IS FINALIZED
+>
+> Neither method family (static scaling vs GWL-driven IHM-F) has been selected.
+> No consistency gate has been cleared. All IHM-F v3 code fixes confirmed done (2026-06-05/06).
+> Script 12 complete (2026-06-06). **Corrected gate (2026-06-07):** Gate applies to specific-storage ratio $S_{skv}/S_{ske}$ [m⁻¹], NOT bulk ratio. F1=9.1× PASS, T2=9.3× PASS, F4=17.3× PASS; T1=2.9× FAIL; F2=221× FAIL; F3 $S_{ke}$=0.
+> Joint inversion over thickness ruled out (degenerate — RMSE flat along $S_{ske}$×total\_m ridge).
+> Root cause of ratio compression: 93% inelastic epochs → $H$ and $V$ nearly collinear → simultaneous NNLS compresses ratio.
+> **Next:** Decoupled two-step fit in Script 12 (elastic-only OLS for $S_{ke}$, residual NNLS for $S_{kv}$). See plan file.
+> **Do not assume any result is final.** Read `PROGRESS.md` first.
+
+---
+
+## Session Startup
+
+Read these 2 files before anything else:
+
+1. `PROGRESS.md` (this repo) — current blocking gate and next action
+2. `discussions/discussion_memory.md` — full project narrative and method history
+
+Research objectives, physical constraints, and study area: `D:\112_PROJECT_002\CLAUDE.md`
+
+---
+
+## Response Style — Permanent Mandate
+
+Respond in a concise, direct style that delivers clear and complete information. Use as few words as needed to convey the full message effectively — avoid unnecessary repetition or filler. Start answers directly with the core content. For complex topics, use short paragraphs, bullet points, or numbered lists to improve readability. Prioritize clarity and understanding over extreme brevity; ensure responses are informative and easy to follow without extra explanations unless requested.
+
+**All responses must be delivered entirely in English.** No code-switching, no mixed-language paragraphs.
+
+**Structure — "physical story first, code second."**
+
+1. Open every diagnostic or report with one plain-English sentence about what is physically happening to the stations, the groundwater wells, the layer data arrays, or the sediment column.
+2. Only after the physical picture is clear, present the evidence: numbers, tables, code snippets, file paths.
+3. End with what the finding implies for the next step — in physical terms.
+
+**Language rules:**
+
+- No unexplained acronyms. Spell out every term on first use in each response.
+- Quantify everything. Never write "large," "small," "significant," or "good" without a number and a unit.
+- State uncertainty as a physical range before giving a statistical summary.
+- Avoid passive constructions. Name the actor.
+- One idea per sentence.
+
+**Forbidden words (replace with plain alternatives):**
+`implement` → build/write/add · `utilize` → use · `leverage` → use/apply · `facilitate` → help/allow · `robust` → reliable/stable (quantify) · `optimize` → improve/speed up (say how much) · `pipeline` → processing chain · `architecture` → structure/design · `orchestrate` → coordinate/run · `bottleneck` → slow point · `tech debt` → (describe the actual problem)
+
+**This section takes precedence over all other style guidance. No per-session reminder needed.**
+
+---
+
+## Environment & Quick Run
+
+- `fafalab` (Python 3.10) — IHM-F, data analysis, all active work
+- `isce_ncu3` (scipy $\ge$ 1.17) — 2S-TOOL only
+- Reset PYTHONPATH: `$env:PYTHONPATH=""; conda run -n fafalab python <script>` (PS)
+
+```powershell
+# Single station (TUKU pilot)
+$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
+
+# Batch (all 37 stations — only after TUKU pilot passes physical checks)
+$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --all
+```
+
+Full command catalog: `docs/run_commands.md`
+
+---
 
 ## Path Reference (Windows host ↔ Ubuntu VM)
 
-| Logical name | Windows (host) | Linux / Ubuntu VM (VMware HGFS) |
+| Logical name | Windows (host) | Linux / Ubuntu VM |
 |---|---|---|
-| This repo (scripts/data) | `D:\1000_SCRIPTS\004_Project003\20260427_InSAR_MLCW_v2` | `/mnt/hgfs/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v2` |
+| This repo | `D:\1000_SCRIPTS\004_Project003\20260427_InSAR_MLCW_v2` | `/mnt/hgfs/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v2` |
 | Docs root | `D:\112_PROJECT_002` | `/mnt/hgfs/112_PROJECT_002` |
-| Runtime path resolver | `paths.py` (repo root) | `paths.py` (repo root) |
-| IHM-F fit script | `scripts\10_ihmf\fit_ihm_f.py` | `scripts/10_ihmf/fit_ihm_f.py` |
+| Path resolver | `paths.py` (repo root) | `paths.py` (repo root) |
+| IHM-F fit (v3, active) | `scripts\10_ihmf\fit_ihm_f_v3.py` | `scripts/10_ihmf/fit_ihm_f_v3.py` |
 | Data root | `data\` | `data/` |
 | Results root | `results\` | `results/` |
 
-> **Claude agents:** Use the path form for your OS. In Python, `from paths import SCRIPTS_ROOT` resolves automatically — no manual translation needed.
-
----
-
-## Repository Purpose
-
-This repo (`D:\1000_SCRIPTS\004_Project003\20260427_InSAR_MLCW_v2`) holds all
-**pipeline scripts, raw data, and results** for the InSAR-MLCW subsidence analysis.
-Documentation, plans, and discussion files live in `D:\112_PROJECT_002`. The two
-repos are linked: IHM-F fitting code lives here under `scripts/10_ihmf/`; any
-shared src modules (e.g. future `src/gwl_loader.py`) are imported from
-`D:\112_PROJECT_002` via `sys.path.insert`.
-
----
-
-## Environment Setup
-
-```powershell
-# Always reset PYTHONPATH to prevent gemini_env contamination:
-$env:PYTHONPATH = ""; conda run -n fafalab python <script.py>
+Path protocol (mandatory in Python scripts):
+```python
+from paths import SCRIPTS_ROOT, DATA_ROOT, RESULTS_ROOT, DOCS_ROOT, resolve
 ```
-
-- **`fafalab`** (Python 3.10) — all active analysis: IHM-F, direct ratio, data analysis
-- **`isce_ncu3`** (scipy >= 1.17) — 2S-TOOL only (`tools/2S-TOOL-Python/`)
-- Two environment YAMLs exist at the parent root: `environment.yml` (3.12, stale) and
-  `fafalab_env.yml` (3.10, current). Installed is 3.10.
-
----
-
-## Key Run Commands
-
-```powershell
-# IHM-F fit — single station, all layers:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f.py --station TUKU --all
-
-# IHM-F fit — single station, single layer:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f.py --station TUKU --layer F2
-
-# Data analysis — run all 8 diagnostics in order:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_correlations.py
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_collinearity.py
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_lagged_correlation.py
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_layer_patterns.py
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_proxy_quality.py
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_regimes.py
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_signal_decomposition.py
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/summarize_for_redesign.py
-
-# 2S-TOOL batch run (isce_ncu3 env):
-conda run -n isce_ncu3 python scripts/09_trackB/batch_run_2stool.py
-conda run -n isce_ncu3 python scripts/09_trackB/collect_2stool_results.py
-```
-
----
-
-## Active Script Inventory
-
-```
-scripts/
-├── 10_ihmf/              IHM-F model fitting (production Track B model)
-│   ├── fit_ihm_f.py      Orchestrator: reads ihmf_config.json, routes by path, writes JSON + PNG
-│   ├── ihmf_model.py     Core: prepare_signals, fit_one_tau[_bk], grid_search_tau, run_walk_forward
-│   ├── ihmf_io.py        Data loader: aligns MLCW CSV + GWL feather + InSAR via merge_asof
-│   └── ihmf_plots.py     Figures: 3-panel raw-fit + 3-panel reconstruction (150 dpi PNG)
-│
-├── 11_data_analysis/     8 diagnostic scripts (collinearity, lag, coupling, signal decomposition)
-│   └── summarize_for_redesign.py  Aggregates all diagnostics → DATA_ANALYSIS_REPORT.md
-│
-├── 09_trackB/            2S-TOOL batch run + results collection
-├── 06_direct_ratio/      Static f̄_k baseline (Track A floor)
-├── 07_analysis/          Cross-validation, harmonic/wet-dry diagnostics (legacy)
-├── 08_visualization/     Publication plots and data inspection
-├── 01_insar_preprocessing/  Adaptive OMT, LOS decomposition, IDW/kriging
-├── 02_mlcw_processing/   MLCW decomposition (appsigsolv), 5m reconstruction
-├── 03_gps_processing/    GPS vertical decomposition
-├── 04_gwl_processing/    GWL feather extraction and layer assignment
-├── 05_modeling/          ARX, Prophet, ablation (Track A comparison)
-└── notebooks/            Jupyter data prep and plotting
-```
-
-Legacy folders `05_pairing/` contain completed one-off scripts and are not re-run.
-
----
-
-## Key Data Paths
-
-| File / Folder | Description |
-|---------------|-------------|
-| `data/ihmf_config.json` | 191 entries: station, layer, tau_max, warmstart_skv/ske, gwl_feather, etc. |
-| `data/mlcw/group_byLayer_reconstr/{STATION}_reconst_grouped.csv` | Primary MLCW input: datetime + F1/T1/F2/T2/F3/F4 columns (37 stations) |
-| `data/mlcw/group_byLayer_reconstr/{STATION}_classify_table.csv` | Ring-to-layer classification: depth (m) → layer code |
-| `data/mlcw/group_byLayer_modeled/{STATION}_modeled_grouped.csv` | IHM-F output (written by fit_ihm_f.py; not an input) |
-| `data/insar/timeseries/mlcw_interp_insar_IDW_extend.feather` | InSAR at 39 MLCW stations: 39 rows × 791 cols (785 epochs) |
-| `data/insar/timeseries/gridpnt_500m_interp_insar_IDW_extend.feather` | InSAR at 8,577 grid points |
-| `data/gwl/mlcw_gwl_timeseries/{MLCW}_{GWL}_{WELLCODE}.feather` | MLCW-timeline-aligned GWL (189 files) |
-| `data/gwl/gwl_to_mlcw_layer_assignment_v3.csv` | GWL-to-layer join key — use v3, not v1/v2 |
-| `data/gwl/well_info/gwl_allwells_flat.csv` | 306 wells; use `elev_leveling_m` for head-to-depth conversion |
-| `data/gwl/2stool_outputs/2stool_results_summary.csv` | 2S-TOOL results: S_kv, S_ke per layer (191 rows) |
-| `results/ihmf/{STATION}_{LAYER}_ihmf_results.json` | IHM-F fit output per layer (current run) |
-| `results/ihmf/run001/` | Old unconstrained OLS results (kept for comparison only) |
-| `results/direct_ratio/{STATION}/{STATION}_direct_ratio_stats.csv` | Track A static ratio baseline (f_median per depth) |
-| `results/data_analysis/` | 8 CSV/JSON diagnostic outputs + DATA_ANALYSIS_REPORT.md |
-
----
-
-## Current Pipeline Status
-
-| Stage | Status |
-|-------|--------|
-| MLCW preprocessing (decompose, reconstruct, 5m regularisation) | Complete |
-| MLCW layer aggregation (ring → F1/T1/F2/T2/F3/F4) | Complete — 37 stations |
-| GWL-to-MLCW layer assignment | Complete — 191 pairs |
-| GWL timeseries extraction (MLCW-timeline-aligned) | Complete — 189 feather files |
-| 2S-TOOL pipeline (S_kv, S_ke reference values) | Complete — 134 OK, 57 NEG_SKV |
-| Direct ratio baseline (Track A f̄_k) | Complete — comparison floor |
-| Data analysis (collinearity, lag, coupling diagnostics) | Complete — 8 scripts, 191 layers |
-| IHM-F implementation (4 modules in scripts/10_ihmf/) | Complete |
-| IHM-F Pilot 1 — TUKU all 6 layers | Complete — all non-negative |
-| **Detrending module (`ihmf_detrend.py`)** | **Pending — blocking decision** |
-| **TUKU re-pilot with detrending** | **Pending — after detrend module** |
-| **IHM-F batch run — all 191 entries** | **Blocked — detrend decision required** |
-| Walk-forward comparison (Track B vs Track A floor) | Pending — after batch run |
-| Stage 2 spatial extension (kriging) | Pending — contingent on batch run |
+No hardcoded `D:\...` or `/mnt/hgfs/...`. Run `python paths.py` to verify platform detection.
 
 ---
 
@@ -145,58 +96,93 @@ Legacy folders `05_pairing/` contain completed one-off scripts and are not re-ru
 
 | Signal | Units | Convention |
 |--------|-------|------------|
-| `y_raw` (MLCW) | mm | negative = compaction |
-| `dh_raw` = H(t) − H(t_ref) | m MSL | negative = head fell (drought); **never negate** |
-| `x_raw` (InSAR) | mm | negative = subsidence |
-| S_ske, S_skv, β | mm/m or dimensionless | always ≥ 0 (physically enforced) |
+| MLCW | mm | negative = compaction |
+| $dh_{\text{raw}}$ = H(t) − H($t_{ref}$) | m MSL | negative = head fell; **never negate** |
+| InSAR | mm | negative = subsidence |
+| $S_{ske}$, $S_{skv}$, $\beta$ | mm/m or dim'less | always $\ge$ 0 |
+| $S_{skv}$ / $S_{ske}$ | — | 8–100$\times$ (inelastic >> elastic) |
 
 ---
 
-## Known Issues / Gotchas
+## Known Code Issues
 
-- **PYTHONPATH contamination:** `gemini_env` packages leak into `fafalab` if PYTHONPATH is
-  set. Always prefix with `$env:PYTHONPATH = ""`.
-- **b_k = 0 at F1 and F3 (TUKU):** GWL is collinear with InSAR at these layers
-  (corr(ΔH, x) = 0.66 raw, drops to 0.19 after detrending). Not a bug — the solver
-  correctly assigns credit to β·x. These layers should be labelled
-  "InSAR-dominated, GWL unresolvable" until the detrending module resolves this.
-- **Detrending module not yet implemented:** `ihmf_detrend.py` is the next required
-  module. Batch run is blocked until TUKU re-pilot with detrending confirms the
-  collinearity issue is resolved (target: VIF < 5 for all layers).
-- **F2 b_k at upper bound (TUKU):** b_k = 72.5 m = full classified F2 span. The true
-  compressible thickness may slightly exceed the classified extent. Accepted as the
-  best physically-bounded estimate.
-- **GWL wellcodes are 8-digit strings:** Never convert to int — leading zeros are dropped,
-  breaking feather column lookups.
-- **Well elevation:** Use `elev_leveling_m` from `gwl_allwells_flat.csv`. Do not use
-  `well_elev_m` (original well record) or `elev_DEM_m` (20m DEM).
-- **Layer assignment file:** Use `gwl_to_mlcw_layer_assignment_v3.csv` — earlier
-  versions (v1, v2) are superseded.
+- **F = aquifer, T = aquitard.** Taiwan CGS convention. Do not invert.
+- **PYTHONPATH contamination.** Always reset before `conda run` (gemini_env leaks into fafalab).
+- **GWL wellcodes are 8-digit strings.** Never convert to int (leading zeros dropped).
+- **elev_leveling_m only.** Not `well_elev_m` or `elev_DEM_m`.
+- **Layer assignment v4 only.** v1/v2/v3 superseded.
+- **InSAR feather units: metres.** Multiply by 1000 for mm.
+- **GWL feather glob pattern.** Use `*gwl*timeseries.feather`, NOT `*.feather`. The broader glob also matches `TUKU_GPS_timeseries.feather` and corrupts GWL loading.
+- **TAU_MAX = 120 epochs (5-day cadence).** Production code and tau_demo_TUKU both use 5-day epoch units. τ=1 ≈ 5 days, τ=120 = 600 days. Do not change without updating all documentation.
+- **ihmf_detrend.py is shared (v1/v2/v3).** v3 imports `detrend_signal` from `ihmf_detrend` in both `fit_ihm_f_v3.py` and `ihmf_model_v3.py`. The `remove_seasonal_cycle` function in `ihmf_model_v3.py` handles seasonal-cycle removal during τ grid search; `ihmf_detrend` handles trend+harmonic removal for the walk-forward and diagnostic pipelines.
+- **ihmf_io.py vs ihmf_io_multilayer.py.** `ihmf_io_multilayer.py` is the active loader for v3. Do not import `ihmf_io` in v3 scripts.
+- **Bug F: $h_c$ from pre-REF_DATE feather only.** Preconsolidation head $h_c$ must be computed from raw GWL feather rows dated before REF_DATE (2015-01-16), before zero-referencing. Post-alignment table pushes $h_c$ too low → up to 51% of epochs mis-classified as elastic. Fixed in `tau_demo_TUKU/01_run_tau_search.py` lines 115–121.
+- **Lag-consistent epoch classification (Bugs 1–3, fixed 2026-06-05).** Regime mask (elastic/inelastic) must be sliced at driver-time index, not response-time index, because compaction responds to head at $t - \tau$. Three locations fixed: `ihmf_model_v3.py` lines 213–214 (τ grid search: `elastic_mask[:n]` not `[tau:]`), `fit_ihm_f_v3.py` lines 111–112 (common-window OLS: start at `offset`, not `win_start`), `ihmf_model_v3.py` lines 543–544 (walk-forward training: start at `offset`). Invariant: mask slice must start at the same index as `dH_lag`.
+- **F4 at TUKU: 0.0 m aquifer material (fixed 2026-06-06).** The 283–300 m depth zone at TUKU is entirely silt/mud (Z/M) per borehole log `YL_WSYL23G1_TUKU_土庫.xlsx`. F4 contains no gravel or coarse sand. The F4 ring-position assignment as an "aquifer" layer is geologically incorrect at TUKU. F4 IHM-F elastic storage coefficients cannot be physically interpreted as aquifer $S_{ske}$. `LAYER_COMPRESSIBLE_THICKNESS['F4'] = 16.617` m (entire span is compressible fine-grained material).
+- **Two thickness values per layer (fixed 2026-06-06).** `LAYER_THICKNESS` (mm/m-to-$m^{-1}$ conversion for elastic $S_{ske}$) uses **total borehole span** (`total_m`). `LAYER_COMPRESSIBLE_THICKNESS` (inelastic $S_{skv}$ conversion) uses **fine-grained material thickness only** (`aquitard_m`). Both dicts are in `tau_demo_TUKU/12_stress_strain_per_layer.py` lines 94–124. Authoritative borehole breakdown: `figures/prestage_data_analysis/layer_thickness_borehole_TUKU.csv`. Source: `discussions/2026-05-29-technical-clarifications.md` lines 178–182.
+
+### IHM-F Naming
+
+- **IHM-F** = Candidate F of the Inelastic Head Model (IHM). The "F" is the candidate letter from the A-F method enumeration in `discussion_20260519_v3.md` — **not** an abbreviation of "Formational" or "Formation."
+- Internal working name only. Do not use in publication. Refer to the model functionally: "two-regime groundwater-driven per-layer compaction model."
+- Original definition: `discussions/methods_review_publications.md` line 14 ("Candidate F (IHM with per-layer β_k) — most physically defensible").
 
 ---
 
-## IHM-F Two-Path Routing
+## AI Verification & Safety Protocol
 
-`fit_ihm_f.py` reads `warmstart_skv` and `warmstart_ske` from `data/ihmf_config.json`
-and routes each (station, layer) pair:
+**These rules govern what I must and must not do. They override conversational memory.**
 
-| Condition | Path | Free parameters |
-|-----------|------|-----------------|
-| skv > 0 AND ske > 0 (134 layers) | A — b_k model | b_k, β (S fixed at 2S-TOOL values) |
-| skv ≤ 0 OR ske ≤ 0 (57 layers) | B — bounded OLS | S_ske, S_skv, β (all ≥ 0) |
+### Insufficient-data rule
 
-Walk-forward validation: 4 folds (2022 / 2023 / 2024 / 2025 hold-outs).
-Fold 1 (train 2015–2021, test 2022) is the operational stress test — 2022 MLCW is
-reconstructed, no raw sensor data that year.
+- Fewer than 10 jointly valid points for cross-correlation (or fewer than 4 for linear detrend): **"Insufficient data — result is undefined."**
+- Fit did not converge: **"Fit did not converge — no parameter to report."**
+- File missing or unreadable: state the path and **"File not found — cannot proceed."**
+
+### Verify-before-stating rule
+
+- Before citing any number as current truth — read the actual file on disk.
+- Any layer geometry, depth range, parameter value, or result inherited from a session summary, handoff file, memory file, or prior-assistant message is UNVERIFIED until traced to a specific file path and line number. State the source explicitly before using the number analytically.
+- After any script run — re-read the output file to confirm it was written and matches printed output.
+
+### Physical-law halt rule
+
+| Parameter | Bound | On violation |
+|-----------|-------|--------------|
+| $S_{ske}$ | $\ge 0$ | Halt. Report: "$S_{ske}$ = [value] is negative — layer rejected." |
+| $S_{skv}$ | $\ge 0$ | Halt. Report: "$S_{skv}$ = [value] is negative — layer rejected." |
+| $\beta$ | $\ge 0$ | Halt. Report: "$\beta$ = [value] is negative — layer rejected." |
+| $S_{skv}$ / $S_{ske}$ ratio | 8–100$\times$ | Halt. Report: "Ratio = [value] — outside physical range." |
+| Detrended head-to-InSAR corr. | < 0.7 per layer | Flag as collinear. Do not add model complexity. |
+| $dh_{\text{raw}}$ sign | never negate | Halt if code negates H(t)−H($t_{ref}$). |
+
+### Runtime-error rule
+
+- Read the full traceback before proposing a cause. Never speculate from the error message alone.
+- State the specific line number and variable that failed.
+- Do not propose a complex fix until the simplest cause has been ruled out.
 
 ---
 
 ## Git State
 
-- **This repo** has its own `.git` (initialized 2026-05-28). `.gitignore` tracks only
-  `.py`, `.ipynb`, `.md`; excludes `.csv`, `.xls`, `.xlsx`.
-- **`tools/2S-TOOL-Python/`** is an independent git repo
-  (`origin → github.com/david-ncu2019/twostoolspy.git`). Push/pull independently.
-- **`appsigsolv`** (`../20260501_timeseries_signal_solver/`) is a separate git repo.
-- **Parent `D:\1000_SCRIPTS`** is also a git repo — commits from here target this
-  repo's `.git`, not the parent.
+- This repo: `.gitignore` tracks `.py`, `.ipynb`, `.md` only
+- `tools/2S-TOOL-Python/`: independent repo (`github.com/david-ncu2019/twostoolspy`)
+- `appsigsolv/` (`../20260501_timeseries_signal_solver/`): separate repo
+- Companion repo (`D:\112_PROJECT_002`): own git — do not commit from here
+
+---
+
+## Math Notation Convention
+
+All math uses LaTeX delimiters: `$...$` (inline), `$$...$$` (display).
+
+| Correct | Wrong | Notes |
+|---------|-------|-------|
+| `$\tau$` | `τ` | Greek always in `$...$` |
+| `$S_{ske}$` | `S_ske` | Subscripts use `_{}` |
+| `$\ge 0$` | `≥ 0` | No Unicode operators |
+| `$1.42 \times 10^{-5}$` | `1.42E-05` | No E-notation |
+| `$\alpha \in (0, 1]$` | `α ∈ (0, 1]` | |
+
+Conversion script: `scripts/fix_math_markdown.py` (run with `--dry-run` first).

@@ -89,7 +89,166 @@ def load_all_layers(
 
     insar_mm = layer_dfs[layers[0]]["insar_mm"].values.astype(float)
 
+    # Drop epochs where any layer has NaN head_m or mlcw_mm (caused by GWL/MLCW
+    # record ending before InSAR record ends).  All layers use the same valid mask
+    # so the shared-timeline invariant is preserved after filtering.
+    valid_mask = np.ones(len(insar_mm), dtype=bool)
+    for lyr, df in layer_dfs.items():
+        valid_mask &= df["head_m"].notna().values
+        valid_mask &= df["mlcw_mm"].notna().values
+    valid_mask &= np.isfinite(insar_mm)
+
+    if not valid_mask.all():
+        n_dropped = int((~valid_mask).sum())
+        print(f"  [io] {station}: dropping {n_dropped} NaN epoch(s) — "
+              f"keeping {valid_mask.sum()} of {len(insar_mm)}")
+        for lyr in layer_dfs:
+            layer_dfs[lyr] = layer_dfs[lyr].iloc[valid_mask].reset_index(drop=True)
+        insar_mm = insar_mm[valid_mask]
+
     return layer_dfs, layer_metas, insar_mm
+
+
+_REF_DATE = pd.Timestamp("2015-01-16")
+
+
+def load_all_layers_gps(
+    station: str,
+    config_entries: list[dict],
+    project_root: Path,
+    tau_demo_dir: Path,
+) -> tuple[dict, dict, np.ndarray]:
+    """
+    GPS-mode loader for the TUKU pilot (5-day cadence).
+
+    Uses feathers from tau_demo_dir exclusively. Master timeline = 5-day MLCW
+    feather epochs. GPS vertical displacement (mm, negative=subsidence) replaces
+    InSAR as the Step-2 calibration signal returned as 'insar_mm'.
+
+    Parameters
+    ----------
+    station : str
+        Station name (currently only 'TUKU' is supported).
+    config_entries : list[dict]
+        All entries from ihmf_config.json['entries'] (unfiltered).
+    project_root : Path
+        Repo root (used only to look up config entries; data comes from tau_demo_dir).
+    tau_demo_dir : Path
+        Path to tau_demo_TUKU/data/ directory.
+
+    Returns
+    -------
+    layer_dfs : dict[str, pd.DataFrame]
+        Same schema as load_all_layers: datetime, t_days, insar_mm, head_m, mlcw_mm.
+        'insar_mm' holds GPS cumulative vertical displacement (mm).
+    layer_metas : dict[str, dict]
+    gps_mm : np.ndarray, shape (T,)
+        GPS cumulative displacement on the shared 5-day timeline (mm).
+    """
+    station_entries = [e for e in config_entries if e["station"] == station]
+    if not station_entries:
+        raise ValueError(f"No config entries found for station '{station}'")
+
+    inc_dir = tau_demo_dir / "incremental_data"
+
+    # ── 1. Master timeline + cumulative MLCW for all layers ───────────────
+    mlcw_inc = pd.read_feather(inc_dir / "mlcw_diff_cleaned.feather")
+    mlcw_inc["datetime"] = pd.to_datetime(mlcw_inc["datetime"]).astype("datetime64[ns]")
+    mlcw_inc = mlcw_inc.sort_values("datetime").reset_index(drop=True)
+
+    # Integrate incremental → cumulative per layer column (start from 0 at first epoch)
+    layer_cols = [c for c in mlcw_inc.columns if c != "datetime"]
+    for col in layer_cols:
+        mlcw_inc[f"_cum_{col}"] = mlcw_inc[col].fillna(0.0).cumsum()
+
+    master_frame = pd.DataFrame({"datetime": mlcw_inc["datetime"].copy()})
+
+    # ── 2. GPS: daily cumulative → align to 5-day master ─────────────────
+    gps_raw = pd.read_feather(tau_demo_dir / "TUKU_GPS_timeseries.feather")
+    gps_raw.rename(columns={gps_raw.columns[0]: "datetime"}, inplace=True)
+    gps_raw["datetime"] = pd.to_datetime(gps_raw["datetime"]).astype("datetime64[ns]")
+    # 'modeled' is already in mm (range ≈ −127 to −788 mm). Do NOT multiply by 1000.
+    gps_raw = gps_raw[["datetime", "modeled"]].rename(columns={"modeled": "insar_mm"})
+    gps_raw = gps_raw.sort_values("datetime").reset_index(drop=True)
+
+    gps_aligned = pd.merge_asof(
+        master_frame, gps_raw, on="datetime",
+        direction="nearest", tolerance=pd.Timedelta("3D"))
+    gps_mm_series = gps_aligned["insar_mm"].values.astype(float)  # shape (T,)
+
+    # ── 3. Per-layer GWL alignment and h_c ───────────────────────────────
+    layer_dfs:   dict[str, pd.DataFrame] = {}
+    layer_metas: dict[str, dict]         = {}
+
+    for entry in station_entries:
+        layer       = entry["layer"]
+        wellcode    = str(entry["assigned_wellcode"]).zfill(8)
+        well_elev_m = entry["well_elev_m"]
+
+        # Feather filename is the last component of the config gwl_feather path
+        gwl_fname   = Path(entry["gwl_feather"]).name
+        gwl_feather = tau_demo_dir / gwl_fname
+
+        gwl_raw = pd.read_feather(gwl_feather)
+        gwl_raw["datetime"] = pd.to_datetime(gwl_raw["datetime"]).astype("datetime64[ns]")
+        gwl_raw = gwl_raw[["datetime", wellcode]].dropna(subset=[wellcode])
+        gwl_raw = gwl_raw.rename(columns={wellcode: "head_m"})
+        gwl_raw = gwl_raw.sort_values("datetime").reset_index(drop=True)
+
+        gwl_aligned = pd.merge_asof(
+            master_frame, gwl_raw, on="datetime",
+            direction="nearest", tolerance=pd.Timedelta("3D"))
+
+        cum_col = f"_cum_{layer}"
+        if cum_col not in mlcw_inc.columns:
+            raise KeyError(
+                f"Layer '{layer}' not found in mlcw_diff_cleaned.feather. "
+                f"Available: {layer_cols}"
+            )
+
+        df = master_frame.copy()
+        df["insar_mm"] = gps_mm_series
+        df["head_m"]   = gwl_aligned["head_m"].values
+        df["mlcw_mm"]  = mlcw_inc[cum_col].values
+
+        t0 = df["datetime"].iloc[0]
+        df["t_days"] = (df["datetime"] - t0).dt.days.astype(float)
+
+        # h_c: lowest GWL before REF_DATE (Bug F fix)
+        pre_ref = gwl_raw[gwl_raw["datetime"] < _REF_DATE]
+        if len(pre_ref.dropna(subset=["head_m"])) >= 10:
+            h_c_head = float(pre_ref["head_m"].dropna().min())
+        else:
+            h_c_head = float(gwl_raw["head_m"].dropna().min())
+        h_c_depth = well_elev_m - h_c_head
+
+        layer_dfs[layer]   = df
+        layer_metas[layer] = {
+            "station":          station,
+            "layer":            layer,
+            "wellcode":         wellcode,
+            "well_elev_m":      well_elev_m,
+            "gwl_feather_name": gwl_fname,
+            "h_c_head_m":       h_c_head,
+            "h_c_depth_m":      h_c_depth,
+            "n_epochs":         len(df),
+        }
+
+    # ── 4. NaN shared-mask (GPS, GWL, MLCW must all be finite) ───────────
+    valid_mask = np.isfinite(gps_mm_series)
+    for lyr, df in layer_dfs.items():
+        valid_mask &= df["head_m"].notna().values
+        valid_mask &= df["mlcw_mm"].notna().values
+
+    if not valid_mask.all():
+        n_dropped = int((~valid_mask).sum())
+        print(f"  [io-gps] {station}: dropping {n_dropped} NaN epoch(s) — "
+              f"keeping {valid_mask.sum()} of {len(gps_mm_series)}")
+        for lyr in layer_dfs:
+            layer_dfs[lyr] = layer_dfs[lyr].iloc[valid_mask].reset_index(drop=True)
+        gps_mm_series = gps_mm_series[valid_mask]
+
+    return layer_dfs, layer_metas, gps_mm_series
 
 
 def load_config(project_root: Path) -> tuple[dict, list[dict], Path]:

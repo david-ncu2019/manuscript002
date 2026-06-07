@@ -22,7 +22,7 @@ def load_and_align(entry: dict, project_root: Path, insar_csv_path: Path) -> tup
     """Load MLCW CSV, GWL feather, and InSAR CSV then align all to the InSAR timeline."""
     station      = entry["station"]
     layer        = entry["layer"]
-    wellcode     = entry["assigned_wellcode"]
+    wellcode     = str(entry["assigned_wellcode"]).zfill(8)  # 8-digit string — guard against CSV int truncation
     well_elev_m  = entry["well_elev_m"]
     hc_pct       = entry.get("hc_percentile", 10)   # default 10th percentile
     gwl_feather  = project_root / entry["gwl_feather"]
@@ -52,10 +52,10 @@ def load_and_align(entry: dict, project_root: Path, insar_csv_path: Path) -> tup
     insar_sorted = insar.sort_values("datetime").reset_index(drop=True)
     gwl_aligned  = pd.merge_asof(
         insar_sorted[["datetime"]], gwl_raw.sort_values("datetime"),
-        on="datetime", direction="nearest")
+        on="datetime", direction="nearest", tolerance=pd.Timedelta("3D"))
     mlcw_aligned = pd.merge_asof(
         insar_sorted[["datetime"]], mlcw.sort_values("datetime"),
-        on="datetime", direction="nearest")
+        on="datetime", direction="nearest", tolerance=pd.Timedelta("3D"))
 
     merged = (insar_sorted
               .merge(gwl_aligned,  on="datetime")
@@ -65,11 +65,17 @@ def load_and_align(entry: dict, project_root: Path, insar_csv_path: Path) -> tup
         if dup in merged.columns:
             merged = merged.drop(columns=[dup])
 
-    # ── Pre-consolidation head at configured percentile ───────────────────
-    # Using the minimum (0th percentile) makes all epochs elastic by definition.
-    # hc_percentile (default 10) gives a threshold below which inelastic
-    # consolidation is triggered — approximately 10% of historical lows.
-    h_c_head  = float(np.percentile(gwl_raw["head_m"].dropna(), hc_pct))
+    # ── Pre-consolidation head: lowest GWL before InSAR series starts ────────
+    # Bug F fix: h_c must be computed from raw GWL rows dated BEFORE REF_DATE
+    # (2015-01-16), before the InSAR record begins.  Using the full record
+    # includes post-2015 drought lows that push h_c below the study-period range,
+    # misclassifying up to ~51% of epochs as elastic (head > h_c when it should not).
+    REF_DATE = pd.Timestamp("2015-01-16")
+    pre_ref_mask = gwl_raw["datetime"] < REF_DATE
+    if pre_ref_mask.sum() >= 10:
+        h_c_head = float(gwl_raw.loc[pre_ref_mask, "head_m"].dropna().min())
+    else:
+        h_c_head = float(gwl_raw["head_m"].dropna().min())
     h_c_depth = well_elev_m - h_c_head
 
     meta = {

@@ -2,7 +2,7 @@
 
 ## Two-repo architecture
 
-This repo (`20260427_InSAR_MLCW_v2`) holds **data and pipeline scripts**. All active modeling code lives in `D:\112_PROJECT_002`. Import pattern:
+This repo (`20260427_InSAR_MLCW_v2`) holds **all data, pipeline scripts, and active modeling code** (merged from `D:\112_PROJECT_002` on 2026-06-05). All imports use `from paths import ...` — see CLAUDE.md Path Reference section.
 
 ```python
 import sys; sys.path.insert(0, r'D:\112_PROJECT_002')
@@ -11,21 +11,26 @@ from src.gwl_loader import ...
 
 The VS Code workspace (`20260427_InSAR_MLCW_v2.code-workspace`) links this repo + `appsigsolv` (at `../20260501_timeseries_signal_solver/`, a separate git repo).
 
-## Active development — Track B / IHM-F
+## Active development — IHM-F v3 (GWL-driven compaction model)
 
-Production method is **IHM-F** (two-regime IHM with per-layer β_k). DLLM is retired. IHM-F model lives at `scripts/10_ihmf/`:
+Primary method under exploration is **IHM-F v3** (joint constrained inversion, GWL-only drivers). V1/v2 are superseded. IHM-F v3 model lives at `scripts/10_ihmf/`:
 
-- `fit_ihm_f.py` — entry point: reads `data/ihmf_config.json`, fits per (station, layer)
-- `ihmf_model.py` — core: `prepare_signals()`, `fit_one_tau()`, `grid_search_tau()`, `run_walk_forward()`
-- `ihmf_io.py` — data loading (MLCW grouped CSVs, GWL feather, 2S-TOOL warmstarts)
+- `fit_ihm_f_v3.py` — entry point: reads `data/ihmf_config.json`, fits per (station, layer), outputs to `results/ihmf/v3/`
+- `ihmf_model_v3.py` — core: `build_regime_mask()`, `remove_seasonal_cycle()`, `tau_grid_search_per_layer()`, `joint_solve_fixed_tau()`, `run_walk_forward_v3()`
+- `ihmf_io_multilayer.py` — data loading (MLCW grouped CSVs, GWL feather, multi-layer assembly) — **active loader for v3**
+- `ihmf_io.py` — single-layer loader (v1/v2 only; do not import in v3 scripts)
+- `ihmf_detrend.py` — shared detrending (used by v3 for walk-forward + diagnostic pipelines)
 - `ihmf_plots.py` — diagnostics
 
-4-fold walk-forward: fold-1 (2022) is the operational stress test — MLCW reconstructed, no raw data that year. Exit criterion: fold-1 median RMSE ≤ 1.5× folds 2–4 median.
+4-fold walk-forward: fold-1 (2022) is the operational stress test — MLCW reconstructed, no raw data that year. Exit criterion: fold-1 median RMSE $\le$ 1.5$\times$ folds 2–4 median.
 
 **Commands:**
 ```powershell
-# Run IHM-F (all stations/layers from config)
-conda run -n fafalab python scripts\10_ihmf\fit_ihm_f.py
+# Run IHM-F v3 single station (TUKU pilot)
+$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
+
+# Run IHM-F v3 batch (all 37 stations — only after TUKU pilot passes physical checks)
+$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --all
 
 # Run Stage 1 B-vector regression (legacy, D:\112_PROJECT_002)
 $env:PYTHONPATH = ""; conda run -n fafalab python D:\112_PROJECT_002\main.py
@@ -38,8 +43,8 @@ conda run -n isce_ncu3 python tools\2S-TOOL-Python\scripts\09_trackB\batch_run_2
 
 - **Conda env `fafalab`** (Python 3.10). Two conflicting YAMLs at parent root: `environment.yml` (3.12), `fafalab_env.yml` (3.10). Installed is 3.10.
 - **`PYTHONPATH` contamination**: `fafalab` picks up `gemini_env` paths. For `D:\112_PROJECT_002` scripts, run with `$env:PYTHONPATH = ""; conda run -n fafalab python <script>`.
-- **2S-TOOL** requires `isce_ncu3` env (scipy ≥1.17) — separate from `fafalab`.
-- **All paths** hardcoded Windows absolute (`D:\...`). Portability needs find-and-replace.
+- **2S-TOOL** requires `isce_ncu3` env (scipy $\ge$ 1.17) — separate from `fafalab`.
+- **Path resolution:** Use `from paths import SCRIPTS_ROOT, DATA_ROOT, RESULTS_ROOT, DOCS_ROOT, resolve` for all new scripts. Legacy scripts may still have hardcoded `D:\...` paths; migrate them via `resolve()` when touched. See CLAUDE.md "Path Resolution Protocol" section for examples.
 - **No tests, no CI, no linters.** Research pipeline. Verify by inspecting output CSVs/PNGs.
 
 ## Key conventions
@@ -62,10 +67,10 @@ conda run -n isce_ncu3 python tools\2S-TOOL-Python\scripts\09_trackB\batch_run_2
 | InSAR at 500m grid | Feather | `insar/timeseries/gridpnt_500m_interp_insar_IDW_extend.feather` |
 | GWL timeseries (100 files) | Feather | `gwl/well_timeseries/{STATION}_gwl_timeseries.feather` |
 | GWL metadata (306 wells) | CSV | `gwl/well_info/gwl_allwells_flat.csv` |
-| GWL-to-MLCW layer assignment | CSV | `gwl/gwl_to_mlcw_layer_assignment_v3.csv` (use v3) |
+| GWL-to-MLCW layer assignment | CSV | `gwl/gwl_to_mlcw_layer_assignment_v4.csv` (use v4; 195 rows, 2026-06-04 update) |
 | MLCW-aligned GWL (189 files) | Feather | `gwl/mlcw_gwl_timeseries/{MLCW}_{GWL}_{WELLCODE}.feather` |
 | Hydrofacies | CSV | `hydrofacies/mlcw_hydrofacies_5m.csv` |
-| α prior | CSV | `alpha/alpha_comparison_all_stations_v3.csv` |
+| $\alpha$ prior | CSV | `alpha/alpha_comparison_all_stations_v3.csv` |
 | 2S-TOOL results | CSV | `gwl/2stool_outputs/2stool_results_summary.csv` |
 | IHM-F config (all stations/layers) | JSON | `ihmf_config.json` |
 
@@ -79,8 +84,8 @@ scripts/
 ├── 02_mlcw_processing/       MLCW decomposition (appsigsolv), reconstruction, 5m grid
 ├── 03_gps_processing/        GPS vertical decomposition
 ├── 04_gwl_processing/        Feather extraction, layer assignment, linkage inspection
-├── 05_modeling/              ARX, Prophet, ablation (Track A)
-├── 06_direct_ratio/          Static f̄_k baseline (Track A floor)
+├── 05_modeling/              ARX, Prophet, ablation (static scaling baseline)
+├── 06_direct_ratio/          Static f̄_k baseline (comparison floor)
 ├── 07_analysis/              Validation, harmonic/wetdry diagnostics
 ├── 08_visualization/         Publication plots, data inspection
 ├── 09_trackB/                2S-TOOL batch run + results collection
@@ -97,4 +102,4 @@ scripts/
 
 ## GWL proxy notes
 
-24 of 37 stations use nearest-proxy GWL (18 no co-located well + 6 fully-blocked: ERLUN, GUANGFU, KECUO, QIAOYI, XIUTAN, ZHENGMIN). `assign_gwl_to_layers()` matches layers to GWL wells by screen midpoint depth-range lookup. Four stations need explicit wellcode overrides: DONGSHI→10090111, TUKU→09030211, XIGANG→07240213, ZHUTANG→07250111.
+24 of 37 stations use nearest-proxy GWL (18 no co-located well + 6 fully-blocked: ERLUN, GUANGFU, KECUO, QIAOYI, XIUTAN, ZHENGMIN). `assign_gwl_to_layers()` matches layers to GWL wells by screen midpoint depth-range lookup. Station count excludes JINHU_XIN and LUNFENG_XIN (no grouped MLCW files).
