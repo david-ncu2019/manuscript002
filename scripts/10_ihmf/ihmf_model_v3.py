@@ -249,6 +249,7 @@ def joint_solve_fixed_tau(
     layer_data: dict[str, dict],
     insar_mm: np.ndarray,
     lam: float | None = None,
+    alpha_external: float | None = None,
 ) -> dict:
     """
     Two-step solve following physics_rules_research_problem.md:
@@ -262,6 +263,9 @@ def joint_solve_fixed_tau(
       α = dot(cum_sum_pred, cum_insar) / dot(cum_insar, cum_insar)
       Clamped to (0, 1].
 
+      When alpha_external is provided, Step 2 OLS is bypassed — α is set to
+      alpha_external directly and only the intercept c is fitted.
+
     The lam parameter is accepted for API compatibility but not used in this
     two-step formulation.
 
@@ -274,11 +278,16 @@ def joint_solve_fixed_tau(
           'elastic_mask'  : bool array, shape (T,)
           'inelastic_mask': bool array, shape (T,)
     insar_mm : 1-D float array
-        Incremental InSAR (np.diff of cumulative). Cumsum applied inside.
+        Incremental InSAR/GPS (np.diff of cumulative). Cumsum applied inside.
+        May contain NaN for pre-GPS epochs — handled when alpha_external is set.
+    alpha_external : float or None
+        When not None, use this fixed α value instead of fitting via OLS.
+        Used in GPS mode where the 2003-2010 pre-GPS era has no calibration
+        signal and the elastic-only OLS gives a physically wrong α ≈ 0.034.
 
     Returns
     -------
-    dict with keys: layers, alpha, beta, rmse_mlcw, rmse_insar, r2_insar
+    dict with keys: layers, alpha, beta, c_intercept, rmse_mlcw, rmse_insar, r2_insar
     """
     layers = list(layer_data.keys())
     N = len(layers)
@@ -336,23 +345,53 @@ def joint_solve_fixed_tau(
         mlcw_resid_sq.extend((db - db_pred_j) ** 2)
     rmse_mlcw = float(np.sqrt(np.mean(mlcw_resid_sq)))
 
-    # ── Step 2: Fit α from cumulative InSAR (with OLS intercept) ─────────
+    # ── Step 2: Fit α from cumulative InSAR (or use external empirical α) ──
     # Fit: α · cum_insar(t) + c = cum_pred(t)
     # c absorbs displacement not driven by GWL layers. α is the scale factor.
     cum_pred  = np.cumsum(db_pred_all)
-    A_step2   = np.column_stack([cum_insar, np.ones(T)])
-    coeffs, _, _, _ = np.linalg.lstsq(A_step2, cum_pred, rcond=None)
-    alpha = float(np.clip(coeffs[0], 1e-6, 1.0))
-    beta  = 1.0 / alpha
-    c_intercept = float(coeffs[1])
 
-    # RMSE and R² in cumulative domain (subtract intercept before inverting)
-    insar_pred  = (cum_pred - c_intercept) / alpha
-    insar_resid = cum_insar - insar_pred
-    rmse_insar  = float(np.sqrt(np.mean(insar_resid ** 2)))
-    ss_res = float(np.sum(insar_resid ** 2))
-    ss_tot = float(np.sum((cum_insar - cum_insar.mean()) ** 2))
-    r2_insar = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else np.nan
+    if alpha_external is not None:
+        # Fixed α from external empirical calibration (e.g. monthly MLCW vs GPS
+        # OLS).  Bypasses the elastic-era OLS that produces α ≈ 0.034 when the
+        # GPS record starts after the main inelastic consolidation period.
+        alpha = float(alpha_external)
+        beta  = 1.0 / alpha if alpha > 0 else float("inf")
+        # c_intercept: minimise |cum_pred - (α·cum_insar + c)|² on finite insar epochs only
+        finite = np.isfinite(cum_insar)
+        if finite.sum() > 0:
+            c_intercept = float(np.mean(cum_pred[finite] - alpha * cum_insar[finite]))
+        else:
+            c_intercept = 0.0
+    else:
+        # Standard OLS: filter to finite insar epochs before fitting.
+        # NaN in cum_insar (e.g. pre-GPS era) would crash lstsq.
+        finite = np.isfinite(cum_insar)
+        if finite.sum() < 10:
+            alpha = float("nan")
+            beta  = float("nan")
+            c_intercept = 0.0
+            print("  [joint_solve] WARNING: < 10 finite GPS epochs — α set to NaN")
+        else:
+            A_step2   = np.column_stack([cum_insar[finite], np.ones(finite.sum())])
+            coeffs, _, _, _ = np.linalg.lstsq(A_step2, cum_pred[finite], rcond=None)
+            alpha = float(np.clip(coeffs[0], 1e-6, 1.0))
+            beta  = 1.0 / alpha
+            c_intercept = float(coeffs[1])
+
+    # RMSE and R² in cumulative domain (on finite insar epochs only)
+    finite = np.isfinite(cum_insar)
+    n_finite = int(finite.sum())
+    if n_finite > 1:
+        insar_pred  = np.full(T, np.nan)
+        insar_pred[finite]  = (cum_pred[finite] - c_intercept) / alpha
+        insar_resid = np.where(finite, cum_insar - insar_pred, np.nan)
+        ss_res = float(np.nansum(insar_resid ** 2))
+        ss_tot = float(np.nansum((cum_insar[finite] - np.nanmean(cum_insar)) ** 2))
+        rmse_insar  = float(np.sqrt(np.nanmean(insar_resid ** 2)))
+        r2_insar = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else np.nan
+    else:
+        rmse_insar = float("nan")
+        r2_insar  = float("nan")
 
     return {
         "layers":        layer_params,
@@ -375,6 +414,7 @@ def run_walk_forward_v3(
     insar_mm: np.ndarray,
     tau_max: int = 120,
     fold_years: list[int] | None = None,
+    alpha_external: float | None = None,
 ) -> list[dict]:
     """
     4-fold expanding walk-forward validation.
@@ -391,11 +431,15 @@ def run_walk_forward_v3(
     layer_metas : dict[str -> dict]
         From load_all_layers. Must contain h_c_head_m per layer.
     insar_mm : np.ndarray, shape (T,)
-        Shared InSAR timeline.
+        Shared InSAR/GPS incremental timeline. May contain NaN for pre-GPS epochs.
     tau_max : int
         Maximum integer lag to search. Default 120.
     fold_years : list[int] or None
         Hold-out years. Default [2022, 2023, 2024, 2025].
+    alpha_external : float or None
+        When not None, passed to joint_solve_fixed_tau in every fold, bypassing
+        the per-fold Step 2 OLS. The same fixed α is used for test-window
+        prediction. Default None (fit α per fold via OLS).
 
     Returns
     -------
@@ -564,7 +608,8 @@ def run_walk_forward_v3(
         insar_train_win = insar_train[win_start_tr : win_start_tr + win_len_tr]
 
         # Fit S_k and α on training window only
-        train_result = joint_solve_fixed_tau(layer_data_train_common, insar_train_win)
+        train_result = joint_solve_fixed_tau(layer_data_train_common, insar_train_win,
+                                             alpha_external=alpha_external)
         alpha_train = train_result["alpha"]
 
         # ── Predict on test window using frozen training S_k parameters ──────

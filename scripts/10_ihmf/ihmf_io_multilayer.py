@@ -234,19 +234,25 @@ def load_all_layers_gps(
             "n_epochs":         len(df),
         }
 
-    # ── 4. NaN shared-mask (GPS, GWL, MLCW must all be finite) ───────────
-    valid_mask = np.isfinite(gps_mm_series)
+    # ── 4. Step 1 NaN mask (GWL + MLCW only — GPS tracked separately) ──────
+    # GPS starts ~2010 and contains NaN for 2003-2010. Intersecting GPS in the
+    # validity gate drops the heavy-pumping inelastic era, leaving too few
+    # inelastic events to calibrate S_kv. Step 1 trains on the full GWL+MLCW
+    # record. GPS NaN appears in the returned gps_mm_series but is harmless:
+    # Step 2 OLS is bypassed when an external alpha is supplied via --alpha.
+    step1_mask = np.ones(len(gps_mm_series), dtype=bool)
     for lyr, df in layer_dfs.items():
-        valid_mask &= df["head_m"].notna().values
-        valid_mask &= df["mlcw_mm"].notna().values
+        step1_mask &= df["head_m"].notna().values
+        step1_mask &= df["mlcw_mm"].notna().values
+    # NOTE: gps_mm_series NaN is NOT intersected here — see docstring above.
 
-    if not valid_mask.all():
-        n_dropped = int((~valid_mask).sum())
+    if not step1_mask.all():
+        n_dropped = int((~step1_mask).sum())
         print(f"  [io-gps] {station}: dropping {n_dropped} NaN epoch(s) — "
-              f"keeping {valid_mask.sum()} of {len(gps_mm_series)}")
+              f"keeping {step1_mask.sum()} of {len(gps_mm_series)}")
         for lyr in layer_dfs:
-            layer_dfs[lyr] = layer_dfs[lyr].iloc[valid_mask].reset_index(drop=True)
-        gps_mm_series = gps_mm_series[valid_mask]
+            layer_dfs[lyr] = layer_dfs[lyr].iloc[step1_mask].reset_index(drop=True)
+        gps_mm_series = gps_mm_series[step1_mask]
 
     return layer_dfs, layer_metas, gps_mm_series
 

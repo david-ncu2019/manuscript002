@@ -36,6 +36,7 @@ def run_station(
     station: str,
     layer_filter: str | None = None,
     gps_mode: bool = False,
+    alpha_override: float | None = None,
 ) -> dict:
     shared_cfg, entries, insar_csv = load_config(ROOT)
 
@@ -143,7 +144,7 @@ def run_station(
     # InSAR incremental on the same common window
     inc_insar = np.diff(insar_mm)                # shape (T_full-1,)
     inc_insar_win = inc_insar[win_start : win_start + win_len]
-    result = joint_solve_fixed_tau(layer_data, inc_insar_win)
+    result = joint_solve_fixed_tau(layer_data, inc_insar_win, alpha_external=alpha_override)
     print(f"\n  α = {result['alpha']:.4f}  |  c = {result['c_intercept']:.4f} mm  "
           f"|  RMSE_InSAR = {result['rmse_insar']:.3f} mm  |  R²_InSAR = {result['r2_insar']:.4f}")
     print(f"  RMSE_MLCW = {result['rmse_mlcw']:.3f} mm")
@@ -177,7 +178,8 @@ def run_station(
 
     # ── Walk-forward validation ────────────────────────────────────────────
     print(f"\n  Running walk-forward validation (4 folds)...")
-    wf_results = run_walk_forward_v3(layer_dfs, layer_metas, inc_insar, tau_max)
+    wf_results = run_walk_forward_v3(layer_dfs, layer_metas, inc_insar, tau_max,
+                                      alpha_external=alpha_override)
     for fold in wf_results:
         if fold.get("skipped"):
             print(f"    {fold['fold']}: SKIPPED — {fold.get('reason', '')}")
@@ -195,10 +197,11 @@ def run_station(
 
     output = {
         "station":       station,
-        "mode":          "gps" if gps_mode else "insar",
-        "layers_fitted": layers,
-        "tau_max":       tau_max,
-        "tau_cadence":   tau_label,
+        "mode":            "gps" if gps_mode else "insar",
+        "alpha_override":  alpha_override,
+        "layers_fitted":   layers,
+        "tau_max":         tau_max,
+        "tau_cadence":     tau_label,
         "alpha":         result["alpha"],
         "beta":          result["beta"],
         "c_intercept":   result["c_intercept"],
@@ -242,6 +245,14 @@ if __name__ == "__main__":
             "Replaces InSAR CSV with GPS vertical displacement as Step-2 calibration signal."
         ),
     )
+    parser.add_argument(
+        "--alpha", type=float, default=None,
+        help=(
+            "Fix alpha to this empirical value, bypassing Step 2 OLS. "
+            "Required in GPS mode when the GPS record starts after the main "
+            "inelastic consolidation period (e.g. --alpha 0.634 for TUKU)."
+        ),
+    )
     grp = parser.add_mutually_exclusive_group(required=True)
     grp.add_argument("--all",   action="store_true", help="Fit all layers")
     grp.add_argument("--layer", help="Single layer code e.g. F2")
@@ -251,4 +262,5 @@ if __name__ == "__main__":
         args.station,
         layer_filter=None if args.all else args.layer,
         gps_mode=args.gps,
+        alpha_override=args.alpha,
     )
