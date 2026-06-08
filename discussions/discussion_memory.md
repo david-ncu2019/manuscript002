@@ -1,7 +1,7 @@
 # Discussion Memory: InSAR–MLCW–GWL Integration for Depth-Stratified Subsidence Monitoring
 
-**Last updated: 2026-06-02**
-**Current focus: Iterative testing of InSAR→MLCW prediction methods; walk-forward validation; unresolved consistency gate failures blocking spatial extension**
+**Last updated: 2026-06-08**
+**Current focus: Cumulative-domain solver pivot (2026-06-08); IHM-F v3 incremental solver structurally failed at TUKU; results/ reorganization complete**
 
 ---
 
@@ -118,9 +118,9 @@ The elastic-vs-inelastic distinction is the physical foundation for the IHM-F tw
 
 ### 3.5 Model Outputs and Diagnostics
 
-**Walk-forward prediction (InSAR→MLCW, no GWL):**
-- `results/prediction_v1/` — TUKU: static f̄_k model, epoch predictions CSV + JSON evaluation + 6 per-layer timeseries figures
-- `results/prediction_v2/` — TUKU: detrended + lag-aware model ($\tau$, $\alpha$ per fold), same output structure
+**Walk-forward prediction (InSAR→MLCW, no GWL) — OBSOLETE (superseded by cumulative solver):**
+- `results/prediction_v1_OBSOLETE_static_fbar/` — TUKU: static f̄_k model
+- `results/prediction_v2_OBSOLETE_detrended_lag_aware/` — TUKU: detrended + lag-aware model
 
 **Seasonal harmonic analysis (37 stations):**
 - `results/seasonal_insar_harmonic/{STATION}/` — 8 files per station: phase stability summary, per-year harmonic stability, temporal holdout, reconstruction metrics, InSAR harmonic timeseries (feather)
@@ -130,9 +130,10 @@ The elastic-vs-inelastic distinction is the physical foundation for the IHM-F tw
 - `results/ring_cross_correlation/{STATION}/` — 4 JSON files per station: raw timeseries, detrended, grouped, grouped lagged
 - `figures/ring_cross_correlation/{STATION}/` — 4 heatmap PNGs per station
 
-**Ceiling test:**
-- `results/ceiling_test/TUKU_ceiling_test.csv` — TUKU ceiling test metrics
-- `figures/ceiling_test/` — 15 per-layer diagnostic PNGs
+**Ceiling test (OBSOLETE — 2026-06-08):**
+- `results/ceiling_test_OBSOLETE_insar_only/TUKU_ceiling_test.csv` — TUKU ceiling test metrics (superseded by cumulative solver)
+
+**Results reorganization (2026-06-08):** All obsolete results were renamed with `_OBSOLETE_<reason>` suffixes rather than deleted. See PROGRESS.md §5 for the full convention table. Active outputs remain unsuffixed in `results/ihmf/v3/`, `results/stress_strain/`, `results/ring_cross_correlation/`, `results/seasonal_insar_harmonic/`, `results/gps_vs_mlcw/`, and `results/data_analysis/`.
 
 **Tau search campaign (TUKU pilot):**
 - `tau_demo_TUKU/results/` — 9 files: tau_results.csv, tau_mse_curves.csv, reconstruction_metrics.csv/json, evaluation_summary.json, reconstruction_timeseries.csv, seasonal_ske_diagnostics.csv, seasonal_ske_reference.csv, tuku_aligned_data.npz
@@ -681,6 +682,36 @@ This approach is planned as an extension to `tau_demo_TUKU/12_stress_strain_per_
 
 ---
 
+### Phase 9 — Circuit Breaker: Incremental Solver Cancellation at TUKU (2026-06-08)
+
+**What happened:** Day 3 of the 7-day plan ran the TUKU GPS re-run with fixed α = 0.625. The incremental solver (`joint_solve_fixed_tau`) produced $R^2_{\text{MLCW,cum}}$ negative or NaN for all 6 layers. The model predicts 0.1–0.9 mm/yr net compaction; MLCW sensors record 8–15 mm/yr monotonic subsidence. The gap is 8–355× depending on layer.
+
+**Physical mechanism of the failure:** The 5-day head oscillations (±2 m/yr at F2) approximately cancel over annual cycles — recharge raises head, pumping lowers it, net $\sum\Delta H \approx 0$. The model's elastic prediction follows this oscillation: slight expansion in wet years, slight compaction in dry years. But the MLCW records monotonic compaction every year regardless of whether head is rising or falling. The clay does not rebound when head briefly recovers because the water cannot flow back into the low-permeability pores fast enough, and the particle rearrangement from the historical stress maximum is structurally permanent.
+
+**Why the incremental domain erases stress memory:** The transformation from cumulative head $H(t)$ to incremental head $\Delta H(t) = H(t) - H(t-1)$ is a first-difference operator. It converts a monotonic secular trend (−40 m over decades) into a stationary oscillatory signal (±0.002 m per 5-day epoch). The integration constant — the pre-consolidation stress maximum — is lost in this transformation. The Riley (1969) running-minimum formulation $V(t) = \min(0, \text{cummin}(H) - h_c)$ requires the cumulative head to reconstruct the stress history, but the incremental solver never sees $H$, only $\Delta H$. The regime mask can classify epochs correctly, but with only 2–36 inelastic events (new running minimums) in the monitoring record, there are too few inelastic increments to accumulate meaningful compaction.
+
+**GWL data gap — the binding constraint:** The Day 2 GPS mask fix (Change 1) was correct in principle but could not help because F2 and F3 GWL data only starts in August 2012. The heavy-pumping era that drove head through $h_c$ happened before these wells were installed. The data simply does not exist. The step1_mask intersection across all 6 layers means any epoch where F2 or F3 GWL is NaN drops the epoch for all layers — the training window is 2012–2024 regardless of whether GPS is included in the mask.
+
+**Why Script 12 (cumulative) succeeded where IHM-F v3 (incremental) failed:** Script 12 operates on cumulative $H(t)$ and $b(t)$ directly. Its two-regressor NNLS:
+$$b(t) = S_{ke} \cdot H(t) + \delta \cdot V(t), \quad V(t) = \min(0, \text{cummin}(H) - h_c)$$
+carries the full stress history through $V(t)$ — a term that never decreases, preserving permanent strain. The incremental solver's $\Delta b = S_k \cdot \Delta H$ has no equivalent memory variable. At TUKU, Script 12 produced physically valid specific storage ratios for F1 (9.1×), T2 (9.3×), and F4 (17.3×). F2 (221×) and F3 ($S_{ke}$=0) failed due to collinearity, not domain mismatch. The IHM-F v3 incremental solver failed on all 6 layers.
+
+**Day 2–3 results summary:**
+
+| Metric | Before α fix | After α fix | Plan target | Met? |
+|--------|------------|------------|-------------|------|
+| α | 0.034 (OLS artifact) | 0.625 (empirical) | 0.625 | ✓ |
+| Step 1 n_epochs | 866 | 866 | ~1400 | ✗ (GWL gap, not GPS) |
+| n_inelastic F1–F4 | 11–36 | 11–36 | 100–400 | ✗ (structural) |
+| $R^2_{\text{MLCW,cum}}$ | unmeasured | all negative/NaN | ≥0.5 for ≥3/6 | ✗ (structural) |
+| $R^2_{\text{insar}}$ | 0.805 (misleading artifact) | 0.107 (honest) | <0.1 expected | ✓ |
+
+**Decision required:** The 7-day plan's incremental-solver path is structurally blocked. The user must choose between a cumulative-solver fork (Option A), per-layer Script 12 calibration (Option B), or data-driven fallback (Option C). Full post-mortem at `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md`. PROGRESS.md updated with circuit-breaker status.
+
+*Plan file reference: `plans/2026-06-07-alpha-fix-seven-day-plan.md` (Days 1–2 complete, Day 3 halted at gate 3d).*
+
+---
+
 ## Notes for Future Sessions
 
 1. **PROGRESS.md is the source of truth** for current pipeline status, data state, and blocking decisions. Update it first when status changes.
@@ -690,3 +721,4 @@ This approach is planned as an extension to `tau_demo_TUKU/12_stress_strain_per_
 5. **Mandatory pre-implementation files:** Read PROGRESS.md + CLAUDE.md GUARDRAILS section before writing code.
 6. **Collinearity is NOT a solver bug** — it is a physical identifiability limit. Flag as "InSAR-dominated" and move on.
 7. **Model structure is uniform across all stations** — parameters vary, structure does not. No per-station selection by inspection.
+8. **Incremental cancellation is a physical domain mismatch — not a tuning problem.** The first-difference operator erases preconsolidation stress memory. Do not attempt to fix this with regularization, bounds, or lag optimization. The cumulative domain (Script 12) is the correct formulation for monotonic consolidation. See `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md`.

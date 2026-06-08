@@ -3,8 +3,8 @@
 > **This is the single authoritative PROGRESS.md** (merged 2026-06-05; content from docs repo 2026-06-04).
 > All future updates go here only.
 
-**Date:** 2026-06-07
-**Status:** Script 12 COMPLETE (2026-06-06). Collinearity root cause diagnosed (2026-06-07). **Key correction:** The [8–100]× gate applies to the **specific-storage ratio** $S_{skv}/S_{ske}$ [m⁻¹/m⁻¹], not the bulk ratio $S_{kv}/S_{ke}$ [mm/m / mm/m]. After two-thickness borehole conversion: F1 **passes** (9.1×), T2 **passes** (9.3×), F4 **passes** (17.3×). **Actual failures:** T1 specific ratio 2.9× (undershoots 8×); F2 specific ratio 221× (overshoots 100×); F3 $S_{ke}$=0 (undefined). Joint inversion over thickness is degenerate (RMSE flat along $S_{ske} \times$ total\_m ridge) — ruled out as dead end. **Next:** implement decoupled two-step fit in Script 12 (elastic-only OLS for $S_{ke}$, then residual NNLS for $S_{kv}$), then feasibility check vs Choushui literature bounds.
+**Date:** 2026-06-08
+**Status:** 🚨 CIRCUIT BREAKER — IHM-F v3 incremental solver structurally failed at TUKU (2026-06-08). Script 12 cumulative approach SUCCEEDED. **Key finding:** The 5-day incremental formulation $\Delta b = S_k \cdot \Delta H$ cannot accumulate the observed monotonic MLCW compaction because seasonal head oscillations (±2 m/yr) approximately cancel — the model predicts 0.1–0.9 mm/yr while MLCW records 8–15 mm/yr (8–355× gap). $R^2_{\text{MLCW,cum}}$ is negative or NaN for all 6 layers. Root cause is a physical domain mismatch: the incremental solver operates on the derivative of head (a stationary oscillatory signal) while MLCW compaction is the integral of maximum historical stress (a monotonic cumulative signal). The Riley (1969) preconsolidation memory is lost in the first-difference transformation. **Day 2 GPS mask fix completed but insufficient** — F2/F3 GWL wells (09050321, 09050331) only start 2012-08, so 2003-2012 inelastic era has zero GWL data regardless of the GPS mask. **Next:** tactical pivot — decide between cumulative-solver fork, per-layer Script 12 calibration, or data-driven fallback. See `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md` for full post-mortem.
 
 ---
 
@@ -99,46 +99,50 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | **12_stress_strain_per_layer.py (cumulative domain, per-layer)** | **Complete — 2026-06-06; two-regressor NNLS. Specific-storage gate (2026-06-07 correction): F1=9.1× PASS, T2=9.3× PASS, F4=17.3× PASS; T1=2.9× FAIL; F2=221× FAIL; F3 S_ke=0. Decoupled two-step fit extension planned.** |
 | **CLAUDE.md restructure + knowledge file merge** | **Complete — 2026-06-05; both CLAUDE.md files restructured; 12 discussion/notes/plans files merged from docs repo** |
 | Multi-layer data assembler (`ihmf_io_multilayer.py`) | **Complete — operational, imported by `fit_ihm_f_v3.py`** |
-| Joint solver (`ihmf_model_v3.py`) | **EXISTS — 3 fixes confirmed done 2026-06-05: TAU_MAX=120, ratio guard <1e-10+8–58× WARN, Step 2 cumulative+intercept; default tau_max=120 in function signatures. S_kv upper cap removed (lumped parameters make direct cap ~4-5 orders too small).** |
-| TUKU pilot — IHM-F v3 re-run | **READY TO RUN — all fixes confirmed; existing TUKU_v3_results.json (2026-06-02) is pre-fix and invalid** |
-| IHM-F batch run — all 191 entries | **Blocked — TUKU v3 pilot re-run must pass physical checks first** |
+| Joint solver (`ihmf_model_v3.py`) | **CIRCUIT BREAKER (2026-06-08) — incremental formulation structurally fails; $R^2_{\text{MLCW,cum}}$ negative/NaN for all 6 TUKU layers; 8–355× prediction gap** |
+| **Day 2 α fix (2026-06-08): 4 code changes + compute_alpha_empirical.py** | **COMPLETE — commit 182b8d6; GPS mask decoupled, alpha_external param, --alpha CLI, TUKU α=0.625 verified** |
+| **Day 3 TUKU GPS re-run (2026-06-08)** | **COMPLETE — `TUKU_gps_v3_results.json` written; α=0.625 preserved; n_inelastic=11–36 (failed ≥50 target); circuit breaker tripped on incremental cancellation** |
+| TUKU pilot — IHM-F v3 cumulative fork | **BLOCKED — tactical pivot decision pending** |
+| IHM-F batch run — all 191 entries | **Blocked — incremental solver cannot proceed; cumulative-solver fork or data-driven fallback required** |
 
 ---
 
 ## 4. Blocking Decision
 
-**Current gate (2026-06-07, updated):** Script 12 complete. Collinearity root cause confirmed and specific-storage ratio gate recomputed from JSON (2026-06-07).
+**🚨 CIRCUIT BREAKER (2026-06-08):** IHM-F v3 incremental solver failed at TUKU. Day 3 re-run complete — `results/ihmf/v3/TUKU_gps_v3_results.json` written. α = 0.625 preserved. But the incremental formulation cannot reproduce MLCW compaction.
 
-**Corrected gate status (specific-storage ratio $S_{skv}/S_{ske}$ [m⁻¹], not bulk ratio):**
+**Incremental solver failure — quantified (2026-06-08):**
 
-| Layer | $S_{ske}$ (m⁻¹) | $S_{skv}$ (m⁻¹) | Specific ratio | Gate |
-|-------|-----------------|-----------------|----------------|------|
-| F1 | $2.12 \times 10^{-5}$ | $1.93 \times 10^{-4}$ | 9.1× | **PASS** |
-| T1 | $9.55 \times 10^{-5}$ | $2.75 \times 10^{-4}$ | 2.9× | FAIL (< 8×) |
-| F2 | $4.94 \times 10^{-6}$ | $1.09 \times 10^{-3}$ | 221× | FAIL (> 100×) |
-| T2 | $5.50 \times 10^{-5}$ | $5.09 \times 10^{-4}$ | 9.3× | **PASS** |
-| F3 | null | null | undefined | ($S_{ke}$=0) |
-| F4 | $2.26 \times 10^{-5}$ | $3.92 \times 10^{-4}$ | 17.3× | **PASS** |
+| Layer | n_inelastic | $R^2_{\text{MLCW,cum}}$ | obs_range (mm) | pred_range (mm) | Ratio obs/pred |
+|-------|-----------|-------------------------|----------------|-----------------|----------------|
+| F1 | 36 | −2.18 | 30.4 | ~3 | ~10× |
+| T1 | 36 | −2.62 | 18.5 | ~2 | ~9× |
+| F2 | 2 | NaN | 206.0 | ~1 | ~200× |
+| T2 | 12 | NaN | 22.8 | ~2 | ~11× |
+| F3 | 29 | NaN | 337.4 | ~2 | ~170× |
+| F4 | 11 | −3.94 | 36.5 | ~2 | ~18× |
 
-**Dead end ruled out (2026-06-07):** Joint inversion over (total\_m, aquitard\_m, $S_{ske}$, $S_{skv}$) is degenerate — RMSE depends only on the product $S_{ske} \times$ total\_m; optimizer finds a flat ridge with no unique solution. Thickness fixed at borehole values.
+**Root cause of cancellation:** 5-day head oscillations (±2 m/yr at F2) approximately cancel over annual cycles. The model predicts net ~0.1–0.9 mm/yr per layer. MLCW records monotonic 8–15 mm/yr regardless of head direction. The incremental formulation's first-difference operation erases the preconsolidation stress memory — the Riley (1969) running minimum cannot be reconstructed from derivatives alone.
 
-**Root cause of ratio compression:** At TUKU 93% of epochs are inelastic (continuous drawdown). Virgin term $V_j(t) \approx H_j(t) - h_c$ becomes a near-perfect linear shift of $H_j(t)$. Simultaneous NNLS cannot separate regressors and compresses the ratio. This is a physical identifiability limit.
+**GWL data gap (binding constraint):** F2 well (09050321) and F3 well (09050331) were installed August 2012. The 2003–2012 inelastic consolidation era has zero GWL data. The Day 2 GPS mask fix could not help — the bottleneck was GWL data, not GPS.
 
-**Decoupled two-step fit: IMPLEMENTED AND RUN (2026-06-06).** Results in `tau_demo_TUKU/results/stress_strain_per_layer.json` (`_2s` fields for all 6 layers). See `discussions/PEER_REVIEW_MATH_VERIFICATION.md` for full numerical table.
+**Contrast with Script 12 cumulative success:**
 
-**Ratio gate bug confirmed (2026-06-07):** `12_stress_strain_per_layer.py` line 560 checks bulk ratio $S_{kv}/S_{ke}$ [mm/m] against $[8, 100]\times$. Correct gate requires specific storage ratio $S_{skv}/S_{ske}$ [m⁻¹]. The transformation factor = total\_m / compressible\_m (F2: 8.79×, T2: 1.58×). Consequence: F2 is a **false positive** (bulk 25.1× PASS, specific 220.7× → FAIL); T2 is a **false negative** (bulk 5.32× FAIL, specific 8.41× → PASS).
+| Metric | Incremental (IHM-F v3) | Cumulative (Script 12) |
+|--------|----------------------|----------------------|
+| Domain | $\Delta H$, $\Delta b$ (5-day diffs) | $H$, $b$ (cumulative levels) |
+| Stress memory | None (each epoch independent) | Running minimum via $V(t)$ |
+| $R^2$ F2 | NaN | 0.845 |
+| F1 specific ratio | N/A | 9.1× PASS |
+| T2 specific ratio | N/A | 9.3× PASS |
+| F4 specific ratio | N/A | 17.3× PASS |
 
-**Corrected TUKU decoupled feasibility (after ratio gate fix):**
-- F1: FAIL ($S_{ske,2s} = 6.54 \times 10^{-6}$ m⁻¹, 10% below literature min $7.27 \times 10^{-6}$)
-- T1: FAIL ($S_{ke,2s}$ = 0 — elastic channel not identifiable)
-- F2: FAIL (specific ratio $220.7\times > 100\times$; only 6 elastic epochs; nnls_fallback)
-- T2: **PASS** (specific ratio $8.41\times \in [8, 100]$; $S_{ske}$, $S_{skv}$ both IN bounds)
-- F3: FAIL ($S_{ke,2s}$ = 0; only 7 elastic epochs; nnls_fallback)
-- F4: **PASS** (specific ratio $10.76\times$; all bounds IN)
+**Full post-mortem:** `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md`
 
-**Ratio gate FIXED (2026-06-07):** Applied `specific_ratio_2s = S_skv_2s_m1 / S_ske_2s_m1` at `12_stress_strain_per_layer.py` line 560. Script 12 re-run and confirmed: T2 `feasible_2s=true` (8.42×), F2 `feasible_2s=false` (220.68×), F4 unchanged (10.76×). Results match `PEER_REVIEW_MATH_VERIFICATION.md` predictions exactly.
-
-**Next action (Day 2, 2026-06-08):** TUKU IHM-F v3 pilot — `$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all`. Confirm R²_insar > 0, α ∈ (0, 1]. Then 4-fold walk-forward. See 7-day plan at `C:\Users\FAFALAB\.claude\plans\initialize-a-brand-new-composed-sloth.md`.
+**Next action:** Tactical pivot decision required. Three options tabled:
+- **A — Cumulative-solver fork:** Replace `joint_solve_fixed_tau`'s per-epoch lsq_linear with Script 12's two-regressor NNLS on cumulative $H$ and $V$ arrays.
+- **B — Per-layer calibration:** Use Script 12 results as the calibration basis; empirical α for surface scaling; skip incremental walk-forward.
+- **C — Data-driven fallback:** Use validated Script 12 $S_{ske}$, $S_{skv}$ where gates pass; flag failures; gap-fill via spatial interpolation of validated parameters.
 
 **Previous gate (2026-06-04):** TUKU walk-forward evaluation is complete but does NOT clear the interpolation gate. Two diagnosed failures must be addressed:
 1. **F2 Tier 2 (seasonal) degrades all 4 folds** — median RMSE 4.59 → 5.97 mm; seasonal correction is counterproductive; the `_build_seasonal_term` phase-shift logic likely misaligns with cumulative MLCW signal
@@ -206,8 +210,8 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | Tau search results | TUKU optimal lag + reconstruction metrics (Bug F fixed) | `...\InSAR_MLCW_v2\tau_demo_TUKU\results\tau_results.csv` |
 | Stress-strain results | Per-layer NNLS fit: $S_{ke}$, $S_{kv}$, ratio, R² (Script 12, 2026-06-06) | `...\InSAR_MLCW_v2\tau_demo_TUKU\results\stress_strain_per_layer.json` |
 | Seasonal $S_{ske}$ diag. | Wet/dry and sinusoidal results for TUKU 6 layers | `...\InSAR_MLCW_v2\tau_demo_TUKU\results\seasonal_ske_diagnostics.csv` |
-| Walk-forward RMSE | 387 rows: station × layer × fold RMSE + skill scores | `...\InSAR_MLCW_v2\results\prediction_v1\walkforward_rmse.csv` |
-| TUKU evaluation JSON | Machine-readable metrics: per-fold + medians + gate | `...\InSAR_MLCW_v2\results\prediction_v1\TUKU_evaluation.json` |
+| Walk-forward RMSE | 387 rows: station × layer × fold RMSE + skill scores (OBSOLETE — static f̄_k, superseded) | `...\InSAR_MLCW_v2\results\prediction_v1_OBSOLETE_static_fbar\walkforward_rmse.csv` |
+| TUKU evaluation JSON | Per-fold metrics (OBSOLETE — static f̄_k, superseded) | `...\InSAR_MLCW_v2\results\prediction_v1_OBSOLETE_static_fbar\TUKU_evaluation.json` |
 | Data inventory | Authoritative data file catalog (REQUIRED READING) | `...\InSAR_MLCW_v2\notes\dataset\my_dataset_summary.md` |
 | Work diary | Full project narrative and method history | `...\InSAR_MLCW_v2\discussions\discussion_memory.md` |
 | IHM-F theory | Complete two-regime model derivation | `...\InSAR_MLCW_v2\discussions\discussion_20260528_ihm_theory.md` |
@@ -222,3 +226,17 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | Seasonal harmonic findings | Reconstruction tables, phase gate, locked decisions | `...\InSAR_MLCW_v2\docs\seasonal_harmonic_findings.md` |
 | Figure standards | A4/300dpi matplotlib standards | `...\InSAR_MLCW_v2\docs\figure_standards.md` |
 | Incremental fit results (TUKU) | lsq_linear per-layer fit (6 layers) — all fail 8–100× ratio gate | `...\InSAR_MLCW_v2\tau_demo_TUKU\results\incremental_fit_results.json` |
+
+### Results directory convention (2026-06-08)
+
+Obsolete results are renamed with `_OBSOLETE_<reason>` suffixes rather than deleted, preserving the full experimental history for the final defense. Active outputs live alongside them without the suffix.
+
+| Status | Suffix pattern | Example |
+|--------|---------------|---------|
+| **ACTIVE** | No suffix | `results/ihmf/v3/TUKU_gps_v3_results.json` |
+| OBSOLETE — incremental solver | `_OBSOLETE_v*_incremental*` | `results/ihmf/run001_OBSOLETE_v1_incremental_single_layer/` |
+| OBSOLETE — static scaling | `_OBSOLETE_static_*` | `results/direct_ratio_OBSOLETE_static_scaling_baseline/` |
+| OBSOLETE — InSAR-only prediction | `_OBSOLETE_*` | `results/prediction_v1_OBSOLETE_static_fbar/` |
+| OBSOLETE — abandoned methods | `_OBSOLETE_*` | `results/prophet_OBSOLETE_ablation/` |
+
+Active results directories: `ihmf/v3/`, `ring_cross_correlation/`, `seasonal_insar_harmonic/`, `ring_gwl_xcorr/`, `data_analysis/`, `gps_vs_mlcw/`, `stress_strain/`.

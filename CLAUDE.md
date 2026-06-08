@@ -106,6 +106,8 @@ No hardcoded `D:\...` or `/mnt/hgfs/...`. Run `python paths.py` to verify platfo
 
 ## Known Code Issues
 
+- **Results directory convention (2026-06-08):** Obsolete outputs are renamed with `_OBSOLETE_<reason>` suffixes — never deleted. Active outputs have no suffix. See PROGRESS.md §5 for the full table. Before opening any `results/` path, check whether it has an `_OBSOLETE_` sibling — the unsuffixed version may be stale.
+
 - **F = aquifer, T = aquitard.** Taiwan CGS convention. Do not invert.
 - **PYTHONPATH contamination.** Always reset before `conda run` (gemini_env leaks into fafalab).
 - **GWL wellcodes are 8-digit strings.** Never convert to int (leading zeros dropped).
