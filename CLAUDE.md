@@ -5,14 +5,14 @@
 
 ---
 
-> ## ⚠ STATUS: ACTIVE EXPLORATION — NOTHING IS FINALIZED
+> ## ⚠ STATUS: ACTIVE METHOD REVIEW — Objectives corrected 2026-06-09
 >
-> Neither method family (static scaling vs GWL-driven IHM-F) has been selected.
-> No consistency gate has been cleared. All IHM-F v3 code fixes confirmed done (2026-06-05/06).
-> Script 12 complete (2026-06-06). **Corrected gate (2026-06-07):** Gate applies to specific-storage ratio $S_{skv}/S_{ske}$ [m⁻¹], NOT bulk ratio. F1=9.1× PASS, T2=9.3× PASS, F4=17.3× PASS; T1=2.9× FAIL; F2=221× FAIL; F3 $S_{ke}$=0.
-> Joint inversion over thickness ruled out (degenerate — RMSE flat along $S_{ske}$×total\_m ridge).
-> Root cause of ratio compression: 93% inelastic epochs → $H$ and $V$ nearly collinear → simultaneous NNLS compresses ratio.
-> **Next:** Decoupled two-step fit in Script 12 (elastic-only OLS for $S_{ke}$, residual NNLS for $S_{kv}$). See plan file.
+> The project goal is to reconstruct a fragmented observational record: MLCW wells have stopped or reduced sampling due to cost. Three objectives: (1) Gap-fill + predict at MLCW stations using InSAR + GWL; (2) apply to all stations; (3) predict at 8,577 grid points with no MLCW. Physical parameter gates remain necessary guardrails, but success criterion is gap-fill RMSE < static interpolation baseline + positive walk-forward skill score.
+>
+> **Terzaghi consolidation + stress-strain curve analysis (Script 12 cumulative NNLS) is under evaluation as candidate gap-fill/prediction method — NOT confirmed.** Incremental IHM-F v3 solver structurally failed (2026-06-08). IHM-F v3 code fixes confirmed done (2026-06-05/06).
+>
+> **Immediate priority:** Held-out gap-fill evaluation at TUKU pilot (Script 12 cumulative solver) before any further code development. One-week constraint applies.
+>
 > **Do not assume any result is final.** Read `PROGRESS.md` first.
 
 ---

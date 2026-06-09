@@ -494,6 +494,26 @@ What follows is a chronological account of our attempts to predict per-layer MLC
 
 ---
 
+### 2026-06-09 — Objectives Correction: Gap-Fill + Prediction, Not Calibration
+
+The project framing was corrected on 2026-06-09. Prior summaries described Objective 1 as "reconstruct per-layer compaction at MLCW stations (calibration problem)" — this was wrong.
+
+The actual problem is a broken observational record: MLCW wells have stopped operating or reduced sampling from monthly to semi-annual/annual due to maintenance costs. The research is not about calibrating a physical model against MLCW measurements — it is about using InSAR and GWL to fill gaps in, and predict forward, a deteriorating monitoring network.
+
+Objective 1 (well-scale): Use InSAR timeseries + GWL timeseries + borehole stratigraphy at each MLCW station to (a) reconstruct historical compaction time series where MLCW data is missing or sparse, (b) learn a predictive rule for next-month MLCW value, and (c) self-recalibrate when new sparse in-situ measurements become available. Success criterion: gap-fill RMSE below static interpolation baseline, positive walk-forward skill score.
+
+Objective 2: Apply the method validated at one well to all remaining MLCW wells.
+
+Objective 3: Predict subsurface compaction at 8,577 regional grid points with no MLCW stations, using InSAR + regionally-interpolated GWL + open-source hydrofacies model (1 km × 1 km resolution). Key open question: which hydrofacies product covers the CRAF, and are facies-to-parameter relationships validated in CRAF literature? This transfer pathway is unresolved.
+
+Physical guardrail checks ($S_{skv}$/$S_{ske}$ ratio gates, sign constraints, Hung et al. 2021 bounds) remain valid as necessary conditions preventing impossible outputs — they are not the primary success criterion under the corrected framing.
+
+Terzaghi consolidation theory formulated as a cumulative two-regressor NNLS (Script 12) is the leading candidate method for Obj 1. It has not yet been tested on held-out data. The immediate priority is a held-out gap-fill evaluation at TUKU before committing to this method. The one-week time constraint means this evaluation must happen before any further code development.
+
+Current phase: method review. No method is finalized. Alternatives (simpler regression, data-driven) remain open if Terzaghi evaluation fails on gap-fill skill.
+
+---
+
 ### Phase 5 — Detrended + lag-aware Tier 1 model (2026-06-01)
 
 **What we tried:** We replaced the static f̄_k model with a two-component prediction: MLCW_pred(t) = [anchor + f̄_k $\times$ $\Delta$ InSAR(t)] + $\alpha$ $\times$ InSAR_detrended(t−$\tau$). The first term preserves the trend component (which works: R^2_trend > 0.82). The second term adds a lagged, scaled version of the detrended InSAR residual — capturing sub-annual dynamics that the static ratio misses. The procedure per fold: (1) detrend both signals via 4-parameter OLS on training data, (2) grid-search $\tau$ $\in$ [0, 73] epochs to maximize |correlation| between detrended residuals, (3) compute $\alpha$ as the OLS slope at optimal $\tau$, (4) extrapolate the training trend to the hold-out year and add $\alpha$ $\times$ InSAR_detrended(t−$\tau$). An $\alpha$ $\ge$ 0 constraint was enforced — negative $\alpha$ (anti-correlated residuals) triggers fallback to trend-only.

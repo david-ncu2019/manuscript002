@@ -8,6 +8,27 @@
 
 ---
 
+## 0. Research Objectives (Corrected 2026-06-09)
+
+MLCW (Multi-Layer Compaction Well) monitoring wells in the Choushui River Alluvial Fan (CRAF) have stopped operating or reduced sampling from monthly to semi-annual/annual due to maintenance costs. The core problem is a broken observational record, not a model calibration exercise. InSAR (Interferometric Synthetic Aperture Radar) and GWL (groundwater level) data are continuously available and must substitute for the lost in-situ measurements.
+
+**Three research objectives:**
+
+1. **Obj 1 — Well-scale gap-fill and prediction (MLCW stations):** At each active MLCW station, use InSAR timeseries + GWL timeseries + borehole stratigraphy to (a) reconstruct historical compaction timeseries where MLCW data is missing or sparse, (b) predict next-month MLCW compaction, and (c) self-recalibrate when new sparse in-situ measurements become available.
+   - Success criterion: gap-fill RMSE < RMSE of static linear interpolation baseline; walk-forward skill score > 0 on held-out epochs.
+
+2. **Obj 2 — Multi-well extension:** Apply the Obj 1 method validated at TUKU pilot to all remaining MLCW stations (up to 37 stations).
+   - Success criterion: Obj 1 criteria met at ≥ 80% of stations.
+
+3. **Obj 3 — Regional grid prediction (8,577 points, no MLCW):** Predict subsurface compaction at 8,577 regional grid points with no MLCW instrumentation, using InSAR + regionally-interpolated GWL + open-source hydrofacies model (1 km × 1 km resolution).
+   - Success criterion: spatial transfer validated against withheld MLCW stations; hydrofacies-to-parameter pathway resolved against CRAF literature.
+
+**One-week time constraint:** Only the TUKU pilot evaluation (Obj 1 held-out test) must complete within the current working week. Obj 2 and Obj 3 are follow-on phases.
+
+**Current phase:** Method review. Terzaghi consolidation theory formulated as a cumulative two-regressor NNLS (Script 12, `tau_demo_TUKU/12_stress_strain_per_layer.py`) is under evaluation as the candidate gap-fill/prediction method — NOT confirmed. No method is finalized.
+
+---
+
 ## 1. Current Methodology (Locked — updated 2026-05-29)
 
 **Model:** IHM-F v3 — joint constrained least squares, GWL-only per-layer drivers
@@ -112,6 +133,8 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 ---
 
 ## 4. Blocking Decision
+
+> **Blocking question (2026-06-09 correction):** The blocking question is no longer "do parameters satisfy physical gates?" It is: "Does the cumulative solver produce accurate gap-fills on held-out MLCW epochs under the one-week constraint?"
 
 **🚨 CIRCUIT BREAKER (2026-06-08):** IHM-F v3 incremental solver failed at TUKU. Day 3 re-run complete — `results/ihmf/v3/TUKU_gps_v3_results.json` written. α = 0.625 preserved. But the incremental formulation cannot reproduce MLCW compaction.
 
@@ -244,3 +267,12 @@ Obsolete results are renamed with `_OBSOLETE_<reason>` suffixes rather than dele
 | OBSOLETE — abandoned methods | `_OBSOLETE_*` | `results/prophet_OBSOLETE_ablation/` |
 
 Active results directories: `ihmf/v3/`, `ring_cross_correlation/`, `seasonal_insar_harmonic/`, `ring_gwl_xcorr/`, `data_analysis/`, `gps_vs_mlcw/`, `stress_strain/`.
+
+### Gap-fill evaluation criteria (corrected 2026-06-09)
+
+| Criterion | Threshold | Status |
+|-----------|-----------|--------|
+| Gap-fill RMSE vs. held-out MLCW | < RMSE of static linear interpolation | Not yet tested |
+| Walk-forward skill score | > 0 on all 3 pilot layers (F1, T2, F4) | Not yet tested |
+| Self-recalibration | `--recalib_date` arg added to fit script | Not yet built |
+| Physical guardrails | All 10 guardrails pass | Partial (F1/T2/F4 pass ratio gate) |
