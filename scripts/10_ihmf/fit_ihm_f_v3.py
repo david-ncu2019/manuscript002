@@ -38,6 +38,7 @@ def run_station(
     layer_filter: str | None = None,
     gps_mode: bool = False,
     alpha_override: float | None = None,
+    output_dir: str | None = None,
 ) -> dict:
     shared_cfg, entries, insar_csv = load_config(ROOT)
 
@@ -80,16 +81,18 @@ def run_station(
         df   = layer_dfs[layer]
         meta = layer_metas[layer]
 
-        head_m  = df["head_m"].values       # cumulative, length T_full
-        mlcw_mm = df["mlcw_mm"].values      # cumulative, length T_full
-        h_c     = meta["h_c_head_m"]
+        head_m         = df["head_m"].values         # absolute (m MSL), for τ search
+        head_m_zeroed  = df["head_m_zeroed"].values  # zero-ref (m), for cumulative solver (R1)
+        mlcw_mm = df["mlcw_mm"].values               # cumulative, length T_full
+        h_c_abs = meta["h_c_head_m"]                 # absolute (m MSL), for regime mask
+        h_c_zeroed = meta["h_c_zeroed"]              # zero-ref (m), for cumulative solver (R2)
 
         # τ grid search uses incremental signals (seasonal cycle removed)
-        # — the incremental τ search is well-calibrated; cumulative τ search
-        # is a future enhancement.
+        # — the incremental τ search uses absolute head; datum cancels in diffs.
+        # Cumulative τ search is a future enhancement.
         inc_dH = np.diff(head_m)
         inc_db = np.diff(mlcw_mm)
-        e_m, i_m = build_regime_mask(head_m[:-1], h_c)
+        e_m, i_m = build_regime_mask(head_m[:-1], h_c_abs)
         inc_dates = df["datetime"].values[:-1]
 
         tau_opt, rss_curve, monthly_means_dH = tau_grid_search_per_layer(
@@ -99,9 +102,11 @@ def run_station(
               f"MSE_min = {rss_curve[tau_opt]:.4f}")
 
         layer_data[layer] = {
-            "head_m":           head_m,            # full cumulative head, length T_full
+            "head_m":           head_m,            # absolute, for τ search / debugging
+            "head_m_zeroed":    head_m_zeroed,     # zero-ref, for cumulative solver (R1)
             "mlcw_mm":          mlcw_mm,           # full cumulative compaction, length T_full
-            "h_c_head_m":       h_c,               # preconsolidation head (m MSL, absolute)
+            "h_c_head_m":       h_c_abs,           # absolute, for reference
+            "h_c_zeroed":       h_c_zeroed,        # zero-ref, for cumulative solver (R2)
             "tau_opt":          tau_opt,
             "rss_curve":        [round(r, 6) for r in rss_curve],
             "monthly_means_dH": monthly_means_dH.tolist(),
@@ -109,7 +114,9 @@ def run_station(
 
     # Build a common epoch window [tau_max_all, T_full-1] so every layer's
     # lagged cumulative head aligns to the same absolute epochs.
-    # For layer j at common epoch t: H_lagged[t] = head_m[t - τ_j], b[t] = mlcw_mm[t].
+    # For layer j at common epoch t: H_lagged[t] = head_m_zeroed[t - τ_j], b[t] = mlcw_mm[t].
+    # R1: use zero-referenced head for the elastic regressor in cumulative solver.
+    # R2: use zero-referenced h_c for the virgin term.
     tau_max_all = max(d["tau_opt"] for d in layer_data.values())
     win_start   = tau_max_all                        # first epoch where all layers align
     win_len     = T_full - win_start                 # number of common epochs
@@ -118,13 +125,13 @@ def run_station(
     for layer in layers:
         d       = layer_data[layer]
         tau     = d["tau_opt"]
-        offset  = tau_max_all - tau                   # how far back in head_m to start
-        H_lag   = d["head_m"][offset : offset + win_len]    # cumulative head, lagged
-        b_win   = d["mlcw_mm"][win_start : win_start + win_len]  # cumulative compaction
+        offset  = tau_max_all - tau                   # how far back in head_m_zeroed to start
+        H_lag   = d["head_m_zeroed"][offset : offset + win_len]  # zero-ref cumulative head (R1)
+        b_win   = d["mlcw_mm"][win_start : win_start + win_len]   # cumulative compaction
         common_layer_data[layer] = {
             "H_lagged":         H_lag,
             "b_cum":            b_win,
-            "h_c_head_m":       d["h_c_head_m"],
+            "h_c_head_m":       d["h_c_zeroed"],     # zero-ref preconsolidation head (R2)
             "tau_opt":          tau,
             "rss_curve":        d["rss_curve"],
             "monthly_means_dH": d["monthly_means_dH"],
@@ -140,9 +147,10 @@ def run_station(
           f"|  RMSE_InSAR = {result['rmse_insar']:.3f} mm  |  R²_InSAR = {result['r2_insar']:.4f}")
     print(f"  R²_MLCW_cum = {result['r2_mlcw_cum']:.4f}  |  RMSE_MLCW_cum = {result['rmse_mlcw_cum']:.3f} mm")
     for lyr, p in result["layers"].items():
+        c_str = f"  c={p.get('c_intercept', 0.0):.3f}" if 'c_intercept' in p else ""
         print(f"    {lyr}: S_ke={p['S_ke']:.5f}  S_kv={p['S_kv']:.5f}  τ={p['tau_opt']}"
               f"  n_elastic={p.get('n_elastic','?')}  n_inelastic={p.get('n_inelastic','?')}"
-              f"  R²_cum={p.get('r2_cum', float('nan')):.4f}")
+              f"  R²_cum={p.get('r2_cum', float('nan')):.4f}{c_str}")
 
     # Diagnostics: flag physically suspect results
     diagnostics: list[str] = []
@@ -184,7 +192,10 @@ def run_station(
                   f"RMSE_InSAR={fold['rmse_insar']:.3f}  n={fold['n_test']}")
 
     # ── Save result ────────────────────────────────────────────────────────
-    out_dir = ROOT / "results" / "ihmf" / "v3"
+    if output_dir:
+        out_dir = Path(output_dir)
+    else:
+        out_dir = ROOT / "results" / "ihmf" / "v3"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     mode_suffix  = "_gps" if gps_mode else ""
@@ -251,6 +262,11 @@ if __name__ == "__main__":
             "inelastic consolidation period (e.g. --alpha 0.634 for TUKU)."
         ),
     )
+    parser.add_argument(
+        "--output-dir", type=str, default=None,
+        help="Override output directory (default: results/ihmf/v3/). "
+             "Created if it does not exist.",
+    )
     grp = parser.add_mutually_exclusive_group(required=True)
     grp.add_argument("--all",   action="store_true", help="Fit all layers")
     grp.add_argument("--layer", help="Single layer code e.g. F2")
@@ -261,4 +277,5 @@ if __name__ == "__main__":
         layer_filter=None if args.all else args.layer,
         gps_mode=args.gps,
         alpha_override=args.alpha,
+        output_dir=args.output_dir,
     )

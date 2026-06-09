@@ -195,6 +195,19 @@ def load_all_layers_gps(
         gwl_raw = gwl_raw.rename(columns={wellcode: "head_m"})
         gwl_raw = gwl_raw.sort_values("datetime").reset_index(drop=True)
 
+        # ── Zero-reference head to REF_DATE (R1 fix) ────────────────────────
+        # Mirror Script 12 load_gwl_absolute() L172–180. Use the RAW daily
+        # series (before merge_asof) so the reference value is not distorted
+        # by nearest-neighbour alignment across a data gap.
+        avail_raw = gwl_raw.set_index("datetime")["head_m"].dropna()
+        pre_ref_idx = avail_raw.index[avail_raw.index <= _REF_DATE]
+        if len(pre_ref_idx) == 0:
+            raise ValueError(
+                f"No GWL data on or before REF_DATE ({_REF_DATE.date()}) "
+                f"for wellcode {wellcode}"
+            )
+        head_ref_m = float(avail_raw.loc[pre_ref_idx[-1]])
+
         gwl_aligned = pd.merge_asof(
             master_frame, gwl_raw, on="datetime",
             direction="nearest", tolerance=pd.Timedelta("3D"))
@@ -208,18 +221,22 @@ def load_all_layers_gps(
 
         df = master_frame.copy()
         df["insar_mm"] = gps_mm_series
-        df["head_m"]   = gwl_aligned["head_m"].values
+        df["head_m"]   = gwl_aligned["head_m"].values            # absolute (m MSL)
+        df["head_m_zeroed"] = df["head_m"] - head_ref_m          # zero-ref for elastic term
         df["mlcw_mm"]  = mlcw_inc[cum_col].values
 
         t0 = df["datetime"].iloc[0]
         df["t_days"] = (df["datetime"] - t0).dt.days.astype(float)
 
-        # h_c: lowest GWL before REF_DATE (Bug F fix)
+        # h_c: lowest GWL before REF_DATE (Bug F fix, R2: also zero-reference)
         pre_ref = gwl_raw[gwl_raw["datetime"] < _REF_DATE]
         if len(pre_ref.dropna(subset=["head_m"])) >= 10:
             h_c_head = float(pre_ref["head_m"].dropna().min())
         else:
             h_c_head = float(gwl_raw["head_m"].dropna().min())
+            print(f"  [io-gps] WARN: <10 pre-REF_DATE points for {wellcode} "
+                  f"layer {layer} — h_c fallback to full-record minimum")
+        h_c_zeroed = h_c_head - head_ref_m                        # R2: shift to zero-ref frame
         h_c_depth = well_elev_m - h_c_head
 
         layer_dfs[layer]   = df
@@ -229,7 +246,9 @@ def load_all_layers_gps(
             "wellcode":         wellcode,
             "well_elev_m":      well_elev_m,
             "gwl_feather_name": gwl_fname,
-            "h_c_head_m":       h_c_head,
+            "head_ref_m":       head_ref_m,         # R1: ref value for zero-referencing
+            "h_c_head_m":       h_c_head,           # absolute, kept for reference
+            "h_c_zeroed":       h_c_zeroed,         # R2: zero-referenced for V computation
             "h_c_depth_m":      h_c_depth,
             "n_epochs":         len(df),
         }

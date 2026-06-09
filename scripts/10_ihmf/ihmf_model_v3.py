@@ -260,8 +260,8 @@ def compute_virgin_term(H_series: np.ndarray, h_c: float) -> np.ndarray:
 
     Parameters
     ----------
-    H_series : 1-D float array, cumulative head (m MSL, zero-referenced to REF_DATE)
-    h_c : float, preconsolidation head (m MSL, absolute)
+    H_series : 1-D float array, cumulative head (m, zero-referenced to REF_DATE)
+    h_c : float, preconsolidation head (m, zero-referenced to REF_DATE — same frame as H_series)
 
     Returns
     -------
@@ -278,9 +278,10 @@ def fit_two_regressor_nnls_X(
     H_arr: np.ndarray,
     V_arr: np.ndarray,
     b_arr: np.ndarray,
-) -> tuple[float, float, float, float, np.ndarray]:
+    with_intercept: bool = True,
+) -> tuple:
     """
-    Fit b = S_ke * H + delta * V  where delta = S_kv - S_ke ≥ 0.
+    Fit b = c + S_ke * H + delta * V  where delta = S_kv - S_ke ≥ 0.
 
     Uses NNLS on the negated system because all signals in the compacting
     domain are negative: H ≤ 0, V ≤ 0, b ≤ 0.  Negating both sides makes
@@ -294,34 +295,67 @@ def fit_two_regressor_nnls_X(
     The constraint delta ≥ 0 is enforced structurally by NNLS, which
     guarantees S_kv = S_ke + delta ≥ S_ke (inelastic ≥ elastic storage).
 
+    Intercept via centering (Frisch-Waugh-Lovell for NNLS):
+      When with_intercept=True, the data are demeaned before NNLS to remove
+      the intercept, then the intercept is recovered from the means:
+        c = b̄ - S_ke·H̄ - delta·V̄.
+      This is equivalent to adding an unconstrained intercept column while
+      keeping the non-negativity bounds on S_ke and delta.
+
     Parameters
     ----------
     H_arr : 1-D float array, cumulative head (m, zero-referenced)
     V_arr : 1-D float array, virgin term (m, ≤ 0)
     b_arr : 1-D float array, cumulative compaction (mm, ≤ 0)
+    with_intercept : bool
+        If True (default), add a per-layer intercept via data centering.
 
     Returns
     -------
     S_ke : float, elastic skeletal storage coefficient (mm/m)
     S_kv : float, inelastic skeletal storage coefficient (mm/m)
     delta : float, S_kv - S_ke (≥ 0)
-    residual_sq : float, sum of squared residuals from NNLS
+    c : float, intercept (mm; 0 if with_intercept=False)
+    residual_sq : float, sum of squared residuals
     b_pred : 1-D float array, predicted cumulative compaction (mm)
     """
     H_arr = np.asarray(H_arr, dtype=float)
     V_arr = np.asarray(V_arr, dtype=float)
     b_arr = np.asarray(b_arr, dtype=float)
 
-    A   = np.column_stack([-H_arr, -V_arr])   # (n, 2), both cols ≥ 0
-    rhs = -b_arr                                # ≥ 0
+    if with_intercept:
+        # Demean to remove intercept from NNLS
+        H_mean = float(np.mean(H_arr))
+        V_mean = float(np.mean(V_arr))
+        b_mean = float(np.mean(b_arr))
+        H_ctr = H_arr - H_mean
+        V_ctr = V_arr - V_mean
+        b_ctr = b_arr - b_mean
 
-    coef, residual_sq = nnls(A, rhs)
-    S_ke  = float(coef[0])
-    delta = float(coef[1])
-    S_kv  = S_ke + delta
+        # NNLS on centered data: -b̃ = S_ke·(-H̃) + delta·(-Ṽ)
+        A   = np.column_stack([-H_ctr, -V_ctr])
+        rhs = -b_ctr
+        coef, residual_sq = nnls(A, rhs)
+        S_ke  = float(coef[0])
+        delta = float(coef[1])
+        S_kv  = S_ke + delta
 
-    b_pred = S_ke * H_arr + delta * V_arr
-    return S_ke, S_kv, delta, float(residual_sq), b_pred
+        # Recover intercept from means
+        c = b_mean - S_ke * H_mean - delta * V_mean
+
+        # Predicted values (on original, un-centered scale)
+        b_pred = c + S_ke * H_arr + delta * V_arr
+        return S_ke, S_kv, delta, c, float(residual_sq), b_pred
+    else:
+        A   = np.column_stack([-H_arr, -V_arr])
+        rhs = -b_arr
+        coef, residual_sq = nnls(A, rhs)
+        S_ke  = float(coef[0])
+        delta = float(coef[1])
+        S_kv  = S_ke + delta
+
+        b_pred = S_ke * H_arr + delta * V_arr
+        return S_ke, S_kv, delta, 0.0, float(residual_sq), b_pred
 
 
 def compute_r2_cumulative(obs: np.ndarray, pred: np.ndarray) -> float:
@@ -368,9 +402,9 @@ def joint_solve_cumulative(
     ----------
     layer_data : dict[layer_code -> dict]
         Each entry must have:
-          'H_lagged'     : 1-D float array, cumulative head lagged by τ (m)
+          'H_lagged'     : 1-D float array, cumulative head lagged by τ (m, zero-referenced to REF_DATE)
           'b_cum'        : 1-D float array, cumulative MLCW compaction (mm)
-          'h_c_head_m'   : float, preconsolidation head (m MSL, absolute)
+          'h_c_head_m'   : float, preconsolidation head (m, zero-referenced — same frame as H_lagged)
           'tau_opt'      : int, optimal lag in epochs
     insar_mm : 1-D float array
         Cumulative InSAR/GPS displacement (mm).  May contain NaN for
@@ -402,8 +436,10 @@ def joint_solve_cumulative(
         # Compute virgin term from cumulative lagged head
         V = compute_virgin_term(H, h_c)
 
-        # Fit two-regressor NNLS: b = S_ke * H + (S_kv - S_ke) * V
-        S_ke, S_kv, delta, resid_sq, b_pred_j = fit_two_regressor_nnls_X(H, V, b)
+        # Fit two-regressor NNLS: b = c + S_ke * H + (S_kv - S_ke) * V
+        S_ke, S_kv, delta, c_j, resid_sq, b_pred_j = fit_two_regressor_nnls_X(
+            H, V, b, with_intercept=True
+        )
 
         n_elastic   = int((V == 0).sum())
         n_inelastic = int((V < 0).sum())
@@ -416,6 +452,7 @@ def joint_solve_cumulative(
 
         layer_params[layer] = {
             "S_ke": S_ke, "S_kv": S_kv, "delta": delta,
+            "c_intercept": c_j,
             "tau_opt": tau,
             "n_elastic": n_elastic, "n_inelastic": n_inelastic,
             "r2_cum": r2_cum,
@@ -424,23 +461,25 @@ def joint_solve_cumulative(
 
         b_pred_all += b_pred_j
 
-    # ── RMSE_MLCW (cumulative, mm) ─────────────────────────────────────────
+    # ── RMSE_MLCW (cumulative, mm, with per-layer intercept) ────────────────
     mlcw_resid_sq: list[float] = []
     for layer in layers:
         d      = layer_data[layer]
         b      = d["b_cum"][:T]
         S_ke   = layer_params[layer]["S_ke"]
         S_kv   = layer_params[layer]["S_kv"]
+        c_j    = layer_params[layer].get("c_intercept", 0.0)
         H      = d["H_lagged"][:T]
         V      = compute_virgin_term(H, d["h_c_head_m"])
-        b_pred_j = S_ke * H + (S_kv - S_ke) * V
+        b_pred_j = c_j + S_ke * H + (S_kv - S_ke) * V
         mlcw_resid_sq.extend((b - b_pred_j) ** 2)
     rmse_mlcw_cum = float(np.sqrt(np.mean(mlcw_resid_sq))) if mlcw_resid_sq else float("nan")
 
     # R²_MLCW_cum (total prediction vs total observation, concatenated)
     all_obs = np.concatenate([layer_data[lyr]["b_cum"][:T] for lyr in layers])
     all_pred = np.concatenate([
-        layer_params[lyr]["S_ke"] * layer_data[lyr]["H_lagged"][:T]
+        layer_params[lyr].get("c_intercept", 0.0)
+        + layer_params[lyr]["S_ke"] * layer_data[lyr]["H_lagged"][:T]
         + (layer_params[lyr]["S_kv"] - layer_params[lyr]["S_ke"])
         * compute_virgin_term(layer_data[lyr]["H_lagged"][:T], layer_data[lyr]["h_c_head_m"])
         for lyr in layers
@@ -677,247 +716,289 @@ def run_walk_forward_v3(
     alpha_external: float | None = None,
 ) -> list[dict]:
     """
-    4-fold expanding walk-forward validation.
+    4-fold expanding walk-forward validation (cumulative domain — R3 fix).
 
     Each fold:
       1. Split data into train (up to year N) and test (year N+1).
-      2. On training window: detrend ΔH and Δb, run τ grid search, joint solve.
-      3. On test window: apply training-window trend removal, predict, compute RMSE.
+      2. On training window: τ grid search on incremental signals,
+         then fit S_ke, S_kv via cumulative NNLS (joint_solve_cumulative).
+      3. On test window: predict cumulative compaction using frozen S_k
+         parameters, then diff for incremental RMSE comparison.
+
+    R3 (2026-06-09): Switched from deprecated incremental solver
+    (joint_solve_fixed_tau) to cumulative solver (joint_solve_cumulative).
+    The cumulative solver carries preconsolidation memory through V(t),
+    fixing the n_inelastic=0 bug in all walk-forward folds.
 
     Parameters
     ----------
     layer_dfs : dict[str -> pd.DataFrame]
-        From load_all_layers. Each df has datetime, t_days, insar_mm, head_m, mlcw_mm.
+        From load_all_layers_gps. Each df has datetime, head_m, head_m_zeroed,
+        mlcw_mm (cumulative).
     layer_metas : dict[str -> dict]
-        From load_all_layers. Must contain h_c_head_m per layer.
+        Must contain h_c_head_m (absolute), h_c_zeroed (zero-ref), head_ref_m.
     insar_mm : np.ndarray, shape (T,)
-        Shared InSAR/GPS incremental timeline. May contain NaN for pre-GPS epochs.
+        Shared InSAR/GPS incremental timeline (length T-1, np.diff of cumulative).
+        May contain NaN for pre-GPS epochs.
     tau_max : int
         Maximum integer lag to search. Default 120.
     fold_years : list[int] or None
         Hold-out years. Default [2022, 2023, 2024, 2025].
     alpha_external : float or None
-        When not None, passed to joint_solve_fixed_tau in every fold, bypassing
-        the per-fold Step 2 OLS. The same fixed α is used for test-window
-        prediction. Default None (fit α per fold via OLS).
+        When not None, passed to joint_solve_cumulative, bypassing Step 2 OLS.
 
     Returns
     -------
-    list of fold dicts, each containing:
-        fold, test_year, alpha, rmse_insar, rmse_mlcw_mean, n_test,
-        layer_results (dict per layer: S_ke, S_kv, tau_opt, rmse_mm)
+    list of fold dicts
     """
     if fold_years is None:
         fold_years = [2022, 2023, 2024, 2025]
 
     layers = list(layer_dfs.keys())
     ref_df = layer_dfs[layers[0]]
-    # insar_mm is already incremental (length T-1); build masks on T-1 length
-    # Use datetime from epoch 0..T-2 (same length as incremental arrays)
-    all_years = ref_df["datetime"].values[:-1]   # drop last epoch to match np.diff length
-    all_years = pd.to_datetime(all_years).year
+    # Use cumulative-axis years for train/test split (R3).
+    # Cumulative epoch t = response time; driver = t - τ.
+    all_dates_cum = ref_df["datetime"].values
+    all_years_cum = pd.to_datetime(all_dates_cum).year
+    T_full = len(all_dates_cum)
 
     fold_results: list[dict] = []
 
     for fold_idx, test_year in enumerate(fold_years):
-        train_mask = all_years < test_year
-        test_mask  = all_years == test_year
+        train_cum_mask = all_years_cum < test_year
+        test_cum_mask  = all_years_cum == test_year
 
-        if train_mask.sum() < 10 or test_mask.sum() < 1:
+        n_train_cum = int(train_cum_mask.sum())
+        n_test_cum  = int(test_cum_mask.sum())
+
+        if n_train_cum < 10 or n_test_cum < 2:
             fold_results.append({
                 "fold": f"Fold{fold_idx+1}_test{test_year}",
                 "test_year": test_year,
                 "skipped": True,
-                "reason": f"train={train_mask.sum()} test={test_mask.sum()} epochs",
+                "reason": f"train={n_train_cum} test={n_test_cum} cumulative epochs",
             })
             continue
 
-        # ── Per-layer: incremental signals, τ grid search on train window ──
-        # layer_data_train : training common-window block (for S_k and α fit)
-        # layer_data_test  : test window block with frozen τ (for prediction only)
-        layer_data_train: dict[str, dict] = {}
-        layer_data_test:  dict[str, dict] = {}
+        # ── Per-layer: τ grid search on incremental train window ─────────────
+        # τ search uses incremental signals within the training span (R3: unchanged).
+        layer_tau_opts: dict[str, int] = {}
         any_valid = False
 
         for layer in layers:
             df   = layer_dfs[layer]
             meta = layer_metas[layer]
 
-            head_m  = df["head_m"].values     # cumulative, length T_full
-            mlcw_mm = df["mlcw_mm"].values    # cumulative, length T_full
-            h_c     = meta["h_c_head_m"]
+            head_m  = df["head_m"].values          # absolute, for regime mask
+            mlcw_mm = df["mlcw_mm"].values         # cumulative
+            h_c_abs = meta["h_c_head_m"]           # absolute
 
-            # Incremental signals on the T_full-1 length axis (matches all_years)
-            inc_dH = np.diff(head_m)     # length T_full-1
-            inc_db = np.diff(mlcw_mm)    # length T_full-1
+            # Incremental signals cover train_cum_mask[1:] (diff across train boundary)
+            # Use only epochs fully within training: train_cum_mask[t] & train_cum_mask[t-1]
+            inc_train_mask = train_cum_mask[1:] & train_cum_mask[:-1]
+            n_inc_train = int(inc_train_mask.sum())
 
-            # Regime mask on head at epoch t (length T_full-1)
-            e_m_full, i_m_full = build_regime_mask(head_m[:-1], h_c)
+            if n_inc_train < 4:
+                continue
 
-            # τ grid search on training increments only
-            inc_dH_train = inc_dH[train_mask]
-            inc_db_train = inc_db[train_mask]
-            e_m_train    = e_m_full[train_mask]
-            i_m_train    = i_m_full[train_mask]
-            dates_train  = df["datetime"].values[:-1][train_mask]
+            inc_dH = np.diff(head_m)
+            inc_db = np.diff(mlcw_mm)
+            e_m_full, i_m_full = build_regime_mask(head_m[:-1], h_c_abs)
 
-            effective_tau_max = min(tau_max, len(inc_dH_train) - 4)
+            inc_dH_train = inc_dH[inc_train_mask]
+            inc_db_train = inc_db[inc_train_mask]
+            e_m_train    = e_m_full[inc_train_mask]
+            i_m_train    = i_m_full[inc_train_mask]
+            dates_train  = df["datetime"].values[:-1][inc_train_mask]
+
+            effective_tau_max = min(tau_max, n_inc_train - 4)
             if effective_tau_max < 0:
                 continue
 
-            tau_opt, rss_curve, monthly_means_dH = tau_grid_search_per_layer(
+            tau_opt, _rss_curve, _monthly = tau_grid_search_per_layer(
                 inc_dH_train, inc_db_train, e_m_train, i_m_train, effective_tau_max,
                 dates=dates_train
             )
-
-            # ── Training common-window block ─────────────────────────────────
-            # Same τ-alignment as fit_ihm_f_v3.py full-record block:
-            # tau_max_train is computed after all layers' tau_opt are known,
-            # so store per-layer tau_opt and build the training block after the loop.
-            layer_data_train[layer] = {
-                "inc_dH_train": inc_dH_train,
-                "inc_db_train": inc_db_train,
-                "e_m_train":    e_m_train,
-                "i_m_train":    i_m_train,
-                "tau_opt":      tau_opt,
-                "rss_curve":    rss_curve,
-            }
-
-            # ── Test window block (context + test, lagged by τ) ──────────────
-            context_dH = inc_dH_train[-tau_opt:] if tau_opt > 0 else np.array([], dtype=float)
-            context_e  = e_m_train[-tau_opt:]     if tau_opt > 0 else np.array([], dtype=bool)
-            context_i  = i_m_train[-tau_opt:]     if tau_opt > 0 else np.array([], dtype=bool)
-
-            inc_dH_test = inc_dH[test_mask]
-            inc_db_test = inc_db[test_mask]
-            e_m_test    = e_m_full[test_mask]
-            i_m_test    = i_m_full[test_mask]
-
-            full_dH = np.concatenate([context_dH, inc_dH_test])
-            full_e  = np.concatenate([context_e,  e_m_test])
-            full_i  = np.concatenate([context_i,  i_m_test])
-
-            if len(full_dH) <= tau_opt:
-                continue
-
-            dH_lagged = full_dH[tau_opt:]
-            e_lagged  = full_e[tau_opt:]
-            i_lagged  = full_i[tau_opt:]
-
-            n = min(len(dH_lagged), len(inc_db_test))
-            if n < 2:
-                continue
-
-            layer_data_test[layer] = {
-                "dH_lagged":      dH_lagged[:n],
-                "db":             inc_db_test[:n],
-                "elastic_mask":   e_lagged[:n],
-                "inelastic_mask": i_lagged[:n],
-                "tau_opt":        tau_opt,
-            }
+            layer_tau_opts[layer] = tau_opt
             any_valid = True
 
-        if not any_valid or len(layer_data_test) == 0:
+        if not any_valid:
             fold_results.append({
                 "fold": f"Fold{fold_idx+1}_test{test_year}",
                 "test_year": test_year,
                 "skipped": True,
-                "reason": "no valid layers after lag trimming",
+                "reason": "no valid layers in τ search",
             })
             continue
 
-        # ── Build training common block aligned across layers (same as full-record fit) ──
-        # Align all layers in the training window to a common epoch window so
-        # joint_solve_fixed_tau receives arrays of equal length.
-        tau_max_train = max(
-            layer_data_train[lyr]["tau_opt"]
-            for lyr in layer_data_test  # only layers that have test data
-        )
-        n_train_full = int(train_mask.sum())
-        win_start_tr = tau_max_train
-        win_len_tr   = n_train_full - win_start_tr
+        # ── Build cumulative training common block ───────────────────────────
+        tau_max_train = max(layer_tau_opts.values())
+        train_cum_indices = np.where(train_cum_mask)[0]  # cumulative indices in training
+        # Common window: start at tau_max_train so every layer's H[t-τ] exists
+        common_start = tau_max_train
+        common_len   = n_train_cum - common_start
 
-        if win_len_tr < 4:
+        if common_len < 4:
             fold_results.append({
                 "fold": f"Fold{fold_idx+1}_test{test_year}",
                 "test_year": test_year,
                 "skipped": True,
-                "reason": f"training common window too short ({win_len_tr} epochs)",
+                "reason": f"cumulative training common window too short ({common_len} epochs)",
             })
             continue
 
-        layer_data_train_common: dict[str, dict] = {}
-        for layer in layer_data_test:  # only layers with valid test data
-            d      = layer_data_train[layer]
-            tau    = d["tau_opt"]
-            offset = tau_max_train - tau
-            dH_lag  = d["inc_dH_train"][offset : offset + win_len_tr]
-            db_win  = d["inc_db_train"][win_start_tr : win_start_tr + win_len_tr]
-            e_win   = d["e_m_train"][offset : offset + win_len_tr]   # driver-time regime, lag-consistent
-            i_win   = d["i_m_train"][offset : offset + win_len_tr]
-            layer_data_train_common[layer] = {
-                "dH_lagged":      dH_lag,
-                "db":             db_win,
-                "elastic_mask":   e_win,
-                "inelastic_mask": i_win,
-                "tau_opt":        tau,
+        layer_data_train_cum: dict[str, dict] = {}
+        for layer in layers:
+            df   = layer_dfs[layer]
+            meta = layer_metas[layer]
+
+            H_zeroed = df["head_m_zeroed"].values   # zero-ref cumulative (R1)
+            b_cum    = df["mlcw_mm"].values          # cumulative compaction
+            h_c_z    = meta["h_c_zeroed"]            # zero-ref preconsolidation (R2)
+            tau      = layer_tau_opts[layer]
+
+            # Common-window cumulative indices (response times)
+            common_indices = train_cum_indices[common_start: common_start + common_len]
+            # Driver indices: response - τ
+            driver_indices = common_indices - tau
+
+            H_lag = H_zeroed[driver_indices]
+            b_win = b_cum[common_indices]
+
+            n_common = min(len(H_lag), len(b_win))
+            layer_data_train_cum[layer] = {
+                "H_lagged":   H_lag[:n_common],
+                "b_cum":      b_win[:n_common],
+                "h_c_head_m": h_c_z,
+                "tau_opt":    tau,
             }
 
-        # InSAR training window (incremental — same indexing as all_years)
-        insar_train = insar_mm[train_mask]
-        insar_train_win = insar_train[win_start_tr : win_start_tr + win_len_tr]
+        # InSAR cumulative on the same common response indices
+        insar_cum_full = np.cumsum(np.nan_to_num(insar_mm, nan=0.0))
+        # insar_mm is incremental (length T_full-1); cumsum gives length T_full-1.
+        # Pad to match T_full cumulative epochs.
+        if len(insar_cum_full) < T_full:
+            insar_cum_full = np.concatenate([insar_cum_full, [insar_cum_full[-1]]])
+        insar_cum_train_win = insar_cum_full[common_indices][:common_len]
 
-        # Fit S_k and α on training window only
-        train_result = joint_solve_fixed_tau(layer_data_train_common, insar_train_win,
-                                             alpha_external=alpha_external)
+        # ── Fit via cumulative solver (R3: replaces joint_solve_fixed_tau) ──
+        train_result = joint_solve_cumulative(layer_data_train_cum, insar_cum_train_win,
+                                              alpha_external=alpha_external)
         alpha_train = train_result["alpha"]
 
-        # ── Predict on test window using frozen training S_k parameters ──────
-        # Do NOT refit S_k on test data — only accumulate predictions.
-        insar_test = insar_mm[test_mask]
-        n_test = min(
-            len(insar_test),
-            min(len(d["db"]) for d in layer_data_test.values()),
-        )
+        # ── Predict on test window using frozen training S_k (cumulative) ────
+        test_cum_indices = np.where(test_cum_mask)[0]
+        n_test = len(test_cum_indices)
+        if n_test < 2:
+            fold_results.append({
+                "fold": f"Fold{fold_idx+1}_test{test_year}",
+                "test_year": test_year,
+                "skipped": True,
+                "reason": f"test window too short ({n_test} cumulative epochs)",
+            })
+            continue
 
-        db_pred_test_all = np.zeros(n_test)
+        db_pred_test_all = np.zeros(n_test - 1)  # incremental predictions
         test_layer_params: dict[str, dict] = {}
-        for layer, d in layer_data_test.items():
+
+        for layer in layers:
+            df   = layer_dfs[layer]
+            meta = layer_metas[layer]
+
             S_ke = train_result["layers"][layer]["S_ke"]
             S_kv = train_result["layers"][layer]["S_kv"]
-            dH   = d["dH_lagged"][:n_test]
-            e_m  = d["elastic_mask"][:n_test]
-            i_m  = d["inelastic_mask"][:n_test]
-            db_pred_j = np.where(e_m, S_ke * dH, 0.0) + np.where(i_m, S_kv * dH, 0.0)
-            db_pred_test_all += db_pred_j
+            c_j  = train_result["layers"][layer].get("c_intercept", 0.0)
+            tau  = layer_tau_opts[layer]
+
+            H_zeroed = df["head_m_zeroed"].values
+            b_cum    = df["mlcw_mm"].values
+            h_c_z    = meta["h_c_zeroed"]
+
+            # Build cumulative H for test window + τ context
+            # Context: τ cumulative epochs before first test index
+            context_start = max(0, test_cum_indices[0] - tau)
+            context_end   = test_cum_indices[-1]
+            all_indices = np.arange(context_start, context_end + 1)
+
+            H_span = H_zeroed[all_indices]
+            b_span = b_cum[all_indices]
+
+            # V computed on full span (carries cummin memory from record start)
+            V_span = compute_virgin_term(H_span, h_c_z)
+            b_pred_span = c_j + S_ke * H_span + (S_kv - S_ke) * V_span
+
+            # Extract test window predictions
+            test_start_in_span = test_cum_indices[0] - context_start
+            b_pred_test = b_pred_span[test_start_in_span:]
+            b_obs_test  = b_span[test_start_in_span:]
+            V_test      = V_span[test_start_in_span:]
+
+            # Incremental for RMSE
+            db_pred = np.diff(b_pred_test)
+            db_obs  = np.diff(b_obs_test)
+            n_common_test = min(len(db_pred), len(db_obs), n_test - 1)
+            db_pred_test_all[:n_common_test] += db_pred[:n_common_test]
+
+            # Regime counts at driver-time (epoch before response)
+            n_elastic   = int((V_test[:-1][:n_common_test] == 0).sum())
+            n_inelastic = int((V_test[:-1][:n_common_test] < 0).sum())
+
             test_layer_params[layer] = {
                 "S_ke": S_ke, "S_kv": S_kv,
-                "tau_opt": d["tau_opt"],
-                "n_elastic":   int(e_m.sum()),
-                "n_inelastic": int(i_m.sum()),
+                "tau_opt": tau,
+                "n_elastic":   n_elastic,
+                "n_inelastic": n_inelastic,
             }
 
-        # Apply training α to convert predicted compaction to InSAR space
+        # ── InSAR metrics on test window ─────────────────────────────────────
+        insar_inc_test = insar_mm[np.where(test_cum_mask[:-1])[0]]  # incremental InSAR
         cum_pred_test  = np.cumsum(db_pred_test_all)
-        cum_insar_test = np.cumsum(insar_test[:n_test])
-        insar_pred_test  = cum_pred_test / alpha_train
-        insar_resid_test = cum_insar_test - insar_pred_test
-        rmse_insar_test  = float(np.sqrt(np.mean(insar_resid_test ** 2)))
-        ss_res = float(np.sum(insar_resid_test ** 2))
-        ss_tot = float(np.sum((cum_insar_test - cum_insar_test.mean()) ** 2))
-        r2_test = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else float("nan")
+        n_common_test = min(len(insar_inc_test), len(cum_pred_test))
 
-        # RMSE MLCW on test window
+        if not np.isnan(alpha_train) and alpha_train > 0 and n_common_test > 1:
+            insar_pred_test  = cum_pred_test[:n_common_test] / alpha_train
+            # InSAR test: compare cumulative prediction with cumulative InSAR
+            cum_insar_test = np.cumsum(insar_inc_test[:n_common_test])
+            insar_resid_test = cum_insar_test - insar_pred_test
+            rmse_insar_test  = float(np.sqrt(np.mean(insar_resid_test ** 2)))
+            ss_res = float(np.sum(insar_resid_test ** 2))
+            ss_tot = float(np.sum((cum_insar_test - cum_insar_test.mean()) ** 2))
+            r2_test = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else float("nan")
+        else:
+            rmse_insar_test = float("nan")
+            r2_test = float("nan")
+
+        # RMSE MLCW on test window (incremental)
         mlcw_resid_sq: list[float] = []
-        for layer, d in layer_data_test.items():
-            S_ke = test_layer_params[layer]["S_ke"]
-            S_kv = test_layer_params[layer]["S_kv"]
-            dH   = d["dH_lagged"][:n_test]
-            db   = d["db"][:n_test]
-            e_m  = d["elastic_mask"][:n_test]
-            i_m  = d["inelastic_mask"][:n_test]
-            db_pred_j = np.where(e_m, S_ke * dH, 0.0) + np.where(i_m, S_kv * dH, 0.0)
-            mlcw_resid_sq.extend((db - db_pred_j) ** 2)
+        for layer in layers:
+            df = layer_dfs[layer]
+            meta = layer_metas[layer]
+            S_ke = train_result["layers"][layer]["S_ke"]
+            S_kv = train_result["layers"][layer]["S_kv"]
+            c_j  = train_result["layers"][layer].get("c_intercept", 0.0)
+            tau  = layer_tau_opts[layer]
+
+            H_zeroed = df["head_m_zeroed"].values
+            b_cum    = df["mlcw_mm"].values
+            h_c_z    = meta["h_c_zeroed"]
+
+            context_start = max(0, test_cum_indices[0] - tau)
+            all_indices = np.arange(context_start, test_cum_indices[-1] + 1)
+            H_span = H_zeroed[all_indices]
+            b_span = b_cum[all_indices]
+
+            V_span = compute_virgin_term(H_span, h_c_z)
+            b_pred_span = c_j + S_ke * H_span + (S_kv - S_ke) * V_span
+
+            test_start = test_cum_indices[0] - context_start
+            b_pred_test = b_pred_span[test_start:]
+            b_obs_test  = b_span[test_start:]
+
+            db_pred = np.diff(b_pred_test)
+            db_obs  = np.diff(b_obs_test)
+            n_common = min(len(db_pred), len(db_obs), n_test - 1)
+            mlcw_resid_sq.extend((db_obs[:n_common] - db_pred[:n_common]) ** 2)
+
         rmse_mlcw_test = float(np.sqrt(np.mean(mlcw_resid_sq))) if mlcw_resid_sq else float("nan")
 
         fold_entry = {
