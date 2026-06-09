@@ -145,7 +145,7 @@ def run_station(
     result = joint_solve_cumulative(layer_data, cum_insar_win, alpha_external=alpha_override)
     print(f"\n  α = {result['alpha']:.4f}  |  c = {result['c_intercept']:.4f} mm  "
           f"|  RMSE_InSAR = {result['rmse_insar']:.3f} mm  |  R²_InSAR = {result['r2_insar']:.4f}")
-    print(f"  R²_MLCW_cum = {result['r2_mlcw_cum']:.4f}  |  RMSE_MLCW_cum = {result['rmse_mlcw_cum']:.3f} mm")
+    print(f"  RMSE_MLCW_cum = {result['rmse_mlcw_cum']:.3f} mm")
     for lyr, p in result["layers"].items():
         c_str = f"  c={p.get('c_intercept', 0.0):.3f}" if 'c_intercept' in p else ""
         print(f"    {lyr}: S_ke={p['S_ke']:.5f}  S_kv={p['S_kv']:.5f}  τ={p['tau_opt']}"
@@ -212,7 +212,6 @@ def run_station(
         "alpha":         result["alpha"],
         "beta":          result["beta"],
         "c_intercept":   result["c_intercept"],
-        "r2_mlcw_cum":   result["r2_mlcw_cum"],
         "rmse_mlcw_cum": result["rmse_mlcw_cum"],
         "rmse_insar":    result["rmse_insar"],
         "r2_insar":      result["r2_insar"],

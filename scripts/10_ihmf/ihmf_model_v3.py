@@ -416,7 +416,7 @@ def joint_solve_cumulative(
 
     Returns
     -------
-    dict with keys: layers, alpha, beta, c_intercept, r2_mlcw_cum,
+    dict with keys: layers, alpha, beta, c_intercept,
         rmse_mlcw_cum, rmse_insar, r2_insar, T
     """
     layers = list(layer_data.keys())
@@ -475,16 +475,8 @@ def joint_solve_cumulative(
         mlcw_resid_sq.extend((b - b_pred_j) ** 2)
     rmse_mlcw_cum = float(np.sqrt(np.mean(mlcw_resid_sq))) if mlcw_resid_sq else float("nan")
 
-    # R²_MLCW_cum (total prediction vs total observation, concatenated)
-    all_obs = np.concatenate([layer_data[lyr]["b_cum"][:T] for lyr in layers])
-    all_pred = np.concatenate([
-        layer_params[lyr].get("c_intercept", 0.0)
-        + layer_params[lyr]["S_ke"] * layer_data[lyr]["H_lagged"][:T]
-        + (layer_params[lyr]["S_kv"] - layer_params[lyr]["S_ke"])
-        * compute_virgin_term(layer_data[lyr]["H_lagged"][:T], layer_data[lyr]["h_c_head_m"])
-        for lyr in layers
-    ])
-    r2_mlcw_cum = compute_r2_cumulative(all_obs, all_pred)
+    # Per-layer R²_cum is reported per layer (not pooled — pooled metric is
+    # misleading because layers with larger magnitude dominate the concatenation).
 
     # ── Step 2: Surface alignment (cumulative — prediction already cumulative) ─
     cum_insar = insar_mm[:T]  # already cumulative (no cumsum needed)
@@ -532,7 +524,6 @@ def joint_solve_cumulative(
         "alpha":          alpha,
         "beta":           beta,
         "c_intercept":    c_intercept,
-        "r2_mlcw_cum":    r2_mlcw_cum,
         "rmse_mlcw_cum":  rmse_mlcw_cum,
         "rmse_insar":     rmse_insar,
         "r2_insar":       r2_insar,

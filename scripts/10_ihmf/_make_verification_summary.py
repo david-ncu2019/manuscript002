@@ -65,7 +65,6 @@ for fold in data["walk_forward"]:
 wf_lines.append("")
 wf_lines.append(f"alpha = {data['alpha']:.4f} (fixed)")
 wf_lines.append(f"c_intercept = {data['c_intercept']:.2f} mm")
-wf_lines.append(f"Pooled R2_MLCW_cum = {data['r2_mlcw_cum']:.4f}")
 
 fig.suptitle("IHM-F v3 Verification  R1/R2/R3 Repairs Applied (2026-06-09)\n"
              "Zero-referenced head + h_c, cumulative walk-forward",
