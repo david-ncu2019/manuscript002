@@ -38,7 +38,7 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
-from scipy.optimize import lsq_linear
+from scipy.optimize import lsq_linear, nnls
 
 from ihmf_detrend import detrend_signal
 
@@ -243,7 +243,267 @@ def tau_grid_search_per_layer(
     return tau_opt, rss_curve, monthly_means_dH
 
 
-# ── Joint solve ───────────────────────────────────────────────────────────────
+# ── Cumulative-domain solver (2026-06-08: replaces incremental lsq_linear with ──
+# ── memory-based two-regressor NNLS per Script 12) ──────────────────────────
+
+def compute_virgin_term(H_series: np.ndarray, h_c: float) -> np.ndarray:
+    """
+    Compute the virgin (inelastic exceedance) term V(t).
+
+    V(t) = min(0, cummin(H(t)) - h_c)
+
+    V(t) is zero until head crosses below the preconsolidation threshold h_c
+    for the first time, then tracks how far head has penetrated permanently
+    into the inelastic regime.  When head recovers, V(t) stays at the
+    historical minimum — it never decreases.  This term carries the
+    preconsolidation stress memory that the incremental formulation loses.
+
+    Parameters
+    ----------
+    H_series : 1-D float array, cumulative head (m MSL, zero-referenced to REF_DATE)
+    h_c : float, preconsolidation head (m MSL, absolute)
+
+    Returns
+    -------
+    V : 1-D float array, same length as H_series
+        ≤ 0 always.  0 = fully elastic.  Negative = inelastic exceedance.
+    """
+    H_series = np.asarray(H_series, dtype=float)
+    cummin_H = np.minimum.accumulate(H_series)
+    V = np.minimum(0.0, cummin_H - h_c)
+    return V
+
+
+def fit_two_regressor_nnls_X(
+    H_arr: np.ndarray,
+    V_arr: np.ndarray,
+    b_arr: np.ndarray,
+) -> tuple[float, float, float, float, np.ndarray]:
+    """
+    Fit b = S_ke * H + delta * V  where delta = S_kv - S_ke ≥ 0.
+
+    Uses NNLS on the negated system because all signals in the compacting
+    domain are negative: H ≤ 0, V ≤ 0, b ≤ 0.  Negating both sides makes
+    the design matrix and rhs non-negative, satisfying NNLS requirements.
+
+        -b = S_ke * (-H) + delta * (-V)
+        A  = [-H, -V]    (both cols ≥ 0)
+        rhs = -b          (≥ 0)
+        NNLS(A, rhs) → [S_ke, delta]
+
+    The constraint delta ≥ 0 is enforced structurally by NNLS, which
+    guarantees S_kv = S_ke + delta ≥ S_ke (inelastic ≥ elastic storage).
+
+    Parameters
+    ----------
+    H_arr : 1-D float array, cumulative head (m, zero-referenced)
+    V_arr : 1-D float array, virgin term (m, ≤ 0)
+    b_arr : 1-D float array, cumulative compaction (mm, ≤ 0)
+
+    Returns
+    -------
+    S_ke : float, elastic skeletal storage coefficient (mm/m)
+    S_kv : float, inelastic skeletal storage coefficient (mm/m)
+    delta : float, S_kv - S_ke (≥ 0)
+    residual_sq : float, sum of squared residuals from NNLS
+    b_pred : 1-D float array, predicted cumulative compaction (mm)
+    """
+    H_arr = np.asarray(H_arr, dtype=float)
+    V_arr = np.asarray(V_arr, dtype=float)
+    b_arr = np.asarray(b_arr, dtype=float)
+
+    A   = np.column_stack([-H_arr, -V_arr])   # (n, 2), both cols ≥ 0
+    rhs = -b_arr                                # ≥ 0
+
+    coef, residual_sq = nnls(A, rhs)
+    S_ke  = float(coef[0])
+    delta = float(coef[1])
+    S_kv  = S_ke + delta
+
+    b_pred = S_ke * H_arr + delta * V_arr
+    return S_ke, S_kv, delta, float(residual_sq), b_pred
+
+
+def compute_r2_cumulative(obs: np.ndarray, pred: np.ndarray) -> float:
+    """R² on cumulative quantities (obs vs pred). NaN-safe."""
+    obs = np.asarray(obs, dtype=float)
+    pred = np.asarray(pred, dtype=float)
+    mask = np.isfinite(obs) & np.isfinite(pred)
+    if mask.sum() < 2:
+        return float("nan")
+    ss_res = float(np.sum((obs[mask] - pred[mask]) ** 2))
+    ss_tot = float(np.sum((obs[mask] - obs[mask].mean()) ** 2))
+    if ss_tot == 0:
+        return float("nan")
+    return float(1.0 - ss_res / ss_tot)
+
+
+# ── Joint solve (cumulative domain — active) ──────────────────────────────────
+
+def joint_solve_cumulative(
+    layer_data: dict[str, dict],
+    insar_mm: np.ndarray,
+    lam: float | None = None,
+    alpha_external: float | None = None,
+) -> dict:
+    """
+    Two-step cumulative-domain solve with preconsolidation memory.
+
+    Step 1 — Per-layer two-regressor NNLS on cumulative H and V:
+        b_j(t) = S_ke_j · H_j(t−τ_j) + (S_kv_j − S_ke_j) · V_j(t)
+
+        V_j(t) = min(0, cummin(H_j(t−τ_j)) − h_c_j)
+
+        The V term carries the permanent inelastic strain memory —
+        it never decreases, even when head recovers.  No regime mask
+        is needed in the design matrix; NNLS automatically separates
+        elastic (S_ke · H) from inelastic (delta · V) coefficients.
+
+    Step 2 — Surface alignment (same as incremental solver):
+        α · insar(t) + c = Σ_j b_j(t)
+
+        When alpha_external is provided, Step 2 OLS is bypassed.
+
+    Parameters
+    ----------
+    layer_data : dict[layer_code -> dict]
+        Each entry must have:
+          'H_lagged'     : 1-D float array, cumulative head lagged by τ (m)
+          'b_cum'        : 1-D float array, cumulative MLCW compaction (mm)
+          'h_c_head_m'   : float, preconsolidation head (m MSL, absolute)
+          'tau_opt'      : int, optimal lag in epochs
+    insar_mm : 1-D float array
+        Cumulative InSAR/GPS displacement (mm).  May contain NaN for
+        pre-GPS epochs.
+    lam : float or None
+        Accepted for API compatibility; not used in this formulation.
+    alpha_external : float or None
+        When set, use this α directly instead of OLS fitting.
+
+    Returns
+    -------
+    dict with keys: layers, alpha, beta, c_intercept, r2_mlcw_cum,
+        rmse_mlcw_cum, rmse_insar, r2_insar, T
+    """
+    layers = list(layer_data.keys())
+    T = min(len(d["H_lagged"]) for d in layer_data.values())
+
+    # ── Step 1: Per-layer cumulative NNLS ──────────────────────────────────
+    layer_params: dict[str, dict] = {}
+    b_pred_all = np.zeros(T)
+
+    for layer in layers:
+        d      = layer_data[layer]
+        H      = d["H_lagged"][:T]
+        b      = d["b_cum"][:T]
+        h_c    = d["h_c_head_m"]
+        tau    = d.get("tau_opt", 0)
+
+        # Compute virgin term from cumulative lagged head
+        V = compute_virgin_term(H, h_c)
+
+        # Fit two-regressor NNLS: b = S_ke * H + (S_kv - S_ke) * V
+        S_ke, S_kv, delta, resid_sq, b_pred_j = fit_two_regressor_nnls_X(H, V, b)
+
+        n_elastic   = int((V == 0).sum())
+        n_inelastic = int((V < 0).sum())
+        r2_cum = compute_r2_cumulative(b, b_pred_j)
+
+        collinearity_flag = bool(n_elastic < 10)
+        if collinearity_flag:
+            print(f"  [collinearity] Layer {layer}: n_elastic={n_elastic} < 10 — "
+                  f"elastic regime unidentifiable; S_ke result unreliable")
+
+        layer_params[layer] = {
+            "S_ke": S_ke, "S_kv": S_kv, "delta": delta,
+            "tau_opt": tau,
+            "n_elastic": n_elastic, "n_inelastic": n_inelastic,
+            "r2_cum": r2_cum,
+            "collinearity_flag": collinearity_flag,
+        }
+
+        b_pred_all += b_pred_j
+
+    # ── RMSE_MLCW (cumulative, mm) ─────────────────────────────────────────
+    mlcw_resid_sq: list[float] = []
+    for layer in layers:
+        d      = layer_data[layer]
+        b      = d["b_cum"][:T]
+        S_ke   = layer_params[layer]["S_ke"]
+        S_kv   = layer_params[layer]["S_kv"]
+        H      = d["H_lagged"][:T]
+        V      = compute_virgin_term(H, d["h_c_head_m"])
+        b_pred_j = S_ke * H + (S_kv - S_ke) * V
+        mlcw_resid_sq.extend((b - b_pred_j) ** 2)
+    rmse_mlcw_cum = float(np.sqrt(np.mean(mlcw_resid_sq))) if mlcw_resid_sq else float("nan")
+
+    # R²_MLCW_cum (total prediction vs total observation, concatenated)
+    all_obs = np.concatenate([layer_data[lyr]["b_cum"][:T] for lyr in layers])
+    all_pred = np.concatenate([
+        layer_params[lyr]["S_ke"] * layer_data[lyr]["H_lagged"][:T]
+        + (layer_params[lyr]["S_kv"] - layer_params[lyr]["S_ke"])
+        * compute_virgin_term(layer_data[lyr]["H_lagged"][:T], layer_data[lyr]["h_c_head_m"])
+        for lyr in layers
+    ])
+    r2_mlcw_cum = compute_r2_cumulative(all_obs, all_pred)
+
+    # ── Step 2: Surface alignment (cumulative — prediction already cumulative) ─
+    cum_insar = insar_mm[:T]  # already cumulative (no cumsum needed)
+    cum_pred  = b_pred_all     # already cumulative (no cumsum needed)
+
+    if alpha_external is not None:
+        alpha = float(alpha_external)
+        beta  = 1.0 / alpha if alpha > 0 else float("inf")
+        finite = np.isfinite(cum_insar)
+        if finite.sum() > 0:
+            c_intercept = float(np.mean(cum_pred[finite] - alpha * cum_insar[finite]))
+        else:
+            c_intercept = 0.0
+    else:
+        finite = np.isfinite(cum_insar)
+        if finite.sum() < 10:
+            alpha = float("nan")
+            beta  = float("nan")
+            c_intercept = 0.0
+            print("  [joint_solve_cumulative] WARNING: < 10 finite GPS epochs — α set to NaN")
+        else:
+            A_step2   = np.column_stack([cum_insar[finite], np.ones(finite.sum())])
+            coeffs, _, _, _ = np.linalg.lstsq(A_step2, cum_pred[finite], rcond=None)
+            alpha = float(np.clip(coeffs[0], 1e-6, 1.0))
+            beta  = 1.0 / alpha
+            c_intercept = float(coeffs[1])
+
+    # R²_insar diagnostic (on finite insar epochs)
+    finite_insar = np.isfinite(cum_insar)
+    n_finite = int(finite_insar.sum())
+    if n_finite > 1 and not np.isnan(alpha):
+        insar_pred  = np.full(T, np.nan)
+        insar_pred[finite_insar] = (cum_pred[finite_insar] - c_intercept) / alpha
+        insar_resid = np.where(finite_insar, cum_insar - insar_pred, np.nan)
+        ss_res = float(np.nansum(insar_resid ** 2))
+        ss_tot = float(np.nansum((cum_insar[finite_insar] - np.nanmean(cum_insar)) ** 2))
+        rmse_insar = float(np.sqrt(np.nanmean(insar_resid ** 2)))
+        r2_insar = float(1.0 - ss_res / ss_tot) if ss_tot > 0 else np.nan
+    else:
+        rmse_insar = float("nan")
+        r2_insar  = float("nan")
+
+    return {
+        "layers":         layer_params,
+        "alpha":          alpha,
+        "beta":           beta,
+        "c_intercept":    c_intercept,
+        "r2_mlcw_cum":    r2_mlcw_cum,
+        "rmse_mlcw_cum":  rmse_mlcw_cum,
+        "rmse_insar":     rmse_insar,
+        "r2_insar":       r2_insar,
+        "T":              T,
+        "lam":            None,
+        "solver":         "cumulative_nnls",
+    }
+
+
+# ── Joint solve (incremental domain — legacy, deprecated 2026-06-08) ──────────
 
 def joint_solve_fixed_tau(
     layer_data: dict[str, dict],

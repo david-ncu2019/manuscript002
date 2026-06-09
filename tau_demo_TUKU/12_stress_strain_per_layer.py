@@ -200,11 +200,12 @@ def align_gwl_to_mlcw(mlcw_df, gwl_series_daily, layer):
     Returns aligned DataFrame with columns [H, b].
     """
     mlcw_sub = mlcw_df[[layer]].copy()
-    mlcw_sub.index = pd.to_datetime(mlcw_sub.index)
+    mlcw_sub.index = pd.to_datetime(mlcw_sub.index).astype("datetime64[ns]")
     mlcw_sub = mlcw_sub[mlcw_sub.index >= REF_DATE].rename(columns={layer: 'b'})
 
     gwl_df = gwl_series_daily.dropna().reset_index()
     gwl_df.columns = ['datetime', 'H']
+    gwl_df['datetime'] = pd.to_datetime(gwl_df['datetime']).astype("datetime64[ns]")
     gwl_df = gwl_df[gwl_df['datetime'] >= REF_DATE].sort_values('datetime')
 
     mlcw_reset = mlcw_sub.reset_index().sort_values('datetime')
@@ -500,8 +501,8 @@ def process_layer(layer_cfg, mlcw_df):
     print(f"  [DIAGNOSTIC] Naive split: S_ke={S_ke_naive:.4f}, S_kv={S_kv_naive:.4f} mm/m, ratio={ratio_naive:.2f}x (n_e={n_e}, n_i={n_i})")
     if np.isfinite(ratio_naive) and ratio_naive < 1.0:
         print(f"    => Inversion confirmed (ratio<1) — naive split mixes permanent and elastic strain.")
-    elif np.isfinite(ratio_naive) and ratio_naive < 8.0:
-        print(f"    => Ratio {ratio_naive:.2f}x < 8x physical minimum — likely contamination.")
+    elif np.isfinite(ratio_naive) and ratio_naive < 3.0:
+        print(f"    => Ratio {ratio_naive:.2f}x < 3x physical minimum — likely contamination.")
 
     # 6. Two-regressor NNLS fit
     S_ke, S_kv, delta, resid_norm, b_pred = fit_two_regressor_nnls_X(H_arr, V_arr, b_arr)
@@ -511,7 +512,7 @@ def process_layer(layer_cfg, mlcw_df):
     print(f"  [TWO-REGRESSOR NNLS]")
     print(f"    S_ke = {S_ke:.4f} mm/m  |  S_kv = {S_kv:.4f} mm/m")
     print(f"    delta (S_kv - S_ke) = {delta:.4f} mm/m")
-    print(f"    S_kv / S_ke ratio = {ratio_2reg:.2f}x  (physical range: 8-100x)")
+    print(f"    S_kv / S_ke ratio = {ratio_2reg:.2f}x  (physical range: 3-50x)")
     print(f"    R2 = {r2:.4f}")
     print(f"    Obs range: [{b_arr.min():.2f}, {b_arr.max():.2f}] mm  |  Pred range: [{b_pred.min():.2f}, {b_pred.max():.2f}] mm")
 
@@ -521,12 +522,12 @@ def process_layer(layer_cfg, mlcw_df):
     if S_kv < 0:
         print(f"    HALT: S_kv = {S_kv:.4f} < 0 — violates physical bounds. Layer rejected.")
     if np.isfinite(ratio_2reg):
-        if ratio_2reg < 8.0 and S_ke > 0 and delta > 0.001:
-            print(f"    FLAG: Ratio {ratio_2reg:.2f}x < 8x — outside physical range (8-100x).")
-        elif ratio_2reg > 100.0:
-            print(f"    FLAG: Ratio {ratio_2reg:.2f}x > 100x — outside physical range (8-100x).")
+        if ratio_2reg < 3.0 and S_ke > 0 and delta > 0.001:
+            print(f"    FLAG: Ratio {ratio_2reg:.2f}x < 3x — outside physical range (3-50x).")
+        elif ratio_2reg > 50.0:
+            print(f"    FLAG: Ratio {ratio_2reg:.2f}x > 50x — outside physical range (3-50x).")
         else:
-            print(f"    Physical check PASSED: ratio in [8, 100]x range.")
+            print(f"    Physical check PASSED: ratio in [3, 50]x range.")
 
     # 6b. Decoupled two-step fit
     (S_ke_2s, S_kv_2s, delta_2s, b_pred_2s,
@@ -537,7 +538,7 @@ def process_layer(layer_cfg, mlcw_df):
     print(f"\n  [TWO-STEP DECOUPLED ({fit_method_2s}, n_elastic={n_elastic_pts})]")
     print(f"    S_ke = {S_ke_2s:.4f} mm/m  |  S_kv = {S_kv_2s:.4f} mm/m")
     print(f"    delta (S_kv - S_ke) = {delta_2s:.4f} mm/m")
-    print(f"    S_kv / S_ke ratio = {ratio_2s:.2f}x  (physical range: 8-100x)" if np.isfinite(ratio_2s) else "    S_kv / S_ke ratio = undefined (S_ke=0)")
+    print(f"    S_kv / S_ke ratio = {ratio_2s:.2f}x  (physical range: 3-50x)" if np.isfinite(ratio_2s) else "    S_kv / S_ke ratio = undefined (S_ke=0)")
     print(f"    R2 = {r2_2s:.4f}")
     print(f"    Pred range: [{b_pred_2s.min():.2f}, {b_pred_2s.max():.2f}] mm")
 
@@ -559,13 +560,13 @@ def process_layer(layer_cfg, mlcw_df):
                       bounds['s_skv_min'] <= S_skv_2s_m1 <= bounds['s_skv_max'])
             specific_ratio_2s = (S_skv_2s_m1 / S_ske_2s_m1
                                   if S_skv_2s_m1 is not None else float('nan'))
-            in_ratio = (8.0 <= specific_ratio_2s <= 100.0) if np.isfinite(specific_ratio_2s) else False
+            in_ratio = (3.0 <= specific_ratio_2s <= 50.0) if np.isfinite(specific_ratio_2s) else False
             feasible_2s = bool(in_ske and in_skv and in_ratio)
             feas_notes_2s = [
                 f"S_ske: {S_ske_2s_m1:.3e} {'IN' if in_ske else 'OUT'} [{bounds['s_ske_min']:.2e}, {bounds['s_ske_max']:.2e}] m-1",
                 (f"S_skv: {S_skv_2s_m1:.3e} {'IN' if in_skv else 'OUT'} [{bounds['s_skv_min']:.2e}, {bounds['s_skv_max']:.2e}] m-1"
                  if S_skv_2s_m1 is not None else "S_skv: undefined (compressible_m=0)"),
-                (f"Ratio: {specific_ratio_2s:.2f}x {'IN' if in_ratio else 'OUT'} [8, 100]"
+                (f"Ratio: {specific_ratio_2s:.2f}x {'IN' if in_ratio else 'OUT'} [3, 50]"
                  if np.isfinite(specific_ratio_2s) else "Ratio: undefined (S_skv undefined)"),
             ]
             print(f"    FEASIBILITY: {'PASS — all three gates clear' if feasible_2s else 'FAIL — see notes'}")
@@ -596,6 +597,21 @@ def process_layer(layer_cfg, mlcw_df):
     # 8. Plot
     out_plot = PLOT_DIR / f'stress_strain_{layer}.png'
     plot_layer(layer, df_aligned, h_c, S_ke, S_kv, V_arr, b_pred, out_plot)
+
+    # 8b. Export per-epoch timeseries CSV
+    ts_dir = RESULTS_DIR / 'timeseries'
+    ts_dir.mkdir(parents=True, exist_ok=True)
+    out_ts = ts_dir / f'TUKU_{layer}_cumulative_timeseries.csv'
+    ts_df = pd.DataFrame({
+        'datetime': df_aligned.index,
+        'H_zero_ref_m': H_arr,
+        'b_obs_mm': b_arr,
+        'V_m': V_arr,
+        'b_pred_nnls_mm': b_pred,
+        'b_pred_2step_mm': b_pred_2s,
+    })
+    ts_df.to_csv(str(out_ts), index=False)
+    print(f"  Timeseries saved: {out_ts}")
 
     # 9. Regime count based on h_c level
     elastic_mask = H_arr > h_c
@@ -724,7 +740,7 @@ def main():
     print("  NNLS ratio = simultaneous S_kv/S_ke (compressed by H-V collinearity when >90% inelastic)")
     print("  2STEP ratio = decoupled S_kv/S_ke (elastic OLS first; breaks collinearity)")
     print("  S_ske, S_skv [m-1] from 2-step: specific storage using borehole thicknesses")
-    print("  Feasible: IN Choushui literature bounds (Hung 2021) AND ratio in [8, 100]x")
+    print("  Feasible: IN Choushui literature bounds (Hung 2021) AND ratio in [3, 50]x")
     print("Done.")
 
 

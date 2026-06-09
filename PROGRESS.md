@@ -102,6 +102,10 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | Joint solver (`ihmf_model_v3.py`) | **CIRCUIT BREAKER (2026-06-08) — incremental formulation structurally fails; $R^2_{\text{MLCW,cum}}$ negative/NaN for all 6 TUKU layers; 8–355× prediction gap** |
 | **Day 2 α fix (2026-06-08): 4 code changes + compute_alpha_empirical.py** | **COMPLETE — commit 182b8d6; GPS mask decoupled, alpha_external param, --alpha CLI, TUKU α=0.625 verified** |
 | **Day 3 TUKU GPS re-run (2026-06-08)** | **COMPLETE — `TUKU_gps_v3_results.json` written; α=0.625 preserved; n_inelastic=11–36 (failed ≥50 target); circuit breaker tripped on incremental cancellation** |
+| **Automated guardrails (`scripts/guardrails.py`)** | **COMPLETE — 2026-06-08; 10 automated physical-law checks; 9/9 unit tests pass; imports Hung et al. (2021) priors + TUKU borehole materials; mandatory import for all IHM-F scripts** |
+| **Cumulative diagnostics (`scripts/10_ihmf/diagnose_cumulative_tuku.py`)** | **COMPLETE — 2026-06-08; writes per-layer cumulative timeseries CSVs + PNGs to `results/ihmf/v3/diagnostics/`; 6-layer aggregate summary** |
+| **Physics safeguards reference (`discussions/PHYSICS_SAFEGUARDS.md`)** | **COMPLETE — 2026-06-08; 23 KB; 11 rules with full source citations; covers sign conventions, h_c window, tau bounds, ratio gates, V(t) monotonicity** |
+| **NotebookLM inventory (`docs/notebooklm_inventory.md`)** | **COMPLETE — 2026-06-08; 21 notebooks catalogued in 4 tiers; CLI command reference; project-stage mapping** |
 | TUKU pilot — IHM-F v3 cumulative fork | **BLOCKED — tactical pivot decision pending** |
 | IHM-F batch run — all 191 entries | **Blocked — incremental solver cannot proceed; cumulative-solver fork or data-driven fallback required** |
 

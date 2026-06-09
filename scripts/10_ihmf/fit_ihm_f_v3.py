@@ -23,6 +23,7 @@ from ihmf_model_v3 import (
     build_regime_mask,
     tau_grid_search_per_layer,
     joint_solve_fixed_tau,
+    joint_solve_cumulative,
     run_walk_forward_v3,
 )
 from ihmf_detrend import detrend_signal
@@ -68,9 +69,10 @@ def run_station(
     print(f"Station: {station}  |  Mode: {mode_str}  |  Layers: {layers}  |  τ_max: {tau_max} ({tau_label})")
     print(f"{'='*60}")
 
-    # ── Full-record fit ────────────────────────────────────────────────────
+    # ── Full-record fit (cumulative domain) ────────────────────────────────
     ref_df = layer_dfs[layers[0]]
     t_days_full = ref_df["t_days"].values
+    T_full = len(insar_mm)
 
     layer_data: dict[str, dict] = {}
 
@@ -78,22 +80,18 @@ def run_station(
         df   = layer_dfs[layer]
         meta = layer_metas[layer]
 
-        head_m  = df["head_m"].values
-        mlcw_mm = df["mlcw_mm"].values
+        head_m  = df["head_m"].values       # cumulative, length T_full
+        mlcw_mm = df["mlcw_mm"].values      # cumulative, length T_full
+        h_c     = meta["h_c_head_m"]
 
-        # Use incremental (first-difference) signals — the physics equation is incremental
-        # Δb_j(t) = S_j · ΔH_j(t−τ)  where Δ means epoch-to-epoch change
-        inc_dH = np.diff(head_m)    # shape (T-1,), m per epoch
-        inc_db = np.diff(mlcw_mm)   # shape (T-1,), mm per epoch
-
-        # Regime mask on incremental-length array (use head at epoch t, not t+1)
-        h_c = meta["h_c_head_m"]
-        e_m, i_m = build_regime_mask(head_m[:-1], h_c)   # length T-1
-
-        # Dates for incremental signal (epoch t drives the increment t→t+1)
+        # τ grid search uses incremental signals (seasonal cycle removed)
+        # — the incremental τ search is well-calibrated; cumulative τ search
+        # is a future enhancement.
+        inc_dH = np.diff(head_m)
+        inc_db = np.diff(mlcw_mm)
+        e_m, i_m = build_regime_mask(head_m[:-1], h_c)
         inc_dates = df["datetime"].values[:-1]
 
-        # τ grid search on anomaly incremental signals (seasonal cycle removed)
         tau_opt, rss_curve, monthly_means_dH = tau_grid_search_per_layer(
             inc_dH, inc_db, e_m, i_m, tau_max, dates=inc_dates
         )
@@ -101,56 +99,50 @@ def run_station(
               f"MSE_min = {rss_curve[tau_opt]:.4f}")
 
         layer_data[layer] = {
-            "inc_dH":           inc_dH,              # full incremental head, length T_full-1
-            "inc_db":           inc_db,              # full incremental compaction, length T_full-1
-            "elastic_mask":     e_m,                 # full regime mask, length T_full-1
-            "inelastic_mask":   i_m,
+            "head_m":           head_m,            # full cumulative head, length T_full
+            "mlcw_mm":          mlcw_mm,           # full cumulative compaction, length T_full
+            "h_c_head_m":       h_c,               # preconsolidation head (m MSL, absolute)
             "tau_opt":          tau_opt,
             "rss_curve":        [round(r, 6) for r in rss_curve],
             "monthly_means_dH": monthly_means_dH.tolist(),
         }
 
-    # Build a common epoch window [tau_max, T_full-1] so every layer's lagged head
-    # aligns to the same absolute epochs as InSAR and MLCW response.
-    # For layer j at common epoch t: dH_lagged = inc_dH[t - tau_j], db = inc_db[t].
+    # Build a common epoch window [tau_max_all, T_full-1] so every layer's
+    # lagged cumulative head aligns to the same absolute epochs.
+    # For layer j at common epoch t: H_lagged[t] = head_m[t - τ_j], b[t] = mlcw_mm[t].
     tau_max_all = max(d["tau_opt"] for d in layer_data.values())
-    T_full_inc  = len(insar_mm) - 1              # T_full - 1 (length of incremental signals)
-    win_start   = tau_max_all                    # first epoch where all layers have lagged head
-    win_len     = T_full_inc - win_start         # number of common epochs
+    win_start   = tau_max_all                        # first epoch where all layers align
+    win_len     = T_full - win_start                 # number of common epochs
 
     common_layer_data: dict[str, dict] = {}
     for layer in layers:
         d       = layer_data[layer]
         tau     = d["tau_opt"]
-        offset  = tau_max_all - tau               # how far back in d["inc_dH"] to start
-        # dH_lagged on common window: head at epochs (win_start-tau)..(win_start-tau+win_len-1)
-        dH_lag  = d["inc_dH"][offset : offset + win_len]
-        db_win  = d["inc_db"][win_start : win_start + win_len]
-        e_win   = d["elastic_mask"][offset : offset + win_len]   # driver-time regime, lag-consistent
-        i_win   = d["inelastic_mask"][offset : offset + win_len]
+        offset  = tau_max_all - tau                   # how far back in head_m to start
+        H_lag   = d["head_m"][offset : offset + win_len]    # cumulative head, lagged
+        b_win   = d["mlcw_mm"][win_start : win_start + win_len]  # cumulative compaction
         common_layer_data[layer] = {
-            "dH_lagged":        dH_lag,
-            "db":               db_win,
-            "elastic_mask":     e_win,
-            "inelastic_mask":   i_win,
+            "H_lagged":         H_lag,
+            "b_cum":            b_win,
+            "h_c_head_m":       d["h_c_head_m"],
             "tau_opt":          tau,
             "rss_curve":        d["rss_curve"],
             "monthly_means_dH": d["monthly_means_dH"],
         }
 
-    # Store the common-window layer_data for output (rss_curves, walk-forward)
+    # Store the common-window layer_data for output
     layer_data = common_layer_data
 
-    # InSAR incremental on the same common window
-    inc_insar = np.diff(insar_mm)                # shape (T_full-1,)
-    inc_insar_win = inc_insar[win_start : win_start + win_len]
-    result = joint_solve_fixed_tau(layer_data, inc_insar_win, alpha_external=alpha_override)
+    # InSAR/GPS cumulative on the same common window
+    cum_insar_win = insar_mm[win_start : win_start + win_len]
+    result = joint_solve_cumulative(layer_data, cum_insar_win, alpha_external=alpha_override)
     print(f"\n  α = {result['alpha']:.4f}  |  c = {result['c_intercept']:.4f} mm  "
           f"|  RMSE_InSAR = {result['rmse_insar']:.3f} mm  |  R²_InSAR = {result['r2_insar']:.4f}")
-    print(f"  RMSE_MLCW = {result['rmse_mlcw']:.3f} mm")
+    print(f"  R²_MLCW_cum = {result['r2_mlcw_cum']:.4f}  |  RMSE_MLCW_cum = {result['rmse_mlcw_cum']:.3f} mm")
     for lyr, p in result["layers"].items():
         print(f"    {lyr}: S_ke={p['S_ke']:.5f}  S_kv={p['S_kv']:.5f}  τ={p['tau_opt']}"
-              f"  n_elastic={p.get('n_elastic','?')}  n_inelastic={p.get('n_inelastic','?')}")
+              f"  n_elastic={p.get('n_elastic','?')}  n_inelastic={p.get('n_inelastic','?')}"
+              f"  R²_cum={p.get('r2_cum', float('nan')):.4f}")
 
     # Diagnostics: flag physically suspect results
     diagnostics: list[str] = []
@@ -159,25 +151,29 @@ def run_station(
     for lyr, p in result["layers"].items():
         n_inel = p.get("n_inelastic", 0)
         n_elas = p.get("n_elastic", 0)
+        r2c = p.get("r2_cum", float("nan"))
         if n_inel < 10:
             diagnostics.append(
-                f"WARN: {lyr} n_inelastic={n_inel} < 10 — S_kv undefined (insufficient data)"
+                f"WARN: {lyr} n_inelastic={n_inel} < 10 — S_kv unreliable (insufficient data)"
             )
+        if not np.isnan(r2c) and r2c < 0:
+            diagnostics.append(f"WARN: {lyr} R²_cum={r2c:.4f} < 0 — model worse than mean")
         if p["S_kv"] < 1e-10:
             diagnostics.append(f"INFO: {lyr} S_kv<1e-10 (elastic-only or data-limited)")
         elif p["S_ke"] < 1e-10:
             diagnostics.append(f"INFO: {lyr} S_ke<1e-10 (inelastic-only or data-limited)")
-        elif p["S_kv"] / p["S_ke"] < 8.0 or p["S_kv"] / p["S_ke"] > 58.0:
+        elif p["S_kv"] / p["S_ke"] < 8.0 or p["S_kv"] / p["S_ke"] > 100.0:
             ratio = p["S_kv"] / p["S_ke"]
             diagnostics.append(
-                f"WARN: {lyr} S_kv/S_ke={ratio:.2f} outside physical range 8–58×"
+                f"WARN: {lyr} S_kv/S_ke={ratio:.2f} outside physical range 8–100×"
             )
         tau_pct = layer_data[lyr]["tau_opt"]
         if tau_pct == tau_max:
             diagnostics.append(f"WARN: {lyr} τ_opt at τ_max={tau_max} — consider extending search")
 
-    # ── Walk-forward validation ────────────────────────────────────────────
+    # ── Walk-forward validation (legacy incremental path) ──────────────────
     print(f"\n  Running walk-forward validation (4 folds)...")
+    inc_insar = np.diff(insar_mm)                # incremental for legacy walk-forward
     wf_results = run_walk_forward_v3(layer_dfs, layer_metas, inc_insar, tau_max,
                                       alpha_external=alpha_override)
     for fold in wf_results:
@@ -205,9 +201,11 @@ def run_station(
         "alpha":         result["alpha"],
         "beta":          result["beta"],
         "c_intercept":   result["c_intercept"],
-        "rmse_mlcw":     result["rmse_mlcw"],
+        "r2_mlcw_cum":   result["r2_mlcw_cum"],
+        "rmse_mlcw_cum": result["rmse_mlcw_cum"],
         "rmse_insar":    result["rmse_insar"],
         "r2_insar":      result["r2_insar"],
+        "solver":        result.get("solver", "incremental_lsq_linear"),
         "lam":           result["lam"],
         "T":             result["T"],
         "layers":        result["layers"],

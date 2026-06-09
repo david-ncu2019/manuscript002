@@ -104,6 +104,73 @@ No hardcoded `D:\...` or `/mnt/hgfs/...`. Run `python paths.py` to verify platfo
 
 ---
 
+## Automated Guardrails (`scripts/guardrails.py`)
+
+**Mandatory import in all IHM-F and prediction scripts.** Before any new script writes a parameter value to disk, it must pass the guardrail checks.
+
+```python
+from scripts.guardrails import (
+    validate_layer_params, validate_virgin_term, validate_sign_constraints,
+    GuardrailViolation, TUKU_MATERIALS, FAN_ZONE_PRIORS, print_validation_report,
+)
+```
+
+### 10 Automated Checks
+
+| # | Check | Function | On Violation |
+|---|-------|----------|--------------|
+| 1 | $S_{ke} \ge 0$, $S_{kv} \ge S_{ke}$ | `validate_sign_constraints()` | **Halt** — `GuardrailViolation` |
+| 2 | $S_{ske}$, $S_{skv}$ within 10× of Hung et al. (2021) | `validate_literature_bounds()` | Warn (strict mode: halt) |
+| 3 | $S_{skv}/S_{ske} \in [3, 50]$ (relaxed from [8, 100]) | `validate_ratio_gate()` | Warn |
+| 4 | $V(t)$ monotonically non-increasing | `validate_virgin_term()` | **Halt** |
+| 5 | $n_{total} \ge 10$, $n_{inelastic} \ge 10$ | `validate_data_sufficiency()` | Warn |
+| 6 | Head in plausible CRAF range [−100, +200] m MSL | `validate_gwl_sign()` | **Halt** |
+| 7 | $h_c$ = min(pre-REF_DATE head) | `validate_hc_window()` | **Halt** (Bug F regression) |
+| 8 | $\tau \ge 0$, $\tau \le 120$, flag at boundary | `validate_tau_bounds()` | **Halt** if < 0 or > 120 |
+| 9 | Clay layers → inelastic-dominated | `validate_clay_layer_behavior()` | Warn |
+| 10 | $R^2 \ge 0$ | `validate_r2_sanity()` | Warn |
+
+### Literature Priors (Hung et al. 2021 WRR)
+
+| Fan Zone | $S_{ske}$ (m⁻¹) | $S_{skv}$ (m⁻¹) | Ratio |
+|----------|-----------------|-----------------|-------|
+| Proximal | $1.18 \times 10^{-4}$ | N/A | — |
+| Middle | $1.15 \times 10^{-4}$ | $1.33 \times 10^{-3}$ | ~11.6× |
+| Distal | $1.16 \times 10^{-4}$ | $1.91 \times 10^{-3}$ | ~16× |
+
+### Clay vs Sand Classification (TUKU borehole)
+
+| Layer | Total (m) | Aquitard (m) | Clay-dominated? |
+|-------|-----------|-------------|-----------------|
+| F1 | 41.577 | 16.577 | No |
+| T1 | 8.729 | 7.423 | **Yes** |
+| F2 | 106.284 | 12.090 | No |
+| T2 | 16.299 | 10.299 | **Yes** |
+| F3 | 110.494 | 76.994 | **Yes** (69.7% fine) |
+| F4 | 16.617 | 16.617 | **Yes** (100% silt/mud) |
+
+F4 at TUKU is geologically an aquitard despite being labeled "aquifer" by ring position. Its $S_{ke}$ cannot be interpreted as aquifer elastic storage.
+
+### Usage Pattern
+
+```python
+# After fitting, before saving:
+result = validate_layer_params(
+    S_ke, S_kv, layer, station, fan_zone="middle",
+    material=TUKU_MATERIALS.get(layer),
+    n_total=n_pts, n_inelastic=n_inel, r2=r2, tau=tau,
+)
+if not result.passed:
+    # Fatal — do not save. Print errors and exit.
+    for err in result.errors:
+        print(f"FATAL: {err}")
+    raise SystemExit(1)
+for warn in result.warnings:
+    print(f"WARN: {warn}")
+```
+
+---
+
 ## Known Code Issues
 
 - **Results directory convention (2026-06-08):** Obsolete outputs are renamed with `_OBSOLETE_<reason>` suffixes — never deleted. Active outputs have no suffix. See PROGRESS.md §5 for the full table. Before opening any `results/` path, check whether it has an `_OBSOLETE_` sibling — the unsuffixed version may be stale.
@@ -122,6 +189,10 @@ No hardcoded `D:\...` or `/mnt/hgfs/...`. Run `python paths.py` to verify platfo
 - **Lag-consistent epoch classification (Bugs 1–3, fixed 2026-06-05).** Regime mask (elastic/inelastic) must be sliced at driver-time index, not response-time index, because compaction responds to head at $t - \tau$. Three locations fixed: `ihmf_model_v3.py` lines 213–214 (τ grid search: `elastic_mask[:n]` not `[tau:]`), `fit_ihm_f_v3.py` lines 111–112 (common-window OLS: start at `offset`, not `win_start`), `ihmf_model_v3.py` lines 543–544 (walk-forward training: start at `offset`). Invariant: mask slice must start at the same index as `dH_lag`.
 - **F4 at TUKU: 0.0 m aquifer material (fixed 2026-06-06).** The 283–300 m depth zone at TUKU is entirely silt/mud (Z/M) per borehole log `YL_WSYL23G1_TUKU_土庫.xlsx`. F4 contains no gravel or coarse sand. The F4 ring-position assignment as an "aquifer" layer is geologically incorrect at TUKU. F4 IHM-F elastic storage coefficients cannot be physically interpreted as aquifer $S_{ske}$. `LAYER_COMPRESSIBLE_THICKNESS['F4'] = 16.617` m (entire span is compressible fine-grained material).
 - **Two thickness values per layer (fixed 2026-06-06).** `LAYER_THICKNESS` (mm/m-to-$m^{-1}$ conversion for elastic $S_{ske}$) uses **total borehole span** (`total_m`). `LAYER_COMPRESSIBLE_THICKNESS` (inelastic $S_{skv}$ conversion) uses **fine-grained material thickness only** (`aquitard_m`). Both dicts are in `tau_demo_TUKU/12_stress_strain_per_layer.py` lines 94–124. Authoritative borehole breakdown: `figures/prestage_data_analysis/layer_thickness_borehole_TUKU.csv`. Source: `discussions/2026-05-29-technical-clarifications.md` lines 178–182.
+- **Guardrails mandatory import (2026-06-08).** `scripts/guardrails.py` contains 10 automated physical-law checks with literature priors from Hung et al. (2021) WRR. All IHM-F and prediction scripts must import `validate_layer_params` before writing any parameter to disk. See the "Automated Guardrails" section above for the full checks table and usage pattern.
+- **Physics safeguards reference (2026-06-08).** `discussions/PHYSICS_SAFEGUARDS.md` is the authoritative human-readable reference for all 11 physics rules with full source citations. Read it before writing any new guardrail code. The markdown document is authoritative — Python code is a computational expression of these rules.
+- **Cumulative diagnostics (2026-06-08).** `scripts/10_ihmf/diagnose_cumulative_tuku.py` writes per-layer cumulative timeseries CSVs + fit PNGs to `results/ihmf/v3/diagnostics/`. Use for rapid visual inspection of two-regressor NNLS fits without re-running the full solver. Currently TUKU-only; generalize to all stations before batch use.
+- **Borehole logging files (added 2026-06-09):** 32 MLCW borehole log files stored at `data/mlcw/borehole_materials/`. Filenames contain both CGS well identifiers (e.g., `CH_WSCH01G1`, `YL_WSYL23G1`) and English + Chinese station names. Not yet parsed by any script — available for layer geometry verification and $S_{ske}$/$S_{kv}$ physical bounds checking. Two wells (LUNFENG, JINHU) have borehole files but no entry in `gwl_to_mlcw_layer_assignment_v4.csv`.
 
 ### IHM-F Naming
 

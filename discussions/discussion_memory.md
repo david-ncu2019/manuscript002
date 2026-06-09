@@ -712,6 +712,22 @@ carries the full stress history through $V(t)$ — a term that never decreases, 
 
 ---
 
+### Phase 10 — Automated guardrails, documentation consolidation, and regional framework (2026-06-08)
+
+**What was done:** After the circuit breaker on the incremental solver, we paused code development to build permanent validation infrastructure. Three artifacts were created: (1) `scripts/guardrails.py` — 500 lines implementing 10 automated physical-law checks with literature priors from Hung et al. (2021) WRR, TUKU borehole material classification, and a `GuardrailViolation` exception class that halts on sign-constraint violations; all 9 unit tests pass. (2) `discussions/PHYSICS_SAFEGUARDS.md` — 23 KB reference documenting 11 rules with full source citations (Terzaghi 1925, Riley 1969, Hung et al. 2021, MODFLOW 6 SUB/CSUB) for use by human readers and AI agents. (3) `docs/notebooklm_inventory.md` — complete catalogue of 21 NotebookLM notebooks across 4 tiers, with CLI commands and project-stage mapping, to standardize future literature queries.
+
+**Regional framework design:** The station-by-station guardrails were recognized as too narrow — the Choushui River Alluvial Fan is a continuous depositional system where grain size, clay fraction, compressibility, and confinement all vary as continuous functions of Distance From Fan Apex (DFA). Six regional invariants were defined from NotebookLM queries: (I1) $S_{ske}$ nearly constant at $1.2 \times 10^{-4}$ m⁻¹ across the fan; (I2) $S_{skv}$ is a peaked function of DFA — maximum ~$1.5 \times 10^{-3}$ m⁻¹ at DFA ≈ 15 km (middle fan), declining toward the coast because distal clay is drainage-limited at human timescales; (I3) grain size declines exponentially with DFA, clay fraction follows a sigmoid; (I4) confinement transitions continuously from unconfined (DFA < 5 km) to fully-confined artesian (DFA > 30 km); (I5) compaction concentrates at 50–200 m depth (F2+F3 contribute ≥60% of inelastic compaction); (I6) subsidence ≤6 cm/yr current, ≤15 cm/yr historical. Three conservation laws were defined: (C1) per-layer compaction sum ≤ total surface displacement + 5 mm; (C2) preconsolidation head $h_c$ must become more negative with depth; (C3) elastic regime must produce expansion on head recovery. The framework was designed as a markdown reference, not Python code — the user correctly noted that regional physics rules should be documented before being encoded.
+
+**What was also completed:** `scripts/10_ihmf/diagnose_cumulative_tuku.py` writes per-layer cumulative timeseries CSVs and diagnostic PNGs to `results/ihmf/v3/diagnostics/`, enabling rapid visual inspection of the two-regressor NNLS fits without re-running the solver. The `CLAUDE.md` Automated Guardrails section was added with the 10-checks table, literature priors, TUKU material classification, and usage pattern.
+
+**Physical implication of the regional framework:** The peaked $S_{skv}$ function explains why F2 at TUKU (DFA ≈ 14 km) can have an extreme 221× specific-storage ratio — TUKU sits near the optimal clay-sand mix where inelastic drainage is fastest. The decline of $S_{skv}$ toward the coast means a distal station with higher clay content will likely show lower fitted $S_{skv}$ at observable timescales, because drainage time $\propto b^2/K_z$ exceeds the monitoring cadence. This resolves the apparent paradox of "more clay but less measured inelastic compressibility."
+
+**Next:** The regional guardrails framework needs implementation as `scripts/regional_guardrails.py` with continuous DFA-based bounding functions. The sequential prediction script has not been started — the 1-week deadline for Phase 1 prediction is 2026-06-15. The three tactical options (cumulative-solver fork, per-layer calibration, data-driven fallback) remain unresolved.
+
+*Files: `scripts/guardrails.py`, `discussions/PHYSICS_SAFEGUARDS.md`, `docs/notebooklm_inventory.md`, `scripts/10_ihmf/diagnose_cumulative_tuku.py`*
+
+---
+
 ## Notes for Future Sessions
 
 1. **PROGRESS.md is the source of truth** for current pipeline status, data state, and blocking decisions. Update it first when status changes.
