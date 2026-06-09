@@ -29,14 +29,15 @@ RESULT_JSON = ROOT / "results" / "ihmf" / "v3" / "TUKU_gps_v3_results.json"
 TAU_DEMO    = ROOT / "tau_demo_TUKU" / "data"
 INC_DIR     = TAU_DEMO / "incremental_data"
 OUT_DIR     = ROOT / "results" / "ihmf" / "v3" / "diagnostics"
+REF_DATE    = pd.Timestamp("2015-01-16")
 
 WELL_CONFIG = [
-    ("F1", "HONGLUN_gwl_timeseries.feather", "09050111", -2.344),
-    ("T1", "HONGLUN_gwl_timeseries.feather", "09050111", -2.344),
-    ("F2", "TUKU_gwl_timeseries.feather",   "09050321", -5.086),
-    ("T2", "LUNZI_gwl_timeseries.feather",   "09170121", -8.457),
-    ("F3", "TUKU_gwl_timeseries.feather",   "09050331", -4.456),
-    ("F4", "LIUZHUANG_gwl_timeseries.feather", "09080251", -7.008),
+    ("F1", "HONGLUN_gwl_timeseries.feather", "09050111"),
+    ("T1", "HONGLUN_gwl_timeseries.feather", "09050111"),
+    ("F2", "TUKU_gwl_timeseries.feather",   "09050321"),
+    ("T2", "LUNZI_gwl_timeseries.feather",   "09170121"),
+    ("F3", "TUKU_gwl_timeseries.feather",   "09050331"),
+    ("F4", "LIUZHUANG_gwl_timeseries.feather", "09080251"),
 ]
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -63,26 +64,46 @@ def main():
     gps_aligned = pd.merge_asof(master, gps_raw, on="datetime",
                                  direction="nearest", tolerance=pd.Timedelta("3D"))
 
-    # ── 3. Build per-layer head & mlcw arrays (exact same loading) ──────────
-    head_arrays = {}
-    b_cum_arrays = {}
-    h_c_dict = {}
+    # ── 3. Build per-layer head & mlcw arrays (R1/R2: zero-reference head + h_c) ──
+    head_arrays = {}       # zero-referenced head (m)
+    b_cum_arrays = {}      # cumulative MLCW (mm)
+    h_c_zeroed_dict = {}   # zero-referenced preconsolidation head (m)
 
-    for layer, fname, wellcode, h_c in WELL_CONFIG:
+    for layer, fname, wellcode in WELL_CONFIG:
         gwl = pd.read_feather(TAU_DEMO / fname)
         gwl["datetime"] = pd.to_datetime(gwl["datetime"]).astype("datetime64[ns]")
         gwl = gwl[["datetime", wellcode]].dropna(subset=[wellcode])
         gwl = gwl.sort_values("datetime").reset_index(drop=True)
+
+        # Zero-reference: compute ref_val = last raw head on/before REF_DATE
+        # (mirrors load_all_layers_gps R1 fix)
+        gwl_indexed = gwl.set_index("datetime")[wellcode]
+        avail = gwl_indexed.dropna()
+        pre_ref = avail.index[avail.index <= REF_DATE]
+        if len(pre_ref) == 0:
+            raise ValueError(f"No GWL data on/before REF_DATE for {wellcode} ({fname})")
+        ref_val = float(avail.loc[pre_ref[-1]])
+
+        # h_c: lowest absolute head before REF_DATE, then shift to zero-ref frame
+        pre_ref_vals = gwl[gwl["datetime"] < REF_DATE][wellcode].dropna()
+        if len(pre_ref_vals) >= 10:
+            h_c_abs = float(pre_ref_vals.min())
+        else:
+            h_c_abs = float(gwl[wellcode].dropna().min())
+            print(f"  WARN: <10 pre-REF_DATE points for {wellcode} layer {layer} — h_c fallback")
+        h_c_zeroed = h_c_abs - ref_val
+
         gwl_aligned = pd.merge_asof(master, gwl, on="datetime",
                                      direction="nearest", tolerance=pd.Timedelta("3D"))
-        head_arrays[layer] = gwl_aligned[wellcode].values.astype(float)
+        head_abs_aligned = gwl_aligned[wellcode].values.astype(float)
+        head_arrays[layer] = head_abs_aligned - ref_val   # zero-reference
         b_cum_arrays[layer] = mlcw_inc[f"_cum_{layer}"].values.astype(float)
-        h_c_dict[layer] = h_c
+        h_c_zeroed_dict[layer] = h_c_zeroed
 
     # ── 4. Apply step1_mask (GWL + MLCW only — EXACT same as load_all_layers_gps) ──
     T_full = len(master)
     step1_mask = np.ones(T_full, dtype=bool)
-    for layer, _, _, _ in WELL_CONFIG:
+    for layer, _, _ in WELL_CONFIG:
         step1_mask &= ~np.isnan(head_arrays[layer])
         step1_mask &= ~np.isnan(b_cum_arrays[layer])
 
@@ -107,35 +128,37 @@ def main():
     print(f"tau_max_all={tau_max_all}, win_start={win_start}, win_len={win_len}")
 
     # ── 6. Build per-layer H_lagged, b_cum, V on common window ─────────────
-    # H is kept in raw m MSL (matching what the solver used for fitting).
-    # Head is NEVER zero-referenced — V = min(0, cummin(H) - h_c) requires
-    # absolute head so the h_c comparison is physically correct.
+    # R1/R2: Head is zero-referenced to REF_DATE. V = min(0, cummin(H) - h_c)
+    # uses zero-referenced values for both — datum cancels, V is invariant.
     common_data = {}
-    for layer, _, _, _ in WELL_CONFIG:
+    for layer, _, _ in WELL_CONFIG:
         tau = tau_dict[layer]
         offset = tau_max_all - tau
         H_lag = head_arrays[layer][offset : offset + win_len]
         b_win = b_cum_arrays[layer][win_start : win_start + win_len]
         dates = dates_filt[win_start : win_start + win_len]
-        V = compute_virgin_term(H_lag, h_c_dict[layer])
+        V = compute_virgin_term(H_lag, h_c_zeroed_dict[layer])
         common_data[layer] = (H_lag, b_win, V, dates)
 
     # ── 7. Generate per-layer outputs ──────────────────────────────────────
     summary_rows = []
-    for layer, _, _, _ in WELL_CONFIG:
+    for layer, _, _ in WELL_CONFIG:
         H_lag, b_obs_raw, V, dates = common_data[layer]
         p = res["layers"][layer]
         S_ke = p["S_ke"]
         S_kv = p["S_kv"]
         delta = S_kv - S_ke
+        c_j  = p.get("c_intercept", 0.0)  # per-layer intercept (R1 fix)
 
-        # Reconstruct prediction using raw MSL head (identical to solver)
-        b_pred_raw = S_ke * H_lag + delta * V
+        # Reconstruct prediction using zero-referenced head + intercept
+        # (matches joint_solve_cumulative post-R1/R2)
+        b_pred_raw = c_j + S_ke * H_lag + delta * V
 
-        # Zero-reference both observed and predicted to the first common-window
-        # epoch so the cumulative timeseries starts at 0.
-        b_obs  = b_obs_raw - b_obs_raw[0]
-        b_pred = b_pred_raw - b_pred_raw[0]
+        # Zero-reference both to the first OBSERVED epoch so the plot starts at 0.
+        # Use the SAME reference for both to preserve residuals and R².
+        ref_val = b_obs_raw[0]
+        b_obs  = b_obs_raw - ref_val
+        b_pred = b_pred_raw - ref_val
         regime = np.where(V < 0, "inelastic", "elastic")
         residual = b_obs - b_pred
         r2_layer = compute_r2_cumulative(b_obs, b_pred)
@@ -179,12 +202,13 @@ def main():
     print(f"\n  Summary: {sum_csv.name}")
     print(sum_df.to_string(index=False))
 
-    # ── Aggregate timeseries (all layers summed) ──
+    # ── Aggregate timeseries (all layers summed, with intercept) ──
     agg_obs = None; agg_pred = None; agg_dates = None
-    for layer, _, _, _ in WELL_CONFIG:
+    for layer, _, _ in WELL_CONFIG:
         H_lag, b_obs, V, dates = common_data[layer]
         p = res["layers"][layer]
-        b_pred = p["S_ke"] * H_lag + (p["S_kv"] - p["S_ke"]) * V
+        c_j = p.get("c_intercept", 0.0)
+        b_pred = c_j + p["S_ke"] * H_lag + (p["S_kv"] - p["S_ke"]) * V
         if agg_obs is None:
             agg_dates = dates; agg_obs = b_obs.copy(); agg_pred = b_pred.copy()
         else:
@@ -242,4 +266,18 @@ def _make_plot(layer, dates, b_obs, b_pred, V, H_lag, S_ke, S_kv, r2):
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Cumulative diagnostics from IHM-F v3 results")
+    parser.add_argument("--result-json", type=str, default=None,
+                        help="Path to result JSON (default: results/ihmf/v3/TUKU_gps_v3_results.json)")
+    parser.add_argument("--output-dir", type=str, default=None,
+                        help="Output directory for CSVs and PNGs (default: results/ihmf/v3/diagnostics/)")
+    args = parser.parse_args()
+
+    if args.result_json:
+        RESULT_JSON = Path(args.result_json)  # noqa: overwrites module-level default
+    if args.output_dir:
+        OUT_DIR = Path(args.output_dir)        # noqa: overwrites module-level default
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+
     main()
