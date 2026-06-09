@@ -5,13 +5,15 @@
 
 ---
 
-> ## ⚠ STATUS: ACTIVE METHOD REVIEW — Objectives corrected 2026-06-09
+> ## ⚠ STATUS: REPAIRS APPLIED (2026-06-09) — Verification pending
 >
 > The project goal is to reconstruct a fragmented observational record: MLCW wells have stopped or reduced sampling due to cost. Three objectives: (1) Gap-fill + predict at MLCW stations using InSAR + GWL; (2) apply to all stations; (3) predict at 8,577 grid points with no MLCW. Physical parameter gates remain necessary guardrails, but success criterion is gap-fill RMSE < static interpolation baseline + positive walk-forward skill score.
 >
-> **Terzaghi consolidation + stress-strain curve analysis (Script 12 cumulative NNLS) is under evaluation as candidate gap-fill/prediction method — NOT confirmed.** Incremental IHM-F v3 solver structurally failed (2026-06-08). IHM-F v3 code fixes confirmed done (2026-06-05/06).
+> **R1–R3 repairs applied (2026-06-09):** (R1) Absolute-head datum bug fixed — `load_all_layers_gps()` now zero-references head to REF_DATE, mirroring Script 12 `load_gwl_absolute()`. (R2) h_c shifted to same zero-ref frame. (R3) Walk-forward rewired to cumulative solver (was deprecated incremental `joint_solve_fixed_tau`). **Code NOT yet verified by re-run** — S_ke > 0 and n_inelastic > 0 expected but unconfirmed.
 >
-> **Immediate priority:** Held-out gap-fill evaluation at TUKU pilot (Script 12 cumulative solver) before any further code development. One-week constraint applies.
+> **Per-layer gate status:** Read live file `tau_demo_TUKU/results/stress_strain_per_layer.json`. Do not trust any per-layer pass/fail claims in documents — they may be stale. Gate numbers will change after R1/R2 fix alters S_ke values.
+>
+> **Immediate priority:** Run `fit_ihm_f_v3.py --station TUKU --gps --all --alpha 0.625` to verify repairs.
 >
 > **Do not assume any result is final.** Read `PROGRESS.md` first.
 

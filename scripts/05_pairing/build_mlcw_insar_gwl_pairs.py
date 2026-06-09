@@ -24,7 +24,7 @@ GWL station identity:
 
 For each MLCW station:
   - Nearest single GWL station (any screen availability), with its feather stem
-  - All GWL stations within 5 km radius, each with feather stem
+  - All GWL stations within 10 km radius, each with feather stem
 
 CRS handling:
   - InSAR gpkg  : EPSG:32650 (WGS84 UTM Zone 50N)
@@ -34,7 +34,7 @@ CRS handling:
 Outputs:
   data/mlcw/MLCW_InSAR_GWL_pairs.xlsx   — main pairing table (one row per MLCW station)
   data/mlcw/MLCW_InSAR_GWL_pairs_all.csv — expanded table (one row per MLCW-GWL station
-                                             pair within 5 km)
+                                             pair within 10 km)
 
 Usage:
     conda run -n fafalab python scripts/05_pairing/build_mlcw_insar_gwl_pairs.py
@@ -53,7 +53,7 @@ FEATHER_DIR  = BASE / "data/gwl/well_timeseries"
 OUT_DIR      = BASE / "data/mlcw"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-RADIUS_M = 10000  # include all GWL stations within this radius in the expanded table
+RADIUS_M = 10000  # GWL-MLCW pairing radius (10 km; docstring updated 2026-06-09)
 
 # ── build computer_id → feather_stem lookup from actual feather files ─────────
 # Each feather file's non-datetime columns are the computer_ids of wells at that

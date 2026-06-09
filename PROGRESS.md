@@ -3,8 +3,10 @@
 > **This is the single authoritative PROGRESS.md** (merged 2026-06-05; content from docs repo 2026-06-04).
 > All future updates go here only.
 
-**Date:** 2026-06-08
-**Status:** 🚨 CIRCUIT BREAKER — IHM-F v3 incremental solver structurally failed at TUKU (2026-06-08). Script 12 cumulative approach SUCCEEDED. **Key finding:** The 5-day incremental formulation $\Delta b = S_k \cdot \Delta H$ cannot accumulate the observed monotonic MLCW compaction because seasonal head oscillations (±2 m/yr) approximately cancel — the model predicts 0.1–0.9 mm/yr while MLCW records 8–15 mm/yr (8–355× gap). $R^2_{\text{MLCW,cum}}$ is negative or NaN for all 6 layers. Root cause is a physical domain mismatch: the incremental solver operates on the derivative of head (a stationary oscillatory signal) while MLCW compaction is the integral of maximum historical stress (a monotonic cumulative signal). The Riley (1969) preconsolidation memory is lost in the first-difference transformation. **Day 2 GPS mask fix completed but insufficient** — F2/F3 GWL wells (09050321, 09050331) only start 2012-08, so 2003-2012 inelastic era has zero GWL data regardless of the GPS mask. **Next:** tactical pivot — decide between cumulative-solver fork, per-layer Script 12 calibration, or data-driven fallback. See `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md` for full post-mortem.
+**Date:** 2026-06-09
+**Status:** 🔧 REPAIRS APPLIED (R1–R3) — 3 P1/P2 bugs fixed from super plan Part 6 audit. R1: absolute-head datum bug (S_ke collapsed to 0 for positive-head wells). R2: h_c zero-referencing fix. R3: walk-forward wired to cumulative solver (was deprecated incremental). R4: stale gate numbers corrected. R5: machine paths fixed. Pending: verification run (`fit_ihm_f_v3.py --station TUKU --gps --all --alpha 0.625`) to confirm S_ke > 0 and n_inelastic > 0.
+
+**Previous (2026-06-08):** 🚨 CIRCUIT BREAKER — IHM-F v3 incremental solver structurally failed at TUKU. Script 12 cumulative approach SUCCEEDED. The incremental solver's first-difference operation erases the Riley (1969) preconsolidation memory. See `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md` for full post-mortem.
 
 ---
 
@@ -117,7 +119,7 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | **tau_demo_TUKU v2 experiment setup** | **Complete — 2026-06-04; TAU_MAX=120, v4 assignments, Bug F (h_c window) found; fix applied 2026-06-05** |
 | **tau_demo_TUKU — lag-consistency bugs (Bugs 1–3)** | **Complete — 2026-06-05/06; 3 lag-consistency fixes in ihmf_model_v3.py + fit_ihm_f_v3.py; regime mask sliced at driver-time index** |
 | **tau_demo_TUKU — TUKU pilot 5-day incremental (11_fit_ihm_f_incremental.py)** | **Complete — 2026-06-06; all 6 layers fail 8–100× ratio gate; structural failure in per-epoch incremental domain confirmed** |
-| **12_stress_strain_per_layer.py (cumulative domain, per-layer)** | **Complete — 2026-06-06; two-regressor NNLS. Specific-storage gate (2026-06-07 correction): F1=9.1× PASS, T2=9.3× PASS, F4=17.3× PASS; T1=2.9× FAIL; F2=221× FAIL; F3 S_ke=0. Decoupled two-step fit extension planned.** |
+| **12_stress_strain_per_layer.py (cumulative domain, per-layer)** | **Complete — 2026-06-06; two-regressor NNLS. Two-step specific-storage gate (live 2026-06-09): F1 S_ske=6.54e-6 FAIL (below lit. floor 7.27e-6; specific ratio=30.36 inside [3,50]); T1 S_ke=0 not identifiable; F2 specific ratio=220.68 FAIL (thickness artifact: 106.3m/12.09m clay=8.79×; bulk ratio=25.10 inside [3,50]); T2 ratio=8.42 PASS; F3 S_ke=0 not identifiable; F4 ratio=10.76 PASS. ⚠ These numbers will change after R1/R2 head zero-referencing fix.** |
 | **CLAUDE.md restructure + knowledge file merge** | **Complete — 2026-06-05; both CLAUDE.md files restructured; 12 discussion/notes/plans files merged from docs repo** |
 | Multi-layer data assembler (`ihmf_io_multilayer.py`) | **Complete — operational, imported by `fit_ihm_f_v3.py`** |
 | Joint solver (`ihmf_model_v3.py`) | **CIRCUIT BREAKER (2026-06-08) — incremental formulation structurally fails; $R^2_{\text{MLCW,cum}}$ negative/NaN for all 6 TUKU layers; 8–355× prediction gap** |
@@ -160,9 +162,9 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | Domain | $\Delta H$, $\Delta b$ (5-day diffs) | $H$, $b$ (cumulative levels) |
 | Stress memory | None (each epoch independent) | Running minimum via $V(t)$ |
 | $R^2$ F2 | NaN | 0.845 |
-| F1 specific ratio | N/A | 9.1× PASS |
-| T2 specific ratio | N/A | 9.3× PASS |
-| F4 specific ratio | N/A | 17.3× PASS |
+| F1 | N/A | S_ske=6.54e-6 FAIL (below lit. floor) |
+| T2 | N/A | specific ratio=8.42 PASS |
+| F4 | N/A | specific ratio=10.76 PASS (bulk ratio=17.34) |
 
 **Full post-mortem:** `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md`
 
