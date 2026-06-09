@@ -64,7 +64,7 @@
   - **Files to create:** `tau_demo_TUKU\bilinear_fit.py`
   - **Success check:** On TUKU F1, `with_intercept=True` returns R² ≥ 0.76 (vs 0.61 without intercept) and `S_ke ≥ 0`, `S_kv ≥ S_ke`.
 
-- [ ] Step C: Fix the production path so it matches the corrected math. In `scripts\10_ihmf\ihmf_io_multilayer.py::load_all_layers_gps`, after building `head_m`, also store `head_ref` (last raw head on/before REF_DATE) per layer in `layer_metas`. In `scripts\10_ihmf\ihmf_model_v3.py::joint_solve_cumulative`, change the elastic regressor from absolute `H` to `H - head_ref`, and add an intercept column per layer. Keep `V` computed from absolute head and absolute `h_c` (datum cancels — do not change it).
+- [x] Step C: Fix the production path so it matches the corrected math. In `scripts\10_ihmf\ihmf_io_multilayer.py::load_all_layers_gps`, after building `head_m`, also store `head_ref` (last raw head on/before REF_DATE) per layer in `layer_metas`. In `scripts\10_ihmf\ihmf_model_v3.py::joint_solve_cumulative`, change the elastic regressor from absolute `H` to `H - head_ref`, and add an intercept column per layer. Keep `V` computed from absolute head and absolute `h_c` (datum cancels — do not change it).
   - **Files to modify:** `scripts\10_ihmf\ihmf_io_multilayer.py`, `scripts\10_ihmf\ihmf_model_v3.py`
   - **Success check:** Re-running `fit_ihm_f_v3.py --station TUKU --gps --all --alpha 0.625` yields per-layer `r2_cum > 0` for at least F1, T1, T2, F4 (previously all negative except T2), and `S_ke > 0` for the layers whose head crosses their reference.
   - **Command:** `PYTHONPATH="" conda run -n isce_ncu3 python scripts\10_ihmf\fit_ihm_f_v3.py --station TUKU --gps --all --alpha 0.625`
@@ -340,7 +340,7 @@
 
 **Depends on:** None
 **Blocks:** ALL downstream parameter estimates, ratio gate checks, gap-fill evaluation
-**Priority:** P1
+**Priority:** P1 — **DONE (2026-06-09)**
 
 ---
 
@@ -359,7 +359,7 @@
 
 **Depends on:** R1
 **Blocks:** Virgin term $V(t)$, regime classification, n_elastic/n_inelastic counts
-**Priority:** P1
+**Priority:** P1 — **DONE (2026-06-09)**
 
 ---
 
@@ -379,7 +379,7 @@
 
 **Depends on:** R1, R2
 **Blocks:** Walk-forward validation metrics; Obj 1 held-out test (the one-week deliverable)
-**Priority:** P2
+**Priority:** P2 — **DONE (2026-06-09)**
 
 ---
 
@@ -409,7 +409,7 @@ Note: "17.3×" in CLAUDE.md refers to F4 simultaneous-NNLS `ratio_Skv_Ske=17.343
 
 **Depends on:** None (documentation fix)
 **Blocks:** Prevents new contributors from trusting wrong pass/fail assignments
-**Priority:** P2
+**Priority:** P2 — **DONE (2026-06-09)**
 
 ---
 
@@ -446,7 +446,7 @@ Note: "17.3×" in CLAUDE.md refers to F4 simultaneous-NNLS `ratio_Skv_Ske=17.343
 3. Update the reference in PROGRESS.md to confirm the discussions/ path.
 
 **Depends on:** None
-**Priority:** P3
+**Priority:** P3 — **DONE (2026-06-09)**
 
 ---
 
@@ -464,7 +464,7 @@ Note: "17.3×" in CLAUDE.md refers to F4 simultaneous-NNLS `ratio_Skv_Ske=17.343
 3. If 10 km is correct, verify that `gwl_to_mlcw_layer_assignment_v4.csv` was generated with 10 km; if it was generated with 5 km, re-run the pairing script and update the CSV.
 
 **Depends on:** None
-**Priority:** P3
+**Priority:** P3 — **DONE (2026-06-09)**
 
 ---
 
@@ -491,15 +491,15 @@ Note: "17.3×" in CLAUDE.md refers to F4 simultaneous-NNLS `ratio_Skv_Ske=17.343
 
 ### 6.5 Repair Priority Order and One-Week Impact
 
-| Priority | Task | Blocking for | Estimated effort |
-|----------|------|-------------|-----------------|
-| P1 | R1 — Zero-reference head in production loader | All parameter estimates | 1–2 h |
-| P1 | R2 — Fix h_c coordinate-frame shift (Bug F) | Virgin term, regime classification | 0.5 h |
-| P1 | R5 — Fix wrong machine paths in this plan | Any command block on this machine | 0.5 h — **DONE** |
-| P2 | R3 — Wire walk-forward to cumulative solver | Walk-forward validation, Obj 1 held-out test | 1–2 h |
-| P2 | R4 — Update stale gate numbers in CLAUDE.md | Documentation accuracy | 0.5 h |
-| P3 | R6 — Move POST_MORTEM to discussions/ | Reference integrity | 0.1 h |
-| P3 | R7 — Resolve RADIUS_M discrepancy | GWL pairing completeness | 0.5 h |
+| Priority | Task | Blocking for | Estimated effort | Status |
+|----------|------|-------------|-----------------|--------|
+| P1 | R1 — Zero-reference head in production loader | All parameter estimates | 1–2 h | **DONE** |
+| P1 | R2 — Fix h_c coordinate-frame shift (Bug F) | Virgin term, regime classification | 0.5 h | **DONE** |
+| P1 | R5 — Fix wrong machine paths in this plan | Any command block on this machine | 0.5 h | **DONE** |
+| P2 | R3 — Wire walk-forward to cumulative solver | Walk-forward validation, Obj 1 held-out test | 1–2 h | **DONE** |
+| P2 | R4 — Update stale gate numbers in CLAUDE.md | Documentation accuracy | 0.5 h | **DONE** |
+| P3 | R6 — Move POST_MORTEM to discussions/ | Reference integrity | 0.1 h | **DONE** |
+| P3 | R7 — Resolve RADIUS_M discrepancy | GWL pairing completeness | 0.5 h | **DONE** |
 
 **One-week constraint:** The only one-week deliverable is the Obj 1 TUKU held-out test (PROGRESS.md). That test requires: correct zero-referenced head (R1), correct h_c referencing (R2), and a working cumulative walk-forward (R3). None of the held-out RMSE numbers in `Bilinear_Model_Test_Findings_20260609.md` can be trusted until R1+R2 are applied on this machine (`fafalab` env) and the bake-off scripts are reproduced. The gate numbers in CLAUDE.md (R4) will change once R1+R2 run — do not finalize method selection on pre-fix results.
 
