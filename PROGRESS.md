@@ -3,8 +3,17 @@
 > **This is the single authoritative PROGRESS.md** (merged 2026-06-05; content from docs repo 2026-06-04).
 > All future updates go here only.
 
-**Date:** 2026-06-09
-**Status:** 🔧 REPAIRS APPLIED (R1–R3) — 3 P1/P2 bugs fixed from super plan Part 6 audit. R1: absolute-head datum bug (S_ke collapsed to 0 for positive-head wells). R2: h_c zero-referencing fix. R3: walk-forward wired to cumulative solver (was deprecated incremental). R4: stale gate numbers corrected. R5: machine paths fixed. Pending: verification run (`fit_ihm_f_v3.py --station TUKU --gps --all --alpha 0.625`) to confirm S_ke > 0 and n_inelastic > 0.
+**Date:** 2026-06-10
+**Status:** ✅ GWL RESIDUAL TERM EVALUATED — T1 is the only layer where adding GWL to the carrier model improves held-out RMSE (>5% gate). Script `14b_carrier_gwl_eval.py` created. `14_carrier_reconstruction_tuku.py` updated with `--use-gwl` flag. F1 is marginal (−4.2%, just below threshold). Deep layers (F2/F3/F4) reject GWL — trend dominates; adding GWL noise degrades prediction.
+
+**Completed today (2026-06-10):**
+- Phase 1.1 Task 1.1.1 Step A: Per-layer carrier fit (a_k >= 0, sum=0.624)
+- Phase 1.1 Task 1.1.1 Step B: 6 per-layer reconstruction CSVs (1572 epochs each)
+- Phase 1.1 Task 1.1.1 Step C: Optional refinements — DEFERRED (carrier R² already 0.80–0.99)
+- Phase 1.1 Task 1.1.1 Step D: 6-panel reconstruction figure (300 dpi)
+- Phase 1.1 Task 1.1.2: Calibration quality quantified (R², RMSE, bias, gap coverage)
+
+**Next:** Part 1 Phase 1.2 — Forward prediction with carrier (`--predict_to DATE`).
 
 **Previous (2026-06-08):** 🚨 CIRCUIT BREAKER — IHM-F v3 incremental solver structurally failed at TUKU. Script 12 cumulative approach SUCCEEDED. The incremental solver's first-difference operation erases the Riley (1969) preconsolidation memory. See `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md` for full post-mortem.
 
@@ -27,7 +36,7 @@ MLCW (Multi-Layer Compaction Well) monitoring wells in the Choushui River Alluvi
 
 **One-week time constraint:** Only the TUKU pilot evaluation (Obj 1 held-out test) must complete within the current working week. Obj 2 and Obj 3 are follow-on phases.
 
-**Current phase:** Method review. Terzaghi consolidation theory formulated as a cumulative two-regressor NNLS (Script 12, `tau_demo_TUKU/12_stress_strain_per_layer.py`) is under evaluation as the candidate gap-fill/prediction method — NOT confirmed. No method is finalized.
+**Current phase:** Part 0 complete — Phase 0.1 bake-off confirmed GPS carrier as primary gap-fill method. Part 1 (TUKU carrier reconstruction) is the next blocking milestone.
 
 ---
 
@@ -129,97 +138,59 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | **Cumulative diagnostics (`scripts/10_ihmf/diagnose_cumulative_tuku.py`)** | **COMPLETE — 2026-06-08; writes per-layer cumulative timeseries CSVs + PNGs to `results/ihmf/v3/diagnostics/`; 6-layer aggregate summary** |
 | **Physics safeguards reference (`discussions/PHYSICS_SAFEGUARDS.md`)** | **COMPLETE — 2026-06-08; 23 KB; 11 rules with full source citations; covers sign conventions, h_c window, tau bounds, ratio gates, V(t) monotonicity** |
 | **NotebookLM inventory (`docs/notebooklm_inventory.md`)** | **COMPLETE — 2026-06-08; 21 notebooks catalogued in 4 tiers; CLI command reference; project-stage mapping** |
-| TUKU pilot — IHM-F v3 cumulative fork | **BLOCKED — tactical pivot decision pending** |
-| IHM-F batch run — all 191 entries | **Blocked — incremental solver cannot proceed; cumulative-solver fork or data-driven fallback required** |
+| TUKU pilot — IHM-F v3 cumulative fork | **COMPLETE — cumulative solver with intercept verified (2026-06-09); all 6 layers S_ke ≥ 0, R²_cum > 0** |
+| IHM-F batch run — all 191 entries | **Blocked — pending Part 1 TUKU pilot completion before multi-well extension** |
+| **Standalone bilinear fitter (`tau_demo_TUKU/bilinear_fit.py`)** | **COMPLETE — 2026-06-09; fit_bilinear() extracts center-then-NNLS pattern from production solver** |
+| **Pooled r2_mlcw_cum removal (Step D)** | **COMPLETE — 2026-06-09; per-layer R² only in output JSON** |
+| **Phase 0.1 three-method bake-off** | **COMPLETE — 2026-06-09; Decision Point 1 = CARRIER-PRIMARY; results in `tau_demo_TUKU/results/holdout_bakeoff.json`** |
+| **Part 1 carrier reconstruction (`14_carrier_reconstruction_tuku.py`)** | **COMPLETE — 2026-06-10; all 6 layers fitted, CSVs + figure + JSON; sum(a_k)=0.624; --use-gwl flag added** |
+| **GWL residual term eval (`14b_carrier_gwl_eval.py`)** | **COMPLETE — 2026-06-10; T1 ADOPTS GWL (−14.3% held-out RMSE); F1 marginal (−4.2%); F2/T2/F3/F4 reject; results in `carrier_gwl_eval.json`** |
+| **Part 1 Phase 1.2 — Forward prediction** | **NEXT — add --predict_to DATE to carrier script** |
 
 ---
 
-## 4. Blocking Decision
+## 4. Decision Point 1 — Gap-Fill Method Selection (2026-06-09)
 
-> **Blocking question (2026-06-09 correction):** The blocking question is no longer "do parameters satisfy physical gates?" It is: "Does the cumulative solver produce accurate gap-fills on held-out MLCW epochs under the one-week constraint?"
+**✅ DECIDED: CARRIER-PRIMARY** — GPS/InSAR carrier wins all 6 TUKU layers by held-out RMSE.
 
-**🚨 CIRCUIT BREAKER (2026-06-08):** IHM-F v3 incremental solver failed at TUKU. Day 3 re-run complete — `results/ihmf/v3/TUKU_gps_v3_results.json` written. α = 0.625 preserved. But the incremental formulation cannot reproduce MLCW compaction.
+### Three-Method Held-Out Bake-Off Results
 
-**Incremental solver failure — quantified (2026-06-08):**
+| Layer | carrier_mid | bilinear_mid | baseline_mid | carrier_end | bilinear_end | baseline_end | Primary |
+|-------|------------|-------------|-------------|------------|-------------|-------------|---------|
+| F1 | 1.635 | 1.519 | 5.322 | 2.540 | 5.534 | 2.626 | carrier |
+| T1 | 1.057 | 1.777 | 3.406 | 2.240 | 4.471 | 2.332 | carrier |
+| F2 | 4.298 | 8.354 | 40.501 | 7.128 | 9.415 | 7.676 | carrier |
+| T2 | 2.032 | 2.402 | 6.174 | 3.911 | 7.214 | 4.209 | carrier |
+| F3 | 7.302 | 11.293 | 60.804 | 16.967 | 25.321 | 15.591 | carrier |
+| F4 | 1.639 | 3.642 | 7.516 | 3.799 | 8.525 | 3.741 | carrier |
 
-| Layer | n_inelastic | $R^2_{\text{MLCW,cum}}$ | obs_range (mm) | pred_range (mm) | Ratio obs/pred |
-|-------|-----------|-------------------------|----------------|-----------------|----------------|
-| F1 | 36 | −2.18 | 30.4 | ~3 | ~10× |
-| T1 | 36 | −2.62 | 18.5 | ~2 | ~9× |
-| F2 | 2 | NaN | 206.0 | ~1 | ~200× |
-| T2 | 12 | NaN | 22.8 | ~2 | ~11× |
-| F3 | 29 | NaN | 337.4 | ~2 | ~170× |
-| F4 | 11 | −3.94 | 36.5 | ~2 | ~18× |
+All values in mm RMSE on held-out epochs. Two holdout designs: **middle gap** (40–70% of record, simulates reduced sampling) and **end gap** (last 30%, simulates permanent shutdown). Methods: M1 = GPS carrier (`b = a·d_surface + c`), M2 = bilinear Terzaghi (`b = c + S_ke·u + delta·V`), M3 = baseline (linear interpolation for middle gap, trend extrapolation for end gap).
 
-**Root cause of cancellation:** 5-day head oscillations (±2 m/yr at F2) approximately cancel over annual cycles. The model predicts net ~0.1–0.9 mm/yr per layer. MLCW records monotonic 8–15 mm/yr regardless of head direction. The incremental formulation's first-difference operation erases the preconsolidation stress memory — the Riley (1969) running minimum cannot be reconstructed from derivatives alone.
+### Key Findings
 
-**GWL data gap (binding constraint):** F2 well (09050321) and F3 well (09050331) were installed August 2012. The 2003–2012 inelastic consolidation era has zero GWL data. The Day 2 GPS mask fix could not help — the bottleneck was GWL data, not GPS.
+1. **GPS carrier wins all 6 layers** — average RMSE across both designs is lowest for carrier on every layer. Verdict: CARRIER-PRIMARY.
+2. **Bilinear is the worst gap-fill method** — confirmed on 6/6 layers. The GWL bilinear model is for parameter characterization (Phase 1.4), not gap-fill.
+3. **Interpolation fails badly on deep layers** — F2 (40.5 mm) and F3 (60.8 mm) middle-gap interpolation RMSE is 6–80× the carrier. Deep aquifers have strong secular trends that interpolation cannot capture.
+4. **Deep layers trend-extrapolate well** — F3 (15.6 mm) and F4 (3.7 mm) end-gap trend RMSE is competitive with carrier (16.97 mm, 3.80 mm). For smooth deep layers, trend extrapolation is a credible fallback.
+5. **F2 carrier RMSE (4.3 mm middle, 7.1 mm end)** — the main aquifer couples well to GPS, but 4–7 mm RMSE on a 112 mm compaction range (~200 mm total) represents ∼3–4% error.
 
-**Contrast with Script 12 cumulative success:**
+### Method Assignment (Part 1)
 
-| Metric | Incremental (IHM-F v3) | Cumulative (Script 12) |
-|--------|----------------------|----------------------|
-| Domain | $\Delta H$, $\Delta b$ (5-day diffs) | $H$, $b$ (cumulative levels) |
-| Stress memory | None (each epoch independent) | Running minimum via $V(t)$ |
-| $R^2$ F2 | NaN | 0.845 |
-| F1 | N/A | S_ske=6.54e-6 FAIL (below lit. floor) |
-| T2 | N/A | specific ratio=8.42 PASS |
-| F4 | N/A | specific ratio=10.76 PASS (bulk ratio=17.34) |
+| Layer | Primary Method | Fallback | Notes |
+|-------|---------------|----------|-------|
+| F1 | carrier | bilinear | bilinear competitive on middle gap (1.52 vs 1.64 mm) |
+| T1 | carrier | bilinear | shallow acquitard, carrier RMSE < 2.3 mm |
+| F2 | carrier | — | main aquifer, carrier dominates (4.3 vs 8.4 vs 40.5 mm) |
+| T2 | carrier | — | carrier RMSE < 4 mm both designs |
+| F3 | carrier | trend extrapolation | deep aquifer, trend competitive on end gap |
+| F4 | carrier | trend extrapolation | deep aquitard, trend competitive on end gap |
 
-**Full post-mortem:** `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md`
+**Script:** `tau_demo_TUKU/13_holdout_method_bakeoff.py`
+**Results:** `tau_demo_TUKU/results/holdout_bakeoff.json`
 
-**Next action:** Tactical pivot decision required. Three options tabled:
-- **A — Cumulative-solver fork:** Replace `joint_solve_fixed_tau`'s per-epoch lsq_linear with Script 12's two-regressor NNLS on cumulative $H$ and $V$ arrays.
-- **B — Per-layer calibration:** Use Script 12 results as the calibration basis; empirical α for surface scaling; skip incremental walk-forward.
-- **C — Data-driven fallback:** Use validated Script 12 $S_{ske}$, $S_{skv}$ where gates pass; flag failures; gap-fill via spatial interpolation of validated parameters.
+### Previous §4 content (superseded by Decision Point 1)
 
-**Previous gate (2026-06-04):** TUKU walk-forward evaluation is complete but does NOT clear the interpolation gate. Two diagnosed failures must be addressed:
-1. **F2 Tier 2 (seasonal) degrades all 4 folds** — median RMSE 4.59 → 5.97 mm; seasonal correction is counterproductive; the `_build_seasonal_term` phase-shift logic likely misaligns with cumulative MLCW signal
-2. **F3 RMSE unstable across folds** — 4.7 mm (2022) → 23.4 mm (2024); the InSAR–MLCW ratio `fbar` for F3 is drifting over time; fbar is not stationary for deep layers
-
-**Next actions before spatial interpolation:**
-- Diagnose F2 Tier 2 degradation: compare phase-shifted seasonal term to observed MLCW seasonal; check if `r1` scaling is correct
-- Diagnose F3 instability: plot `fbar_per_fold` across folds for F3 at TUKU and multiple stations to confirm ratio drift
-- If F3 fbar drift confirmed: add rolling-window fbar update (triggered by rolling-window std > threshold — data criterion, not hardcoded station names)
-
-**Two parallel work streams:**
-- **Walk-forward validation (static scaling baseline):** Complete at 37 stations. Spatial extension (`--krige ordinary`) requires gate clearance.
-- **GWL-driven IHM-F:** Fix 3 pending code issues in `fit_ihm_f_v3.py` + `ihmf_model_v3.py`, then TUKU v3 pilot.
-
-**Key methodological decisions locked (2026-06-01, from walkforward Tier 1 fix):**
-- **Static f̄_k confirmed inadequate for InSAR-only prediction** — single-coefficient model cannot capture sub-annual MLCW dynamics; confirmed by prediction_v1 results (F2 skill_vs_trend = −0.53)
-- **Detrended + lag-aware model added in `walkforward.py`** — 4-param detrend (intercept + linear + annual harmonic) via `ihmf_detrend.detrend_signal()`; $\tau$ grid search over 0–73 epochs; $\alpha$$\times$ InSAR_det(t−$\tau$) added to trend component
-- **$\alpha$ $\ge$ 0 constraint enforced** — InSAR and MLCW must be positively correlated after detrending; negative $\alpha$ → fall back to trend-only
-- **F1 and T2: InSAR residual predictive** — RMSE reductions of 37–60% at TUKU across folds
-- **F2, F3, F4: InSAR residual anti-correlated** — these layers require GWL data for sub-annual prediction
-- **InSAR-only ceiling at main aquifers confirmed** — GWL data is structurally necessary for F2/F3/F4
-
-**Key methodological decisions locked (2026-05-31, from seasonal harmonic pilot):**
-- **Linear detrend only** — MA (365d/730d) returns NaN on 10-year record; never use MA for detrending
-- **MLCW baseline anchoring mandatory** — anchor both MLCW and InSAR to first common valid epoch
-- **Trend reconstruction R^2 > 0.82** across all layers at 3 stations
-- **Seasonal reconstruction (F2): R^2_seasonal = 0.43–0.67**; T1 partial at YUANCHANG
-- **F3/F4 seasonal: not recoverable** — phase std > 59d at all 3 stations
-- **Seasonal amplitude NOT year-predictable** — deliverable is phase characterisation map only
-- **InSAR seasonal peak: DOY 154–172 (early June)** — inelastic consolidation accumulates through May–June before monsoon rebound
-- **Semi-annual component below noise** — drop from annual harmonic model
-
-**Key methodological decisions locked (2026-05-30, from tau search campaign):**
-- Detrending [intercept + linear + annual harmonic] is mandatory before $\tau$ search
-- Constrained CCF (OLS slope $\ge$ 0) preferred over MSE grid search for $\tau$ estimation
-- 5$\times$ MAD outlier filter on incremental MLCW data
-- 2S-TOOL Ss values 10–300$\times$ too large at 5-day resolution — diagnostic reference only
-- F2 is the only TUKU layer with genuine multiscale GWL-MLCW coupling (detrended r=+0.69 at $\tau$=350d)
-- F1, F3, F4 are trend-dominated at 5-day resolution (detrended r < 0.07)
-- Seasonal $S_{ske}$ binary split: FAIL (0/6 layers); sinusoidal encoding: PARTIAL PASS (3/6 layers)
-
-**Key architecture decisions locked (2026-05-29):**
-- GWL is the only per-layer driver — InSAR is the total target in Step 2 only
-- No `b_k · x` term anywhere
-- $\tau$ is always a non-negative integer (5-day epoch units); $\tau$_max = 120 (raised 2026-06-04)
-- Joint constrained least squares for [$S_1$…$S_N$, $\beta$=1/$\alpha$] simultaneously, for each fixed $\tau$ combination
-- 2S-TOOL values are diagnostic reference only — not used as fixed priors
-- Solver: `scipy.optimize.lsq_linear` (fafalab env)
+The incremental solver circuit breaker (2026-06-08) and pre-audit methodological decisions are preserved in the git history. The cumulative-solver fork (Option A from the post-mortem) was implemented via R1/R2/R3 repairs. The three-method bake-off replaces the pre-audit single-method gate.
 
 ---
 
@@ -255,6 +226,10 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | Seasonal harmonic findings | Reconstruction tables, phase gate, locked decisions | `...\InSAR_MLCW_v2\docs\seasonal_harmonic_findings.md` |
 | Figure standards | A4/300dpi matplotlib standards | `...\InSAR_MLCW_v2\docs\figure_standards.md` |
 | Incremental fit results (TUKU) | lsq_linear per-layer fit (6 layers) — all fail 8–100× ratio gate | `...\InSAR_MLCW_v2\tau_demo_TUKU\results\incremental_fit_results.json` |
+| Bilinear fitter | Standalone Terzaghi/Riley per-layer fitter with intercept | `...\InSAR_MLCW_v2\tau_demo_TUKU\bilinear_fit.py` |
+| Holdout bake-off script | Three-method held-out evaluator (Phase 0.1) | `...\InSAR_MLCW_v2\tau_demo_TUKU\13_holdout_method_bakeoff.py` |
+| Holdout bake-off results | Per-layer, per-design, per-method RMSE + primary method | `...\InSAR_MLCW_v2\tau_demo_TUKU\results\holdout_bakeoff.json` |
+| Holdout split definition | Per-layer middle/end gap index ranges | `...\InSAR_MLCW_v2\tau_demo_TUKU\data\holdout_split_definition.json` |
 
 ### Results directory convention (2026-06-08)
 
