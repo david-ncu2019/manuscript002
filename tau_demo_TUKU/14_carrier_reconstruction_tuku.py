@@ -330,6 +330,7 @@ def write_csvs(data: dict, results: dict, suffix: str = ""):
             "date": master_dates,
             "b_model_mm":    np.round(b_pred, 4),
             "b_observed_mm": np.round(b_obs, 4),
+            "residual_mm":   np.round(b_obs - b_pred, 4),
             "d_surface_mm":  np.round(d_surface, 4),
             "a_k":           round(r["a_k"], 6),
             "c_k":           round(r["c_k"], 4),
@@ -337,6 +338,10 @@ def write_csvs(data: dict, results: dict, suffix: str = ""):
         if r.get("d_k", 0) != 0:
             df_dict["d_k"] = round(r["d_k"], 6)
         df = pd.DataFrame(df_dict)
+
+        # Incremental predicted (5-day jumps)
+        inc = np.diff(b_pred)
+        df["b_model_inc_mm"] = np.round(np.concatenate([[np.nan], inc]), 4)
 
         # Mark gap epochs
         df["is_gap"] = np.isnan(b_obs) & np.isfinite(b_pred)
