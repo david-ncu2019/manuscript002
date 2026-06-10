@@ -386,25 +386,24 @@ Note: "17.3×" in CLAUDE.md refers to F4 simultaneous-NNLS `ratio_Skv_Ske=17.343
 
 ---
 
-#### REPAIR TASK R5 — Fix wrong machine paths in this super plan
+#### REPAIR TASK R5 — Update conda environment references
 
-**Physical meaning:** A plan that references a non-existent Windows drive letter ($E:\Taiwan$) and a different user's Python interpreter ($C:\Users\Huy$) cannot be executed on this Ubuntu 22.04 VM. Every command block in the plan would fail.
+**Physical meaning:** The Windows working environment changed from `fafalab` (Python 3.10, numpy broken) to `fafalab2` (Python 3.12, all packages functional). The plan's environment references were previously updated to use `isce_ncu3` for the Linux VM; now they must be updated for Windows to use `fafalab2`.
 
 **Evidence:**
-- `plans/super_plan_2026-06-09.md` L5: `E:\Taiwan\programming\Python\David\20260427_InSAR_MLCW_v2` (does not exist)
-- `plans/super_plan_2026-06-09.md` L7: `& "C:\Users\Huy\anaconda4\python.exe"` (does not exist)
-- Actual repo: `/mnt/hgfs/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v2` (Linux VM)
-- Actual env: `isce_ncu3`; command: `PYTHONPATH="" conda run -n isce_ncu3 python`
+- `fafalab` (Python 3.10): numpy dist-infos present but no package directory; all imports fail.
+- `fafalab2` (Python 3.12): confirmed 2026-06-10; numpy, pandas, scipy, pyarrow all import successfully.
+- Windows primary working env: now `fafalab2`.
+- Linux VM env for 2S-TOOL: still `isce_ncu3` (unchanged).
 
-**Also:** Task 0.0 Step D references `fit_ihm_f_v3.py` lines 441–448 for the pooled R² code. The actual location is `ihmf_model_v3.py` lines 440–448.
-
-**Repair applied (2026-06-09):**
-1. Replaced header block with Ubuntu 22.04 VM path and `isce_ncu3` conda env.
-2. Replaced all `$env:PYTHONPATH=""; & "C:\Users\Huy\anaconda4\python.exe"` with `PYTHONPATH="" conda run -n isce_ncu3 python` throughout the plan.
-3. Corrected Task 0.0 Step D file reference from `fit_ihm_f_v3.py` to `ihmf_model_v3.py` (lines 440–448).
+**Repair applied (2026-06-10):**
+1. Updated CLAUDE.md lines 62, 64, 68–71, 181 to reference `fabalb2`.
+2. Updated AGENTS.md lines 30, 33, 36, 44–45 to reference `fabalb2`.
+3. Updated docs/run_commands.md line 10 and all Windows-section commands to reference `fabalb2`.
+4. Updated all Priority-3 and Priority-4 script docstrings (tau_demo_TUKU scripts, scripts/ docheaders) to use `fafalab2` in usage comments.
 
 **Depends on:** None
-**Blocks:** Any command block in this plan would fail on this machine
+**Blocks:** Any Windows command that was running under `fafalab`
 **Priority:** P1 — **DONE**
 
 ---
@@ -468,13 +467,13 @@ Note: "17.3×" in CLAUDE.md refers to F4 simultaneous-NNLS `ratio_Skv_Ske=17.343
 |----------|------|-------------|-----------------|--------|
 | P1 | R1 — Zero-reference head in production loader | All parameter estimates | 1–2 h | **DONE** |
 | P1 | R2 — Fix h_c coordinate-frame shift (Bug F) | Virgin term, regime classification | 0.5 h | **DONE** |
-| P1 | R5 — Fix wrong machine paths in this plan | Any command block on this machine | 0.5 h | **DONE** |
+| P1 | R5 — Update conda environment references | CLAUDE.md, AGENTS.md, docs/run_commands.md, script docstrings | 0.5 h | **DONE** |
 | P2 | R3 — Wire walk-forward to cumulative solver | Walk-forward validation, Obj 1 held-out test | 1–2 h | **DONE** |
 | P2 | R4 — Update stale gate numbers in CLAUDE.md | Documentation accuracy | 0.5 h | **DONE** |
 | P3 | R6 — Move POST_MORTEM to discussions/ | Reference integrity | 0.1 h | **DONE** |
 | P3 | R7 — Resolve RADIUS_M discrepancy | GWL pairing completeness | 0.5 h | **DONE** |
 
-**One-week constraint:** The only one-week deliverable is the Obj 1 TUKU held-out test (PROGRESS.md). That test requires: correct zero-referenced head (R1), correct h_c referencing (R2), and a working cumulative walk-forward (R3). None of the held-out RMSE numbers in `Bilinear_Model_Test_Findings_20260609.md` can be trusted until R1+R2 are applied on this machine (`fafalab` env) and the bake-off scripts are reproduced. The gate numbers in CLAUDE.md (R4) will change once R1+R2 run — do not finalize method selection on pre-fix results.
+**One-week constraint:** The only one-week deliverable is the Obj 1 TUKU held-out test (PROGRESS.md). That test requires: correct zero-referenced head (R1), correct h_c referencing (R2), and a working cumulative walk-forward (R3). None of the held-out RMSE numbers in `Bilinear_Model_Test_Findings_20260609.md` can be trusted until R1+R2 are applied on this machine (`fafalab2` env) and the bake-off scripts are reproduced. The gate numbers in CLAUDE.md (R4) will change once R1+R2 run — do not finalize method selection on pre-fix results.
 
 **Method pivot warning:** The super plan promotes GPS carrier as the primary gap-fill method based on RMSE numbers from unverifiable scripts (A10). This is a consequential method decision. Do not confirm the pivot until A10 is reproduced in `fafalab` env and R1+R2 are applied to the GWL bilinear baseline. The GWL bilinear model may perform better once the absolute-head bug is fixed.
 

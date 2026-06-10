@@ -8,6 +8,35 @@
 
 **Next:** User validates Part 1 results. After validation: Part 2 (multi-well extension to 37 stations).
 
+---
+
+> ## M1+M2 RECONCILIATION (2026-06-10, super_plan_2026-06-10) — read this first
+>
+> The 2026-06-10 zero-trust audit found a τ-lag defect (D1) plus four others (D2–D5) in the
+> evaluation programs. **M1 repaired all five; M2 re-ran every Part-1 number with straight
+> rulers.** The decision points below are RE-ISSUED from persisted files. Where this block
+> conflicts with older rows further down (e.g. line ~150, ~258), THIS block is authoritative;
+> the older rows are pre-repair and OBSOLETE.
+>
+> - **DP1 = CARRIER-PRIMARY** (unchanged). `holdout_bakeoff.json` → `win_counts.carrier` = 6.
+>   Carrier arm reproduces pre-repair RMSE to < 0.001 mm (equivalence check pass).
+> - **DP2 = PASS** (was PARTIAL). `reconstruction/TUKU_carrier_reconstruction_summary.json`
+>   → `tail_evaluation`: skill > 0 on 3/6 (T1 +0.4075, F2 +0.4305, T2 +0.2981). Threshold ≥ 3.
+> - **GWL adoption = F1, T1, F2, T2** (was T1-only). `carrier_gwl_eval.json` → `adopt_gwl`.
+>   Correct lags make the head residual help four layers, not one.
+> - **Storage table** re-run at correct lags: `characterization/TUKU_storage_params.json`.
+>   **F2 $S_{skv}$ = 1.34e-3 m⁻¹ — "matches Hung et al. (1.33e-3)" SURVIVES the lag correction.**
+>   F3 is now `not identifiable` / inelastic-only (the old "ratio 1286 identifiable" verdict is
+>   deleted — D5/D6 resolved). F1/T1 below-floor bulk ratios (1.64/2.03) confirmed a genuine
+>   material finding, not weak-$V$ or wrong-τ (`characterization/f1t1_below_floor.json`):
+>   head drops 3.358 m below $h_c$, $V<0$ on ~48% of epochs, all post-2015.
+> - **$\sum a_k$ = 0.637** (corrected adoption map), not 0.624.
+>
+> Full reconciled narrative: `discussions/PART1_FINDINGS_20260610.md` §3, §5, §5.1.
+> **GATE M2: PASSED. Hard stop — do not enter M3 without human authorization.**
+
+---
+
 **Completed today (2026-06-10):**
 - Phase 1.1 Task 1.1.1 Step A: Per-layer carrier fit (a_k >= 0, sum=0.624)
 - Phase 1.1 Task 1.1.1 Step B: 6 per-layer reconstruction CSVs (1572 epochs each)
@@ -146,8 +175,8 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | **Pooled r2_mlcw_cum removal (Step D)** | **COMPLETE — 2026-06-09; per-layer R² only in output JSON** |
 | **Phase 0.1 three-method bake-off** | **COMPLETE — 2026-06-09; Decision Point 1 = CARRIER-PRIMARY; results in `tau_demo_TUKU/results/holdout_bakeoff.json`** |
 | **Part 1 carrier reconstruction (`14_carrier_reconstruction_tuku.py`)** | **COMPLETE — 2026-06-10; all 6 layers fitted, CSVs + figure + JSON; sum(a_k)=0.624; --use-gwl flag added** |
-| **GWL residual term eval (`14b_carrier_gwl_eval.py`)** | **COMPLETE — 2026-06-10; T1 ADOPTS GWL (−14.3% held-out RMSE); F1 marginal (−4.2%); F2/T2/F3/F4 reject; results in `carrier_gwl_eval.json`** |
-| **Part 1 Phase 1.2 — Forward prediction** | **COMPLETE — 2026-06-10; --predict_to flag added; 6-month tail holdout: T1/T2 skill>0, Decision Point 2=PARTIAL** |
+| **GWL residual term eval (`14b_carrier_gwl_eval.py`)** | **COMPLETE — 2026-06-10. OBSOLETE pre-repair note: "T1 only". RE-ISSUED M2 (correct lags): ADOPT GWL on F1 (−10.2%), T1 (−14.3%), F2 (−8.7%), T2 (−6.3%); REJECT F3 (+0.0%), F4 (−2.2%). Source `carrier_gwl_eval.json`→`adopt_gwl`** |
+| **Part 1 Phase 1.2 — Forward prediction** | **COMPLETE — 2026-06-10; --predict_to flag added. OBSOLETE pre-repair note: "DP2=PARTIAL". RE-ISSUED M2: Decision Point 2 = PASS (skill>0 on T1/F2/T2, 3/6); source `TUKU_carrier_reconstruction_summary.json`→`tail_evaluation`** |
 | **Part 1 Phase 1.3 — Self-recalibration** | **COMPLETE — 2026-06-10; --recalib_date flag added; writes _recalib_YYYYMMDD suffix outputs** |
 | **Part 1 Phase 1.4 — Bilinear characterization** | **COMPLETE — 2026-06-10; `15_storage_characterization.py` created; S_ske/S_skv for all 6 layers; TUKU_storage_params.json written** |
 | **Part 2 — Multi-well extension** | **NEXT — batch carrier reconstruction + characterization at 37 stations** |
@@ -255,7 +284,7 @@ Active results directories: `ihmf/v3/`, `ring_cross_correlation/`, `seasonal_ins
 | Criterion | Threshold | Status |
 |-----------|-----------|--------|
 | Gap-fill RMSE vs. held-out MLCW | < RMSE of static linear interpolation | ✅ PASS — carrier beats interpolation on all 6 layers (DP 1) |
-| Walk-forward skill score | > 0 on all 3 pilot layers (F1, T2, F4) | ⚠️ PARTIAL — 2/6 layers skill > 0 (T1, T2); F1/F3/F4 fail (DP 2) |
+| Walk-forward skill score | > 0 on all 3 pilot layers (F1, T2, F4) | ✅ DP2 = PASS (RE-ISSUED M2) — 3/6 layers skill > 0 (T1 +0.4075, F2 +0.4305, T2 +0.2981); F1/F3/F4 fail. Source `TUKU_carrier_reconstruction_summary.json`→`tail_evaluation`. (OBSOLETE pre-repair: "PARTIAL 2/6, T1/T2") |
 | Self-recalibration | `--recalib_date` arg added to fit script | ✅ DONE — `14_carrier_reconstruction_tuku.py --recalib_date` |
 | Physical guardrails | All 10 guardrails pass | ✅ DONE — all S_ke ≥ 0, S_kv ≥ S_ke; F2 S_skv matches literature |
 
