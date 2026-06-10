@@ -211,9 +211,12 @@
 
 ## PART 2 — Obj 2: Multi-Well Extension (37 Stations)
 
+> ⏸️ **BLOCKED — AWAITING PART 1 VALIDATION (2026-06-10).**
+> Do NOT execute Part 2, Part 3, Part 4, or Part 5 until the user has manually validated all Part 1 results and explicitly gives the command to proceed. Part 1 scripts and results are at `tau_demo_TUKU/` and `results/reconstruction/`, `results/characterization/`, `results/ihmf/v3/`.
+
 **Physical narrative:** Run the validated TUKU chain (carrier gap-fill + bilinear characterization) at all 37 MLCW stations. Different fan zones give different $a_k$ and $S_{ke}/S_{kv}$, but the structure is identical.
 
-**Depends on:** PART 1 complete; Decision Point 2 PASS or PARTIAL.
+**Depends on:** PART 1 complete AND manually validated; Decision Point 2 PASS or PARTIAL.
 
 ### PHASE 2.1 — Batch Runner
 

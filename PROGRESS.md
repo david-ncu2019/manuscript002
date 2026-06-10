@@ -4,7 +4,9 @@
 > All future updates go here only.
 
 **Date:** 2026-06-10
-**Status:** ✅ GWL RESIDUAL TERM EVALUATED — T1 is the only layer where adding GWL to the carrier model improves held-out RMSE (>5% gate). Script `14b_carrier_gwl_eval.py` created. `14_carrier_reconstruction_tuku.py` updated with `--use-gwl` flag. F1 is marginal (−4.2%, just below threshold). Deep layers (F2/F3/F4) reject GWL — trend dominates; adding GWL noise degrades prediction.
+**Status:** ⏸️ PART 1 COMPLETE — AWAITING VALIDATION. Part 2 (multi-well extension) and Part 3-5 are BLOCKED until Part 1 results are manually validated. Do NOT execute Part 2 or later tasks.
+
+**Next:** User validates Part 1 results. After validation: Part 2 (multi-well extension to 37 stations).
 
 **Completed today (2026-06-10):**
 - Phase 1.1 Task 1.1.1 Step A: Per-layer carrier fit (a_k >= 0, sum=0.624)
