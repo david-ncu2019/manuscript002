@@ -149,6 +149,7 @@ results/                    Output files (gitignored — source files only in re
 
 ## Further Reading
 
+- **Part 1 findings (auditor-ready):** `discussions/PART1_FINDINGS_20260610.md`
 - **Current gate + next action:** `PROGRESS.md`
 - **Full implementation plan:** `plans/super_plan_2026-06-09.md`
 - **Physics safeguards:** `discussions/PHYSICS_SAFEGUARDS.md`

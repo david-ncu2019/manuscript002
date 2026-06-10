@@ -5,17 +5,17 @@
 
 ---
 
-> ## ⚠ STATUS: REPAIRS APPLIED (2026-06-09) — Verification pending
+> ## ⚠ STATUS: PART 1 COMPLETE — AWAITING VALIDATION (2026-06-10)
 >
-> The project goal is to reconstruct a fragmented observational record: MLCW wells have stopped or reduced sampling due to cost. Three objectives: (1) Gap-fill + predict at MLCW stations using InSAR + GWL; (2) apply to all stations; (3) predict at 8,577 grid points with no MLCW. Physical parameter gates remain necessary guardrails, but success criterion is gap-fill RMSE < static interpolation baseline + positive walk-forward skill score.
+> The project goal is to reconstruct a fragmented observational record: MLCW wells have stopped or reduced sampling due to cost. Three objectives: (1) Gap-fill + predict at MLCW stations using InSAR + GWL; (2) apply to all stations; (3) predict at 8,577 grid points with no MLCW.
 >
-> **R1–R3 repairs applied (2026-06-09):** (R1) Absolute-head datum bug fixed — `load_all_layers_gps()` now zero-references head to REF_DATE, mirroring Script 12 `load_gwl_absolute()`. (R2) h_c shifted to same zero-ref frame. (R3) Walk-forward rewired to cumulative solver (was deprecated incremental `joint_solve_fixed_tau`). **Code NOT yet verified by re-run** — S_ke > 0 and n_inelastic > 0 expected but unconfirmed.
+> **Part 1 (TUKU pilot) is complete.** All 7 repairs applied (R1–R7). GPS carrier selected as primary gap-fill method (DP 1: CARRIER-PRIMARY). Comprehensive evaluation metrics computed (15 metrics × 6 layers). Part 2 (multi-well extension to 37 stations) is BLOCKED pending manual validation of Part 1 results.
 >
-> **Per-layer gate status:** Read live file `tau_demo_TUKU/results/stress_strain_per_layer.json`. Do not trust any per-layer pass/fail claims in documents — they may be stale. Gate numbers will change after R1/R2 fix alters S_ke values.
+> **Key findings:** Carrier captures secular trend perfectly (trend error <1%), amplitude at 81–97%, but sub-annual dynamics are absent (GPS is 99.6% linear) and 4/6 layers fail 6-month tail prediction. Full report: `discussions/PART1_FINDINGS_20260610.md`.
 >
-> **Immediate priority:** Run `fit_ihm_f_v3.py --station TUKU --gps --all --alpha 0.625` to verify repairs.
+> **For auditors:** Read `discussions/PART1_FINDINGS_20260610.md` for the complete findings, decision points, metrics, and open questions. Read `PROGRESS.md` §6 for a compact summary. All evidence in `tau_demo_TUKU/results/`.
 >
-> **Do not assume any result is final.** Read `PROGRESS.md` first.
+> **Do not execute Part 2 or later.** Read `PROGRESS.md` first.
 
 ---
 

@@ -250,11 +250,49 @@ Obsolete results are renamed with `_OBSOLETE_<reason>` suffixes rather than dele
 
 Active results directories: `ihmf/v3/`, `ring_cross_correlation/`, `seasonal_insar_harmonic/`, `ring_gwl_xcorr/`, `data_analysis/`, `gps_vs_mlcw/`, `stress_strain/`.
 
-### Gap-fill evaluation criteria (corrected 2026-06-09)
+### Gap-fill evaluation criteria (updated 2026-06-10)
 
 | Criterion | Threshold | Status |
 |-----------|-----------|--------|
-| Gap-fill RMSE vs. held-out MLCW | < RMSE of static linear interpolation | Not yet tested |
-| Walk-forward skill score | > 0 on all 3 pilot layers (F1, T2, F4) | Not yet tested |
-| Self-recalibration | `--recalib_date` arg added to fit script | Not yet built |
-| Physical guardrails | All 10 guardrails pass | Partial (F1/T2/F4 pass ratio gate) |
+| Gap-fill RMSE vs. held-out MLCW | < RMSE of static linear interpolation | ✅ PASS — carrier beats interpolation on all 6 layers (DP 1) |
+| Walk-forward skill score | > 0 on all 3 pilot layers (F1, T2, F4) | ⚠️ PARTIAL — 2/6 layers skill > 0 (T1, T2); F1/F3/F4 fail (DP 2) |
+| Self-recalibration | `--recalib_date` arg added to fit script | ✅ DONE — `14_carrier_reconstruction_tuku.py --recalib_date` |
+| Physical guardrails | All 10 guardrails pass | ✅ DONE — all S_ke ≥ 0, S_kv ≥ S_ke; F2 S_skv matches literature |
+
+---
+
+## 6. Part 1 Findings Summary (2026-06-10)
+
+> **Full document:** `discussions/PART1_FINDINGS_20260610.md` — auditor-ready with
+> method evolution, all metrics, physical interpretation, and open questions.
+
+### Key Numbers
+
+| Layer | $a_k$ | range_ratio | NRMSE% | trend_err% | end_err% | R² | S_ke ident? |
+|-------|--------|------------|--------|------------|----------|-----|-------------|
+| F1 | 0.026 | 0.81 | 5.8% | 0.4% | −10.9% | 0.94 | Yes |
+| T1 | 0.018 | 0.92 | 6.2% | 0.4% | +3.0% | 0.95 | Yes |
+| F2 | 0.213 | 0.97 | 3.4% | 0.3% | −1.3% | 0.99 | Yes |
+| T2 | 0.028 | 0.87 | 12.2% | 0.7% | +4.7% | 0.80 | Yes |
+| F3 | 0.306 | 0.93 | 3.7% | 0.5% | −8.9% | 0.98 | No (S_ke≈0) |
+| F4 | 0.032 | 0.84 | 5.6% | 0.2% | −10.8% | 0.95 | No (S_ke=0) |
+
+### What the Carrier Achieves
+- **Secular trend:** Captured almost perfectly (trend error < 1% for all layers). GPS trend IS the MLCW trend.
+- **Amplitude:** Range ratio 0.81–0.97. Slight under-prediction, worst for F1 (81%).
+- **Gap-fill:** Beats interpolation by 2–9× for main aquifers. Beats bilinear on every layer.
+- **Layer apportionment:** Physically sensible — F3=30.6%, F2=21.3%, sum=62.4%.
+
+### What the Carrier Cannot Do
+- **Sub-annual dynamics:** Detrended correlation ~0 for deep layers. GPS is 99.6% linear.
+- **Short-term prediction:** 4/6 layers fail 6-month tail holdout (carrier IS a linear trend).
+- **End-point accuracy:** F1, F3, F4 have 9–11% end-of-record error.
+
+### Open Questions for Auditors
+1. Is trend-only gap-fill acceptable for the project deliverable?
+2. Should we invest in non-linear surface signals (InSAR seasonal)?
+3. Should a seasonal harmonic term supplement the carrier?
+4. Is Part 2 (37-station extension) the right next step given known limitations?
+
+### Result Files
+All outputs in `tau_demo_TUKU/results/`. Key files: `evaluation_metrics.json`, `holdout_bakeoff.json`, `carrier_gwl_eval.json`, `characterization/TUKU_storage_params.json`, `reconstruction/` (6 CSVs), `visualization/` (11 PNGs + 4 CSVs).
