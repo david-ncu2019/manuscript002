@@ -130,7 +130,7 @@
 
 - [x] Step A: ~~Create 14_carrier_reconstruction_tuku.py~~ — **DONE (2026-06-10):** Script created and run successfully. All 6 layers fitted: sum(a_k)=0.6244 (no rescaling needed — layers account for 62% of surface displacement, remaining 38% below F4). Per-layer a_k: F3=0.306 (30.6%), F2=0.213 (21.3%), F4=0.032, T2=0.028, F1=0.026, T1=0.020. All calibration R² > 0.80 (range 0.80–0.99).
 
-- [x] Step B: ~~Reconstruct b_k(t)~~ — **DONE (2026-06-10):** 6 per-layer CSVs written to `results/reconstruction/TUKU_{layer}_reconstruction.csv` (1572 rows each). Columns: date, b_model_mm, b_observed_mm, d_surface_mm, a_k, c_k, is_gap, is_model_only. TUKU has continuous MLCW (0 gap-filled epochs) — the reconstruction validates the carrier model; gap-fill benefit at other stations in Part 2.
+- [x] Step B: ~~Reconstruct b_k(t)~~ — **DONE (2026-06-10):** 6 per-layer CSVs written to `tau_demo_TUKU/results/reconstruction/TUKU_{layer}_reconstruction.csv` (1572 rows each). Columns: date, b_model_mm, b_observed_mm, d_surface_mm, a_k, c_k, is_gap, is_model_only. TUKU has continuous MLCW (0 gap-filled epochs) — the reconstruction validates the carrier model; gap-fill benefit at other stations in Part 2.
 
 - [SKIP] Step C: ~~Add optional refinements~~ — **DEFERRED.** Year-varying a_k and GWL residual term are not needed for TUKU (carrier R² already 0.80–0.99). Will revisit if held-out skill degrades at other stations in Part 2.
 
@@ -212,7 +212,7 @@
 ## PART 2 — Obj 2: Multi-Well Extension (37 Stations)
 
 > ⏸️ **BLOCKED — AWAITING PART 1 VALIDATION (2026-06-10).**
-> Do NOT execute Part 2, Part 3, Part 4, or Part 5 until the user has manually validated all Part 1 results and explicitly gives the command to proceed. Part 1 scripts and results are at `tau_demo_TUKU/` and `results/reconstruction/`, `results/characterization/`, `results/ihmf/v3/`.
+> Do NOT execute Part 2, Part 3, Part 4, or Part 5 until the user has manually validated all Part 1 results and explicitly gives the command to proceed. Part 1 scripts and results are at `tau_demo_TUKU/` (results in `tau_demo_TUKU/results/reconstruction/`, `tau_demo_TUKU/results/characterization/`, `tau_demo_TUKU/results/visualization/`). Production solver outputs at `results/ihmf/v3/`.
 
 **Physical narrative:** Run the validated TUKU chain (carrier gap-fill + bilinear characterization) at all 37 MLCW stations. Different fan zones give different $a_k$ and $S_{ke}/S_{kv}$, but the structure is identical.
 
