@@ -316,7 +316,7 @@ def joint_rescale(results: dict, data: dict) -> dict:
 # Output CSVs + Plot
 # ═══════════════════════════════════════════════════════════════════════════════════
 
-def write_csvs(data: dict, results: dict):
+def write_csvs(data: dict, results: dict, suffix: str = ""):
     """Write per-layer reconstruction CSVs."""
     master_dates = pd.to_datetime(data["master_dates"])
     d_surface = data["d_surface"]
@@ -342,7 +342,7 @@ def write_csvs(data: dict, results: dict):
         df["is_gap"] = np.isnan(b_obs) & np.isfinite(b_pred)
         df["is_model_only"] = np.isnan(b_obs)
 
-        csv_path = OUT_DIR / f"TUKU_{layer}_reconstruction.csv"
+        csv_path = OUT_DIR / f"TUKU_{layer}_reconstruction{suffix}.csv"
         df.to_csv(csv_path, index=False, float_format="%.4f")
         print(f"  CSV: {csv_path.name}  ({len(df)} rows, "
               f"{df['is_gap'].sum()} gap-filled)")
@@ -420,10 +420,277 @@ def make_figure(data: dict, results: dict):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════════
+# Phase 1.2 — Forward prediction + tail holdout evaluation
+# ═══════════════════════════════════════════════════════════════════════════════════
+
+def extend_prediction(data: dict, results: dict, gwl_layers: set,
+                      predict_to: pd.Timestamp) -> tuple[dict, dict]:
+    """Extend predictions through predict_to by applying frozen coefficients.
+
+    GPS is extrapolated linearly beyond its last observation using the trend
+    from the last 2 years of available GPS data.
+    """
+    master_dates = data["master_dates"]
+    d_surface = data["d_surface"]
+    last_date = pd.Timestamp(master_dates[-1])
+
+    if predict_to <= last_date:
+        print(f"  predict_to {predict_to.date()} is within data range — no extension needed")
+        return data, results
+
+    # Build extended timeline
+    n_extra = int((predict_to - last_date).days / 5) + 1  # 5-day cadence
+    extra_dates = pd.date_range(last_date + pd.Timedelta(days=5), periods=n_extra, freq="5D")
+    extended_dates = np.concatenate([master_dates, extra_dates.values])
+
+    # Extrapolate GPS: linear trend on last 2 years
+    gps_finite = np.isfinite(d_surface)
+    t_gps = np.arange(len(d_surface))[gps_finite]
+    gps_vals = d_surface[gps_finite]
+    # Last 2 years ≈ 146 5-day epochs
+    n_tail = min(146, len(t_gps))
+    t_tail = t_gps[-n_tail:]
+    g_tail = gps_vals[-n_tail:]
+    slope, intercept = np.polyfit(t_tail, g_tail, 1)
+
+    t_extra = np.arange(len(master_dates), len(extended_dates))
+    gps_extra = slope * t_extra + intercept
+    d_surface_ext = np.concatenate([d_surface, gps_extra])
+
+    print(f"  Extended {len(extra_dates)} epochs to {predict_to.date()}")
+    print(f"  GPS extrapolation: slope={slope:.4f} mm/epoch (from last {n_tail} epochs)")
+
+    # Update data
+    data["master_dates"] = extended_dates
+    data["d_surface"] = d_surface_ext
+
+    # Apply frozen coefficients to extended GPS
+    for layer in data["layers"]:
+        r = results[layer]
+        a_k = r["a_k"]
+        c_k = r["c_k"]
+        d_k = r.get("d_k", 0.0)
+
+        b_cum = data["layers"][layer]["b_cum"]
+        u_lagged = data["layers"][layer].get("u_lagged")
+
+        # Extend b_cum with NaN (no MLCW in future)
+        b_cum_ext = np.concatenate([b_cum, np.full(len(extra_dates), np.nan)])
+        data["layers"][layer]["b_cum"] = b_cum_ext
+
+        # Extend u_lagged if present
+        if u_lagged is not None:
+            u_lagged_ext = np.concatenate([u_lagged, np.full(len(extra_dates), np.nan)])
+            data["layers"][layer]["u_lagged"] = u_lagged_ext
+
+        # Predict on extended GPS
+        if d_k != 0 and layer in gwl_layers and u_lagged is not None:
+            b_pred_ext = np.concatenate([r["b_pred"], a_k * gps_extra + d_k * np.zeros(len(extra_dates)) + c_k])
+        else:
+            b_pred_ext = np.concatenate([r["b_pred"], a_k * gps_extra + c_k])
+        results[layer]["b_pred"] = b_pred_ext
+        results[layer]["n_predicted"] = len(extra_dates)
+
+    return data, results
+
+
+def evaluate_tail_holdout(data: dict, results: dict, gwl_layers: set) -> dict:
+    """Evaluate prediction skill on 6-month tail holdout.
+
+    For each layer:
+    1. Hold out last 36 epochs (~6 months at 5-day cadence)
+    2. Re-fit carrier (± GWL) on pre-tail training epochs
+    3. Predict tail using GPS (and GWL if enabled)
+    4. Compare RMSE to linear trend extrapolation baseline
+    """
+    tail_results = {}
+    TAIL_N = 36  # ~6 months at 5-day cadence
+
+    for layer in data["layers"]:
+        b_cum = data["layers"][layer]["b_cum"]
+        d_surf = data["d_surface"]
+        u_lag = data["layers"][layer].get("u_lagged")
+        use_gwl = layer in gwl_layers and u_lag is not None
+
+        # Find last valid GPS+MLCW epochs (both must exist)
+        if use_gwl:
+            valid_all = np.isfinite(b_cum) & np.isfinite(d_surf) & np.isfinite(u_lag)
+        else:
+            valid_all = np.isfinite(b_cum) & np.isfinite(d_surf)
+        n_valid = valid_all.sum()
+
+        if n_valid < TAIL_N + 10:
+            tail_results[layer] = {"skipped": True,
+                                   "reason": f"only {n_valid} valid GPS+MLCW epochs"}
+            print(f"  {layer}: SKIP — only {n_valid} valid GPS+MLCW epochs")
+            continue
+
+        valid_indices = np.where(valid_all)[0]
+        train_idx = valid_indices[:n_valid - TAIL_N]
+        tail_idx = valid_indices[n_valid - TAIL_N:]
+
+        if use_gwl:
+            train_mask = np.isfinite(d_surf[train_idx]) & np.isfinite(b_cum[train_idx]) & np.isfinite(u_lag[train_idx])
+        else:
+            train_mask = np.isfinite(d_surf[train_idx]) & np.isfinite(b_cum[train_idx])
+
+        if train_mask.sum() < 10:
+            tail_results[layer] = {"skipped": True, "reason": "<10 valid training epochs"}
+            continue
+
+        # Re-fit on training
+        b_train = b_cum[train_idx][train_mask]
+        d_train = d_surf[train_idx][train_mask]
+
+        if use_gwl:
+            u_train = u_lag[train_idx][train_mask]
+            A = np.column_stack([d_train, u_train, np.ones_like(d_train)])
+            bounds = (np.array([0, 0, -np.inf]), np.array([np.inf, np.inf, np.inf]))
+            res = lsq_linear(A, b_train, bounds=bounds)
+            a_k, d_k, c_k = float(res.x[0]), float(res.x[1]), float(res.x[2])
+        else:
+            A = np.column_stack([d_train, np.ones_like(d_train)])
+            res = lsq_linear(A, b_train, bounds=(np.array([0, -np.inf]), np.array([np.inf, np.inf])))
+            a_k, d_k, c_k = float(res.x[0]), 0.0, float(res.x[1])
+
+        # Predict tail
+        tail_mask = np.isfinite(d_surf[tail_idx]) & np.isfinite(b_cum[tail_idx])
+        if use_gwl:
+            tail_mask &= np.isfinite(u_lag[tail_idx])
+        if tail_mask.sum() == 0:
+            tail_results[layer] = {"skipped": True, "reason": "no valid tail GPS"}
+            continue
+
+        if d_k != 0:
+            b_pred_tail = a_k * d_surf[tail_idx][tail_mask] + d_k * u_lag[tail_idx][tail_mask] + c_k
+        else:
+            b_pred_tail = a_k * d_surf[tail_idx][tail_mask] + c_k
+        b_obs_tail = b_cum[tail_idx][tail_mask]
+
+        rmse_model = float(np.sqrt(np.mean((b_obs_tail - b_pred_tail)**2)))
+
+        # Baseline: linear trend extrapolation
+        t_train = np.arange(len(train_idx), dtype=float)
+        slope_t, intercept_t = np.polyfit(t_train[train_mask], b_train, 1)
+        t_tail_line = np.arange(len(train_idx), len(train_idx) + len(tail_idx), dtype=float)
+        b_trend = slope_t * t_tail_line + intercept_t
+        rmse_trend = float(np.sqrt(np.mean((b_cum[tail_idx][tail_mask] - b_trend[tail_mask])**2)))
+
+        skill = 1.0 - rmse_model / rmse_trend if rmse_trend > 0 else 0.0
+
+        tail_results[layer] = {
+            "rmse_model_mm": round(rmse_model, 3),
+            "rmse_trend_mm": round(rmse_trend, 3),
+            "skill": round(skill, 4),
+            "a_k": round(a_k, 6),
+            "d_k": round(d_k, 6) if d_k != 0 else 0.0,
+            "c_k": round(c_k, 4),
+            "n_train": int(train_mask.sum()),
+            "n_tail": int(tail_mask.sum()),
+        }
+
+        print(f"  {layer}: RMSE_model={rmse_model:.3f}  RMSE_trend={rmse_trend:.3f}  "
+              f"skill={skill:+.3f}  {'✓' if skill > 0 else '✗'}  "
+              f"a={a_k:.5f}{'  d='+str(round(d_k,5)) if d_k!=0 else ''}  n={tail_mask.sum()}")
+
+    # Summary
+    skills = [v["skill"] for v in tail_results.values() if not v.get("skipped")]
+    n_pass = sum(1 for s in skills if s > 0)
+    print(f"\n  Skill > 0: {n_pass}/{len(skills)} layers")
+
+    if n_pass >= 3:
+        print("  Decision Point 2: PASS — prediction skill > 0 for >= 3 layers")
+    elif n_pass >= 1:
+        print("  Decision Point 2: PARTIAL — prediction skill > 0 for 1-2 layers")
+    else:
+        print("  Decision Point 2: FAIL — skill <= 0 for all layers")
+
+    return tail_results
+
+
+# ═══════════════════════════════════════════════════════════════════════════════════
+# Phase 1.3 — Self-recalibration
+# ═══════════════════════════════════════════════════════════════════════════════════
+
+def recalibrate(data: dict, results: dict, gwl_layers: set,
+                recalib_date: pd.Timestamp) -> dict:
+    """Re-fit carrier model using MLCW through recalib_date.
+
+    Expands the calibration window to include all MLCW epochs up to
+    recalib_date, re-fits a_k, c_k (and d_k if GWL), and updates
+    predictions.
+    """
+    d_surface = data["d_surface"]
+    layers = data["layers"]
+
+    for layer in layers:
+        b_cum = layers[layer]["b_cum"]
+        u_lagged = layers[layer].get("u_lagged")
+        use_gwl = layer in gwl_layers and u_lagged is not None
+
+        # Expand calibration: include MLCW through recalib_date
+        dates = pd.to_datetime(data["master_dates"])
+        recalib_mask = dates <= recalib_date
+
+        if use_gwl:
+            valid = recalib_mask & np.isfinite(b_cum) & np.isfinite(d_surface) & np.isfinite(u_lagged)
+        else:
+            valid = recalib_mask & np.isfinite(b_cum) & np.isfinite(d_surface)
+
+        n_valid = valid.sum()
+        if n_valid < 10:
+            print(f"  {layer}: SKIP — only {n_valid} valid epochs through {recalib_date.date()}")
+            continue
+
+        b_valid = b_cum[valid]
+        d_valid = d_surface[valid]
+
+        if use_gwl:
+            u_valid = u_lagged[valid]
+            A = np.column_stack([d_valid, u_valid, np.ones_like(d_valid)])
+            bounds = (np.array([0, 0, -np.inf]), np.array([np.inf, np.inf, np.inf]))
+            res = lsq_linear(A, b_valid, bounds=bounds)
+            a_new, d_new, c_new = float(res.x[0]), float(res.x[1]), float(res.x[2])
+        else:
+            A = np.column_stack([d_valid, np.ones_like(d_valid)])
+            res = lsq_linear(A, b_valid, bounds=(np.array([0, -np.inf]), np.array([np.inf, np.inf])))
+            a_new, d_new, c_new = float(res.x[0]), 0.0, float(res.x[1])
+
+        # Update predictions
+        if d_new != 0:
+            pred_mask = np.isfinite(d_surface) & np.isfinite(u_lagged)
+            b_pred_new = np.full_like(b_cum, np.nan)
+            b_pred_new[pred_mask] = a_new * d_surface[pred_mask] + d_new * u_lagged[pred_mask] + c_new
+        else:
+            pred_mask = np.isfinite(d_surface)
+            b_pred_new = np.full_like(b_cum, np.nan)
+            b_pred_new[pred_mask] = a_new * d_surface[pred_mask] + c_new
+
+        r2_new = compute_r2_cumulative(b_valid, b_pred_new[valid])
+        rmse_new = float(np.sqrt(np.mean((b_valid - b_pred_new[valid])**2)))
+
+        old_a = results[layer]["a_k"]
+        print(f"  {layer}: a={old_a:.5f} → {a_new:.5f}  R²={r2_new:.4f}  "
+              f"RMSE={rmse_new:.3f} mm  n={n_valid}"
+              f"{'  d=' + str(round(d_new,5)) if d_new != 0 else ''}")
+
+        results[layer]["a_k"] = a_new
+        results[layer]["c_k"] = c_new
+        results[layer]["d_k"] = d_new
+        results[layer]["b_pred"] = b_pred_new
+        results[layer]["r2_cal"] = r2_new
+        results[layer]["rmse_cal"] = rmse_new
+        results[layer]["n_calib"] = int(n_valid)
+
+    return results
+
+
+# ═══════════════════════════════════════════════════════════════════════════════════
 # Main
 # ═══════════════════════════════════════════════════════════════════════════════════
 
-def main(gwl_layers: set | None = None):
+def main(gwl_layers: set | None = None, predict_to: pd.Timestamp | None = None,
+         eval_tail: bool = False, recalib_date: pd.Timestamp | None = None):
     if gwl_layers is None:
         gwl_layers = set()
 
@@ -477,9 +744,27 @@ def main(gwl_layers: set | None = None):
     sum_a = sum(r["a_k"] for r in results.values())
     print(f"\n  sum(a_k) = {sum_a:.4f}  {'✓ <= 1' if sum_a <= 1.0001 else '✗ > 1 — rescaling applied'}")
 
+    # ── Phase 1.2: Forward prediction ──────────────────────────────────────
+    if predict_to is not None:
+        print(f"\n── Phase 1.2: Predicting through {predict_to.date()} ──")
+        data, results = extend_prediction(data, results, gwl_layers, predict_to)
+
+    # ── Phase 1.2: Tail holdout evaluation ─────────────────────────────────
+    tail_eval = None
+    if eval_tail:
+        print(f"\n── Phase 1.2: 6-month tail holdout evaluation ──")
+        tail_eval = evaluate_tail_holdout(data, results, gwl_layers)
+
+    # ── Phase 1.3: Recalibration ───────────────────────────────────────────
+    output_suffix = ""
+    if recalib_date is not None:
+        print(f"\n── Phase 1.3: Recalibrating with MLCW through {recalib_date.date()} ──")
+        results = recalibrate(data, results, gwl_layers, recalib_date)
+        output_suffix = f"_recalib_{recalib_date.strftime('%Y%m%d')}"
+
     # 5. Write CSVs
     print("\n── Writing per-layer CSVs ──")
-    write_csvs(data, results)
+    write_csvs(data, results, output_suffix)
 
     # 6. Plot
     print("\n── Generating 6-panel figure ──")
@@ -502,6 +787,7 @@ def main(gwl_layers: set | None = None):
         "per_layer": {},
         "sum_a_k": round(sum_a, 6),
         "sum_a_k_leq_1": bool(sum_a <= 1.0001),
+        "tail_evaluation": tail_eval,
     }
     for layer in ["F1", "T1", "F2", "T2", "F3", "F4"]:
         r = results[layer]
@@ -517,7 +803,7 @@ def main(gwl_layers: set | None = None):
         if r.get("d_k", 0) != 0:
             entry["d_k"] = round(r["d_k"], 6)
         summary["per_layer"][layer] = entry
-    summary_path = OUT_DIR / "TUKU_carrier_reconstruction_summary.json"
+    summary_path = OUT_DIR / f"TUKU_carrier_reconstruction_summary{suffix}.json"
     with open(summary_path, "w") as f:
         json.dump(summary, f, indent=2)
     print(f"\n  Summary JSON: {summary_path}")
@@ -533,11 +819,23 @@ def main(gwl_layers: set | None = None):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(
-        description="GPS carrier gap-fill reconstruction at TUKU (Part 1 Phase 1.1)")
+        description="GPS carrier gap-fill reconstruction at TUKU (Part 1)")
     parser.add_argument("--use-gwl", type=str, default=None,
                         help="Comma-separated layer codes to add GWL residual term "
                              "(e.g. --use-gwl T1,F2). Only layers validated by "
                              "14b_carrier_gwl_eval.py should be specified.")
+    parser.add_argument("--predict-to", type=str, default=None,
+                        help="Predict compaction through this date (YYYY-MM-DD). "
+                             "Applies frozen coefficients to GPS data. GPS is "
+                             "linearly extrapolated beyond last observation.")
+    parser.add_argument("--eval-tail", action="store_true",
+                        help="Evaluate prediction skill on 6-month tail holdout. "
+                             "Re-fits on pre-tail epochs, predicts tail, compares "
+                             "RMSE to linear trend extrapolation baseline.")
+    parser.add_argument("--recalib-date", type=str, default=None,
+                        help="Recalibrate using MLCW data through this date "
+                             "(YYYY-MM-DD). Re-fits a_k, c_k on expanded window "
+                             "and writes outputs with _recalib_YYYYMMDD suffix.")
     args = parser.parse_args()
 
     gwl_layers = set()
@@ -549,4 +847,8 @@ if __name__ == "__main__":
             print(f"ERROR: Unknown layers: {unknown}. Valid: {valid_layers}")
             sys.exit(1)
 
-    main(gwl_layers)
+    predict_to = pd.Timestamp(args.predict_to) if args.predict_to else None
+    recalib_date = pd.Timestamp(args.recalib_date) if args.recalib_date else None
+
+    main(gwl_layers, predict_to=predict_to, eval_tail=args.eval_tail,
+         recalib_date=recalib_date)

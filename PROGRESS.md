@@ -145,7 +145,10 @@ min_α  Σ_t | (1/α) · Σ_j S_j · ΔH_j(t − τ_j) − Δd_v(t) |²
 | **Phase 0.1 three-method bake-off** | **COMPLETE — 2026-06-09; Decision Point 1 = CARRIER-PRIMARY; results in `tau_demo_TUKU/results/holdout_bakeoff.json`** |
 | **Part 1 carrier reconstruction (`14_carrier_reconstruction_tuku.py`)** | **COMPLETE — 2026-06-10; all 6 layers fitted, CSVs + figure + JSON; sum(a_k)=0.624; --use-gwl flag added** |
 | **GWL residual term eval (`14b_carrier_gwl_eval.py`)** | **COMPLETE — 2026-06-10; T1 ADOPTS GWL (−14.3% held-out RMSE); F1 marginal (−4.2%); F2/T2/F3/F4 reject; results in `carrier_gwl_eval.json`** |
-| **Part 1 Phase 1.2 — Forward prediction** | **NEXT — add --predict_to DATE to carrier script** |
+| **Part 1 Phase 1.2 — Forward prediction** | **COMPLETE — 2026-06-10; --predict_to flag added; 6-month tail holdout: T1/T2 skill>0, Decision Point 2=PARTIAL** |
+| **Part 1 Phase 1.3 — Self-recalibration** | **COMPLETE — 2026-06-10; --recalib_date flag added; writes _recalib_YYYYMMDD suffix outputs** |
+| **Part 1 Phase 1.4 — Bilinear characterization** | **COMPLETE — 2026-06-10; `15_storage_characterization.py` created; S_ske/S_skv for all 6 layers; TUKU_storage_params.json written** |
+| **Part 2 — Multi-well extension** | **NEXT — batch carrier reconstruction + characterization at 37 stations** |
 
 ---
 
