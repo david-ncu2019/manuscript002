@@ -59,16 +59,16 @@ Respond in a concise, direct style that delivers clear and complete information.
 
 ## Environment & Quick Run
 
-- `fafalab` (Python 3.10) — IHM-F, data analysis, all active work
+- `fafalab2` (Python 3.12) — IHM-F, data analysis, all active work
 - `isce_ncu3` (scipy $\ge$ 1.17) — 2S-TOOL only
-- Reset PYTHONPATH: `$env:PYTHONPATH=""; conda run -n fafalab python <script>` (PS)
+- Reset PYTHONPATH: `$env:PYTHONPATH=""; conda run -n fafalab2 python <script>` (PS)
 
 ```powershell
 # Single station (TUKU pilot)
-$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
+$env:PYTHONPATH=""; conda run -n fafalab2 python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
 
 # Batch (all 37 stations — only after TUKU pilot passes physical checks)
-$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --all
+$env:PYTHONPATH=""; conda run -n fafalab2 python scripts/10_ihmf/fit_ihm_f_v3.py --all
 ```
 
 Full command catalog: `docs/run_commands.md`
@@ -178,7 +178,7 @@ for warn in result.warnings:
 - **Results directory convention (2026-06-08):** Obsolete outputs are renamed with `_OBSOLETE_<reason>` suffixes — never deleted. Active outputs have no suffix. See PROGRESS.md §5 for the full table. Before opening any `results/` path, check whether it has an `_OBSOLETE_` sibling — the unsuffixed version may be stale.
 
 - **F = aquifer, T = aquitard.** Taiwan CGS convention. Do not invert.
-- **PYTHONPATH contamination.** Always reset before `conda run` (gemini_env leaks into fafalab).
+- **PYTHONPATH contamination.** Always reset before `conda run` (gemini_env leaks into fafalab2).
 - **GWL wellcodes are 8-digit strings.** Never convert to int (leading zeros dropped).
 - **elev_leveling_m only.** Not `well_elev_m` or `elev_DEM_m`.
 - **Layer assignment v4 only.** v1/v2/v3 superseded.

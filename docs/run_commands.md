@@ -7,19 +7,19 @@
 
 | Conda env | Python | Used for |
 |-----------|--------|---------|
-| `fafalab` | 3.10 | IHM-F, ceiling test, seasonal harmonic, data analysis — all active work |
+| `fafalab2` | 3.12 | IHM-F, ceiling test, seasonal harmonic, data analysis — all active work |
 | `isce_ncu3` | 3.x (scipy ≥1.17) | 2S-TOOL batch only |
 
-**PYTHONPATH contamination rule:** `gemini_env` packages leak into `fafalab` and cause numpy `ImportError`. Always reset before `conda run`:
+**PYTHONPATH contamination rule:** `gemini_env` packages leak into `fafalab2` and cause numpy `ImportError`. Always reset before `conda run`:
 
 ```powershell
 # PowerShell (host)
-$env:PYTHONPATH = ""; conda run -n fafalab python <script>
+$env:PYTHONPATH = ""; conda run -n fafalab2 python <script>
 ```
 
 ```bash
 # bash / Linux VM
-PYTHONPATH="" conda run -n fafalab python <script>
+PYTHONPATH="" conda run -n isce_ncu3 python <script>
 ```
 
 ---
@@ -28,13 +28,13 @@ PYTHONPATH="" conda run -n fafalab python <script>
 
 ```powershell
 # Single station, all layers (TUKU pilot):
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
 
 # Single station, single layer:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --layer F2
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --layer F2
 
 # Batch (all 37 stations — only after TUKU pilot passes physical checks):
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --all
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/10_ihmf/fit_ihm_f_v3.py --all
 ```
 
 Output: `results/ihmf/v3/{STATION}_v3_results.json` (joint solve, all layers at once)
@@ -45,7 +45,7 @@ Output: `results/ihmf/v3/{STATION}_v3_results.json` (joint solve, all layers at 
 
 ```powershell
 # Single station walk-forward test:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/15_prediction/ceiling_test.py --station TUKU
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/15_prediction/ceiling_test.py --station TUKU
 ```
 
 Output:
@@ -58,10 +58,10 @@ Output:
 
 ```powershell
 # Step 1 — Fit + holdout (single station):
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station TUKU
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station TUKU
 
 # Step 2 — Reconstruction visualisation:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station TUKU
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station TUKU
 ```
 
 Output: `results/seasonal_insar_harmonic/{STATION}/`
@@ -72,10 +72,10 @@ Output: `results/seasonal_insar_harmonic/{STATION}/`
 
 ```powershell
 # Aggregate 8-diagnostic summary:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/summarize_for_redesign.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/11_data_analysis/summarize_for_redesign.py
 
 # Alpha (compressible thickness fraction) per station:
-$env:PYTHONPATH = ""; conda run -n fafalab python scripts/11_data_analysis/analyze_alpha.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/11_data_analysis/analyze_alpha.py
 ```
 
 Output: `results/data_analysis/DATA_ANALYSIS_REPORT.md`
@@ -108,7 +108,7 @@ Output: `data/gwl/2stool_outputs/2stool_results_summary.csv`
 
 ```powershell
 # Verify cross-platform path detection:
-$env:PYTHONPATH = ""; conda run -n fafalab python paths.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python paths.py
 ```
 
 Expected output: prints resolved `SCRIPTS_ROOT`, `DATA_ROOT`, `RESULTS_ROOT`, `DOCS_ROOT` for the current platform.
@@ -118,13 +118,13 @@ Expected output: prints resolved `SCRIPTS_ROOT`, `DATA_ROOT`, `RESULTS_ROOT`, `D
 ## tau_demo_TUKU Pilot (execute in order)
 
 ```powershell
-$env:PYTHONPATH = ""; conda run -n fafalab python tau_demo_TUKU/01_data_loading.py
-$env:PYTHONPATH = ""; conda run -n fafalab python tau_demo_TUKU/02_tau_search.py
-$env:PYTHONPATH = ""; conda run -n fafalab python tau_demo_TUKU/03_phase_consistency.py
-$env:PYTHONPATH = ""; conda run -n fafalab python tau_demo_TUKU/04_reconstruction.py
-$env:PYTHONPATH = ""; conda run -n fafalab python tau_demo_TUKU/05_detrended_reconstruction.py
-$env:PYTHONPATH = ""; conda run -n fafalab python tau_demo_TUKU/06_physical_ss.py
-$env:PYTHONPATH = ""; conda run -n fafalab python tau_demo_TUKU/07_joint_search.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python tau_demo_TUKU/01_data_loading.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python tau_demo_TUKU/02_tau_search.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python tau_demo_TUKU/03_phase_consistency.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python tau_demo_TUKU/04_reconstruction.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python tau_demo_TUKU/05_detrended_reconstruction.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python tau_demo_TUKU/06_physical_ss.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python tau_demo_TUKU/07_joint_search.py
 ```
 
 See `docs/tau_search_methodology.md` for methodology.

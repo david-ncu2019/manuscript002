@@ -27,13 +27,13 @@ Primary method under exploration is **IHM-F v3** (joint constrained inversion, G
 **Commands:**
 ```powershell
 # Run IHM-F v3 single station (TUKU pilot)
-$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
+$env:PYTHONPATH=""; conda run -n fafalab2 python scripts/10_ihmf/fit_ihm_f_v3.py --station TUKU --all
 
 # Run IHM-F v3 batch (all 37 stations — only after TUKU pilot passes physical checks)
-$env:PYTHONPATH=""; conda run -n fafalab python scripts/10_ihmf/fit_ihm_f_v3.py --all
+$env:PYTHONPATH=""; conda run -n fafalab2 python scripts/10_ihmf/fit_ihm_f_v3.py --all
 
 # Run Stage 1 B-vector regression (legacy, D:\112_PROJECT_002)
-$env:PYTHONPATH = ""; conda run -n fafalab python D:\112_PROJECT_002\main.py
+$env:PYTHONPATH = ""; conda run -n fafalab2 python D:\112_PROJECT_002\main.py
 
 # Run 2S-TOOL (independent git submodule)
 conda run -n isce_ncu3 python tools\2S-TOOL-Python\scripts\09_trackB\batch_run_2stool.py
@@ -41,8 +41,8 @@ conda run -n isce_ncu3 python tools\2S-TOOL-Python\scripts\09_trackB\batch_run_2
 
 ## Environment quirks
 
-- **Conda env `fafalab`** (Python 3.10). Two conflicting YAMLs at parent root: `environment.yml` (3.12), `fafalab_env.yml` (3.10). Installed is 3.10.
-- **`PYTHONPATH` contamination**: `fafalab` picks up `gemini_env` paths. For `D:\112_PROJECT_002` scripts, run with `$env:PYTHONPATH = ""; conda run -n fafalab python <script>`.
+- **Conda env `fafalab2`** (Python 3.12). Active working environment for all IHM-F and data analysis.
+- **`PYTHONPATH` contamination**: `fafalab2` picks up `gemini_env` paths. For `D:\112_PROJECT_002` scripts, run with `$env:PYTHONPATH = ""; conda run -n fafalab2 python <script>`.
 - **2S-TOOL** requires `isce_ncu3` env (scipy $\ge$ 1.17) — separate from `fafalab`.
 - **Path resolution:** Use `from paths import SCRIPTS_ROOT, DATA_ROOT, RESULTS_ROOT, DOCS_ROOT, resolve` for all new scripts. Legacy scripts may still have hardcoded `D:\...` paths; migrate them via `resolve()` when touched. See CLAUDE.md "Path Resolution Protocol" section for examples.
 - **No tests, no CI, no linters.** Research pipeline. Verify by inspecting output CSVs/PNGs.
