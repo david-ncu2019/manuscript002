@@ -37,7 +37,7 @@ Outputs:
                                              pair within 10 km)
 
 Usage:
-    conda run -n fafalab python scripts/05_pairing/build_mlcw_insar_gwl_pairs.py
+    conda run -n fafalab2 python scripts/05_pairing/build_mlcw_insar_gwl_pairs.py
 """
 
 import pathlib, re

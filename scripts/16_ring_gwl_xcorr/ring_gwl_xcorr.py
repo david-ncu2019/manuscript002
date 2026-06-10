@@ -13,9 +13,9 @@ leads MLCW by k epochs (i.e. head change came BEFORE the ring responded).
 Output: one parquet file per MLCW station -> results/ring_gwl_xcorr/
 
 Usage:
-    conda run -n fafalab python scripts/16_ring_gwl_xcorr/ring_gwl_xcorr.py
-    conda run -n fafalab python scripts/16_ring_gwl_xcorr/ring_gwl_xcorr.py --station TUKU
-    conda run -n fafalab python scripts/16_ring_gwl_xcorr/ring_gwl_xcorr.py --lag-max 150
+    conda run -n fafalab2 python scripts/16_ring_gwl_xcorr/ring_gwl_xcorr.py
+    conda run -n fafalab2 python scripts/16_ring_gwl_xcorr/ring_gwl_xcorr.py --station TUKU
+    conda run -n fafalab2 python scripts/16_ring_gwl_xcorr/ring_gwl_xcorr.py --lag-max 150
 """
 
 import argparse

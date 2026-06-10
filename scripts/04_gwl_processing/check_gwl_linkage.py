@@ -25,7 +25,7 @@ Outputs:
   data/gwl/inspection_reports/gwl_linkage_summary.txt — human-readable summary
 
 Usage:
-    conda run -n fafalab python scripts/04_gwl_processing/check_gwl_linkage.py
+    conda run -n fafalab2 python scripts/04_gwl_processing/check_gwl_linkage.py
 """
 
 import pathlib

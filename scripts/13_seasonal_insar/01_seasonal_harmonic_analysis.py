@@ -21,9 +21,9 @@ Steps run sequentially (each gates the next):
 
 Usage
 -----
-  $env:PYTHONPATH = ""; conda run -n fafalab python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station TUKU
-  $env:PYTHONPATH = ""; conda run -n fafalab python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station XIUTAN
-  $env:PYTHONPATH = ""; conda run -n fafalab python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station YUANCHANG
+  $env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station TUKU
+  $env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station XIUTAN
+  $env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/13_seasonal_insar/01_seasonal_harmonic_analysis.py --station YUANCHANG
 
 Outputs (under results/seasonal_insar_harmonic/{STATION}/ and figures/seasonal_insar_harmonic/{STATION}/)
   step0_detrend_comparison_F2.csv

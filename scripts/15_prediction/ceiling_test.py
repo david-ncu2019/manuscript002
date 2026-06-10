@@ -27,8 +27,8 @@ Decision gate:
     If neither term2 nor term3 work → deliverable is term-1 trend only
 
 Usage:
-    $env:PYTHONPATH = ""; conda run -n fafalab python scripts/15_prediction/ceiling_test.py
-    $env:PYTHONPATH = ""; conda run -n fafalab python scripts/15_prediction/ceiling_test.py --station TUKU
+    $env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/15_prediction/ceiling_test.py
+    $env:PYTHONPATH = ""; conda run -n fafalab2 python scripts/15_prediction/ceiling_test.py --station TUKU
 """
 
 import argparse

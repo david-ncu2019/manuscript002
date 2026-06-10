@@ -23,9 +23,9 @@ Also writes:
   results/seasonal_insar_harmonic/{STATION}/reconstruction_metrics.csv
 
 Usage:
-  PYTHONPATH="" conda run -n fafalab python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station TUKU
-  PYTHONPATH="" conda run -n fafalab python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station XIUTAN
-  PYTHONPATH="" conda run -n fafalab python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station YUANCHANG
+  PYTHONPATH="" conda run -n fafalab2 python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station TUKU
+  PYTHONPATH="" conda run -n fafalab2 python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station XIUTAN
+  PYTHONPATH="" conda run -n fafalab2 python scripts/13_seasonal_insar/02_reconstruction_visualization.py --station YUANCHANG
 """
 
 import argparse
