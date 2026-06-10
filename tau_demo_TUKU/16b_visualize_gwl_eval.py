@@ -8,7 +8,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 IN_JSON = ROOT / "tau_demo_TUKU" / "results" / "carrier_gwl_eval.json"
-OUT_DIR = ROOT / "results" / "visualization"
+OUT_DIR = ROOT / "tau_demo_TUKU" / "results" / "visualization"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 with open(IN_JSON) as f:

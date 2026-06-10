@@ -47,7 +47,7 @@ import matplotlib.pyplot as plt
 RESULT_JSON = ROOT / "results" / "ihmf" / "v3" / "verification_20260609_intercept" / "TUKU_gps_v3_results.json"
 TAU_DEMO    = ROOT / "tau_demo_TUKU" / "data"
 INC_DIR     = TAU_DEMO / "incremental_data"
-OUT_DIR     = ROOT / "results" / "reconstruction"
+OUT_DIR     = ROOT / "tau_demo_TUKU" / "results" / "reconstruction"
 PLOT_DIR    = ROOT / "tau_demo_TUKU" / "plots" / "reconstruction"
 REF_DATE    = pd.Timestamp("2015-01-16")
 

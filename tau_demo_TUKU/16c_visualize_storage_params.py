@@ -7,8 +7,8 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-IN_JSON = ROOT / "results" / "characterization" / "TUKU_storage_params.json"
-OUT_DIR = ROOT / "results" / "visualization"
+IN_JSON = ROOT / "tau_demo_TUKU" / "results" / "characterization" / "TUKU_storage_params.json"
+OUT_DIR = ROOT / "tau_demo_TUKU" / "results" / "visualization"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 with open(IN_JSON) as f:

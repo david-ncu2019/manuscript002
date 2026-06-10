@@ -48,7 +48,7 @@ warnings.filterwarnings("ignore", category=UserWarning)
 RESULT_JSON = ROOT / "results" / "ihmf" / "v3" / "verification_20260609_intercept" / "TUKU_gps_v3_results.json"
 TAU_DEMO    = ROOT / "tau_demo_TUKU" / "data"
 INC_DIR     = TAU_DEMO / "incremental_data"
-OUT_DIR     = ROOT / "results" / "characterization"
+OUT_DIR     = ROOT / "tau_demo_TUKU" / "results" / "characterization"
 REF_DATE    = pd.Timestamp("2015-01-16")
 
 WELL_CONFIG = [

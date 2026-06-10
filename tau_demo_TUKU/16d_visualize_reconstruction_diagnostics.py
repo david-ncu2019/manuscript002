@@ -15,8 +15,8 @@ import matplotlib; matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parent.parent
-CSV_DIR  = ROOT / "results" / "reconstruction"
-OUT_DIR  = ROOT / "results" / "visualization"
+CSV_DIR  = ROOT / "tau_demo_TUKU" / "results" / "reconstruction"
+OUT_DIR  = ROOT / "tau_demo_TUKU" / "results" / "visualization"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 LAYERS = ["F1","T1","F2","T2","F3","F4"]
