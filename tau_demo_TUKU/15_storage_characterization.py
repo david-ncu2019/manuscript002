@@ -22,7 +22,7 @@ Flags:
 Output: results/characterization/TUKU_storage_params.json
 
 Usage:
-    PYTHONPATH="" conda run -n isce_ncu3 python tau_demo_TUKU/15_storage_characterization.py
+    PYTHONPATH="" conda run -n fafalab2 python tau_demo_TUKU/15_storage_characterization.py
 """
 
 from __future__ import annotations
@@ -41,6 +41,7 @@ sys.path.insert(0, str(ROOT / "tau_demo_TUKU"))
 from bilinear_fit import fit_bilinear
 from ihmf_model_v3 import compute_virgin_term
 from scripts.guardrails import validate_layer_params, GuardrailViolation
+from gap_aware_cumsum import gap_aware_cumulative, census, GapFractionExceeded
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -93,8 +94,11 @@ def main():
     mlcw_inc = pd.read_feather(INC_DIR / "mlcw_diff_cleaned.feather")
     mlcw_inc["datetime"] = pd.to_datetime(mlcw_inc["datetime"]).astype("datetime64[ns]")
     mlcw_inc = mlcw_inc.sort_values("datetime").reset_index(drop=True)
+    # Gap-aware cumulative (D3 fix, Task 1.3): NaN increment → NaN at that epoch,
+    # never a fabricated zero. Guard refuses any layer > 20% missing (Task 1.3.3).
     for col in [c for c in mlcw_inc.columns if c != "datetime"]:
-        mlcw_inc[f"_cum_{col}"] = mlcw_inc[col].fillna(0.0).cumsum()
+        census(mlcw_inc[col].values, layer=col, enforce_guard=True)
+        mlcw_inc[f"_cum_{col}"] = gap_aware_cumulative(mlcw_inc[col].values)
     master = pd.DataFrame({"datetime": mlcw_inc["datetime"].copy()})
 
     # 3. Fit bilinear model per layer
@@ -131,10 +135,15 @@ def main():
         H_abs_full = gwl_aligned[wellcode].values.astype(float)
         b_cum_full = mlcw_inc[f"_cum_{layer}"].values.astype(float)
 
-        # Apply tau lag
+        # Apply tau lag — LAG-PAIRING INVARIANT (super_plan_2026-06-10 Task 1.1):
+        #   response b at epoch i pairs with driver head at epoch i-τ.
+        #   driver   head : H_abs_full[0 : N-τ]   (the lagged driver)
+        #   response b    : b_cum_full[τ : N]
+        # The OLD code sliced BOTH as [τ:], shifting them together → zero lag.
         tau = tau_dict.get(layer, 0)
-        H_abs_lagged = H_abs_full[tau:]
-        b_cum = b_cum_full[tau:]
+        N_full = len(H_abs_full)
+        H_abs_lagged = H_abs_full[: N_full - tau]   # driver: H[0 : N-τ]
+        b_cum = b_cum_full[tau:]                      # response: b[τ : N]
 
         # Mask valid
         valid = np.isfinite(H_abs_lagged) & np.isfinite(b_cum)
@@ -154,15 +163,77 @@ def main():
         n_el = fit["n_elastic"]
         n_inel = fit["n_inelastic"]
 
+        # ── Honest identifiability (D5 fix, Task 1.5) ───────────────────────────
+        # S_ke is identifiable for a layer ONLY if ALL hold:
+        #   (a) n_elastic >= 15 (epochs with V unchanged);
+        #   (b) VIF between the centred u and V regressors < 10 (they must separate);
+        #   (c) fitted S_ke > 0;
+        #   (d) bulk ratio S_kv/S_ke <= 100 (a ratio above 100 means the elastic
+        #       coefficient is numerically indistinct from zero — Riley 1969 / Hung 2021
+        #       place the physical contrast at 8–50×).
+        # The OLD code tested only (a), so a collinearity-manufactured S_ke (F3 ratio 1286)
+        # was wrongly labelled "identifiable". When unidentifiable, re-fit the
+        # inelastic-only model b = c + S_kv*V and report S_ke as "not determined".
+        u_arr = np.asarray(fit["u"], dtype=float)
+        V_arr = np.asarray(fit["V"], dtype=float)
+        uc = u_arr - u_arr.mean()
+        Vc = V_arr - V_arr.mean()
+        denom = float(np.std(uc) * np.std(Vc))
+        if denom > 0:
+            corr_uV = float(np.mean(uc * Vc) / denom)
+            corr_uV = max(-1.0, min(1.0, corr_uV))
+            vif_uV = 1.0 / (1.0 - corr_uV ** 2) if abs(corr_uV) < 1.0 else float("inf")
+        else:
+            corr_uV = float("nan")
+            vif_uV = float("inf")
+
+        ratio_bulk_full = S_kv / S_ke if S_ke > 1e-15 else float("inf")
+        s_ke_identifiable = bool(
+            n_el >= 15
+            and vif_uV < 10.0
+            and S_ke > 1e-12
+            and ratio_bulk_full <= 100.0
+        )
+
+        # If unidentifiable, re-fit inelastic-only: b = c + S_kv * V  (S_kv >= 0)
+        s_ke_determined = True
+        rmse_report = float(fit["rmse"])
+        if not s_ke_identifiable:
+            s_ke_determined = False
+            Vv = V_arr
+            bv = np.asarray(b, dtype=float)
+            mfit = np.isfinite(Vv) & np.isfinite(bv)
+            # center for intercept, NNLS on single regressor V
+            Vm = Vv[mfit] - Vv[mfit].mean()
+            bm = bv[mfit] - bv[mfit].mean()
+            from scipy.optimize import nnls
+            # b = g * (-V) form so coefficient >= 0 maps to compaction; V <= 0
+            # Solve min || bm - s_kv_coef * Vm ||, s_kv_coef >= 0 via nnls on (-Vm)
+            coef, _ = nnls((-Vm).reshape(-1, 1), -bm) if mfit.sum() else (np.array([0.0]), 0.0)
+            S_kv_only = float(coef[0])
+            c_only = float(bv[mfit].mean() - S_kv_only * (-Vv[mfit].mean()))
+            b_pred_only = c_only + S_kv_only * (-Vv)
+            from ihmf_model_v3 import compute_r2_cumulative as _r2c
+            r2_only = _r2c(bv[mfit], b_pred_only[mfit])
+            rmse_only = float(np.sqrt(np.mean((bv[mfit] - b_pred_only[mfit]) ** 2)))
+            # Adopt inelastic-only parameters; S_ke is "not determined"
+            S_ke = 0.0
+            S_kv = S_kv_only
+            r2 = r2_only
+            rmse_report = rmse_only
+
         # Convert to specific storage
         S_ske = S_ke / (thick["total_m"] * 1000) if S_ke > 1e-15 else 0.0
         S_skv = S_kv / (thick["clay_m"] * 1000) if S_kv > 1e-15 else 0.0
 
-        # Ratios
-        ratio_bulk = S_kv / S_ke if S_ke > 1e-15 else float("inf")
-        ratio_specific = S_skv / S_ske if S_ske > 1e-15 else float("inf")
+        # Ratios — reported only when S_ke determined (no ratio for inelastic-only)
+        if s_ke_determined and S_ke > 1e-15:
+            ratio_bulk = S_kv / S_ke
+            ratio_specific = S_skv / S_ske if S_ske > 1e-15 else float("inf")
+        else:
+            ratio_bulk = None
+            ratio_specific = None
         thickness_artifact = bool(thick["total_m"] / thick["clay_m"] > 4)
-        s_ke_identifiable = bool(n_el >= 15)
 
         # Guardrail validation (uses specific storage)
         guardrail_msgs = []
@@ -179,11 +250,13 @@ def main():
         flags = []
         if not s_ke_identifiable:
             flags.append("S_ke_not_identifiable")
+        if not s_ke_determined:
+            flags.append("inelastic_only_refit")
         if thickness_artifact:
             flags.append("thickness_artifact")
-        if ratio_bulk < 8:
+        if ratio_bulk is not None and ratio_bulk < 8:
             flags.append("ratio_bulk_below_8")
-        if ratio_bulk > 100:
+        if ratio_bulk is not None and ratio_bulk > 100:
             flags.append("ratio_bulk_above_100")
         if S_ke < 1e-10:
             flags.append("S_ke_zero")
@@ -195,12 +268,16 @@ def main():
             "c_intercept_mm": round(fit["c_intercept"], 4),
             "S_ske_m1": round(S_ske, 10) if S_ske > 0 else 0.0,
             "S_skv_m1": round(S_skv, 10) if S_skv > 0 else 0.0,
-            "ratio_bulk": round(ratio_bulk, 2),
-            "ratio_specific": round(ratio_specific, 2),
+            "ratio_bulk": round(ratio_bulk, 2) if ratio_bulk is not None else None,
+            "ratio_specific": round(ratio_specific, 2) if ratio_specific is not None else None,
+            "vif_u_V": round(vif_uV, 3) if np.isfinite(vif_uV) else None,
+            "corr_u_V": round(corr_uV, 4) if np.isfinite(corr_uV) else None,
             "thickness_artifact": thickness_artifact,
             "S_ke_identifiable": s_ke_identifiable,
+            "S_ke_determined": s_ke_determined,
+            "S_ke_status": "determined" if s_ke_determined else "not determined (inelastic-only re-fit)",
             "r2_cum": round(r2, 4),
-            "rmse_mm": round(fit["rmse"], 3),
+            "rmse_mm": round(rmse_report, 3),
             "n_elastic": n_el,
             "n_inelastic": n_inel,
             "tau_opt": tau,
@@ -212,15 +289,25 @@ def main():
         }
 
         flag_str = ",".join(flags) if flags else "—"
+        rb_str = f"{ratio_bulk:10.2f}" if ratio_bulk is not None else f"{'n/d':>10s}"
+        rs_str = f"{ratio_specific:10.2f}" if ratio_specific is not None else f"{'n/d':>10s}"
         print(f"  {layer:5s} | {S_ke:8.4f} | {S_kv:8.4f} | {S_ske:10.2e} | {S_skv:10.2e} | "
-              f"{ratio_bulk:10.2f} | {ratio_specific:10.2f} | {r2:7.4f} | {n_el:5d} | {n_inel:6d} | {flag_str}")
+              f"{rb_str} | {rs_str} | {r2:7.4f} | {n_el:5d} | {n_inel:6d} | {flag_str}")
 
     # 4. Summary
     print(f"\n── Summary ──")
     n_identifiable = sum(1 for r in results.values() if r["S_ke_identifiable"])
     n_artifact = sum(1 for r in results.values() if r["thickness_artifact"])
-    print(f"  S_ke identifiable: {n_identifiable}/{len(results)} layers (>= 15 elastic epochs)")
+    n_inel_only = sum(1 for r in results.values() if not r["S_ke_determined"])
+    print(f"  S_ke identifiable: {n_identifiable}/{len(results)} layers "
+          f"(ALL of: n_elastic>=15, VIF(u,V)<10, S_ke>0, bulk ratio<=100)")
+    print(f"  S_ke NOT determined (inelastic-only re-fit): {n_inel_only}/{len(results)} layers")
     print(f"  Thickness artifact: {n_artifact}/{len(results)} layers (span/clay > 4)")
+    # Audit (Task 1.5.3): no layer may carry a bulk ratio > 100 with an 'identifiable' label
+    bad = [lyr for lyr, r in results.items()
+           if r["S_ke_identifiable"] and r.get("ratio_bulk") is not None and r["ratio_bulk"] > 100]
+    print(f"  AUDIT 1.5.3 — identifiable layers with bulk ratio > 100: "
+          f"{bad if bad else 'NONE (pass)'}")
     print(f"\n  NOTE: ratio_specific uses mixed thickness (total span for S_ske, clay-only for S_skv).")
     print(f"  For comparison with Hung et al. (2021), use ratio_bulk (same-thickness basis).")
 

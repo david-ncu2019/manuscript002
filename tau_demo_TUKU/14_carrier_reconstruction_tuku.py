@@ -19,7 +19,7 @@ Outputs:
     tau_demo_TUKU/plots/reconstruction/TUKU_reconstruction_6layer.png  — figure
 
 Usage:
-    PYTHONPATH="" conda run -n isce_ncu3 python tau_demo_TUKU/14_carrier_reconstruction_tuku.py
+    PYTHONPATH="" conda run -n fafalab2 python tau_demo_TUKU/14_carrier_reconstruction_tuku.py
 """
 
 from __future__ import annotations
@@ -37,6 +37,8 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts" / "10_ihmf"))
 from ihmf_model_v3 import compute_r2_cumulative
+sys.path.insert(0, str(ROOT / "tau_demo_TUKU"))
+from gap_aware_cumsum import gap_aware_cumulative, census, GapFractionExceeded
 
 warnings.filterwarnings("ignore", category=UserWarning)
 import matplotlib
@@ -93,8 +95,11 @@ def load_data(gwl_layers: set | None = None) -> dict:
     mlcw_inc = pd.read_feather(INC_DIR / "mlcw_diff_cleaned.feather")
     mlcw_inc["datetime"] = pd.to_datetime(mlcw_inc["datetime"]).astype("datetime64[ns]")
     mlcw_inc = mlcw_inc.sort_values("datetime").reset_index(drop=True)
+    # Gap-aware cumulative (D3 fix, Task 1.3): NaN increment → NaN at that epoch,
+    # never a fabricated zero. Guard refuses any layer > 20% missing (Task 1.3.3).
     for col in [c for c in mlcw_inc.columns if c != "datetime"]:
-        mlcw_inc[f"_cum_{col}"] = mlcw_inc[col].fillna(0.0).cumsum()
+        rec = census(mlcw_inc[col].values, layer=col, enforce_guard=True)
+        mlcw_inc[f"_cum_{col}"] = gap_aware_cumulative(mlcw_inc[col].values)
 
     master_dates = mlcw_inc["datetime"].values.copy()
     T_full = len(master_dates)
@@ -343,14 +348,25 @@ def write_csvs(data: dict, results: dict, suffix: str = ""):
         inc = np.diff(b_pred)
         df["b_model_inc_mm"] = np.round(np.concatenate([[np.nan], inc]), 4)
 
-        # Mark gap epochs
-        df["is_gap"] = np.isnan(b_obs) & np.isfinite(b_pred)
-        df["is_model_only"] = np.isnan(b_obs)
+        # Gap flags (D3, Task 1.3.2):
+        #   is_increment_missing — the MLCW observation is absent at this epoch. Because
+        #     b_cum is now the GAP-AWARE cumulative (NaN at a missing increment, never a
+        #     fabricated zero), np.isnan(b_obs) is True exactly at missing-increment epochs.
+        #     This is the truthful "missing knowledge" flag the audit (D3) demanded.
+        #   is_gap_filled — missing observation AND the carrier supplied a prediction
+        #     (model genuinely filled the gap). False where there is no carrier to fill with
+        #     (e.g. pre-GPS epochs in 2003–2009), which is honest, not a defect.
+        df["is_increment_missing"] = np.isnan(b_obs)
+        df["is_gap_filled"] = np.isnan(b_obs) & np.isfinite(b_pred)
+        # Back-compat aliases (kept so downstream readers do not break)
+        df["is_gap"] = df["is_gap_filled"]
+        df["is_model_only"] = df["is_increment_missing"]
 
         csv_path = OUT_DIR / f"TUKU_{layer}_reconstruction{suffix}.csv"
         df.to_csv(csv_path, index=False, float_format="%.4f")
         print(f"  CSV: {csv_path.name}  ({len(df)} rows, "
-              f"{df['is_gap'].sum()} gap-filled)")
+              f"{int(df['is_increment_missing'].sum())} missing-increment, "
+              f"{int(df['is_gap_filled'].sum())} gap-filled)")
 
 
 def make_figure(data: dict, results: dict):
@@ -470,31 +486,70 @@ def extend_prediction(data: dict, results: dict, gwl_layers: set,
     data["d_surface"] = d_surface_ext
 
     # Apply frozen coefficients to extended GPS
+    n_extra_ep = len(extra_dates)
     for layer in data["layers"]:
         r = results[layer]
         a_k = r["a_k"]
         c_k = r["c_k"]
         d_k = r.get("d_k", 0.0)
+        tau = int(data["layers"][layer].get("tau_opt", 0))
 
         b_cum = data["layers"][layer]["b_cum"]
         u_lagged = data["layers"][layer].get("u_lagged")
+        H_abs = data["layers"][layer].get("H_abs")
+        H_ref = data["layers"][layer].get("H_ref", 0.0)
 
         # Extend b_cum with NaN (no MLCW in future)
-        b_cum_ext = np.concatenate([b_cum, np.full(len(extra_dates), np.nan)])
+        b_cum_ext = np.concatenate([b_cum, np.full(n_extra_ep, np.nan)])
         data["layers"][layer]["b_cum"] = b_cum_ext
 
-        # Extend u_lagged if present
+        # ── D4 fix (Task 1.4): future head is REAL head, never zero. ──────────────
+        # The groundwater wells keep reporting after the compaction well stops, so the
+        # forecast must drive the GWL term with the actual lagged head u(t-τ).
+        # The lag works in our favour: the first τ forecast epochs at index N+j (j<τ)
+        # need only ALREADY-OBSERVED head u_raw[N+j-τ]. Where N+j-τ runs past the end
+        # of the head record (j ≥ τ), hold the last observed u constant (a "head
+        # freezes" scenario) and flag — NEVER insert 0 (that would jump the layer by
+        # d_k·u_last at the forecast boundary).
+        u_freeze_flag = np.zeros(n_extra_ep, dtype=bool)
         if u_lagged is not None:
-            u_lagged_ext = np.concatenate([u_lagged, np.full(len(extra_dates), np.nan)])
-            data["layers"][layer]["u_lagged"] = u_lagged_ext
+            N0 = len(u_lagged)  # original (pre-extension) length
+            # Raw zero-referenced head over the original timeline:
+            #   prefer H_abs - H_ref (full, includes the most recent τ heads);
+            #   fall back to reconstructing from u_lagged if H_abs absent.
+            if H_abs is not None:
+                u_raw = np.asarray(H_abs, dtype=float) - float(H_ref)
+            else:
+                u_raw = np.full(N0, np.nan)
+                u_raw[: N0 - tau] = u_lagged[tau:]
+            # last finite observed raw head (for the freeze scenario)
+            finite_raw = np.where(np.isfinite(u_raw))[0]
+            u_last = float(u_raw[finite_raw[-1]]) if finite_raw.size else np.nan
 
-        # Predict on extended GPS
+            u_future = np.full(n_extra_ep, np.nan)
+            for j in range(n_extra_ep):
+                src = N0 + j - tau  # driver index that this forecast epoch needs
+                if 0 <= src < N0 and np.isfinite(u_raw[src]):
+                    u_future[j] = u_raw[src]          # real, already-observed head
+                else:
+                    u_future[j] = u_last              # head freezes — hold last constant
+                    u_freeze_flag[j] = True
+            u_lagged_ext = np.concatenate([u_lagged, u_future])
+            data["layers"][layer]["u_lagged"] = u_lagged_ext
+            data["layers"][layer]["u_future_frozen"] = u_freeze_flag
+            n_frozen = int(u_freeze_flag.sum())
+            if d_k != 0 and layer in gwl_layers:
+                print(f"    {layer}: future head — {n_extra_ep - n_frozen} real lagged, "
+                      f"{n_frozen} frozen (held at u_last={u_last:+.3f} m)")
+
+        # Predict on extended GPS (+ real future head for GWL layers)
         if d_k != 0 and layer in gwl_layers and u_lagged is not None:
-            b_pred_ext = np.concatenate([r["b_pred"], a_k * gps_extra + d_k * np.zeros(len(extra_dates)) + c_k])
+            b_future = a_k * gps_extra + d_k * u_lagged_ext[N0:] + c_k
+            b_pred_ext = np.concatenate([r["b_pred"], b_future])
         else:
             b_pred_ext = np.concatenate([r["b_pred"], a_k * gps_extra + c_k])
         results[layer]["b_pred"] = b_pred_ext
-        results[layer]["n_predicted"] = len(extra_dates)
+        results[layer]["n_predicted"] = n_extra_ep
 
     return data, results
 
@@ -808,7 +863,11 @@ def main(gwl_layers: set | None = None, predict_to: pd.Timestamp | None = None,
         if r.get("d_k", 0) != 0:
             entry["d_k"] = round(r["d_k"], 6)
         summary["per_layer"][layer] = entry
-    summary_path = OUT_DIR / f"TUKU_carrier_reconstruction_summary{suffix}.json"
+    # D2 fix (super_plan_2026-06-10 Task 1.2.1): the suffix variable was renamed to
+    # `output_suffix` during the recalibration refactor (defined ~L764). The old name
+    # `suffix` is undefined in this scope and crashed with NameError before the summary
+    # file could be written (leaving tail_evaluation: null on disk).
+    summary_path = OUT_DIR / f"TUKU_carrier_reconstruction_summary{output_suffix}.json"
     with open(summary_path, "w") as f:
         json.dump(summary, f, indent=2)
     print(f"\n  Summary JSON: {summary_path}")

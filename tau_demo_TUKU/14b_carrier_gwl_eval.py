@@ -14,7 +14,7 @@ Decision rule: adopt GWL term only where average held-out RMSE improves > 5%.
 Output: tau_demo_TUKU/results/carrier_gwl_eval.json
 
 Usage:
-  PYTHONPATH="" conda run -n isce_ncu3 python tau_demo_TUKU/14b_carrier_gwl_eval.py
+  PYTHONPATH="" conda run -n fafalab2 python tau_demo_TUKU/14b_carrier_gwl_eval.py
 """
 
 from __future__ import annotations
@@ -252,7 +252,7 @@ def main():
     print(f"\n{'='*85}")
     if adopting:
         print(f"GWL term adopted for: {', '.join(adopting)}")
-        print(f"Next: PYTHONPATH=\"\" conda run -n isce_ncu3 python tau_demo_TUKU/14_carrier_reconstruction_tuku.py --use-gwl {','.join(adopting)}")
+        print(f"Next: PYTHONPATH=\"\" conda run -n fafalab2 python tau_demo_TUKU/14_carrier_reconstruction_tuku.py --use-gwl {','.join(adopting)}")
     else:
         print("GWL term not adopted for any layer — carrier-only model is sufficient.")
         print("No modification to 14_carrier_reconstruction_tuku.py needed.")

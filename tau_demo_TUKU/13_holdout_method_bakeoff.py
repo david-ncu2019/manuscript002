@@ -15,7 +15,7 @@ Outputs:
   tau_demo_TUKU/results/holdout_bakeoff.json          — per-layer, per-design RMSE + winner
 
 Usage:
-  PYTHONPATH="" conda run -n isce_ncu3 python tau_demo_TUKU/13_holdout_method_bakeoff.py
+  PYTHONPATH="" conda run -n fafalab2 python tau_demo_TUKU/13_holdout_method_bakeoff.py
 """
 
 from __future__ import annotations
@@ -35,6 +35,8 @@ sys.path.insert(0, str(ROOT / "scripts" / "10_ihmf"))
 
 from ihmf_model_v3 import compute_virgin_term, compute_r2_cumulative, fit_two_regressor_nnls_X
 from scripts.guardrails import validate_sign_constraints, GuardrailViolation
+sys.path.insert(0, str(ROOT / "tau_demo_TUKU"))
+from gap_aware_cumsum import gap_aware_cumulative, census, GapFractionExceeded
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -80,8 +82,14 @@ def build_aligned_arrays():
     mlcw_inc = pd.read_feather(INC_DIR / "mlcw_diff_cleaned.feather")
     mlcw_inc["datetime"] = pd.to_datetime(mlcw_inc["datetime"]).astype("datetime64[ns]")
     mlcw_inc = mlcw_inc.sort_values("datetime").reset_index(drop=True)
+    # Gap-aware cumulative (D3 fix, Task 1.3): a missing increment is missing
+    # knowledge, not zero movement → NaN at that epoch, never a fabricated flat value.
+    # Guard (Task 1.3.3): refuse any layer with > 20% missing increments.
     for col in [c for c in mlcw_inc.columns if c != "datetime"]:
-        mlcw_inc[f"_cum_{col}"] = mlcw_inc[col].fillna(0.0).cumsum()
+        rec = census(mlcw_inc[col].values, layer=col, enforce_guard=True)
+        mlcw_inc[f"_cum_{col}"] = gap_aware_cumulative(mlcw_inc[col].values)
+        print(f"  gap census {col}: {rec['n_missing']}/{rec['n_total']} missing "
+              f"({100*rec['frac_missing']:.2f}%), longest gap {rec['longest_gap_epochs']} epochs")
     master = pd.DataFrame({"datetime": mlcw_inc["datetime"].copy()})
 
     # 3. Load GPS surface displacement
@@ -156,23 +164,30 @@ def build_aligned_arrays():
             arrays[layer][key] = arrays[layer][key][step1_mask]
 
     # 6. Build τ-lagged head u(t) = H(t-τ) - H_ref and V(t)
-    #    We lag the ABSOLUTE head, then zero-reference the lagged result.
-    #    V is computed from absolute lagged head (datum cancels).
+    #    LAG-PAIRING INVARIANT (super_plan_2026-06-10 Task 1.1, Appendix-grade):
+    #    a response observed at epoch index i pairs with the head observed at index i-τ.
+    #    With arrays of equal original length N:
+    #        response (b, carrier d, dates) : slice [τ : N]   (length N-τ)
+    #        driver   (head → u, V)         : slice [0 : N-τ] (length N-τ)
+    #    The OLD code sliced BOTH arrays as [τ:], shifting them together → zero lag.
+    #    V's running minimum runs over the DRIVER's time axis (the sediment remembers
+    #    the deepest head it felt, delayed by the same diffusion lag).
     for layer in arrays:
         tau = arrays[layer]["tau_opt"]
         H_abs_full = arrays[layer]["H_abs"]
         h_c_abs = arrays[layer]["h_c_abs"]
         H_ref = arrays[layer]["H_ref"]
         T_filt = len(H_abs_full)
-
-        # Lag the absolute head
-        H_abs_lagged = H_abs_full[tau:]  # first `tau` epochs dropped for lag
-        # Truncate all arrays to match lagged length
         T_lag = T_filt - tau
-        arrays[layer]["H_abs"] = H_abs_full[tau:]       # unlagged abs head (for V)
-        arrays[layer]["H_abs_lagged"] = H_abs_lagged     # lagged abs head (for V)
-        arrays[layer]["u"] = H_abs_lagged - H_ref         # zero-ref lagged head (for S_ke)
-        arrays[layer]["V"] = compute_virgin_term(H_abs_lagged, h_c_abs)
+
+        # Driver slice: head at i-τ  →  H_abs_full[0 : N-τ]
+        H_abs_driver = H_abs_full[:T_lag]                 # = H_abs_full[0 : N-τ]
+        arrays[layer]["H_abs"] = H_abs_driver              # lagged driver abs head (for V)
+        arrays[layer]["H_abs_lagged"] = H_abs_driver       # alias (lagged abs head)
+        arrays[layer]["u"] = H_abs_driver - H_ref          # zero-ref lagged head (for S_ke)
+        arrays[layer]["V"] = compute_virgin_term(H_abs_driver, h_c_abs)
+
+        # Response slice: b, carrier, dates at i  →  [τ : N]
         arrays[layer]["b_cum"] = arrays[layer]["b_cum"][tau:]
         arrays[layer]["d_surface"] = arrays[layer]["d_surface"][tau:]
         arrays[layer]["datetime"] = arrays[layer]["datetime"][tau:]
