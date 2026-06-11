@@ -414,10 +414,12 @@ def run_schedule(
 
     Parameters
     ----------
-    all_genuine_dates : set of Timestamps, optional
-        Full set of genuine blind-era dates used for prequential scoring when
-        schedule_name == 'none' (no visits → score at every genuine observation
-        without assimilation, so the no-update RMSE is defined).
+    all_genuine_dates : set of Timestamps
+        Full set of genuine blind-era dates.  ALL schedules are scored on this
+        fixed set so that RMSE values are comparable across cadences.
+        At each genuine date the model prediction is recorded BEFORE any
+        assimilation at that date (prequential scoring).  Assimilation only
+        happens at dates that are also in visit_dates.
     """
     print(f"\n  Schedule '{schedule_name}': {len(visit_dates)} visits")
 
@@ -441,8 +443,11 @@ def run_schedule(
     step_threshold = 5.0 * carrier_noise if np.isfinite(carrier_noise) else float("inf")
 
     visit_set = set(visit_dates)
-    # For 'none' schedule: score at all genuine dates but never assimilate
-    score_set = all_genuine_dates if (schedule_name == "none" and all_genuine_dates) else visit_set
+    # FIX (M8.3): score EVERY schedule on the SAME full genuine-visit set.
+    # score_set: where we record prequential error (ALL genuine blind-era dates).
+    # assimilate_set: where we actually update the model bias (visit dates only).
+    # For 'none', assimilate_set is empty — model never updates.
+    score_set = all_genuine_dates if all_genuine_dates else visit_set
     assimilate_set = visit_set   # always empty for 'none'
 
     # Tracking per layer
@@ -535,15 +540,17 @@ def run_schedule(
                         last_visit[L] = epoch_date
 
     # ── Compute metrics per layer ─────────────────────────────────────────────
+    # n_scoring_points is the same for every schedule (full genuine-visit set).
+    n_scoring_points = len(score_set) if score_set else 0
     metrics: dict = {
         "schedule": schedule_name,
         "n_visits_used": len(visit_dates),
-        "n_scoring_dates": len(score_set),
+        "n_scoring_points": n_scoring_points,
         "scoring_note": (
-            "For 'none': scored at all 60 genuine blind dates (no assimilation); "
-            "for all other schedules: scored only at visit dates."
-            if schedule_name == "none" else
-            "Scored and assimilated at visit dates only."
+            "All schedules graded on the SAME full genuine-visit scoring set "
+            "(all ~60 blind-era genuine dates, merge_asof ≤3 days to 5-day grid). "
+            "Prediction recorded BEFORE assimilation at each scoring date. "
+            "Assimilation (hard level reset) only at reveal dates for this schedule."
         ),
         "visit_dates": [d.isoformat() for d in visit_dates],
         "leakage_fired": leakage_fired,
@@ -673,7 +680,8 @@ def run_schedule(
         )
 
         metrics["layers"][L] = {
-            "n_prequential_visits": n_preq,
+            "n_prequential_visits": n_preq,   # actual finite-obs count (may be < n_scoring_points if NaN obs)
+            "n_scoring_points": n_scoring_points,  # identical across all schedules
             "MAE_mm": round(mae_mm, 3) if np.isfinite(mae_mm) else None,
             "RMSE_mm": round(rmse_mm, 3) if np.isfinite(rmse_mm) else None,
             "skill_vs_baseline": None,   # filled in after baseline run
@@ -1214,9 +1222,28 @@ def main():
             if not match:
                 print(f"  MISMATCH {s_name}/{L}: disk={d_rmse}  mem={m_rmse}")
                 ok = False
+            # Verify n_scoring_points is recorded and matches the top-level field
+            d_nsp = on_disk["layers"][L].get("n_scoring_points")
+            top_nsp = on_disk.get("n_scoring_points")
+            if d_nsp is None or top_nsp is None or d_nsp != top_nsp:
+                print(f"  n_scoring_points MISMATCH {s_name}/{L}: layer={d_nsp}  top-level={top_nsp}")
+                ok = False
         return ok
 
-    for s_name in ["annual", "none"]:
+    # Verify n_scoring_points identical across all schedules
+    nsp_values = {}
+    for s_name in schedule_order:
+        p = OUT_RESULTS / s_name / "metrics.json"
+        with open(p) as f:
+            m = json.load(f)
+        nsp_values[s_name] = m.get("n_scoring_points")
+    all_nsp = list(nsp_values.values())
+    if len(set(v for v in all_nsp if v is not None)) == 1:
+        print(f"  n_scoring_points IDENTICAL across all schedules: {all_nsp[0]}")
+    else:
+        print(f"  n_scoring_points MISMATCH across schedules: {nsp_values}")
+
+    for s_name in ["monthly", "annual", "none"]:
         ok = verify_metrics(s_name)
         print(f"  {s_name}: {'VERIFIED' if ok else 'MISMATCH — check above'}")
 
