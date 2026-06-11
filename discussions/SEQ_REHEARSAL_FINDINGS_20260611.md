@@ -252,3 +252,80 @@ All findings in this document apply to TUKU only. TUKU is in the mid-fan / dista
 | §5–6 coverage | `tau_demo_TUKU/results/seq/confirmatory_2024.json` | semiannual/annual L1 pass, n_points_with_defined_band, coverage, apex.dp_seq_confirmatory, conformal_min_samples, carrier_noise_mm |
 | §7 ratio test | `tau_demo_TUKU/results/simple_ratio_test/simple_ratio_summary.json` | per-layer best_lag_corr, best_lag_epochs, r² |
 | §8 provenance | `tau_demo_TUKU/results/mlcw_provenance_audit.json` | role_guess "264-point irregular dates"; method "discrete second-difference interpolation detector" |
+| §9 portfolio survey | `m5_deployment/summary/m5_gps_deployment_summary.csv`, `m5_deployment/summary/m5_gps_deployment_summary.json`, `m5_deployment/station_file_map.json` | rmse_mm, detrended_corr, a_k, gps_distance_m; 148 cells; Pearson r |
+| §9 findings JSON | `m5_deployment/summary/portfolio_findings.json` | distribution stats, fail analysis, gps_distance_effect |
+
+---
+
+## 9. Portfolio Survey — GPS-Only Carrier Across the Mapped Stations (M9)
+
+The GPS-only carrier method scales a single surface GPS displacement timeseries to each sediment layer by a fixed apportionment coefficient $a_k$, with no InSAR correction and no groundwater-level term; for most MLCW stations the resulting prediction is therefore dominated by the secular vertical trend of the paired GPS station, and errors arise when that trend diverges from the actual layer compaction.
+
+### 9.1 Scope and exclusions
+
+Twenty-nine of the 37 MLCW stations ran to completion. Eight stations were excluded:
+
+- **ERLUN**: no paired GPS modeled timeseries available.
+- **ANHE**, **ANNAN**, **DONGGUANG**, **LONGYAN**, **NANGUANG**, **NEILIAO**, **XINPI**: GPS–MLCW overlap below 300 epochs (minimum required for a 70/30 chronological split); overlap ranged from 135 epochs (NEILIAO) to 277 epochs (DONGGUANG).
+
+Source: `m5_deployment/summary/m5_gps_deployment_summary.json` (`exclusions` field).
+
+The 29 stations that ran produced 148 station/layer cells across layers F1, T1, F2, T2, F3, and F4.
+
+### 9.2 Portfolio holdout RMSE distribution
+
+Across all 148 cells, the GPS-only carrier achieves a median holdout RMSE of **2.52 mm** (Q1 = 1.41 mm, Q3 = 4.95 mm, min = 0.24 mm, max = 22.21 mm). The interquartile range spans a factor of 3.5, reflecting the large diversity in layer thickness, $a_k$ magnitude, and local compaction rate across the 29 stations.
+
+Per-layer medians reveal the expected pattern — thick productive layers carry the highest error:
+
+| Layer | n cells | Median RMSE (mm) | Q1 (mm) | Q3 (mm) |
+|-------|---------|-----------------|---------|---------|
+| T1 | 19 | 1.28 | 0.81 | 1.78 |
+| T2 | 19 | 1.43 | 0.67 | 2.84 |
+| F4 | 24 | 2.03 | 1.36 | 3.14 |
+| F1 | 29 | 2.10 | 1.49 | 3.40 |
+| F3 | 28 | 3.93 | 2.48 | 8.22 |
+| F2 | 29 | 5.68 | 4.32 | 7.21 |
+
+F2 and F3 (thick aquifer and aquitard, $\ge$ 86 m at TUKU) carry medians of 5.68 mm and 3.93 mm respectively. The T1 and T2 aquitards, being thinner, fall below 1.5 mm median.
+
+Source: `m5_deployment/summary/portfolio_findings.json` (`per_layer_rmse_distribution`).
+
+### 9.3 Carrier-fail cell analysis
+
+Cells with `detrended_corr < 0.2` (the GPS signal carries little correlation with the MLCW layer signal in the holdout period) number **60 of 148** (40.5%). These are cells where the GPS carrier reproduces neither the trend nor the seasonal cycle of the target layer.
+
+The class-threshold test — `rmse_mm > 10 mm` for thin layers (F1, T1, T2, F4) and `rmse_mm > 20 mm` for thick layers (F2, F3) — finds **zero cells that simultaneously fail both criteria**. No station has all its layers in the fail set.
+
+This finding requires careful physical interpretation. Three mechanisms produce low `detrended_corr` without high RMSE:
+
+1. **Near-zero secular trend → $a_k$ clipped to zero.** Stations like ZHENNAN received $a_k \approx 0$ across all six layers because the paired GPS station (ZHENNAN, 7,769 m away) shows a secular vertical trend that does not match the local compaction direction. The model then predicts near-zero increments, and RMSE happens to remain below the threshold only because MLCW compaction at those layers is also small in absolute magnitude during the holdout period. The prediction is physically vacuous: $a_k = 0$ means the carrier carries no information.
+
+2. **GPS too distant.** ZHENNAN (GPS distance 7,769 m) and ZHUTANG (GPS distance 6,981 m) are the two stations furthest from their paired GPS antenna. At these separations the GPS vertical motion is unlikely to represent the local subsidence field. ZHENNAN's $a_k = 0$ for all six layers is the direct symptom.
+
+3. **Strong seasonal MLCW signal the linear carrier cannot reproduce.** The GPS carrier is 99.6% linear (as shown at TUKU, §2.3). Layers such as HUNAN F3 (`detrended_corr = −0.79`, RMSE = 13.0 mm) and TUKU F3 (`detrended_corr = −0.40`, RMSE = 12.1 mm) have seasonal compaction signals that the GPS trend captures in the wrong phase. The amplitude limit proven at TUKU (amplitude ratio 70–97%) extends here to cases where seasonal amplitude dominates and the carrier inverts the phase.
+
+Source: `m5_deployment/summary/portfolio_findings.json` (`fail_analysis`); `m5_deployment/summary/m5_gps_deployment_summary.csv`.
+
+### 9.4 GPS-distance effect on prediction quality
+
+The hypothesis that a closer GPS station produces lower holdout RMSE is **not supported** by the portfolio data. The Pearson correlation between `gps_distance_m` and `rmse_mm` across all 148 cells is **r = −0.21** (p = 0.011, n = 148). The sign is negative: more distant GPS stations are marginally associated with *lower* RMSE, the reverse of the hypothesis.
+
+This counter-intuitive result has a plausible physical explanation: the six stations with the smallest GPS distances (GUANGFU at 5.4 m, KECUO at 2.0 m, HONGLUN at 13.6 m, XINSHENG at 12.9 m, YUANCHANG at 13.8 m, XIUTAN at 29.3 m) include several mid-fan or distal stations where F2 and F3 compaction is large and highly seasonal — exactly the conditions that defeat the linear carrier regardless of GPS proximity. Co-location of the GPS antenna does not help when the physical mechanism (non-linear seasonal groundwater response) is absent from the carrier model.
+
+In contrast, several distant-GPS stations (e.g., ZHENGMIN at 26.8 m GPS distance with median layer RMSE ~1.4 mm; CANLIN at 209.4 m with median ~3.2 mm) sit in zones where compaction is largely secular, so the linear carrier performs well despite the short overlap (95–113 epochs).
+
+The OLS slope is $-3.1 \times 10^{-4}$ mm per metre of GPS distance (intercept 4.14 mm), confirming that the distance effect is negligible relative to layer-to-layer variability. The scatter plot is saved at `m5_deployment/summary/rmse_vs_gps_distance.png`.
+
+Source: `m5_deployment/summary/portfolio_findings.json` (`gps_distance_effect`).
+
+### 9.5 Priority candidates for M8 sequential protocol + GWL augmentation
+
+This GPS-only pass is a screening survey, not the final per-station method. Its purpose is to identify which stations and layers the carrier alone cannot handle, so that the M8 sequential protocol (conformal prediction bands + GWL augmentation) addresses the right targets.
+
+The priority candidates for GWL augmentation are the thick-layer cells with evidence of groundwater-driven seasonal compaction:
+
+- **F2 and F3 at stations with high RMSE and negative or near-zero `detrended_corr`**: TUKU F3 (RMSE = 12.1 mm, corr = −0.40), HUNAN F3 (RMSE = 13.0 mm, corr = −0.79), XINSHENG F3 (RMSE = 9.0 mm, corr = 0.56 — marginal), YUANCHANG F3 (RMSE = 17.4 mm, corr = −0.10), XIUTAN F3 (RMSE = 10.0 mm, corr = −0.45).
+- **Stations with $a_k = 0$ across all layers** (ZHENNAN): the carrier contributes nothing and GWL is the only viable driver.
+
+Stations where the carrier already performs well (T1/T2 layers universally, F1 at most stations, and thin F4 where MLCW signal is small) do not require GWL augmentation as the first priority.
