@@ -200,7 +200,7 @@ shows the repaired run, not the bent-ruler run.
 - Modify: `tau_demo_TUKU/13_holdout_method_bakeoff.py` (metadata lines ~570–573 only)
 - Output: `tau_demo_TUKU/results/m2_closeout.json`
 
-- [ ] **6.1.1** Archive the stale pre-repair visualization table BEFORE it gets regenerated
+- [x] **6.1.1** Archive the stale pre-repair visualization table BEFORE it gets regenerated
   (it is the only persisted copy of the pre-repair carrier numbers):
 
 ```powershell
@@ -208,7 +208,7 @@ Copy-Item tau_demo_TUKU\results\visualization\holdout_bakeoff_table.csv `
           tau_demo_TUKU\results\visualization\holdout_bakeoff_table_OBSOLETE_prerepair_20260610.csv
 ```
 
-- [ ] **6.1.2** Write `tau_demo_TUKU/20_m2_closeout.py`:
+- [x] **6.1.2** Write `tau_demo_TUKU/20_m2_closeout.py`:
 
 ```python
 #!/usr/bin/env python
@@ -263,14 +263,14 @@ print("max |carrier delta| =", max_delta, "mm; DP1 =", out["decision_point_1"]["
       "; DP2 =", out["decision_point_2"]["verdict"])
 ```
 
-- [ ] **6.1.3** Run it; expected: `max |carrier delta| < 0.1 mm` (the 06-11 audit already saw
+- [x] **6.1.3** Run it; expected: `max |carrier delta| < 0.1 mm` (the 06-11 audit already saw
   agreement to 4 decimals), `DP1 = CARRIER-PRIMARY`, `DP2 = PASS` with skills T1 +0.4075,
   F2 +0.4305, T2 +0.2981, F1 −0.1813, F3 −0.2488, F4 −0.1425. Re-read `m2_closeout.json` and
   confirm printed = persisted.
-- [ ] **6.1.4** In `13_holdout_method_bakeoff.py` (~L570–573), replace the hardcoded
+- [x] **6.1.4** In `13_holdout_method_bakeoff.py` (~L570–573), replace the hardcoded
   `"2026-06-09"` metadata date with `datetime.date.today().isoformat()` and the stale plan
   reference with `"super_plan_2026-06-11.md"`. No logic changes.
-- [ ] **6.1.5** Commit: `git add tau_demo_TUKU/20_m2_closeout.py tau_demo_TUKU/13_holdout_method_bakeoff.py tau_demo_TUKU/results/m2_closeout.json` then `git commit -m "M6.1: persist M2 equivalence check + DP1/DP2 machine-readable fields"`
+- [x] **6.1.5** Commit: `git add tau_demo_TUKU/20_m2_closeout.py tau_demo_TUKU/13_holdout_method_bakeoff.py tau_demo_TUKU/results/m2_closeout.json` then `git commit -m "M6.1: persist M2 equivalence check + DP1/DP2 machine-readable fields"`
 
 #### TASK 6.2 — F1/T1 hypotheses (b) and (c) (closes 2.2.4)
 
@@ -282,7 +282,7 @@ do these shallow layers truly respond near-elastically post-2015 (hypothesis c)?
 - Create: `tau_demo_TUKU/21_f1t1_hypotheses.py`
 - Output: `tau_demo_TUKU/results/characterization/f1t1_hypotheses.json`, PNG in `tau_demo_TUKU/plots/characterization/`
 
-- [ ] **6.2.1** Write the script. It must reuse the corrected loader from Script 15 (import its
+- [x] **6.2.1** Write the script. It must reuse the corrected loader from Script 15 (import its
   data-building functions; do NOT re-write slicing code — the lag invariant lives there).
   For each of F1 and T1: (hyp b) re-run the τ grid 0–120 on the dense era only, persist the
   SSE-vs-τ curve and the flatness measure (SSE range / SSE min); a flat curve (< 5% relative
@@ -290,28 +290,28 @@ do these shallow layers truly respond near-elastically post-2015 (hypothesis c)?
   through 2018 — once with $S_{kv}$ free, once with $S_{kv} = 0$ — and compare end-gap
   (2019–2024-style last-30%) held-out RMSE; if the $S_{kv}=0$ fit is within 5%, the verdict
   field is `"elastic-dominated regime, S_kv not excited"`.
-- [ ] **6.2.2** Run; persist JSON with explicit `verdict` per layer + the SSE curves; export the
+- [x] **6.2.2** Run; persist JSON with explicit `verdict` per layer + the SSE curves; export the
   two SSE-vs-τ PNGs (Rule V standards). Re-read the JSON to confirm.
-- [ ] **6.2.3** Commit: `git commit -m "M6.2: F1/T1 hypotheses (b) tau-sensitivity and (c) elastic-dominated test persisted"`
+- [x] **6.2.3** Commit: `git commit -m "M6.2: F1/T1 hypotheses (b) tau-sensitivity and (c) elastic-dominated test persisted"`
 
 #### TASK 6.3 — Regenerate the stale visualizations from the repaired JSONs (closes V1)
 
-- [ ] **6.3.1** Re-run, in order, with fafalab2: `16a_visualize_bakeoff.py`,
+- [x] **6.3.1** Re-run, in order, with fafalab2: `16a_visualize_bakeoff.py`,
   `16b_visualize_gwl_eval.py`, `16c_visualize_storage_params.py`,
   `16d_visualize_reconstruction_diagnostics.py`. Verify each PNG/CSV in
   `tau_demo_TUKU/results/visualization/` now has a 2026-06-11 mtime and that
   `holdout_bakeoff_table.csv` bilinear column equals `holdout_bakeoff.json` values.
-- [ ] **6.3.2** Fix `visualize_observed_vs_predicted.py`: the annotation must state the model
+- [x] **6.3.2** Fix `visualize_observed_vs_predicted.py`: the annotation must state the model
   actually plotted (carrier+GWL from Script 14) — change the annotation source (~L125 area) so
   it quotes the tail skills from `TUKU_carrier_reconstruction_summary.json::tail_evaluation`
   instead of M4 adopted-hybrid verdicts. Re-run, regenerate the 6-panel PNG.
-- [ ] **6.3.3** Commit: `git commit -m "M6.3: regenerate post-repair visualizations; fix mislabeled observed-vs-predicted annotation"`
+- [x] **6.3.3** Commit: `git commit -m "M6.3: regenerate post-repair visualizations; fix mislabeled observed-vs-predicted annotation"`
 
 #### TASK 6.4 — Freeze the M3 hybrid registry as evidence
 
-- [ ] **6.4.1** Add a `"status"` note to a NEW file `tau_demo_TUKU/results/hybrid_model_registry_STATUS.json`
+- [x] **6.4.1** Add a `"status"` note to a NEW file `tau_demo_TUKU/results/hybrid_model_registry_STATUS.json`
   (do not edit the original): `{"status": "FROZEN-EVIDENCE", "reason": "selection leakage (audit 2026-06-11, finding L2): same holdouts used for selection and reporting; superseded for deployment by the fixed A2 structure of super_plan_2026-06-11", "date": "2026-06-11"}`.
-- [ ] **6.4.2** Commit: `git commit -m "M6.4: freeze M3 hybrid registry as evidence (selection leakage)"`
+- [x] **6.4.2** Commit: `git commit -m "M6.4: freeze M3 hybrid registry as evidence (selection leakage)"`
 
 #### TASK 6.5 — MLCW provenance audit (P1 / Assumption A8)
 
@@ -319,21 +319,21 @@ do these shallow layers truly respond near-elastically post-2015 (hypothesis c)?
 - Create: `tau_demo_TUKU/22_mlcw_provenance_audit.py`
 - Output: `tau_demo_TUKU/results/mlcw_provenance_audit.json`, candidate observed-epoch mask CSV `tau_demo_TUKU/results/mlcw_observed_epoch_mask.csv`, 1 PNG
 
-- [ ] **6.5.1** Inventory the raw MLCW holdings: `Glob data/mlcw/**` (list every file, no
+- [x] **6.5.1** Inventory the raw MLCW holdings: `Glob data/mlcw/**` (list every file, no
   loading). Report whether any file looks like raw per-visit observations (irregular dates,
   per-ring readings) as opposed to the regular 5-day reconstruction.
-- [ ] **6.5.2** Statistical fingerprint of `TUKU_reconst_grouped.csv`: per layer, compute the
+- [x] **6.5.2** Statistical fingerprint of `TUKU_reconst_grouped.csv`: per layer, compute the
   run-lengths of constant second differences (a linear-interpolation segment has zero second
   difference); persist the fraction of epochs inside runs ≥ 3 (likely-interpolated) vs outside
   (likely-observed anchor points), and the inferred anchor-date list. Export the mask CSV
   (`date, layer, likely_observed` — one row per epoch per layer) and a PNG showing one year of
   F2 with inferred anchors marked.
-- [ ] **6.5.3** Write the JSON verdict: either (i) raw observation files found → name them and
+- [x] **6.5.3** Write the JSON verdict: either (i) raw observation files found → name them and
   state the next step (use their dates as the visit-sampling frame in M8), or (ii) not found →
   `"A8 caveat permanent: synthetic-content fraction per layer = <numbers>"`. Never guess.
-- [ ] **6.5.4** Commit: `git commit -m "M6.5: MLCW provenance audit + likely-observed epoch mask"`
+- [x] **6.5.4** Commit: `git commit -m "M6.5: MLCW provenance audit + likely-observed epoch mask"`
 
-> **GATE M6:** `m2_closeout.json`, `f1t1_hypotheses.json`, regenerated visualizations,
+> **GATE M6:** [x] `m2_closeout.json`, `f1t1_hypotheses.json`, regenerated visualizations,
 > `hybrid_model_registry_STATUS.json`, `mlcw_provenance_audit.json` all on disk and re-read.
 > Also: reconcile the 06-10 plan's checkboxes (done 2026-06-11 by the auditor session).
 
@@ -353,7 +353,7 @@ amends the §1 feasibility verdict with TUKU's own data.
 - Create: `tau_demo_TUKU/19_simple_ratio_test.py`
 - Output dir (new, tidy, mirrors existing structure): `tau_demo_TUKU/results/simple_ratio_test/` (CSV + JSON) and `tau_demo_TUKU/plots/simple_ratio_test/` (PNG)
 
-- [ ] **7.1.1** Write the script exactly as specified:
+- [x] **7.1.1** Write the script exactly as specified:
 
 ```python
 #!/usr/bin/env python
@@ -464,18 +464,18 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **7.1.2** Run it. **Expected outcome (state honestly in the findings):** correlations
+- [x] **7.1.2** Run it. **Expected outcome (state honestly in the findings):** correlations
   roughly 0.4–0.7 for F1/T1/F2/T2, near zero for F3 (the 06-11 audit measured −0.086 against
   the carrier fit) and weak for F4 (~0.17). Ratios are small. If any layer surprises (e.g.,
   F3 |corr| > 0.5 at some long lag), that AMENDS the §1 verdict — report it prominently, do not
   bury it.
-- [ ] **7.1.3** Repeat once with the `orig_nojump` GPS column instead of `modeled` (one-line
+- [x] **7.1.3** Repeat once with the `orig_nojump` GPS column instead of `modeled` (one-line
   change via a `GPS_COLUMN` constant; write outputs to `simple_ratio_test/orig_nojump/`).
   This measures how much sub-annual content the upstream smoothing removed. Record both in the
   JSON metadata.
-- [ ] **7.1.4** Commit: `git commit -m "M7: simple detrended GPS-to-layer lag/ratio test, both GPS variants"`
+- [x] **7.1.4** Commit: `git commit -m "M7: simple detrended GPS-to-layer lag/ratio test, both GPS variants"`
 
-> **GATE M7 (informational, no stop):** `simple_ratio_summary.json` persisted for both GPS
+> **GATE M7 (informational, no stop):** [x] `simple_ratio_summary.json` persisted for both GPS
 > variants. If max |corr| across layers ≥ 0.5 for a layer where §1 predicted < 0.5, append an
 > amendment note to §1's verdict in the findings document of M8.
 
