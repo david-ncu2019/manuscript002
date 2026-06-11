@@ -515,7 +515,7 @@ degradation curve: accuracy as a function of visit frequency — the number the 
 - Create: `tau_demo_TUKU/seq/__init__.py` (empty), `tau_demo_TUKU/seq/time_oracle.py`,
   `tau_demo_TUKU/seq/conformal.py`, `tau_demo_TUKU/seq/test_seq_core.py`
 
-- [ ] **8.1.1** Write the failing tests first (`tau_demo_TUKU/seq/test_seq_core.py`):
+- [x] **8.1.1** Write the failing tests first (`tau_demo_TUKU/seq/test_seq_core.py`):
 
 ```python
 """Unit tests for the sequential-rehearsal core. Run:
@@ -563,7 +563,7 @@ def test_conformal_insufficient_is_nan():
     assert np.isnan(bank.half_width("F1", horizon=10))
 ```
 
-- [ ] **8.1.2** Run: expected FAIL (`ModuleNotFoundError`). Then write the two modules:
+- [x] **8.1.2** Run: expected FAIL (`ModuleNotFoundError`). Then write the two modules:
 
 `tau_demo_TUKU/seq/time_oracle.py`:
 ```python
@@ -628,8 +628,8 @@ class ConformalBank:
         return {f"{k[0]}|{k[1][0]}-{k[1][1]}": len(v) for k, v in self.errors.items()}
 ```
 
-- [ ] **8.1.3** Run the tests again: expected 5 passed.
-- [ ] **8.1.4** Commit: `git commit -m "M8.1: TimeOracle + conformal bank with unit tests (leakage is now a crash)"`
+- [x] **8.1.3** Run the tests again: expected 5 passed.
+- [x] **8.1.4** Commit: `git commit -m "M8.1: TimeOracle + conformal bank with unit tests (leakage is now a crash)"`
 
 #### TASK 8.2 — Dense-era frozen calibration
 
@@ -637,7 +637,7 @@ class ConformalBank:
 - Create: `tau_demo_TUKU/seq/frozen_model.py`, `tau_demo_TUKU/seq/23_dense_calibration.py`
 - Output: `tau_demo_TUKU/results/seq/frozen_calibration.json`, per-layer PNG in `tau_demo_TUKU/plots/seq/`
 
-- [ ] **8.2.1** `frozen_model.py` — the A2 structure, one class, no alternatives:
+- [x] **8.2.1** `frozen_model.py` — the A2 structure, one class, no alternatives:
 
 ```python
 """FrozenLayerModel — fixed two-regime structure (Assumption A2), per-layer.
@@ -703,7 +703,7 @@ class FrozenLayerModel:
         self.beta += float(innovation_mm)
 ```
 
-- [ ] **8.2.2** `23_dense_calibration.py` — calibrate every layer on 2010-01-16…2018-12-31 ONLY:
+- [x] **8.2.2** `23_dense_calibration.py` — calibrate every layer on 2010-01-16…2018-12-31 ONLY:
   - Load via the SAME loaders Script 14 uses (import its data-building functions — they carry
     the verified lag invariant and gap-aware cumsum; do not re-write them).
   - $h_c$ per layer from raw pre-REF_DATE (2015-01-16) GWL feather rows (Bug-F rule).
@@ -727,10 +727,10 @@ class FrozenLayerModel:
     n_train, identifiability fields, A1 split-fit, A4 seasonal check, guardrail report} +
     manifest {dense_start, dense_end, gwl_well per layer, REF_DATE}.
   - Export per-layer calibration PNG (observed vs fitted, dense era only, Rule V standards).
-- [ ] **8.2.3** Run; re-read JSON; confirm every persisted number equals the printed table.
+- [x] **8.2.3** Run; re-read JSON; confirm every persisted number equals the printed table.
   Expected magnitudes (sanity, not gates): $a_{F2} \approx 0.23$, $a_{F3} \approx 0.31$,
   $\sum a_k \in [0.55, 0.75]$, $\tau_{F2}$ near 72.
-- [ ] **8.2.4** Commit: `git commit -m "M8.2: dense-era frozen calibration (A2 structure, guardrails, A1/A4 checks)"`
+- [x] **8.2.4** Commit: `git commit -m "M8.2: dense-era frozen calibration (A2 structure, guardrails, A1/A4 checks)"`
 
 #### TASK 8.3 — The walk-forward engine (predict → reveal → adjust)
 
@@ -742,7 +742,7 @@ class FrozenLayerModel:
   `tau_demo_TUKU/plots/seq/{S}/TUKU_seq_6layer.png`;
   plus `tau_demo_TUKU/results/seq/run_manifest.json`
 
-- [ ] **8.3.1** Define the schedules. **Visits are real field visits, not synthetic epochs:**
+- [x] **8.3.1** Define the schedules. **Visits are real field visits, not synthetic epochs:**
   start from the genuine visit dates in `TUKU_orig_grouped.csv` that fall inside the blind era
   (2019-01-01…2023-12-31; 2024 reserved). Build each cadence by SUBSAMPLING the genuine visit
   list to the target spacing (keep the genuine date nearest each target interval):
@@ -753,7 +753,7 @@ class FrozenLayerModel:
   Record, per schedule, the exact genuine visit dates used in the manifest. If the blind era
   contains fewer genuine visits than a cadence would imply (e.g. the well already went sparse),
   use what exists and record the true count — never invent a visit date.
-- [ ] **8.3.2** Engine main loop (the heart — write exactly this logic):
+- [x] **8.3.2** Engine main loop (the heart — write exactly this logic):
 
 ```python
 # inside 24_walk_forward_rehearsal.py (sketch of the core loop; full file assembles
@@ -786,7 +786,7 @@ for date in blind_epochs:                           # 2019-01-01 .. 2023-12-31, 
   Step screening (A7): before predicting, flag any epoch where |Δd| > 5 × carrier noise
   (carrier noise = std of dense-era 5-day GPS increments); flagged epochs get
   `step_flag=True` in the CSV.
-- [ ] **8.3.3** Metrics per schedule per layer. **Grade against the genuine field visits**
+- [x] **8.3.3** Metrics per schedule per layer. **Grade against the genuine field visits**
   (`TUKU_orig_grouped.csv`), never the dense fill. Primary metric = PREQUENTIAL error: at each
   genuine blind-era visit, score the model's prediction for that visit BEFORE it is revealed
   (works for every schedule including `actual`). For sparse schedules also report error at the
@@ -798,13 +798,13 @@ for date in blind_epochs:                           # 2019-01-01 .. 2023-12-31, 
   half-width, innovation list {date, value, in_band}, `converged` flag (3 consecutive in-band
   innovations), and for F3: `drought_2021_detection_date` (first visit in 2021+ with
   |innovation| > half-width).
-- [ ] **8.3.4** Per-schedule 6-panel PNG: observed (thin line), predicted (thick), 90% band
+- [x] **8.3.4** Per-schedule 6-panel PNG: observed (thin line), predicted (thick), 90% band
   (shaded), visit dates (vertical ticks), innovations (markers). Rule V standards.
-- [ ] **8.3.5** Cadence-degradation curve: assemble
+- [x] **8.3.5** Cadence-degradation curve: assemble
   `tau_demo_TUKU/results/seq/cadence_degradation_curve.csv` (+ `.json` + PNG
   `plots/seq/cadence_curve.png`): rows = layer, columns = schedule, values = blind-era RMSE;
   second table for MAE; mark per layer the minimum cadence meeting its Level-1 thresholds.
-- [ ] **8.3.6** Run all six schedules; verify every output file exists and re-read `metrics.json`
+- [x] **8.3.6** Run all six schedules; verify every output file exists and re-read `metrics.json`
   values against the printed tables. Commit:
   `git commit -m "M8.3: walk-forward rehearsal, 6 cadences, conformal bands, degradation curve"`
 
@@ -814,24 +814,24 @@ for date in blind_epochs:                           # 2019-01-01 .. 2023-12-31, 
 - Create: `tau_demo_TUKU/seq/25_confirmatory_2024.py`
 - Output: `tau_demo_TUKU/results/seq/confirmatory_2024.json`, PNG
 
-- [ ] **8.4.1** ONLY after 8.3 is finalized and committed (no further engine edits permitted):
+- [x] **8.4.1** ONLY after 8.3 is finalized and committed (no further engine edits permitted):
   run the engine over 2024-01-01…2024-12-31 with the two operationally relevant schedules
   (semiannual, annual), starting from the 2023-12-31 model state of each. Persist per layer:
   MAE, RMSE, band coverage, Rule V2 metrics.
-- [ ] **8.4.2** Apply the apex criteria (§3): thresholds per layer class + coverage ≥ 0.85.
+- [x] **8.4.2** Apply the apex criteria (§3): thresholds per layer class + coverage ≥ 0.85.
   Persist the verdict table. If the engine must be edited to make 2024 run at all (a crash),
   record the edit in the JSON under `post_freeze_edits` — the grade then carries an asterisk.
-- [ ] **8.4.3** Commit: `git commit -m "M8.4: confirmatory 2024 grading (run once)"`
+- [x] **8.4.3** Commit: `git commit -m "M8.4: confirmatory 2024 grading (run once)"`
 
 #### TASK 8.5 — Findings document
 
-- [ ] **8.5.1** Write `discussions/SEQ_REHEARSAL_FINDINGS_20260611.md`: physical story first
+- [x] **8.5.1** Write `discussions/SEQ_REHEARSAL_FINDINGS_20260611.md`: physical story first
   (what each layer did 2019–2024 and how well the blind model re-told it at each cadence), then
   the degradation curve, the confirmatory table, the F3 honest status, the M7 ratio-test
   confirmation/amendment of §1, limitations (A8 provenance, GPS ends 2024-12-31 so 2025 is
   out of reach for the GPS-only configuration). Every number cites file + field.
 
-> **GATE M8 (Decision Point SEQ — the new DP3):**
+> **[x] GATE M8 (Decision Point SEQ — the new DP3):**
 > - **PASS:** ≥ 5 of 6 layers meet their Level-1 thresholds on the blind era at quarterly
 >   cadence or sparser, AND confirmatory-2024 band coverage ≥ 0.85 on ≥ 5 layers, AND the
 >   minimum-cadence recommendation is persisted per layer.
@@ -864,7 +864,7 @@ pass is carrier-only so that every station is scored by the identical minimal re
   `m5_deployment/summary/m5_gps_deployment_summary.csv` + `.json`,
   `m5_deployment/summary/portfolio_rmse.png`, `m5_deployment/summary/exclusion_report.json`
 
-- [ ] **9.1.1** Write the runner:
+- [x] **9.1.1** Write the runner:
 
 ```python
 #!/usr/bin/env python
@@ -998,27 +998,27 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **9.1.2** Smoke-test on TUKU first: temporarily filter the loop to `name == "TUKU"`;
+- [x] **9.1.2** Smoke-test on TUKU first: temporarily filter the loop to `name == "TUKU"`;
   expected: $a_{F2}$ within ~0.05 of 0.23 (the TUKU value; the 70/30 split differs from the
   dense-era split so exact equality is not expected), holdout RMSE same order as the 06-10
   end-gap numbers. Then remove the filter.
-- [ ] **9.1.3** Full run (36 stations). Expected exclusions: ERLUN (`has_gps_modeled: false`);
+- [x] **9.1.3** Full run (36 stations). Expected exclusions: ERLUN (`has_gps_modeled: false`);
   possibly stations whose GPS-MLCW overlap < 300 epochs — every exclusion must appear in
   `exclusion_report.json` with its reason. Runtime estimate: < 10 min total (linear fits only).
-- [ ] **9.1.4** Verify: count result folders == stations run; re-read summary JSON; spot-check
+- [x] **9.1.4** Verify: count result folders == stations run; re-read summary JSON; spot-check
   two stations' CSVs for NaN handling (rows before GPS start must have `b_predicted_mm` present
   — the carrier extends backward — but `is_holdout=False`).
-- [ ] **9.1.5** Commit: `git commit -m "M9: GPS-only carrier deployment across mapped stations + portfolio summary"`
+- [x] **9.1.5** Commit: `git commit -m "M9: GPS-only carrier deployment across mapped stations + portfolio summary"`
 
 #### TASK 9.2 — Portfolio findings note
 
-- [ ] **9.2.1** Append a section to `discussions/SEQ_REHEARSAL_FINDINGS_20260611.md`: portfolio
+- [x] **9.2.1** Append a section to `discussions/SEQ_REHEARSAL_FINDINGS_20260611.md`: portfolio
   RMSE distribution (median, quartiles), the stations where the carrier clearly fails
   (detrended_corr < 0.2 AND rmse above class threshold — these are the stations where GWL
   augmentation or the M8 protocol matters most), GPS-distance effect (the map carries
   `gps_distance_m` per station — scatter RMSE vs distance, one PNG into `m5_deployment/summary/`).
 
-> **GATE M9:** summary + exclusion report persisted; portfolio figure exists; findings appended.
+> **[x] GATE M9:** summary + exclusion report persisted; portfolio figure exists; findings appended.
 > **This plan ends here.** Part 2 batch physics (per-station storage parameters) and Part 3
 > (8,577 grid points) remain blocked pending human review of GATE M8 + M9 outputs.
 
