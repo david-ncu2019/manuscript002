@@ -23,10 +23,84 @@
 
 Read these 2 files before anything else:
 
-1. `PROGRESS.md` (this repo) — current blocking gate and next action
+1. `PROGRESS.md` — current blocking gate and next action
 2. `discussions/discussion_memory.md` — full project narrative and method history
 
-Research objectives, physical constraints, and study area: `D:\112_PROJECT_002\CLAUDE.md`
+---
+
+## Research Objectives
+
+MLCW (Multi-Layer Compaction Well) monitoring wells in the Choushui River Alluvial Fan (CRAF) have stopped operating or reduced sampling from monthly to semi-annual/annual due to maintenance costs. The core problem is a broken observational record, not a model calibration exercise. InSAR and GWL data are continuously available and must substitute for the lost in-situ measurements.
+
+**Three research objectives:**
+
+1. **Obj 1 — Well-scale gap-fill and prediction (MLCW stations):** At each active MLCW station, use InSAR timeseries + GWL timeseries + borehole stratigraphy to (a) reconstruct historical compaction timeseries where MLCW data is missing or sparse, (b) predict next-month MLCW compaction, and (c) self-recalibrate when new sparse in-situ measurements become available.
+   - Success criterion: gap-fill RMSE < RMSE of static linear interpolation baseline; walk-forward skill score > 0 on held-out epochs.
+
+2. **Obj 2 — Multi-well extension:** Apply the Obj 1 method validated at TUKU pilot to all remaining MLCW stations (up to 37 stations).
+   - Success criterion: Obj 1 criteria met at ≥ 80% of stations.
+
+3. **Obj 3 — Regional grid prediction (8,577 points, no MLCW):** Predict subsurface compaction at 8,577 regional grid points with no MLCW instrumentation, using InSAR + regionally-interpolated GWL + open-source hydrofacies model (1 km × 1 km resolution).
+   - Success criterion: spatial transfer validated against withheld MLCW stations; hydrofacies-to-parameter pathway resolved against CRAF literature.
+
+**Two method families under exploration — Part 1 selected the GPS/InSAR carrier:**
+
+| Family | Description | Current state |
+|--------|-------------|---------------|
+| GPS/InSAR carrier | Surface displacement apportioned to layers; optional GWL term | **Part 1 primary** — wins all 6 TUKU layers |
+| GWL-driven (IHM-F) | Piezometric head changes drive per-layer compaction; InSAR is surface constraint | Diagnostic reference; cumulative NNLS for parameter characterization |
+
+All methods use walk-forward validation on held-out epochs only.
+
+---
+
+## Study Area
+
+The Choushui River Alluvial Fan (CRAF) encompasses approximately 1,800 km² in central-western Taiwan (Changhua County north, Yunlin County south). The basin exhibits a highly heterogeneous, eastward-coarsening structure:
+- **Proximal fan (east):** Gravel-dominated, unconfined, minimal compaction
+- **Middle fan:** Transitional, inter-bedded sand and mud
+- **Distal fan (west):** Clay-rich, confined aquifers, severe compaction susceptibility
+
+**Seven-layer hydrogeological framework (upper 300 m):**
+
+| Layer | Type | Depth range (m) | Mean thickness (m) |
+|-------|------|-----------------|-------------------|
+| F1 | Aquifer | 0–103 | 42 |
+| T1 | Aquitard | 35–129 | 14 |
+| F2 | Aquifer | 35–217 | 95 (primary agricultural/industrial extraction) |
+| T2 | Aquitard | 140–223 | 23 |
+| F3 | Aquifer | 140–275 | 86 |
+| T3 | Aquitard | 238–293 | 11 |
+| F4 | Aquifer | 238–313 | 24 |
+
+**F = aquifer, T = aquitard — Taiwan CGS convention. Do not invert.**
+
+**Three hydrogeological zones (critical for spatial transfer):**
+- **Proximal (M13, unconfined):** Rising water table loads deep layers → surface sinks. Pumping here does NOT drive subsidence. Elastic coefficient: 0.034 cm/m.
+- **Mid-fan (transitional):** Both mechanisms operating. Most MLCW stations are here.
+- **Distal (M23, confined):** Rising piezometric head reduces effective stress → surface rises. Dropping head → surface sinks. **Inelastic response ~40× larger than elastic (7.34 cm/m).** All MLCW stations sit in mid-fan or distal zones.
+
+**Key quantitative benchmarks:**
+- GWL decline (1976–2010): Ershui −40 m, Jiaxing −20 m, Beigang −22 m, Hefeng −18 m
+- Current decline rate (worst case, Yunlin zone): −0.54 m/yr
+- Total groundwater storage loss: 2.5 billion m³ (1976–2011)
+- Cumulative subsidence: Dacheng (Changhua) >210 cm; Yuanchang (Yunlin) >130 cm (1992–2009)
+- Current hotspot (Tuku–Yuanchang): 4.2–5.2 cm/yr (2011–2022 GNSS)
+- Historical peak: 12.2 cm/yr (2003 drought)
+
+---
+
+## Physical Constraints (Non-Negotiable)
+
+- **GWL sign:** Piezometric head in metres above MSL. Higher = rising head. **Never negate.**
+- **$S_{ske} \ge 0$, $S_{skv} \ge 0$, $\beta \ge 0$.** Negative solver output → reject the layer; do not accept.
+- **$S_{skv}$ / $S_{ske}$ ratio: 8–100× ($S_{skv}$ must substantially exceed $S_{ske}$).** Inverted ratio is a failure flag.
+- **Collinearity:** If detrended correlation between head change and InSAR exceeds ~0.7 for a layer, flag as collinear. Do not add algebraic complexity to "solve" it.
+- **No per-station model selection.** Single formula applied uniformly across all stations. Parameters vary; structure cannot.
+- **Walk-forward validation:** Expanding-window structure with yearly hold-outs. No random k-fold. Earliest hold-out year always reported separately.
+- **MLCW sign:** negative = compaction.
+- **$dh_{\text{raw}}$ = H(t) − H($t_{ref}$):** negative = head fell. **Never negate.**
+- **InSAR units:** metres in feather files. Multiply by 1000 for mm.
 
 ---
 
@@ -80,7 +154,6 @@ Full command catalog: `docs/run_commands.md`
 | Logical name | Windows (host) | Linux / Ubuntu VM |
 |---|---|---|
 | This repo | `D:\1000_SCRIPTS\004_Project003\20260427_InSAR_MLCW_v2` | `/mnt/hgfs/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v2` |
-| Docs root | `D:\112_PROJECT_002` | `/mnt/hgfs/112_PROJECT_002` |
 | Path resolver | `paths.py` (repo root) | `paths.py` (repo root) |
 | IHM-F fit (v3, active) | `scripts\10_ihmf\fit_ihm_f_v3.py` | `scripts/10_ihmf/fit_ihm_f_v3.py` |
 | Data root | `data\` | `data/` |
@@ -244,7 +317,6 @@ for warn in result.warnings:
 - This repo: `.gitignore` tracks `.py`, `.ipynb`, `.md` only
 - `tools/2S-TOOL-Python/`: independent repo (`github.com/david-ncu2019/twostoolspy`)
 - `appsigsolv/` (`../20260501_timeseries_signal_solver/`): separate repo
-- Companion repo (`D:\112_PROJECT_002`): own git — do not commit from here
 
 ---
 

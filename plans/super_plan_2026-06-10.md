@@ -1,6 +1,12 @@
 # Super Plan 2026-06-10 — Repair, Re-Validate, Extend (TUKU Pilot)
 
-> **Status:** ACTIVE. This plan SUPERSEDES `super_plan_2026-06-09.md` for all unfinished work.
+> **Status:** SUPERSEDED (2026-06-11) by `super_plan_2026-06-11.md` for all unfinished work.
+> **2026-06-11 completion audit:** M2/M3/M4 verified COMPLETE from persisted files (checkboxes
+> reconciled below). PARTIAL: 2.1.2, 2.2.4, 2.4.2 — migrated to the 06-11 plan (Tasks 6.1, 6.2).
+> M5 NOT STARTED — reworked GPS-only as 06-11 Milestones M8/M9. The audit also found that the
+> M2–M4 headline products are in-sample / selection-leaked — see `super_plan_2026-06-11.md` §0.
+>
+> This plan SUPERSEDED `super_plan_2026-06-09.md` for all unfinished work.
 > The 06-09 plan's strategy (two tracks: carrier for gap-fill, bilinear for physics) is KEPT.
 > Its executed results are NOT kept as trusted, because the 2026-06-10 zero-trust audit found
 > that the evaluation machinery itself was defective (see "Why this plan exists" below).
@@ -330,29 +336,29 @@ the wrong year of compaction.
 
 #### TASK 2.1 — Re-run the three-method bake-off → re-issue Decision Point 1
 
-- [ ] **2.1.1** Run the corrected bake-off (middle gap and end gap, all six layers, three
+- [x] **2.1.1** *(audit 2026-06-11: COMPLETE — `holdout_bakeoff.json`, 36 RMSE + skills)* Run the corrected bake-off (middle gap and end gap, all six layers, three
   methods). Persist all 36 RMSE values plus per-method skill against the baseline.
 - [ ] **2.1.2** Compare against the pre-repair table (F1 1.64/2.54, T1 1.06/2.24,
   F2 4.30/7.13, T2 2.03/3.91, F3 7.30/16.97, F4 1.64/3.80 mm carrier middle/end). The
   carrier arm should reproduce within numerical noise (< 0.1 mm) — if it does not, the
   loader changed more than the lag; stop and diagnose.
   The bilinear arm WILL change; record old vs new side by side.
-- [ ] **2.1.3** Re-issue Decision Point 1 from the persisted file: CARRIER-PRIMARY if the
+- [x] **2.1.3** *(audit 2026-06-11: COMPLETE — `metadata.verdict = CARRIER-PRIMARY`, `win_counts.carrier = 6`)* Re-issue Decision Point 1 from the persisted file: CARRIER-PRIMARY if the
   carrier wins or ties ≥ 4 of 6 layers on average across both designs; MIXED otherwise
   (adopt per-layer winners). Update the ledger with the new table and an OBSOLETE mark on
   the old one.
 
 #### TASK 2.2 — Re-run storage characterization → corrected physics table
 
-- [ ] **2.2.1** Run the corrected characterization with proper lags. Convert to specific
+- [x] **2.2.1** *(audit 2026-06-11: COMPLETE — `TUKU_storage_params.json`)* Run the corrected characterization with proper lags. Convert to specific
   storage with the two-thickness rule: $S_{ske} = S_{ke} / (\text{total span} \times 1000)$,
   $S_{skv} = S_{kv} / (\text{clay thickness} \times 1000)$ (units: $S_{ke}$, $S_{kv}$ in
   mm per m of head change; spans in m; result in m⁻¹).
-- [ ] **2.2.2** Gate on the **bulk ratio** $S_{kv}/S_{ke}$ (same-thickness, comparable to
+- [x] **2.2.2** *(audit 2026-06-11: COMPLETE — ratio_bulk + thickness_artifact flags persisted)* Gate on the **bulk ratio** $S_{kv}/S_{ke}$ (same-thickness, comparable to
   the 8–100× literature contrast; relaxed bound [3, 50] warns, outside [1, 100] fails).
   Report the specific-storage ratio only with the mixed-thickness caveat and a
   thickness-artifact flag where span/clay > 4. Never fail a layer on the mixed ratio alone.
-- [ ] **2.2.3** Compare to Hung et al. (2021) priors (middle fan: $S_{ske} = 1.15 \times
+- [x] **2.2.3** *(audit 2026-06-11: COMPLETE — F2 S_skv 1.3422e-3 vs prior 1.33e-3, claim survives)* Compare to Hung et al. (2021) priors (middle fan: $S_{ske} = 1.15 \times
   10^{-4}$, $S_{skv} = 1.33 \times 10^{-3}$ m⁻¹). Record whether the pre-repair "F2
   matches literature" claim survives the lag correction. If it does not, say so plainly in
   the ledger — the claim was made with τ effectively 0 and was never entitled to confidence.
@@ -367,23 +373,23 @@ the wrong year of compaction.
 
 #### TASK 2.3 — Re-run the GWL-term evaluation → corrected adoption map
 
-- [ ] **2.3.1** With correct lags, re-evaluate the 3-parameter model
+- [x] **2.3.1** *(audit 2026-06-11: COMPLETE — `carrier_gwl_eval.json`, dated 2026-06-10)* With correct lags, re-evaluate the 3-parameter model
   $b_k = a_k d_{\text{GPS}} + d_k u_k(t-\tau_k) + c_k$ ($a_k, d_k \ge 0$) against the pure
   carrier on both holdout designs. Adoption rule unchanged: adopt the GWL term only where
   average held-out RMSE improves by more than 5%.
-- [ ] **2.3.2** Expected: T1 (τ=0) keeps its −14.3% adoption; F2/T2/F3 verdicts are OPEN
+- [x] **2.3.2** *(audit 2026-06-11: COMPLETE — `adopt_gwl` = F1/T1/F2/T2 true, F3/F4 false)* Expected: T1 (τ=0) keeps its −14.3% adoption; F2/T2/F3 verdicts are OPEN
   (previously tested at wrong lag). Record the new per-layer adoption map in the ledger.
 
 #### TASK 2.4 — Re-run the tail holdout → re-issue Decision Point 2
 
-- [ ] **2.4.1** Run the 6-month (36-epoch) tail holdout with the corrected programs and the
+- [x] **2.4.1** *(audit 2026-06-11: COMPLETE — `tail_evaluation` 6 layers × 5 fields, gwl_layers = M2.3 map)* Run the 6-month (36-epoch) tail holdout with the corrected programs and the
   M2.3 adoption map. Persist per-layer model RMSE, trend-baseline RMSE, and skill.
 - [ ] **2.4.2** Re-issue Decision Point 2 from the persisted file: PASS if skill > 0 on
   ≥ 3 layers; PARTIAL 1–2; FAIL 0. Replace the unpersisted "T1 +0.41 / T2 +0.43" claims.
 
 #### TASK 2.5 — Ledger reconciliation
 
-- [ ] **2.5.1** Update the findings document and the progress ledger so that every number
+- [x] **2.5.1** *(audit 2026-06-11: COMPLETE — PART1_FINDINGS OBSOLETE marks L77/88/150/180, D5/D6 resolved L202–204)* Update the findings document and the progress ledger so that every number
   quotes its source file and field. Delete or OBSOLETE-mark every number that traces to
   nothing. The F3 identifiability contradiction (D5/D6) must be resolved in writing.
 
@@ -439,33 +445,33 @@ and one carrier-source variant:
   displacement (ascending–descending decomposed, NOT line-of-sight) and its native unit
   is metres — multiply by 1000 for mm.
 
-- [ ] **3.1.1** Before any fitting, compute the collinearity guard for every candidate:
+- [x] **3.1.1** *(audit 2026-06-11: COMPLETE — registry `vif_guard`, max 1.336, none rejected)* Before any fitting, compute the collinearity guard for every candidate:
   variance inflation factor between each pair of regressors after removing each one's
   linear trend. If VIF > 5 for a pair, the candidate is fit but flagged; if VIF > 10, the
   candidate is rejected for that layer without fitting (the data cannot separate the
   terms; adding them would shuffle variance arbitrarily). Note: at TUKU the detrended
   head-to-GPS correlation is known to be high for the HONGLUN well (F1/T1, corr ≈ 0.84) —
   expect H1 to be flagged there.
-- [ ] **3.1.2** Fit all admissible candidates per layer on calibration epochs with the
+- [x] **3.1.2** *(audit 2026-06-11: COMPLETE — 6 layers × 5 candidates `coef_full` persisted)* Fit all admissible candidates per layer on calibration epochs with the
   bounded least squares described above.
 
 #### TASK 3.2 — Selection strictly by held-out skill
 
-- [ ] **3.2.1** Evaluate every fitted candidate on all three holdout designs (middle, end,
+- [x] **3.2.1** *(audit 2026-06-11: COMPLETE — per-design refits, `coef_by_design` distinct. CAVEAT: selection later leaked, see 06-11 plan §0 L2)* Evaluate every fitted candidate on all three holdout designs (middle, end,
   tail), refitting on the corresponding training epochs only — the candidate must never
   see the held-out compaction. The carrier/GWL/InSAR/harmonic regressors remain available
   during gaps (that is their virtue).
-- [ ] **3.2.2** Adoption rule per layer: adopt the candidate with the lowest mean held-out
+- [x] **3.2.2** *(audit 2026-06-11: COMPLETE — `adoption_map.decisions` with 5%/10% rule fields)* Adoption rule per layer: adopt the candidate with the lowest mean held-out
   RMSE across designs IF it beats H0 by more than 5% AND it never degrades any single
   design by more than 10%. Ties go to the simpler model (fewer parameters).
-- [ ] **3.2.3** Specific targets the hybrid must hit (else record FAIL honestly):
+- [x] **3.2.3** *(audit 2026-06-11: COMPLETE — F2 PASS 3.5939/0.9834; F3 FAIL 15.66 / −30.0, recorded honestly)* Specific targets the hybrid must hit (else record FAIL honestly):
   - F2: middle-gap RMSE ≤ 4.0 mm (from 4.30) and detrended correlation between observed
     and predicted residuals ≥ 0.4 (from +0.16) — the seasonal cycle must visibly appear
     in the prediction.
   - F3: end-gap RMSE ≤ 12 mm (from 16.97) and end-of-record error magnitude ≤ 10 mm
     (from −19.2 mm) — the acceleration must be at least half-captured.
   - Tail (DP2 re-test with adopted hybrids): skill > 0 on ≥ 3 of 6 layers.
-- [ ] **3.2.4** Persist the per-layer adoption map (model id, coefficients, τ, held-out
+- [x] **3.2.4** *(audit 2026-06-11: COMPLETE — `hybrid_model_registry.json`; FROZEN-EVIDENCE per 06-11 plan M6.4)* Persist the per-layer adoption map (model id, coefficients, τ, held-out
   RMSE per design) as the single authoritative model registry for TUKU.
 
 > **GATE M3 (Decision Point H):**
@@ -486,28 +492,28 @@ strongly autocorrelated (consolidation has memory), so naive ±2σ bands are too
 
 #### TASK 4.1 — Prediction intervals by block bootstrap
 
-- [ ] **4.1.1** For each layer's adopted model: compute calibration residuals
+- [x] **4.1.1** *(audit 2026-06-11: COMPLETE — m4 metadata: 1000 paths, block 73/146, seed 20260610)* For each layer's adopted model: compute calibration residuals
   $r(t) = b_{\text{obs}} - b_{\text{pred}}$; resample them in contiguous blocks of 73
   epochs (≈ 1 year, preserving seasonal and consolidation autocorrelation) with
   replacement to build 1,000 alternative residual paths; add each path to the point
   prediction over the held-out epochs; take the 5th and 95th percentiles per epoch as the
   90% band.
-- [ ] **4.1.2** Coverage check: on each holdout design, the fraction of held-out observed
+- [x] **4.1.2** *(audit 2026-06-11: COMPLETE — coverage persisted; only 5/18 cells ≥ 0.85, 13 honestly labeled "calibrated to X%")* Coverage check: on each holdout design, the fraction of held-out observed
   values inside the 90% band must be ≥ 0.85. If coverage is below 0.85, widen via block
   length 146 (2 years) and re-check; if still failing, report the band as "calibrated to
   X%" — never silently re-label.
-- [ ] **4.1.3** Persist per-layer band widths (mean half-width in mm) alongside the RMSE
+- [x] **4.1.3** *(audit 2026-06-11: COMPLETE — half-widths persisted, max 8.93 mm, no red flag)* Persist per-layer band widths (mean half-width in mm) alongside the RMSE
   table. A band half-width that exceeds the layer's observed range is a red flag — flag it.
 
 #### TASK 4.2 — The apex-goal verdict table
 
-- [ ] **4.2.1** Build and persist the final table: layer × design × {MAE, RMSE, threshold,
+- [x] **4.2.1** *(audit 2026-06-11: COMPLETE — `m4_apex_verdict_table.csv`, 18 rows)* Build and persist the final table: layer × design × {MAE, RMSE, threshold,
   PASS/FAIL}, using held-out epochs only, from the adopted M3 models. This single table IS
   the Level-1 verdict.
-- [ ] **4.2.2** Apply the Level-1 thresholds (thin: MAE < 5, RMSE < 10; thick: MAE < 10,
+- [x] **4.2.2** *(audit 2026-06-11: COMPLETE — 5/6 pass; F3 fails MAE end+tail, not waiver-eligible)* Apply the Level-1 thresholds (thin: MAE < 5, RMSE < 10; thick: MAE < 10,
   RMSE < 20). Record the verdict per layer and overall. Expected risk concentrations:
   F3 end-gap and the tail design.
-- [ ] **4.2.3** Write the Part-1-v2 findings document: physical story first (what each
+- [x] **4.2.3** *(audit 2026-06-11: COMPLETE — `PART1_v2_FINDINGS_20260610.md`, 5 sampled numbers all trace)* Write the Part-1-v2 findings document: physical story first (what each
   layer did and how well we can re-tell it), then the verdict table, then the corrected
   physics table (M2.2), then limitations. Every number cites file + field.
 

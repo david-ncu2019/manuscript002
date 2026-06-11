@@ -3,10 +3,10 @@
 > **This is the single authoritative PROGRESS.md** (merged 2026-06-05; content from docs repo 2026-06-04).
 > All future updates go here only.
 
-**Date:** 2026-06-10
-**Status:** ⏸️ PART 1 COMPLETE — AWAITING VALIDATION. Part 2 (multi-well extension) and Part 3-5 are BLOCKED until Part 1 results are manually validated. Do NOT execute Part 2 or later tasks.
+**Date:** 2026-06-11
+**Status:** 🔁 SCOPE PIVOTED — the 2026-06-11 independent audit found the Part-1 headline reconstruction is in-sample (no date split in Script 14 calibration), the M3 hybrid selection leaked (same holdouts for picking and scoring), no artifact rehearses the monthly→annual sampling decay that motivates the project, and the predictions carry only 26–73% of the observed detrended variability (F3 detrended correlation −0.09). M1–M4 artifacts are verified COMPLETE on disk and kept as evidence; the hybrid registry is FROZEN-EVIDENCE.
 
-**Next:** User validates Part 1 results. After validation: Part 2 (multi-well extension to 37 stations).
+**Next:** Execute `plans/super_plan_2026-06-11.md` — Milestones M6 (ledger close-out) → M7 (simple GPS-ratio test) → M8 (single-well sequential predict→reveal→adjust rehearsal at TUKU, six visit cadences, conformal uncertainty, confirmatory 2024) → M9 (GPS-only deployment across all mapped stations via `m5_deployment/station_file_map.json`; NO InSAR). Audit evidence: `tau_demo_TUKU/results/audit_20260611_leakage_amplitude.json`. Feasibility verdict and assumptions A1–A8: 06-11 plan §1–§2.
 
 ---
 
