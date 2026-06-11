@@ -1075,20 +1075,22 @@ def main():
             mae_table[L][s_name]  = m["MAE_mm"]  if m["MAE_mm"]  is not None else float("nan")
 
     # Minimum cadence meeting L1 per layer.
-    # Traverse from densest (monthly) to sparsest (none); keep overwriting 'best'
-    # so the final value is the SPARSEST schedule that still meets both thresholds.
+    # Ladder ordered sparsest → densest; 'blackout' and 'actual' excluded because
+    # neither is a recommended regular cadence (blackout = special scenario,
+    # actual = irregular baseline).  Stop at the FIRST (sparsest) schedule that
+    # passes both thresholds.
     min_cadence_L1: dict[str, Optional[str]] = {}
-    # Order: dense → sparse; 'none' is last (no assimilation — shows no-visit floor)
-    cadence_priority = ["monthly", "quarterly", "semiannual", "annual", "blackout", "actual", "none"]
+    cadence_ladder = ["none", "annual", "semiannual", "quarterly", "monthly"]
     for L in LAYERS:
-        best = None
-        for s_name in cadence_priority:
+        found = None
+        for s_name in cadence_ladder:          # sparsest first
             mae_v  = mae_table[L].get(s_name, float("nan"))
             rmse_v = rmse_table[L].get(s_name, float("nan"))
             if np.isfinite(mae_v) and np.isfinite(rmse_v):
                 if mae_v <= MAE_THRESH[L] and rmse_v <= RMSE_THRESH[L]:
-                    best = s_name   # overwrite; last passing = sparsest
-        min_cadence_L1[L] = best
+                    found = s_name
+                    break                      # first passing = sparsest → done
+        min_cadence_L1[L] = found if found is not None else "denser_than_monthly"
 
     # Write CSV: rows=layers, cols=schedules
     rows_csv = []
