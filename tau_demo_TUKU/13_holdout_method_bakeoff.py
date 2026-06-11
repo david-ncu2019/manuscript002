@@ -20,6 +20,7 @@ Usage:
 
 from __future__ import annotations
 
+import datetime
 import json
 import sys
 import warnings
@@ -567,10 +568,10 @@ def main():
     output = {
         "metadata": {
             "description": "Three-method held-out bake-off for gap-fill method selection",
-            "decision_point": "Decision Point 1 — super_plan_2026-06-09.md Phase 0.1",
+            "decision_point": "Decision Point 1 — super_plan_2026-06-11.md Phase 0.1",
             "verdict": verdict,
             "station": "TUKU",
-            "date": "2026-06-09",
+            "date": datetime.date.today().isoformat(),
         },
         "holdout_splits": splits,
         "per_layer": bakeoff,
