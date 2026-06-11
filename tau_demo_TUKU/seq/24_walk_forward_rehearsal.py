@@ -1066,8 +1066,11 @@ def main():
             rmse_table[L][s_name] = m["RMSE_mm"] if m["RMSE_mm"] is not None else float("nan")
             mae_table[L][s_name]  = m["MAE_mm"]  if m["MAE_mm"]  is not None else float("nan")
 
-    # Minimum cadence meeting L1 per layer
+    # Minimum cadence meeting L1 per layer.
+    # Traverse from densest (monthly) to sparsest (none); keep overwriting 'best'
+    # so the final value is the SPARSEST schedule that still meets both thresholds.
     min_cadence_L1: dict[str, Optional[str]] = {}
+    # Order: dense → sparse; 'none' is last (no assimilation — shows no-visit floor)
     cadence_priority = ["monthly", "quarterly", "semiannual", "annual", "blackout", "actual", "none"]
     for L in LAYERS:
         best = None
@@ -1076,8 +1079,7 @@ def main():
             rmse_v = rmse_table[L].get(s_name, float("nan"))
             if np.isfinite(mae_v) and np.isfinite(rmse_v):
                 if mae_v <= MAE_THRESH[L] and rmse_v <= RMSE_THRESH[L]:
-                    best = s_name
-                    break  # keep the least-frequent (by traversal order, first = monthly)
+                    best = s_name   # overwrite; last passing = sparsest
         min_cadence_L1[L] = best
 
     # Write CSV: rows=layers, cols=schedules
@@ -1167,9 +1169,9 @@ def main():
     print(f"{'─'*80}")
 
     print(f"\n{'='*80}")
-    print("MINIMUM CADENCE MEETING LEVEL-1 THRESHOLDS (MAE<thresh, RMSE<thresh)")
+    print("SPARSEST CADENCE MEETING LEVEL-1 THRESHOLDS (MAE<thresh, RMSE<thresh)")
     for L in LAYERS:
-        print(f"  {L}: {min_cadence_L1[L] or 'NONE meets L1'} "
+        print(f"  {L}: {min_cadence_L1[L] or 'NO cadence meets L1'} "
               f"(MAE<{MAE_THRESH[L]}, RMSE<{RMSE_THRESH[L]} mm)")
 
     print(f"\n{'='*80}")
