@@ -329,3 +329,66 @@ The priority candidates for GWL augmentation are the thick-layer cells with evid
 - **Stations with $a_k = 0$ across all layers** (ZHENNAN): the carrier contributes nothing and GWL is the only viable driver.
 
 Stations where the carrier already performs well (T1/T2 layers universally, F1 at most stations, and thin F4 where MLCW signal is small) do not require GWL augmentation as the first priority.
+
+---
+
+## 10. Red Team Corrections (2026-06-12)
+
+An independent Red Team re-audit (`audit_red_team_v2/RED_TEAM_VERDICT_20260611.md`) reproduced every blind-era number in this document to the third decimal and found **no fabrication and no temporal leakage** (finding F-7). It nonetheless invalidated four headline framings. All four are corrected here from re-runnable artifacts in `tau_demo_TUKU/results/seq/red_team_fixes/` (scripts 26–30). Where this section conflicts with §1–§9 above, **this section is authoritative**; the earlier text is superseded.
+
+### 10.1 RETRACTION — the annual "skill" was a one-time datum fix, not dynamics (F-1)
+
+Earlier text reported annual-cadence skill of ≈ 0.79 (F2) and ≈ 0.82 (F3) against a no-visit ("none") baseline. That baseline is contaminated: the frozen model entered the blind era already off-datum by −19.3 mm (F2) and −44.3 mm (F3) — an offset accumulated during the unanchored 2015–2018 seed walk, **before** the blind era began. The "none" run is dominated by that fixed entry offset, so beating it measures only the one-time datum correction.
+
+A fair **anchor-once** baseline (one reveal at deployment entry, then no further visits) was built and scored on the identical post-entry genuine-visit set (script 27, `honest_skill_table.json`). Honest skill = 1 − RMSE_schedule / RMSE_anchor_once:
+
+| Layer | anchor-once RMSE (mm) | honest skill, annual | honest skill, monthly |
+|-------|----------------------|----------------------|-----------------------|
+| F1 | 3.13 | +0.227 | +0.437 |
+| T1 | 1.84 | +0.010 | +0.330 |
+| F2 | 3.83 | **−0.018** | +0.231 |
+| T2 | 2.35 | **−0.092** | +0.264 |
+| F3 | 7.20 | +0.188 | +0.558 |
+| F4 | 1.57 | +0.047 | **−0.203** |
+
+**The corrected statement:** at annual cadence, F2 and T2 add **no** dynamic skill beyond the one-time datum fix (skill ≤ 0); F3 adds a modest +0.19; F4 is actually *hurt* by monthly visits (−0.20). Only **monthly** cadence buys meaningful dynamic skill (F3 +0.56, F2 +0.23). The anchor-once RMSE values reproduce the Red Team's independent probe (F3 7.1 mm, F2 3.8 mm) to within 0.1 mm.
+
+### 10.2 F3 phase error is structural, not a τ-cap artifact (F-4)
+
+Lifting F3's consolidation-lag cap from 120 to 163 epochs (script 28, `f3_uncapped_walkforward_metrics.json`) cut dense-era sum-of-squared error by 62% and activated the elastic term ($S_{ke}$: 0 → 0.51) — the longer lag is physically real. But the blind-era detrended Pearson $r$ at annual cadence rose only 0.41 → 0.44 (full-set 0.22 → 0.28), still below the 0.5 acceptance threshold, and the cross-correlation lag between predicted and observed seasonal motion stayed at ≈ −5 epochs (≈ 25 days) whether capped or uncapped. **`f3_restored = False`.** The reason is structural: F3's seasonal motion is sourced from the *un-lagged* surface carrier $a \cdot d(t)$, so no value of $\tau$ (which lags only the head and virgin terms) can re-phase a seasonal the carrier does not carry. At monthly cadence F3 detrended $r$ = 0.862 — the dynamics are recoverable only when frequent in-situ reveals supply the phase.
+
+### 10.3 RETRACTION — coverage is not "undetermined"; it FAILS at semiannual (F-2)
+
+Earlier text declared conformal coverage "UNDETERMINED" by evaluating only the 2024 toy sample (2–6 points). That was an evasion: the blind era contains 27 band-defined scoring points per layer at semiannual cadence (≥ the project's own 20-sample minimum) and 60 at monthly (script 29, `coverage_reckoning.json`). The honest classification (coverage ≥ 0.85 on ≥ 5/6 layers where n ≥ 20):
+
+| Cadence | n band-defined | Layers ≥ 0.85 | Verdict |
+|---------|----------------|---------------|---------|
+| annual | 14 | — | INSUFFICIENT_N (n < 20) |
+| **semiannual** | 27 | **3 / 6** | **FAIL** |
+| monthly | 60 | 5 / 6 | PASS (F1 lone fail, 0.783) |
+
+Semiannual per-layer coverage (reproduces the Red Team's `independent_metrics.csv` to ±0.001): F1 0.667, T1 0.815, F2 0.852, T2 0.852, F3 0.778, F4 0.889. **Official verdict: split-conformal as configured is a *failed uncertainty quantifier* at semiannual cadence for this record.** It is reliable only at monthly cadence.
+
+### 10.4 Ground-truth provenance and the 2024 confirmatory (F-6)
+
+The 264-visit "genuine" file reproduces exactly (≤ 0.0005 mm) from the raw per-ring extensometer record across all visits (script 26, `truth_provenance_summary.json`) — internal consistency is confirmed. **But the ring record itself is 100% non-integer in 2024+** (15.5% non-integer pre-2019, 41.7% in 2019–2023, 100% in 2024+), so 2024 ground truth does not trace to field-instrument readouts and is **not field-verifiable**. The Red Team also flagged that no 2024 prediction timeseries had been persisted, making the confirmatory grades unreproducible. Both are now fixed: the full 2024 prediction timeseries are persisted (script 29, `confirmatory_2024_timeseries_*.csv`), but every 2024 grade is labeled **PROVISIONAL** and must not be cited as blind-generalization evidence.
+
+### 10.5 Feasibility verdict — sub-annual dynamics are underdetermined at sparse cadence
+
+The F3 phase result (§10.2) prompted a formal feasibility proof (script 30, `feasibility_proof.json`; full document `discussions/FEASIBILITY_VERDICT_FINAL_20260611.md`). Two incontrovertible mechanisms:
+
+- **Amplitude-bound (PROVEN):** F2's seasonal amplitude (4.71 mm) exceeds the entire surface seasonal amplitude (3.83 mm). Since the surface is the column sum of all layers, the layers must partially cancel — the surface-to-layer inversion is non-unique by inspection.
+- **Carrier rank-1 (PROVEN):** every layer's carrier contribution is $a_k \cdot d(t)$, all proportional to the single surface signal; the carrier contribution matrix has SVD rank exactly 1. The carrier supplies one shared degree of freedom for six unknowns; the per-layer heads (mean pairwise $r$ = 0.863, F2/F3 $r$ = 0.987 in the seasonal band) cannot supply the missing five at sparse cadence.
+
+**Verdict:** reconstructing sub-annual per-layer compaction *dynamics* from total surface deformation + 1D head alone is mathematically underdetermined and empirically unrecoverable **at annual/semiannual cadence**. This is cadence-specific, not absolute — monthly in-situ cadence recovers F3 ($r$ = 0.862), proving the limit is sparse observation, not the framework.
+
+### 10.6 DP-SEQ re-grade (harsher basis)
+
+- **ACCURACY: PASS but weak-bar.** Most layers meet Level-1 thresholds at annual cadence largely because the periodic reveals fix the datum (§10.1); with zero visits F1/T1/T2 already pass, so the threshold, not the dynamics, carries the result for those layers.
+- **SKILL: overstated → corrected.** Honest annual skill is ≤ 0 for F2/T2 and +0.19 for F3 (§10.1), not 0.79/0.82.
+- **COVERAGE: FAIL at semiannual**, PASS only at monthly, INSUFFICIENT_N at annual (§10.3).
+- **DYNAMICS: underdetermined at sparse cadence** (§10.2, §10.5).
+
+**Net deployable claim:** secular trend apportionment (< 1% trend error) + datum maintenance by sparse visits + partial F2 seasonal dynamics. **Not** claimed: sub-annual multilayer dynamics reconstruction at sparse cadence. The cadence-degradation curve remains the budget deliverable, now read honestly — annual visits buy datum control, monthly visits buy deep-layer dynamics.
+
+Source scripts: `tau_demo_TUKU/seq/26_truth_provenance_audit.py` (F-6), `27_anchor_once_baseline.py` (F-1), `28_f3_tau_uncapped.py` (F-4), `29_coverage_reckoning.py` (F-2), `30_feasibility_proof.py` (feasibility). All evidence in `tau_demo_TUKU/results/seq/red_team_fixes/`.
