@@ -1,0 +1,184 @@
+{
+  "assigned_well": "09050331",
+  "assigned_peak_abs_r_seasonal": 0.09917523806346831,
+  "assigned_rank": 237,
+  "n_wells_scanned": 242,
+  "calibration_reconciliation": {
+    "detrended_seasonal_abs_r": 0.09917523806346831,
+    "detrended_lag_days": 800,
+    "trend_inclusive_abs_r": 0.39397852395841,
+    "trend_inclusive_lag_days": 830,
+    "v4_xcorr_max": 0.24,
+    "note": "v4's 0.24 is trend-inclusive; the detrended SEASONAL correlation is far weaker \u2014 F3's seasonal carries almost no head signal at any lag."
+  },
+  "best_overall": {
+    "well": "07050141",
+    "feather": "QUANXING_gwl_timeseries.feather",
+    "peak_abs_r": 0.8279943147584138,
+    "peak_lag_days": 60.0,
+    "dist_km": 55.04199413440434
+  },
+  "best_local_15km": {
+    "well": "09080311",
+    "peak_abs_r": 0.6495087272321134,
+    "peak_lag_days": 810.0,
+    "dist_km": 4.384549246526584,
+    "delta_vs_assigned": 0.5503334891686451
+  },
+  "delta_best_minus_assigned": 0.7288190766949455,
+  "faulty_driver_threshold": 0.2,
+  "FAULTY_DRIVER_FLAG": true,
+  "common_mode_caveat": "top wells are distant (>20 km); their high |r| reflects shared regional monsoon seasonality, not physical F3 forcing. F3's detrended seasonal is regionally generic and weak.",
+  "top15": [
+    {
+      "feather": "QUANXING_gwl_timeseries.feather",
+      "wellcode": "07050141",
+      "peak_abs_r": 0.8279943147584138,
+      "peak_r": -0.8279943147584138,
+      "peak_lag_days": 60,
+      "n": 252,
+      "dist_km": 55.04199413440434,
+      "local_15km": false
+    },
+    {
+      "feather": "QUANXING_gwl_timeseries.feather",
+      "wellcode": "07050142",
+      "peak_abs_r": 0.8271076863465643,
+      "peak_r": -0.8271076863465643,
+      "peak_lag_days": 50,
+      "n": 264,
+      "dist_km": 55.04199413440434,
+      "local_15km": false
+    },
+    {
+      "feather": "GUOSHENG_gwl_timeseries.feather",
+      "wellcode": "07010131",
+      "peak_abs_r": 0.8189689655637108,
+      "peak_r": 0.8189689655637108,
+      "peak_lag_days": 0,
+      "n": 252,
+      "dist_km": 48.395485959642016,
+      "local_15km": false
+    },
+    {
+      "feather": "HAOXIU_gwl_timeseries.feather",
+      "wellcode": "07140141",
+      "peak_abs_r": 0.783495043882453,
+      "peak_r": -0.783495043882453,
+      "peak_lag_days": 120,
+      "n": 264,
+      "dist_km": 36.004103913078865,
+      "local_15km": false
+    },
+    {
+      "feather": "XIGANG_gwl_timeseries.feather",
+      "wellcode": "07240222",
+      "peak_abs_r": 0.7498176432420909,
+      "peak_r": -0.7498176432420909,
+      "peak_lag_days": 0,
+      "n": 250,
+      "dist_km": 21.69479443019025,
+      "local_15km": false
+    },
+    {
+      "feather": "QUANXING_gwl_timeseries.feather",
+      "wellcode": "07050132",
+      "peak_abs_r": 0.7429097476539811,
+      "peak_r": -0.7429097476539811,
+      "peak_lag_days": 110,
+      "n": 264,
+      "dist_km": 55.04199413440434,
+      "local_15km": false
+    },
+    {
+      "feather": "QUANXING_gwl_timeseries.feather",
+      "wellcode": "07050131",
+      "peak_abs_r": 0.7410959419343003,
+      "peak_r": -0.7410959419343003,
+      "peak_lag_days": 100,
+      "n": 253,
+      "dist_km": 55.04199413440434,
+      "local_15km": false
+    },
+    {
+      "feather": "XIGANG_gwl_timeseries.feather",
+      "wellcode": "07240211",
+      "peak_abs_r": 0.7400841211258767,
+      "peak_r": -0.7400841211258767,
+      "peak_lag_days": 0,
+      "n": 250,
+      "dist_km": 21.69479443019025,
+      "local_15km": false
+    },
+    {
+      "feather": "CHUKOU_gwl_timeseries.feather",
+      "wellcode": "09100211",
+      "peak_abs_r": 0.6851468157682455,
+      "peak_r": 0.6851468157682455,
+      "peak_lag_days": 30,
+      "n": 252,
+      "dist_km": 27.36058068250325,
+      "local_15km": false
+    },
+    {
+      "feather": "HEMEI_gwl_timeseries.feather",
+      "wellcode": "07030141",
+      "peak_abs_r": 0.6772137691376923,
+      "peak_r": -0.6772137691376923,
+      "peak_lag_days": 320,
+      "n": 74,
+      "dist_km": 47.297043230994895,
+      "local_15km": false
+    },
+    {
+      "feather": "KANJIAO_gwl_timeseries.feather",
+      "wellcode": "09070221",
+      "peak_abs_r": 0.6682096384530729,
+      "peak_r": -0.6682096384530729,
+      "peak_lag_days": 0,
+      "n": 264,
+      "dist_km": 17.26772707213029,
+      "local_15km": false
+    },
+    {
+      "feather": "WENCHANG_gwl_timeseries.feather",
+      "wellcode": "07060141",
+      "peak_abs_r": 0.6672896532566475,
+      "peak_r": -0.6672896532566475,
+      "peak_lag_days": 120,
+      "n": 264,
+      "dist_km": 35.5879757733282,
+      "local_15km": false
+    },
+    {
+      "feather": "PINGDING_gwl_timeseries.feather",
+      "wellcode": "09100311",
+      "peak_abs_r": 0.6667610803212302,
+      "peak_r": -0.6667610803212302,
+      "peak_lag_days": 310,
+      "n": 236,
+      "dist_km": 26.653326884061393,
+      "local_15km": false
+    },
+    {
+      "feather": "KANJIAO_gwl_timeseries.feather",
+      "wellcode": "09070211",
+      "peak_abs_r": 0.6603865038640021,
+      "peak_r": -0.6603865038640021,
+      "peak_lag_days": 0,
+      "n": 264,
+      "dist_km": 17.26772707213029,
+      "local_15km": false
+    },
+    {
+      "feather": "HEMEI_gwl_timeseries.feather",
+      "wellcode": "07030131",
+      "peak_abs_r": 0.6548218573454968,
+      "peak_r": -0.6548218573454968,
+      "peak_lag_days": 350,
+      "n": 73,
+      "dist_km": 47.297043230994895,
+      "local_15km": false
+    }
+  ]
+}

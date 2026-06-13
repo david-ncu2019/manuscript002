@@ -1,0 +1,45 @@
+{
+  "roughness": [
+    {
+      "series": "F3_genuine",
+      "n": 264,
+      "std_d2": 4.192595860078991,
+      "ac1_d1": 0.15717917455449854,
+      "frac_zero_d2": 0.061068702290076333,
+      "frac_noninteger": 0.2803030303030303
+    },
+    {
+      "series": "F2_genuine",
+      "n": 264,
+      "std_d2": 4.8964236879867595,
+      "ac1_d1": 0.07019430217524548,
+      "frac_zero_d2": 0.05725190839694656,
+      "frac_noninteger": 0.2840909090909091
+    },
+    {
+      "series": "F3_dense_fill",
+      "n": 1572,
+      "std_d2": 0.3871043576313327,
+      "ac1_d1": 0.3834052205115292,
+      "frac_zero_d2": 0.0,
+      "frac_noninteger": 1.0
+    }
+  ],
+  "era_noninteger_fraction": {
+    "pre_2019": {
+      "n": 182,
+      "frac_noninteger": 0.14835164835164835
+    },
+    "2019_2023": {
+      "n": 60,
+      "frac_noninteger": 0.4166666666666667
+    },
+    "2024_plus": {
+      "n": 22,
+      "frac_noninteger": 1.0
+    }
+  },
+  "poison_ratio_vs_F2_pole": 0.8439170579094267,
+  "MIXED_SOURCE_TRUTH": true,
+  "reading": "genuine field measurements should be integer-mm (1mm instrument precision, Phase 0). 2024+ rows are 100% non-integer -> not field-verifiable; the truth file mixes genuine early visits with smoothed late values."
+}

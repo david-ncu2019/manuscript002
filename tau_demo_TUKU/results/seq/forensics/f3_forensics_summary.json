@@ -1,0 +1,22 @@
+{
+  "phase": 2,
+  "date": "2026-06-12",
+  "leakage": "diagnostic-only; no in-sample scoring",
+  "driver_purity": {
+    "faulty_driver_flag": true,
+    "assigned_peak_abs_r": 0.09917523806346831,
+    "best_well": "07050141",
+    "best_peak_abs_r": 0.8279943147584138,
+    "delta": 0.7288190766949455
+  },
+  "interpolation": {
+    "mixed_source_truth": true,
+    "frac_noninteger_2024": 1.0,
+    "poison_ratio": 0.8439170579094267
+  },
+  "geomechanical": {
+    "depth_mismatch_flag": true,
+    "screen_to_clay_gap_m": 79.0,
+    "screen_clay_overlap_m": 0.0
+  }
+}

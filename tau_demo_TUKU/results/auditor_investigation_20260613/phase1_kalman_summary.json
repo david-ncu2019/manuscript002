@@ -1,0 +1,74 @@
+{
+  "phase": 1,
+  "title": "Kalman filter for total-column compaction",
+  "inputs": {
+    "mlcw_total_source": "data/mlcw/group_byLayer_orig/TUKU_orig_grouped.csv (sum F1,T1,F2,T2,F3,F4)",
+    "gps_carrier_source": "tau_demo_TUKU/results/reconstruction/TUKU_F1_reconstruction.csv (d_surface_mm)",
+    "a_k_source": "TUKU_carrier_reconstruction_summary.json",
+    "n_grid_epochs": 1081,
+    "n_mlcw_visits_in_window": 181,
+    "grid_date_min": "2010-01-01",
+    "grid_date_max": "2025-01-01"
+  },
+  "noise_model": {
+    "q_step_mm2_per_step_data_driven": 4.97344,
+    "r_meas_mm2": 1.0,
+    "q_derivation": "Var(MLCW_total_incr - GPS_incr over genuine visit gaps) / mean_gap_steps",
+    "residual_std_mm": 5.492
+  },
+  "a_k_frozen": {
+    "F1": 0.024929,
+    "T1": 0.017825,
+    "F2": 0.230272,
+    "T2": 0.026579,
+    "F3": 0.305583,
+    "F4": 0.031833
+  },
+  "sum_a_k": 0.637022,
+  "gain_at_annual_cadence": {
+    "n_assimilations": 15,
+    "mean_gain": 0.997,
+    "median_gain": 0.9973,
+    "min_gain": 0.9921,
+    "max_gain": 0.9975,
+    "frac_gain_gt_0p95": 1.0,
+    "frac_gain_gt_0p99": 1.0
+  },
+  "gain_at_monthly_cadence": {
+    "n_assimilations": 135,
+    "mean_gain": 0.9746,
+    "median_gain": 0.9728,
+    "min_gain": 0.9686,
+    "max_gain": 0.9921,
+    "frac_gain_gt_0p95": 1.0,
+    "frac_gain_gt_0p99": 0.0074
+  },
+  "gain_at_full_cadence": {
+    "n_assimilations": 181,
+    "mean_gain": 0.9668,
+    "median_gain": 0.9686,
+    "min_gain": 0.9161,
+    "max_gain": 0.9921,
+    "frac_gain_gt_0p95": 0.9669,
+    "frac_gain_gt_0p99": 0.0055
+  },
+  "uncertainty_growth_annual": {
+    "mean_std_pre_assim_mm": 18.819,
+    "max_std_pre_assim_mm": 19.847,
+    "std_growth_mm_per_day": 0.02268,
+    "std_growth_intercept_mm": 10.711
+  },
+  "uncertainty_growth_monthly": {
+    "mean_std_pre_assim_mm": 6.371,
+    "max_std_pre_assim_mm": 11.174,
+    "std_growth_mm_per_day": 0.06672,
+    "std_growth_intercept_mm": 3.664
+  },
+  "interpretation": {
+    "annual_gain_is_hard_reset": "Annual mean Kalman gain = 0.997. Gain ~1.0 -> assimilation IS effectively a hard level-reset (no value-add over M8 reset).",
+    "monthly_vs_annual": "Monthly mean gain = 0.9746 vs annual 0.997. Monthly and annual gains similar -> cadence does not change the reset behavior much."
+  },
+  "static_conformal_total_halfwidth_mm_proxy": 9.554,
+  "kalman_band_halfwidth_annual_mean_mm": 1.957,
+  "kalman_band_halfwidth_annual_pre_assim_mean_mm": 36.885
+}

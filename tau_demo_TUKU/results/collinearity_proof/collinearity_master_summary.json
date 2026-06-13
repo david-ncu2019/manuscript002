@@ -1,0 +1,75 @@
+{
+  "title": "Collinearity Proof \u2014 IHM-F Model, TUKU Station",
+  "date": "2026-06-13",
+  "findings": {
+    "1_H_V_collinearity": {
+      "verdict": "SEVERE \u2014 confirmed",
+      "details": "Mean frac_inelastic across layers > 90%. When V(t) \u2248 H(t), elastic/inelastic storage coefficients cannot be separated.",
+      "worst_layer": "F2",
+      "quantified": {
+        "F1": {
+          "frac_inelastic": 0.9288,
+          "r_H_V": 0.8147,
+          "vif": 2.97
+        },
+        "T1": {
+          "frac_inelastic": 0.8899,
+          "r_H_V": 0.8086,
+          "vif": 2.89
+        },
+        "F2": {
+          "frac_inelastic": 0.9922,
+          "r_H_V": 0.2583,
+          "vif": 1.07
+        },
+        "T2": {
+          "frac_inelastic": 0.5919,
+          "r_H_V": 0.276,
+          "vif": 1.08
+        },
+        "F3": {
+          "frac_inelastic": 0.9909,
+          "r_H_V": 0.259,
+          "vif": 1.07
+        },
+        "F4": {
+          "frac_inelastic": 0.2902,
+          "r_H_V": 0.26,
+          "vif": 1.07
+        }
+      }
+    },
+    "2_regional_head_collinearity": {
+      "verdict": "SEVERE \u2014 confirmed",
+      "details": "Mean pairwise detrended r = 0.0940. All layers share the same monsoon recharge signal. Per-layer attribution from 1D head is underdetermined.",
+      "max_pair": "F2_F3",
+      "max_r": 0.9872
+    },
+    "3_carrier_rank1": {
+      "verdict": "PROVEN \u2014 algebraic identity",
+      "details": "SV2/SV1 = 9.54e-17 for carrier model. Five singular values at machine noise. The carrier supplies exactly 1 degree of freedom for 6 layers.",
+      "sv2_over_sv1": 9.544626925946079e-17,
+      "observed_variance_sv1_pct": 99.27
+    }
+  },
+  "conclusion": "Three independent collinearity mechanisms make per-layer storage coefficient estimation from 1D head + surface displacement fundamentally underdetermined at TUKU: (1) H\u2248V in the inelastic-dominated record, (2) six head drivers share one monsoon signal, (3) the carrier model is rank-1 by construction. Column-total estimation avoids all three; per-layer decomposition compounds them.",
+  "resolved_collinearities": {
+    "GWL_vs_InSAR_v1": "Removed InSAR from per-layer equation in v3 architecture",
+    "F1_T1_duplicate": "De-duplicated wellcode 09050111",
+    "carrier_GWL_bilinear_VIF": "Threshold-based GWL adoption (>5% RMSE improvement)"
+  },
+  "exported_files": [
+    "collinearity_H_V.json",
+    "collinearity_H_V_scatter.png",
+    "collinearity_carrier_rank1.json",
+    "collinearity_head_correlation_heatmap.png",
+    "collinearity_head_pairwise_corr_detrended.csv",
+    "collinearity_head_pairwise_corr_raw.csv",
+    "collinearity_master_summary.json",
+    "collinearity_regime_epochs.csv",
+    "collinearity_regional_head.json",
+    "collinearity_severity_summary.png",
+    "collinearity_svd_scree.png",
+    "collinearity_svd_spectrum.csv"
+  ]
+}

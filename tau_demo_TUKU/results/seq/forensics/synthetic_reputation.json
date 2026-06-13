@@ -1,0 +1,75 @@
+{
+  "phase": 1,
+  "title": "Synthetic reputation test \u2014 frozen-model solver",
+  "date": "2026-06-12",
+  "leakage": "controlled synthetic; no in-sample concern by construction",
+  "config": {
+    "N": 1000,
+    "epoch_days": 5,
+    "period_epochs": 73.05,
+    "noise_mm": 0.5,
+    "tau_grid": [
+      0,
+      210
+    ],
+    "tau_tol_epochs": 3,
+    "coef_tol_frac": 0.15,
+    "seed": 20260612
+  },
+  "truth": {
+    "F2": {
+      "c": 0.0,
+      "a": 0.2,
+      "S_ke": 3.0,
+      "S_kv": 2.0,
+      "tau": 12
+    },
+    "F3": {
+      "c": 0.0,
+      "a": 0.0,
+      "S_ke": 2.0,
+      "S_kv": 5.0,
+      "tau": 200
+    }
+  },
+  "phase_relationship": {
+    "F3_vs_F2_zero_lag_corr": -0.7291755359159164,
+    "opposes": true
+  },
+  "part_A_clean_recovery": {
+    "carrier": "independent F2-seasonal, detrended (decorrelated from u(t-200))",
+    "tau_recovered": 200,
+    "S_ke_recovered": 2.0194631437113357,
+    "S_kv_recovered": 4.942821355641063,
+    "a_recovered": 0.003563509596783228,
+    "c_recovered": -0.02670121998300852,
+    "best_sse": 191.63604371969575,
+    "pass_tau": true,
+    "pass_S_ke": true,
+    "pass_S_kv": true,
+    "PASS": true
+  },
+  "part_B_full_column": {
+    "carrier": "physical column sum -(b_F2+b_F3); contains F3 seasonal",
+    "tau_recovered": 200,
+    "S_ke_recovered": 2.00964602597557,
+    "S_kv_recovered": 4.952844548659417,
+    "a_recovered": 2.1449567871969215e-15,
+    "best_sse": 191.6672055494716,
+    "S_ke_collapsed": false,
+    "reading": "with a clean strong head term, the solver prefers the direct head over the degenerate carrier \u2014 a GOOD driver is always recoverable"
+  },
+  "part_C_driver_quality_sweep": {
+    "metric": "lagged-peak |xcorr| (xcorr_max semantics, lags 0..240)",
+    "real_F3_peak_xcorr": 0.24,
+    "tau_recovery_survives_down_to_peak_xcorr": 0.5761096021990275,
+    "at_real_F3_xcorr": {
+      "nearest_peak_xcorr": 0.23676014622552938,
+      "tau_recovered": 113,
+      "S_ke_recovered": 0.02571067786689764,
+      "tau_survived": false
+    },
+    "reading": "LAG LOST \u2014 at the real F3 well's peak-xcorr (~0.24) the solver can no longer locate tau=200; driver quality, not the code, governs recovery"
+  },
+  "VERDICT": "CODE_EXONERATED"
+}

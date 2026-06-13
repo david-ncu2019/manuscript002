@@ -1,0 +1,47 @@
+{
+  "phase": 3,
+  "date": "2026-06-12",
+  "headline": "CONFLUENCE \u2014 depth-mismatched driver (H1) + genuine out-of-phase deep-clay physics (H3), compounded by temporally poisoned recent truth (H2). Code exonerated.",
+  "code_exonerated": true,
+  "primary_causes_ranked": [
+    "H1 depth-mismatched driver",
+    "H3 physical outlier",
+    "H2 poisoned truth (recent era only)"
+  ],
+  "matrix": [
+    {
+      "hypothesis": "H1 depth-mismatched driver",
+      "deciding_metric": "assigned seasonal |r| / screen-clay gap (m) / overlap (m)",
+      "value": "0.10 / 79 / 0",
+      "support": 0.9,
+      "verdict": "SUPPORTED",
+      "note": "screen samples 177 m; clay compacts at ~256 m; seasonal head signal ~0. But no clean local replacement (best local only 0.65 at 810-day lag)."
+    },
+    {
+      "hypothesis": "H2 poisoned truth",
+      "deciding_metric": "non-integer fraction pre-2019 -> 2024+",
+      "value": "0.15 -> 1.00",
+      "support": 0.5,
+      "verdict": "PARTIAL (temporal)",
+      "note": "pre-2019 genuine field data; 2024+ fully interpolated. Blind era (2019-23) transitional. Recent-era confirmatory is not field-verifiable."
+    },
+    {
+      "hypothesis": "H3 physical outlier (out-of-phase deep clay)",
+      "deciding_metric": "lit. 90%-compaction lag / surface rank / co-screened head",
+      "value": "26-488 d lag; rank-1 carrier; no deep piezometer",
+      "support": 0.85,
+      "verdict": "SUPPORTED",
+      "note": "TKSH/Tuku observed out-of-phase 2004-07 (soil creep, Noordbergum); surface inversion rank-deficient (Phase 0). Deep clay genuinely lags any shallow head."
+    },
+    {
+      "hypothesis": "CODE (estimator) at fault?",
+      "deciding_metric": "synthetic tau=200 recovery",
+      "value": "recovered tau=200",
+      "support": 0.0,
+      "verdict": "REJECTED (code exonerated)",
+      "note": "solver recovers tau=200 exactly from a clean driver; fails only when driver |r| < ~0.58."
+    }
+  ],
+  "reframes_redteam": "Red Team 'underdetermined at sparse cadence' is CONFIRMED but sharpened: the network has no piezometer screened in the F3 clay (240-275 m), so the physically correct slow head is simply unmeasured; and the deep clay is intrinsically out-of-phase with the shallow heads that DO exist.",
+  "actionable_next_step": "F3 reconstruction at TUKU needs a deep (240-275 m) co-screened piezometer or a modelled deep head; with only shallow heads + surface GPS the sub-annual F3 dynamics remain unrecoverable. Trend apportionment + datum-via-visits stays valid."
+}

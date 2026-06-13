@@ -1,0 +1,15 @@
+{
+  "f3_layer_top_m": 172.889,
+  "f3_layer_bot_m": 272.728,
+  "f3_clay_zone_top_m": 238.0,
+  "f3_clay_zone_bot_m": 275.0,
+  "screen_top_m": 176.0,
+  "screen_bot_m": 179.0,
+  "screen_mid_m": 177.5,
+  "screen_position_frac_of_layer": 0.0461843568144712,
+  "screen_to_clay_centroid_gap_m": 79.0,
+  "screen_clay_overlap_m": 0.0,
+  "f2_screen_position_frac": 0.44398168578993824,
+  "DEPTH_MISMATCH_FLAG": true,
+  "reading": "the F3 driver is screened at 176-179 m, in the aquifer-rich top of a 100 m layer whose clay mass (the inelastic compacting material) sits 60-95 m deeper. The head it measures is a shallow, fast aquifer head, not the slow head driving the deep clay \u2014 a built-in phase/lag mismatch."
+}

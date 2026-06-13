@@ -1,0 +1,183 @@
+{
+  "phase": 0,
+  "title": "Prerequisite Verification",
+  "generated": "2026-06-13",
+  "files_read": [
+    "data/gwl/well_info/gwl_allwells_flat.csv",
+    "data/mlcw/borehole_materials/YL_WSYL23G1_TUKU_土庫.xlsx",
+    "data/mlcw/group_byLayer_orig/TUKU_classify_table.csv",
+    "data/mlcw/group_byLayer_orig/TUKU_orig_grouped.csv",
+    "tau_demo_TUKU/results/mlcw_observed_epoch_mask.csv",
+    "tau_demo_TUKU/results/reconstruction/TUKU_F1_reconstruction.csv",
+    "tau_demo_TUKU/results/reconstruction/TUKU_F2_reconstruction.csv",
+    "tau_demo_TUKU/results/reconstruction/TUKU_F3_reconstruction.csv",
+    "tau_demo_TUKU/results/reconstruction/TUKU_F4_reconstruction.csv",
+    "tau_demo_TUKU/results/reconstruction/TUKU_T1_reconstruction.csv",
+    "tau_demo_TUKU/results/reconstruction/TUKU_T2_reconstruction.csv"
+  ],
+  "findings": {
+    "classify_table": {
+      "path": "data/mlcw/group_byLayer_orig/TUKU_classify_table.csv",
+      "F3_depth_top_m": 172.889,
+      "F3_depth_bot_m": 272.728,
+      "F3_span_m": 99.839,
+      "F3_ring_depths_m": [
+        172.889,
+        177.694,
+        185.386,
+        198.421,
+        220.335,
+        228.408,
+        232.852,
+        242.032,
+        252.265,
+        272.728
+      ],
+      "all_layer_spans": {
+        "F1": {
+          "n_rings": 3,
+          "top_m": 8.775,
+          "bot_m": 25.605
+        },
+        "T1": {
+          "n_rings": 1,
+          "top_m": 41.577,
+          "bot_m": 41.577
+        },
+        "F2": {
+          "n_rings": 5,
+          "top_m": 50.306,
+          "bot_m": 122.818
+        },
+        "T2": {
+          "n_rings": 2,
+          "top_m": 156.59,
+          "bot_m": 161.876
+        },
+        "F3": {
+          "n_rings": 10,
+          "top_m": 172.889,
+          "bot_m": 272.728
+        },
+        "F4": {
+          "n_rings": 4,
+          "top_m": 283.383,
+          "bot_m": 300.0
+        }
+      }
+    },
+    "well_09050331": {
+      "station": "TUKU",
+      "wellcode": "09050331",
+      "well_screen_str": "176.00~179.00 [field-verified 2026-05-18]",
+      "screen_top_m": 176.0,
+      "screen_bot_m": 179.0,
+      "screen_mid_m": 177.5,
+      "well_depth_m": 185.0,
+      "F3_span_m": [
+        172.889,
+        272.728
+      ],
+      "screen_mid_inside_F3": true,
+      "screen_overlap_with_F3_m": 3.0,
+      "F3_unmonitored_below_well_bottom_m": 87.728,
+      "x_twd97": "187777.4",
+      "y_twd97": "2620597.806",
+      "verdict_vs_forensic": "FORENSIC CLAIM FALSE: forensic doc says F3=238-275m, 0m overlap, 79m gap. Data shows F3=172.889-272.728m; screen 176-179m OVERLAPS F3 top by 3.0m; screen midpoint 177.5m is INSIDE F3. 87.728m of F3 below well bottom is unmonitored."
+    },
+    "borehole_lithology_F3": {
+      "path": "data/mlcw/borehole_materials/YL_WSYL23G1_TUKU_土庫.xlsx",
+      "F3_band_m": [
+        172.889,
+        272.728
+      ],
+      "F3_total_logged_m": 99.84,
+      "F3_fine_grained_m": 68.34,
+      "F3_fine_fraction": 0.6845,
+      "deep_band_238_to_bot_total_m": 34.73,
+      "deep_band_238_to_bot_fine_m": 18.73,
+      "deep_band_fine_fraction": 0.5393,
+      "monitored_band_top_to_185_total_m": 12.11,
+      "monitored_band_top_to_185_fine_m": 12.11,
+      "monitored_band_fine_fraction": 1.0
+    },
+    "sign_conventions": {
+      "mlcw_orig_grouped_last_row": {
+        "date": "2025-10-02",
+        "F1": -26.524055430894805,
+        "F2": -219.85337932750556,
+        "F3": -449.7149842795334,
+        "F4": -40.39034254127182,
+        "all_layers_negative_=_compaction": true
+      },
+      "mlcw_total_column": {
+        "first_row_sum_mm": 0.0,
+        "last_row_sum_mm": -769.461,
+        "net_change_mm": -769.461,
+        "interpretation": "negative net change = net compaction (subsidence) -> sign OK"
+      },
+      "reconstruction_observed": {
+        "F1": {
+          "n_obs": 1571,
+          "obs_first_mm": 0.011,
+          "obs_last_mm": -28.275,
+          "obs_min_mm": -29.705,
+          "obs_max_mm": 0.715
+        },
+        "T1": {
+          "n_obs": 1571,
+          "obs_first_mm": -0.056,
+          "obs_last_mm": -17.719,
+          "obs_min_mm": -18.541,
+          "obs_max_mm": -0.056
+        },
+        "F2": {
+          "n_obs": 1571,
+          "obs_first_mm": 0.081,
+          "obs_last_mm": -210.118,
+          "obs_min_mm": -213.778,
+          "obs_max_mm": 0.152
+        },
+        "T2": {
+          "n_obs": 1571,
+          "obs_first_mm": 0.087,
+          "obs_last_mm": -16.001,
+          "obs_min_mm": -19.843,
+          "obs_max_mm": 2.956
+        },
+        "F3": {
+          "n_obs": 1571,
+          "obs_first_mm": 0.151,
+          "obs_last_mm": -390.484,
+          "obs_min_mm": -397.111,
+          "obs_max_mm": 1.145
+        },
+        "F4": {
+          "n_obs": 1571,
+          "obs_first_mm": 0.01,
+          "obs_last_mm": -35.919,
+          "obs_min_mm": -36.213,
+          "obs_max_mm": 0.272
+        }
+      }
+    },
+    "provenance_mask": {
+      "mask_n_epochs": 1572,
+      "mask_date_min": "2003-12-06",
+      "mask_date_max": "2025-10-01",
+      "orig_grouped_n_rows": 264,
+      "orig_grouped_date_min": "2003-12-03",
+      "orig_grouped_date_max": "2025-10-02",
+      "mask_F1_observed_n_true": 1571,
+      "mask_T1_observed_n_true": 1572,
+      "mask_F2_observed_n_true": 1571,
+      "mask_T2_observed_n_true": 1572,
+      "mask_F3_observed_n_true": 1571,
+      "mask_F4_observed_n_true": 1572,
+      "orig_field_dates_count": 264,
+      "orig_field_dates_on_mask_grid": 92,
+      "orig_field_dates_NOT_on_mask_grid": 172,
+      "og_F3_nonNaN_count": 264
+    }
+  }
+}

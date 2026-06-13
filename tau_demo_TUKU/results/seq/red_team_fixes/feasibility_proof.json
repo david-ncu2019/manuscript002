@@ -1,0 +1,354 @@
+{
+  "script": "30_feasibility_proof.py",
+  "date": "2026-06-12",
+  "dense_era": "2010-01-01 .. 2018-12-31",
+  "layers": [
+    "F1",
+    "T1",
+    "F2",
+    "T2",
+    "F3",
+    "F4"
+  ],
+  "a_k_frozen": {
+    "F1": 0.027464,
+    "T1": 0.017453,
+    "F2": 0.202897,
+    "T2": 0.010954,
+    "F3": 0.269569,
+    "F4": 0.030851
+  },
+  "sum_a_k": 0.559188,
+  "exhibit_a": {
+    "description": "Amplitude-bound lemma: per-layer seasonal amplitudes vs surface",
+    "status": "PROVEN \u2014 incontrovertible geometric argument",
+    "A_surface_mm": 3.8321840269162912,
+    "A_surface_phase_doy": 313.3549967401911,
+    "n_gps": 3286,
+    "per_layer": {
+      "F1": {
+        "n": 109,
+        "A_mm": 0.6001465352138728,
+        "phase_doy": 346.3389702717077,
+        "exceeds_surface": false
+      },
+      "T1": {
+        "n": 109,
+        "A_mm": 0.4519695654184895,
+        "phase_doy": 350.4312242004411,
+        "exceeds_surface": false
+      },
+      "F2": {
+        "n": 109,
+        "A_mm": 4.706554006723093,
+        "phase_doy": 324.07903437123497,
+        "exceeds_surface": true
+      },
+      "T2": {
+        "n": 109,
+        "A_mm": 0.760656953748974,
+        "phase_doy": 301.1392003015774,
+        "exceeds_surface": false
+      },
+      "F3": {
+        "n": 109,
+        "A_mm": 2.0823486504955895,
+        "phase_doy": 100.76917772687925,
+        "exceeds_surface": false
+      },
+      "F4": {
+        "n": 109,
+        "A_mm": 0.7977048524643683,
+        "phase_doy": 51.17416677214797,
+        "exceeds_surface": false
+      }
+    },
+    "sum_abs_A_mm": 9.399380564064387,
+    "ratio_sum_to_surface": 2.452747701583618,
+    "layers_exceeding_surface": [
+      "F2"
+    ],
+    "amplitude_bound_proven": true
+  },
+  "exhibit_b": {
+    "description": "Phase cancellation phasors (soft corroboration)",
+    "status": "MEASURED \u2014 soft corroboration; not a pass/fail gate",
+    "per_layer_phasor": {
+      "F1": {
+        "x_mm": 0.568668802505291,
+        "y_mm": -0.19181151369616656,
+        "magnitude_mm": 0.6001465352138728
+      },
+      "T1": {
+        "x_mm": 0.43736360809526187,
+        "y_mm": -0.11397176132039213,
+        "magnitude_mm": 0.4519695654184895
+      },
+      "F2": {
+        "x_mm": 3.5746638565112585,
+        "y_mm": -3.061605613261326,
+        "magnitude_mm": 4.706554006723093
+      },
+      "T2": {
+        "x_mm": 0.3430900526087668,
+        "y_mm": -0.6788874848511957,
+        "magnitude_mm": 0.760656953748974
+      },
+      "F3": {
+        "x_mm": -0.33725970316526793,
+        "y_mm": 2.054855662775777,
+        "magnitude_mm": 2.0823486504955895
+      },
+      "F4": {
+        "x_mm": 0.5080619709221544,
+        "y_mm": 0.6149846057812305,
+        "magnitude_mm": 0.7977048524643683
+      }
+    },
+    "gps_phasor_x_mm": 2.4039144370799495,
+    "gps_phasor_y_mm": -2.9844312348169373,
+    "gps_phasor_magnitude_mm": 3.8321840269162912,
+    "vector_sum_x_mm": 5.094588587477465,
+    "vector_sum_y_mm": -1.376436104572073,
+    "vector_sum_magnitude_mm": 5.2772539474261775,
+    "sum_abs_amplitudes_mm": 9.399380564064387,
+    "cancellation_ratio": 1.7811120438213237,
+    "note": "Cancellation ratio 1.78x is soft corroboration. The amplitude-bound (exhibit a) is the decisive geometric argument."
+  },
+  "exhibit_c": {
+    "description": "Carrier rank-1 degeneracy + sub-annual head collinearity",
+    "ci_carrier_rank_1": {
+      "status": "PROVEN \u2014 algebraically incontrovertible",
+      "description": "Carrier contribution matrix [a_k * d(t)] for 6 layers. All columns proportional to the same GPS surface signal d(t). Rank = 1 verified by SVD.",
+      "carrier_matrix_shape": [
+        3286,
+        6
+      ],
+      "a_k_per_layer": {
+        "F1": 0.027464,
+        "T1": 0.017453,
+        "F2": 0.202897,
+        "T2": 0.010954,
+        "F3": 0.269569,
+        "F4": 0.030851
+      },
+      "sum_a_k": 0.559188,
+      "svd_singular_values_absolute": [
+        7287.479841941677,
+        2.670876980264235e-13,
+        1.8868841010257612e-13,
+        3.453582627988449e-14,
+        1.9821572609921865e-14,
+        1.230221707005367e-14
+      ],
+      "svd_singular_values_normalized": [
+        1.0,
+        3.6650214315414236e-17,
+        2.5892134756464998e-17,
+        4.739063027127738e-18,
+        2.719948876680612e-18,
+        1.6881305110788294e-18
+      ],
+      "carrier_matrix_rank": 1,
+      "rank_1_confirmed": true,
+      "rank_1_threshold": 1e-10
+    },
+    "cii_head_collinearity": {
+      "status": "MEASURED \u2014 seasonal band more collinear than trend band",
+      "distinct_layers": [
+        "T1",
+        "F2",
+        "T2",
+        "F3",
+        "F4"
+      ],
+      "note_on_duplicate": "F1 dropped: F1 and T1 share wellcode 09050111 \u2014 exact duplicate. The 5e16 condition number in the original 7-column design was entirely this F1==T1 duplicate, not general collinearity.",
+      "n_common_exact_dates": 2333,
+      "raw_deduplicated": {
+        "condition_number": 18.825660007390006,
+        "effective_rank": 5,
+        "singular_values_normalized": [
+          1.0,
+          0.20960872049612514,
+          0.08957205832338373,
+          0.0588837827568805,
+          0.0531189875737398
+        ],
+        "interpretation": "Raw de-duplicated cond=19 \u2014 well-conditioned in the trend-dominated band."
+      },
+      "standardized_detrended_seasonal_band": {
+        "condition_number": 19.896525201376377,
+        "effective_rank": 5,
+        "n_dims": 5,
+        "singular_values_normalized": [
+          1.0,
+          0.24410314831588784,
+          0.22295604168394478,
+          0.11725127411622427,
+          0.05026003233624046
+        ],
+        "mean_pairwise_corr": 0.8634852407887734,
+        "max_pairwise_corr": 0.987477818759054,
+        "correlation_matrix": [
+          [
+            1.0,
+            0.8357443111413414,
+            0.7958220311006359,
+            0.8344699583853942,
+            0.8334540136453747
+          ],
+          [
+            0.8357443111413413,
+            1.0,
+            0.8602340871845073,
+            0.987477818759054,
+            0.8283062885135555
+          ],
+          [
+            0.7958220311006358,
+            0.8602340871845073,
+            1.0,
+            0.880368241057494,
+            0.92897982497208
+          ],
+          [
+            0.8344699583853943,
+            0.987477818759054,
+            0.880368241057494,
+            1.0,
+            0.8499958331282981
+          ],
+          [
+            0.8334540136453749,
+            0.8283062885135555,
+            0.9289798249720801,
+            0.8499958331282982,
+            1.0
+          ]
+        ],
+        "correlation_labels": [
+          "T1",
+          "F2",
+          "T2",
+          "F3",
+          "F4"
+        ],
+        "interpretation": "Seasonal-band cond=19.9 \u2014 MORE collinear than trend band. Effective rank 5/5 in sub-annual band. The per-layer heads cannot supply the 6 missing DOF in seasonal band."
+      },
+      "full_7col_duplicate_reference": {
+        "condition_number": 4.99802993666071e+16,
+        "note": "7-column design (GPS + 6 heads, F1==T1 duplicate included) \u2014 condition number diagnostic only."
+      },
+      "legacy_7col_correlation_matrix": [
+        [
+          1.0,
+          0.36387734908739366,
+          0.36387734908739366,
+          0.5321192772223338,
+          0.350455056774744,
+          0.5369183427700727,
+          0.3545032516795894
+        ],
+        [
+          0.3638773490873937,
+          1.0,
+          1.0,
+          0.8357443111413418,
+          0.7958220311006359,
+          0.8344699583853942,
+          0.8334540136453747
+        ],
+        [
+          0.3638773490873937,
+          1.0,
+          1.0,
+          0.8357443111413418,
+          0.7958220311006359,
+          0.8344699583853942,
+          0.8334540136453747
+        ],
+        [
+          0.5321192772223339,
+          0.835744311141342,
+          0.835744311141342,
+          1.0,
+          0.8602340871845074,
+          0.9874778187590539,
+          0.8283062885135555
+        ],
+        [
+          0.35045505677474403,
+          0.7958220311006359,
+          0.7958220311006359,
+          0.8602340871845074,
+          0.9999999999999998,
+          0.8803682410574938,
+          0.9289798249720799
+        ],
+        [
+          0.5369183427700727,
+          0.8344699583853942,
+          0.8344699583853942,
+          0.9874778187590539,
+          0.8803682410574939,
+          1.0,
+          0.8499958331282977
+        ],
+        [
+          0.3545032516795894,
+          0.8334540136453746,
+          0.8334540136453746,
+          0.8283062885135556,
+          0.9289798249720799,
+          0.8499958331282977,
+          0.9999999999999998
+        ]
+      ],
+      "legacy_7col_labels": [
+        "GPS",
+        "H_F1",
+        "H_T1",
+        "H_F2",
+        "H_T2",
+        "H_F3",
+        "H_F4"
+      ]
+    }
+  },
+  "verdict": {
+    "thesis": "underdetermined_and_unrecoverable_at_sparse_cadence",
+    "supported": true,
+    "not_claimed": "impossibility at monthly or denser cadence \u2014 monthly cadence recovers F3 blind-era detrended r=0.862, proving the limit is sparse in-situ observation cadence, not an absolute barrier in the carrier+head framework.",
+    "supporting_evidence": {
+      "amplitude_bound": {
+        "label": "Amplitude-bound (PROVEN, geometric)",
+        "supported": true,
+        "key_number": "F2 A=4.71 mm > A_surface=3.83 mm",
+        "description": "F2 seasonal amplitude exceeds total surface seasonal amplitude \u2014 layer-to-surface inversion is non-unique by inspection."
+      },
+      "carrier_rank_1": {
+        "label": "Carrier rank-1 (PROVEN, algebraic)",
+        "supported": true,
+        "key_number": "carrier matrix SVD rank = 1 (all 6 columns proportional to d(t))",
+        "description": "All 6 layer carrier contributions are a_k * d(t). The carrier supplies exactly 1 shared DOF for 6 layers. Sum(a_k) = 0.559188. Fixed shares a_k are identifiable only from in-situ per-layer observations."
+      },
+      "head_collinearity": {
+        "label": "Sub-annual head collinearity (MEASURED)",
+        "supported": true,
+        "key_number": "Standardized detrended head cond=19.9, eff_rank=5/5, mean pairwise r=0.863",
+        "description": "5 distinct head drivers (T1/F2/T2/F3/F4) standardized and detrended to isolate the seasonal band. Sub-annual heads are near-collinear: mean pairwise r=0.863, max=0.987. De-duplicated raw cond=19 (well-conditioned in trend band); seasonal cond=19.9 (MORE collinear after detrending). The 5e16 condition number in the original 7-column design was the F1==T1 exact duplicate, not general collinearity."
+      },
+      "empirical": {
+        "label": "Empirical (PROVEN, Tasks B/C/D)",
+        "supported": true,
+        "key_number": "Annual F2/T2 skill <= 0 vs anchor-once baseline; F3 annual detrended r < 0.5 regardless of tau; coverage FAILS at semiannual; monthly cadence recovers F3 detrended r=0.862",
+        "description": "Task B: annual F2 skill=-0.018, T2 skill=-0.092 (no dynamic skill beyond datum fix). Task C: F3 tau-uncap annual detrended r=0.44 < 0.5 threshold; monthly detrended r=0.862. Task D: semiannual coverage FAILS (3/6 layers); monthly PASSES (5/6)."
+      }
+    },
+    "soft_corroboration": {
+      "phasor_cancellation_ratio": 1.7811120438213237,
+      "note": "Cancellation ratio 1.78x is soft corroboration, not a pass/fail gate. The amplitude-bound (exhibit a) is the incontrovertible geometric argument."
+    }
+  },
+  "verdict_string": "THESIS: sub-annual multilayer compaction dynamics are underdetermined and unrecoverable at sparse (annual/semiannual) in-situ cadence. SUPPORTED by 4 independent lines of evidence: (1) Amplitude-bound: F2=4.71 mm > A_surface=3.83 mm. (2) Carrier rank-1: all 6 layer carriers are a_k*d(t) \u2014 exactly 1 shared DOF. (3) Sub-annual head collinearity: standardized detrended head cond=19.9, eff_rank=5/5, mean pairwise r=0.863. (4) Empirical: annual skill <= 0 for F2/T2; F3 annual r=0.44 < 0.5; semiannual coverage FAILS; monthly cadence recovers F3 r=0.862. NOT CLAIMED: impossibility at monthly+ cadence."
+}

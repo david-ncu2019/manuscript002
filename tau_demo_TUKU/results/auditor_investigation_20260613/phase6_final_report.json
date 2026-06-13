@@ -1,0 +1,161 @@
+{
+  "phase": 6,
+  "title": "Final Assembly — TUKU Pilot Independent Investigation 2026-06-13",
+  "investigator": "Lead External Investigator (zero-trust, data-only)",
+  "phase_summaries": {
+    "phase0": {
+      "F3_span_m": [
+        172.889,
+        272.728
+      ],
+      "well_inside_F3": true,
+      "overlap_m": 3.0,
+      "unmonitored_F3_m": 87.728,
+      "F3_fine_fraction": 0.6845,
+      "mlcw_total_net_mm": -769.461
+    },
+    "phase1": {
+      "annual_gain": 0.997,
+      "monthly_gain": 0.9746,
+      "uncertainty_growth_mm_per_day": 0.02268
+    },
+    "phase2": {
+      "phi_range": [
+        0.4848,
+        0.9988
+      ],
+      "max_improvement_pct": 47.83,
+      "92pct_reproducible": false
+    },
+    "phase3": {
+      "prophet_runtime_failed": true,
+      "F2_vs_carrier_pct": 16.49,
+      "F3_vs_carrier_pct": -28.06,
+      "F2_seasonal_amp_mm": 7.5739
+    },
+    "phase4": {
+      "first_comp_var": 0.99719,
+      "mcr_k1_R2": 0.99596,
+      "carrier_R2": 0.9412
+    },
+    "phase5": {
+      "all_RMSE_reproduced": true,
+      "coverage_range": [
+        0.667,
+        0.95
+      ],
+      "honest_annual_skill": {
+        "F1": 0.227,
+        "T1": 0.0104,
+        "F2": -0.0176,
+        "T2": -0.0921,
+        "F3": 0.1882,
+        "F4": 0.0468
+      }
+    }
+  },
+  "bottom_line_answers": {
+    "Q1_F3_depth": {
+      "question": "Are the F3 depth claims in forensic documents (238-275 m, 79 m gap) contradicted by authoritative source files?",
+      "answer": "YES — CONTRADICTED.",
+      "evidence": {
+        "classify_table_F3_span_m": [
+          172.889,
+          272.728
+        ],
+        "forensic_claim": "238-275 m, 0 m overlap, 79 m gap",
+        "well_09050331_screen_m": [
+          176.0,
+          179.0
+        ],
+        "well_screen_mid_inside_F3": true,
+        "screen_overlap_with_F3_m": 3.0,
+        "F3_unmonitored_below_well_bottom_m": 87.728
+      },
+      "verdict": "The well manager's classify table places F3 at 172.889-272.728 m, not 238-275 m. Driver well 09050331 screens 176-179 m, INSIDE the top 3.0 m of F3 (not 0 m overlap). The real instrumentation gap is 87.728 m of deep F3 below the 185 m well bottom. The mandate-hypothesis depth (172.889-272.728 m) is confirmed; the forensic 238-275 m / 79 m-gap framing is false."
+    },
+    "Q2_kalman_vs_M8": {
+      "question": "Does the Kalman filter add value beyond the M8 level-reset at current visit cadence?",
+      "answer": "NO at annual cadence (it IS the reset); MARGINALLY at monthly cadence + gap-aware uncertainty.",
+      "evidence": {
+        "annual_mean_gain": 0.997,
+        "annual_frac_gain_gt_0.99": 1.0,
+        "monthly_mean_gain": 0.9746,
+        "uncertainty_growth_mm_per_day": 0.02268,
+        "kalman_band_hw_annual_post_mm": 1.957,
+        "static_conformal_total_hw_mm": 9.554
+      },
+      "verdict": "Annual Kalman gain = 0.997 (100% > 0.99) -> assimilation is a hard level-reset, no value-add over M8. Monthly gain = 0.9746 -> filter retains ~2.5% of the GPS-driven prediction, a small genuine blend. The ONE real advantage is gap-aware uncertainty: the Kalman band grows ~0.02268 mm/day between visits, vs the static conformal band that is fixed. For uncertainty quantification the Kalman interval is better; for the point estimate at annual cadence it equals the reset."
+    },
+    "Q3_arx_verdict": {
+      "question": "Does ARX re-evaluation confirm, refute, or qualify the previous rejection?",
+      "answer": "QUALIFIES (and partly refutes) the rejection.",
+      "evidence": {
+        "phi_range_grouped_layers": [
+          0.4848,
+          0.9988
+        ],
+        "phi_all_near_unity": false,
+        "max_layer_improvement_vs_holdlast_pct": 47.83,
+        "92.1pct_claim_reproducible": false,
+        "anchor_matches_arx": false,
+        "per_layer_phi": {
+          "F1": 0.7027,
+          "T1": 0.755,
+          "F2": 0.82151,
+          "T2": 0.59781,
+          "F3": 0.99884,
+          "F4": 0.48477
+        }
+      },
+      "verdict": "phi is NOT uniformly ~1 on grouped layers (range [0.4848, 0.9988]); only F3 (deep clay) is near-unit-root (phi~0.999). The 92.1% improvement is NOT reproducible vs a hold-last baseline (max 47.83%); the prior figure used a weak static-ratio baseline with no anchor. ARX adds modest real skill (18-48%) on F1/T1/F2/F3 but is worse than hold-last on T2/F4. Anchor-only does NOT cleanly match ARX (median repro 0.541). Net: the prior rejection was an artifact of the per-ring formulation; ARX is a modest, layer-specific contributor, not a column-wide winner, and remains below the carrier+GWL seq skill."
+    },
+    "Q4_mcr_viable": {
+      "question": "Is MCR-AR a viable alternative to the carrier model for per-layer decomposition?",
+      "answer": "NO.",
+      "evidence": {
+        "n_meaningful_components_svd": 1,
+        "first_component_variance_explained": 0.99719,
+        "mcr_1comp_R2": 0.99596,
+        "mcr_2comp_R2": 0.99985,
+        "F2_F3_separated_at_k2": true,
+        "carrier_mean_R2": 0.9412
+      },
+      "verdict": "The observed 6-layer matrix is 99.72% one mode (SV2/SV1=0.052); only 1 component clears the >0.1 threshold. MCR k=1 already reaches R2=0.99596; a 2nd component adds <0.3% variance. MCR can nominally place F2 and F3 under different components at k=2, but that lives in the 0.28% residual and is not a robust physical process. The 'six per-layer reconstructions are one GPS curve split by constants' degeneracy is real. MCR-AR is an in-sample curve fit, not a deployable per-layer decomposition superior to the carrier."
+    },
+    "Q5_coverage_defensible": {
+      "question": "Are any of the coverage claims from the sequential rehearsal defensible?",
+      "answer": "PARTIALLY — at band-defined visit dates yes; under all-dates sparse cadence no.",
+      "evidence": {
+        "metrics_json_RMSE_fully_reproducible": true,
+        "actual_coverage_full_range_well_sampled": [
+          0.667,
+          0.95
+        ],
+        "coverage_median": 0.875,
+        "nominal_target": 0.95,
+        "hypothesis_claimed_range": "0 - 33.3% across all layers/cadences"
+      },
+      "verdict": "Every headline RMSE in metrics.json reproduces EXACTLY from its own innovation list (the prior 'not reproducible' claim is refuted). Coverage at band-defined visits is [0.667, 0.95] (median 0.875), below the 0.95 nominal but defensible as slightly under-covered. The '0-33.3%' hypothesis is a mischaracterization drawn from the sparse 'none'/'blackout' cells; it is true ONLY if coverage is demanded at every genuine date under annual/semiannual cadence (0.15-0.40), which is the honest limitation: between annual visits the conformal band cannot keep the drifting prediction covered."
+    },
+    "Q6_part2_ready": {
+      "question": "Is the project ready for Part 2 (37 stations)? If not, what specific blockers remain?",
+      "answer": "NOT YET.",
+      "blockers": [
+        "DOC INTEGRITY: forensic F3 depth claims are false; correct provenance docs before scaling.",
+        "F2 annual skill <=0 vs anchor-once: at annual cadence the model adds no skill on the main aquifer; Part-2 stations on annual sampling will not beat a one-time anchor for F2.",
+        "T2 annual skill <=0 vs anchor-once (-0.092): aquitard prediction is not deployable at annual cadence.",
+        "Coverage 0.67-0.95 (<0.95 nominal) under realistic cadence; conformal bands need recalibration or gap-aware (Kalman-style) widening before per-station deployment.",
+        "Rank-1 degeneracy (99.7% one mode): per-layer separation is weakly identified at TUKU; spatial transfer to 8,577 grid points cannot rely on independent per-layer signals.",
+        "F3 deep instrumentation gap: ~87.7 m of F3 below the 185 m driver-well bottom is unmonitored; the depth-mismatched driver (screen 177 m vs clay to 272.7 m) is a physical limitation, not a code bug."
+      ],
+      "what_works": [
+        "Monthly cadence skill is solid: F3 monthly skill_vs_anchor_once~0.558, F2~0.231 (honest table); coverage 0.78-0.95.",
+        "Carrier model is a reliable secular-trend tracker (carrier mean R2~0.94 in-sample); GPS captures the column trend.",
+        "metrics.json is internally consistent and reproducible — the reporting infrastructure is trustworthy.",
+        "F2 with the GWL head term reaches strong tail skill (carrier summary tail F2 skill +0.43)."
+      ],
+      "recommendation": "Deploy Part 2 ONLY for stations with monthly-or-denser MLCW sampling and a layer driver well screened within the target layer's compacting interval. Stations on annual sampling, or with deep layers lacking a depth-matched piezometer (the F3 situation), should be flagged as reconstruction-only with explicit uncertainty, not next-month prediction targets."
+    }
+  }
+}

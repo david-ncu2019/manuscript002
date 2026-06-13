@@ -1,0 +1,250 @@
+{
+  "phase": 2,
+  "title": "ARX re-evaluation (per-layer, statsmodels)",
+  "model": "ARIMA(1,0,0) with exog=GPS carrier (mm); walk-forward yearly hold-outs",
+  "n_joined_epochs": 182,
+  "date_min": "2010-01-19",
+  "date_max": "2025-01-01",
+  "layers": {
+    "F1": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "phi_fold": 0.72027,
+          "rmse_arx_mm": 1.965,
+          "rmse_holdlast_mm": 3.9895,
+          "rmse_anchor_only_mm": 5.6687,
+          "beta_anchor": 0.087422
+        },
+        "2023": {
+          "n_test": 12,
+          "phi_fold": 0.72035,
+          "rmse_arx_mm": 1.6834,
+          "rmse_holdlast_mm": 3.5823,
+          "rmse_anchor_only_mm": 1.9768,
+          "beta_anchor": 0.088125
+        },
+        "2024": {
+          "n_test": 12,
+          "phi_fold": 0.70171,
+          "rmse_arx_mm": 2.4074,
+          "rmse_holdlast_mm": 2.6446,
+          "rmse_anchor_only_mm": 2.221,
+          "beta_anchor": 0.093817
+        }
+      },
+      "phi_full_fit": 0.7027,
+      "exog_beta_full_fit": 0.02737,
+      "median_rmse_arx_mm": 1.965,
+      "median_rmse_holdlast_mm": 3.5823,
+      "median_rmse_anchor_only_mm": 2.221,
+      "improvement_arx_vs_holdlast_pct": 45.15,
+      "improvement_anchor_vs_holdlast_pct": 38.0,
+      "median_phi_folds": 0.72027,
+      "anchor_reproduces_arx_fraction": 0.8417
+    },
+    "T1": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "phi_fold": 0.71198,
+          "rmse_arx_mm": 3.5542,
+          "rmse_holdlast_mm": 2.6603,
+          "rmse_anchor_only_mm": 2.4767,
+          "beta_anchor": 0.019996
+        },
+        "2023": {
+          "n_test": 12,
+          "phi_fold": 0.78085,
+          "rmse_arx_mm": 0.8674,
+          "rmse_holdlast_mm": 1.0369,
+          "rmse_anchor_only_mm": 0.8859,
+          "beta_anchor": 0.020998
+        },
+        "2024": {
+          "n_test": 12,
+          "phi_fold": 0.77635,
+          "rmse_arx_mm": 1.388,
+          "rmse_holdlast_mm": 2.9533,
+          "rmse_anchor_only_mm": 2.3549,
+          "beta_anchor": 0.019893
+        }
+      },
+      "phi_full_fit": 0.755,
+      "exog_beta_full_fit": 0.021295,
+      "median_rmse_arx_mm": 1.388,
+      "median_rmse_holdlast_mm": 2.6603,
+      "median_rmse_anchor_only_mm": 2.3549,
+      "improvement_arx_vs_holdlast_pct": 47.83,
+      "improvement_anchor_vs_holdlast_pct": 11.48,
+      "median_phi_folds": 0.77635,
+      "anchor_reproduces_arx_fraction": 0.2401
+    },
+    "F2": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "phi_fold": 0.78675,
+          "rmse_arx_mm": 7.0027,
+          "rmse_holdlast_mm": 11.834,
+          "rmse_anchor_only_mm": 4.8645,
+          "beta_anchor": 0.430322
+        },
+        "2023": {
+          "n_test": 12,
+          "phi_fold": 0.80556,
+          "rmse_arx_mm": 3.9412,
+          "rmse_holdlast_mm": 5.8958,
+          "rmse_anchor_only_mm": 4.7058,
+          "beta_anchor": 0.406654
+        },
+        "2024": {
+          "n_test": 12,
+          "phi_fold": 0.80765,
+          "rmse_arx_mm": 6.8089,
+          "rmse_holdlast_mm": 12.1357,
+          "rmse_anchor_only_mm": 5.5223,
+          "beta_anchor": 0.400935
+        }
+      },
+      "phi_full_fit": 0.82151,
+      "exog_beta_full_fit": 0.210424,
+      "median_rmse_arx_mm": 6.8089,
+      "median_rmse_holdlast_mm": 11.834,
+      "median_rmse_anchor_only_mm": 4.8645,
+      "improvement_arx_vs_holdlast_pct": 42.46,
+      "improvement_anchor_vs_holdlast_pct": 58.89,
+      "median_phi_folds": 0.80556,
+      "anchor_reproduces_arx_fraction": 1.387
+    },
+    "T2": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "phi_fold": 0.54764,
+          "rmse_arx_mm": 4.3565,
+          "rmse_holdlast_mm": 2.6524,
+          "rmse_anchor_only_mm": 3.4585,
+          "beta_anchor": 0.143846
+        },
+        "2023": {
+          "n_test": 12,
+          "phi_fold": 0.61365,
+          "rmse_arx_mm": 1.6713,
+          "rmse_holdlast_mm": 1.4815,
+          "rmse_anchor_only_mm": 4.1301,
+          "beta_anchor": 0.171275
+        },
+        "2024": {
+          "n_test": 12,
+          "phi_fold": 0.60759,
+          "rmse_arx_mm": 1.5797,
+          "rmse_holdlast_mm": 1.2603,
+          "rmse_anchor_only_mm": 5.7595,
+          "beta_anchor": 0.173908
+        }
+      },
+      "phi_full_fit": 0.59781,
+      "exog_beta_full_fit": 0.020373,
+      "median_rmse_arx_mm": 1.6713,
+      "median_rmse_holdlast_mm": 1.4815,
+      "median_rmse_anchor_only_mm": 4.1301,
+      "improvement_arx_vs_holdlast_pct": -12.81,
+      "improvement_anchor_vs_holdlast_pct": -178.78,
+      "median_phi_folds": 0.60759,
+      "anchor_reproduces_arx_fraction": 13.9526
+    },
+    "F3": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "phi_fold": 0.90347,
+          "rmse_arx_mm": 10.7827,
+          "rmse_holdlast_mm": 14.0539,
+          "rmse_anchor_only_mm": 14.033,
+          "beta_anchor": 0.001606
+        },
+        "2023": {
+          "n_test": 12,
+          "phi_fold": 0.89902,
+          "rmse_arx_mm": 9.145,
+          "rmse_holdlast_mm": 8.1221,
+          "rmse_anchor_only_mm": 9.2751,
+          "beta_anchor": -0.060048
+        },
+        "2024": {
+          "n_test": 12,
+          "phi_fold": 0.92103,
+          "rmse_arx_mm": 10.7088,
+          "rmse_holdlast_mm": 13.0691,
+          "rmse_anchor_only_mm": 15.05,
+          "beta_anchor": -0.061228
+        }
+      },
+      "phi_full_fit": 0.99884,
+      "exog_beta_full_fit": 0.112003,
+      "median_rmse_arx_mm": 10.7088,
+      "median_rmse_holdlast_mm": 13.0691,
+      "median_rmse_anchor_only_mm": 14.033,
+      "improvement_arx_vs_holdlast_pct": 18.06,
+      "improvement_anchor_vs_holdlast_pct": -7.38,
+      "median_phi_folds": 0.90347,
+      "anchor_reproduces_arx_fraction": -0.4084
+    },
+    "F4": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "phi_fold": 0.4972,
+          "rmse_arx_mm": 0.4447,
+          "rmse_holdlast_mm": 1.0079,
+          "rmse_anchor_only_mm": 2.1116,
+          "beta_anchor": -0.055516
+        },
+        "2023": {
+          "n_test": 12,
+          "phi_fold": 0.49833,
+          "rmse_arx_mm": 1.5404,
+          "rmse_holdlast_mm": 1.51,
+          "rmse_anchor_only_mm": 2.0735,
+          "beta_anchor": -0.051279
+        },
+        "2024": {
+          "n_test": 12,
+          "phi_fold": 0.47244,
+          "rmse_arx_mm": 2.076,
+          "rmse_holdlast_mm": 3.6274,
+          "rmse_anchor_only_mm": 4.9644,
+          "beta_anchor": -0.042517
+        }
+      },
+      "phi_full_fit": 0.48477,
+      "exog_beta_full_fit": 0.029067,
+      "median_rmse_arx_mm": 1.5404,
+      "median_rmse_holdlast_mm": 1.51,
+      "median_rmse_anchor_only_mm": 2.1116,
+      "improvement_arx_vs_holdlast_pct": -2.01,
+      "improvement_anchor_vs_holdlast_pct": -39.84,
+      "median_phi_folds": 0.4972,
+      "anchor_reproduces_arx_fraction": 19.7831
+    }
+  },
+  "verdict": {
+    "phi_all_near_unity": false,
+    "phi_range": [
+      0.4848,
+      0.9988
+    ],
+    "anchor_matches_arx": false,
+    "92.1pct_claim_reproducible": false,
+    "anchor_repro_fraction_median": 0.541,
+    "max_layer_improvement_pct": 47.83,
+    "note": "Prior per-RING study claimed 92.1% median improvement and that anchor-only reproduces it. This re-test is on per-LAYER grouped data with statsmodels. Improvement here is measured vs a hold-last baseline (persist last obs), which already contains the anchor; therefore ARX improvement vs hold-last isolates the AR+exog dynamics ON TOP of the anchor."
+  }
+}

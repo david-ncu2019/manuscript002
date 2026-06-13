@@ -1,0 +1,254 @@
+{
+  "script": "28_f3_tau_uncapped.py",
+  "layer": "F3",
+  "tau_uncapped": 163,
+  "tau_production_cap": 120,
+  "calibration_window": "2010-01-16 .. 2018-12-31",
+  "blind_scoring_window": "2019-01-01 .. 2023-12-31",
+  "leakage_manifest": "Calibration ends 2018-12-31 < blind score starts 2019-01-01; all pre-assimilation \u2014 no temporal leakage in this labeled diagnostic.",
+  "S_ke_activated": true,
+  "S_ke_at_uncapped_tau": 0.513803,
+  "S_kv_at_uncapped_tau": 2.906165,
+  "schedules": [
+    "anchor_once",
+    "annual",
+    "semiannual",
+    "monthly"
+  ],
+  "uncapped_metrics": {
+    "anchor_once": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "entry_date": "2019-01-11T00:00:00",
+      "entry_innovation_mm": -44.4996,
+      "RMSE_all_mm": 9.5543,
+      "MAE_all_mm": 6.8052,
+      "RMSE_post_entry_mm": 7.6986,
+      "MAE_post_entry_mm": 6.1663,
+      "detrended_r_all": -0.2026,
+      "detrended_r_post": -0.3022,
+      "amplitude_ratio_all": 1.0662,
+      "amplitude_ratio_post": 0.4754,
+      "cross_corr_lag_epochs": -40,
+      "cross_corr_lag_days": -200.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 21.8754,
+      "headline_r": -0.3022
+    },
+    "annual": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "entry_date": "2019-01-11T00:00:00",
+      "entry_innovation_mm": -44.4996,
+      "RMSE_all_mm": 8.6359,
+      "MAE_all_mm": 5.4375,
+      "RMSE_post_entry_mm": 6.5023,
+      "MAE_post_entry_mm": 4.7754,
+      "detrended_r_all": 0.2789,
+      "detrended_r_post": 0.4403,
+      "amplitude_ratio_all": 1.3092,
+      "amplitude_ratio_post": 0.9858,
+      "cross_corr_lag_epochs": 5,
+      "cross_corr_lag_days": 25.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 16.1272,
+      "headline_r": 0.4403
+    },
+    "semiannual": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "entry_date": "2019-01-11T00:00:00",
+      "entry_innovation_mm": -44.4996,
+      "RMSE_all_mm": 9.406,
+      "MAE_all_mm": 5.417,
+      "RMSE_post_entry_mm": 7.5106,
+      "MAE_post_entry_mm": 4.7546,
+      "detrended_r_all": 0.2128,
+      "detrended_r_post": 0.3279,
+      "amplitude_ratio_all": 1.4514,
+      "amplitude_ratio_post": 1.1549,
+      "cross_corr_lag_epochs": 5,
+      "cross_corr_lag_days": 25.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 26.4484,
+      "headline_r": 0.3279
+    },
+    "monthly": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "entry_date": "2019-01-11T00:00:00",
+      "entry_innovation_mm": -44.4996,
+      "RMSE_all_mm": 6.5589,
+      "MAE_all_mm": 3.0377,
+      "RMSE_post_entry_mm": 3.1914,
+      "MAE_post_entry_mm": 2.3349,
+      "detrended_r_all": 0.6025,
+      "detrended_r_post": 0.8621,
+      "amplitude_ratio_all": 1.3431,
+      "amplitude_ratio_post": 1.0224,
+      "cross_corr_lag_epochs": 1,
+      "cross_corr_lag_days": 5.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 9.7602,
+      "headline_r": 0.8621
+    }
+  },
+  "capped_metrics": {
+    "anchor_once": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "RMSE_all_mm": 9.1492,
+      "MAE_all_mm": 6.3567,
+      "RMSE_post_entry_mm": 7.2011,
+      "MAE_post_entry_mm": 5.7135,
+      "detrended_r_all": -0.1851,
+      "detrended_r_post": -0.3126,
+      "amplitude_ratio_all": 0.9996,
+      "amplitude_ratio_post": 0.3659,
+      "cross_corr_lag_epochs": -40,
+      "cross_corr_lag_days": -200.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 20.731,
+      "headline_r": -0.3126
+    },
+    "annual": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "RMSE_all_mm": 8.1439,
+      "MAE_all_mm": 4.5957,
+      "RMSE_post_entry_mm": 5.8461,
+      "MAE_post_entry_mm": 3.9227,
+      "detrended_r_all": 0.2164,
+      "detrended_r_post": 0.4112,
+      "amplitude_ratio_all": 1.1546,
+      "amplitude_ratio_post": 0.7725,
+      "cross_corr_lag_epochs": 5,
+      "cross_corr_lag_days": 25.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 15.9292,
+      "headline_r": 0.4112
+    },
+    "semiannual": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "RMSE_all_mm": 9.3583,
+      "MAE_all_mm": 5.6526,
+      "RMSE_post_entry_mm": 7.4693,
+      "MAE_post_entry_mm": 4.9975,
+      "detrended_r_all": 0.2117,
+      "detrended_r_post": 0.3297,
+      "amplitude_ratio_all": 1.4382,
+      "amplitude_ratio_post": 1.1361,
+      "cross_corr_lag_epochs": 5,
+      "cross_corr_lag_days": 25.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 24.1581,
+      "headline_r": 0.3297
+    },
+    "monthly": {
+      "n_total": 60,
+      "n_post_entry": 59,
+      "RMSE_all_mm": 6.5324,
+      "MAE_all_mm": 3.067,
+      "RMSE_post_entry_mm": 3.1819,
+      "MAE_post_entry_mm": 2.368,
+      "detrended_r_all": 0.6012,
+      "detrended_r_post": 0.8615,
+      "amplitude_ratio_all": 1.3317,
+      "amplitude_ratio_post": 1.0124,
+      "cross_corr_lag_epochs": 1,
+      "cross_corr_lag_days": 5.0,
+      "drought_n": 24,
+      "drought_max_abs_err_mm": 10.0301,
+      "headline_r": 0.8615
+    }
+  },
+  "decision": {
+    "f3_restored": false,
+    "decision_criteria": {
+      "r_annual_uncapped": 0.4403,
+      "r_threshold": 0.5,
+      "r_passes": false,
+      "drought_max_abs_err_annual_mm": 16.1272,
+      "drought_threshold_mm": 20.0,
+      "drought_passes": true
+    },
+    "r_table_per_schedule": {
+      "anchor_once": {
+        "uncapped": -0.3022,
+        "capped": -0.3126,
+        "delta": 0.0104
+      },
+      "annual": {
+        "uncapped": 0.4403,
+        "capped": 0.4112,
+        "delta": 0.0291
+      },
+      "semiannual": {
+        "uncapped": 0.3279,
+        "capped": 0.3297,
+        "delta": -0.0018
+      },
+      "monthly": {
+        "uncapped": 0.8621,
+        "capped": 0.8615,
+        "delta": 0.0006
+      }
+    },
+    "drought_table_per_schedule": {
+      "anchor_once": {
+        "uncapped": 21.8754,
+        "capped": 20.731
+      },
+      "annual": {
+        "uncapped": 16.1272,
+        "capped": 15.9292
+      },
+      "semiannual": {
+        "uncapped": 26.4484,
+        "capped": 24.1581
+      },
+      "monthly": {
+        "uncapped": 9.7602,
+        "capped": 10.0301
+      }
+    },
+    "cross_corr_lag_table": {
+      "anchor_once": {
+        "uncapped_lag_epochs": -40,
+        "uncapped_lag_days": -200.0,
+        "capped_lag_epochs": -40,
+        "capped_lag_days": -200.0
+      },
+      "annual": {
+        "uncapped_lag_epochs": 5,
+        "uncapped_lag_days": 25.0,
+        "capped_lag_epochs": 5,
+        "capped_lag_days": 25.0
+      },
+      "semiannual": {
+        "uncapped_lag_epochs": 5,
+        "uncapped_lag_days": 25.0,
+        "capped_lag_epochs": 5,
+        "capped_lag_days": 25.0
+      },
+      "monthly": {
+        "uncapped_lag_epochs": 1,
+        "uncapped_lag_days": 5.0,
+        "capped_lag_epochs": 1,
+        "capped_lag_days": 5.0
+      }
+    },
+    "r_annual_capped_reference": 0.4112,
+    "drought_annual_capped_reference": 15.9292,
+    "verdict_note": "NOT RESTORED \u2014 drought passes but r fails"
+  },
+  "f3_restored": false,
+  "authorized_tau_exception": {
+    "guardrail_exception_verbatim": "TUKU/F3: \u03c4 = 163 > \u03c4_max = 120 \u2014 search range exceeded.",
+    "authorization": "user-authorized uncap for F3 phase-error test, 2026-06-12; overrides CLAUDE.md TAU_MAX=120 for this labeled diagnostic only",
+    "tau_best": 163,
+    "tau_production_cap": 120,
+    "note": "All other guardrail checks still bind. This exception is logged here and must NOT be applied in any production script."
+  }
+}

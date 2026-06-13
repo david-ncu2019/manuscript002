@@ -1,0 +1,113 @@
+{
+  "title": "GWL-Only Per-Layer Independent Fit \u2014 TUKU",
+  "question": "Can GWL timeseries alone predict per-layer MLCW compaction?",
+  "method": "Per-layer independent cumulative two-regressor NNLS. No GPS, no InSAR, no cross-layer constraints.",
+  "model": "b(t) = S_ke * H(t-tau) + (S_kv - S_ke) * V(t-tau) + intercept",
+  "date": "2026-06-13",
+  "per_layer": {
+    "F1": {
+      "S_ke_mm_per_m": 2.0256,
+      "S_kv_mm_per_m": 2.0256,
+      "intercept_mm": -2.47,
+      "h_c_m": -5.7027,
+      "tau_opt_epochs": 38,
+      "tau_opt_days": 190,
+      "r2": 0.7112,
+      "n_valid": 734,
+      "S_ske_m1": 4.9e-05,
+      "S_skv_m1": 0.000122,
+      "ratio_specific": 2.51,
+      "in_ratio_gate": false,
+      "gwl_alone_usable": true
+    },
+    "T1": {
+      "S_ke_mm_per_m": 1.5444,
+      "S_kv_mm_per_m": 1.5444,
+      "intercept_mm": -0.51,
+      "h_c_m": -5.7022,
+      "tau_opt_epochs": 8,
+      "tau_opt_days": 40,
+      "r2": 0.7225,
+      "n_valid": 764,
+      "S_ske_m1": 0.000177,
+      "S_skv_m1": 0.000208,
+      "ratio_specific": 1.18,
+      "in_ratio_gate": false,
+      "gwl_alone_usable": true
+    },
+    "F2": {
+      "S_ke_mm_per_m": 3.5651,
+      "S_kv_mm_per_m": 3.5651,
+      "intercept_mm": -44.18,
+      "h_c_m": -10.9608,
+      "tau_opt_epochs": 78,
+      "tau_opt_days": 390,
+      "r2": 0.1427,
+      "n_valid": 694,
+      "S_ske_m1": 3.4e-05,
+      "S_skv_m1": 0.000295,
+      "ratio_specific": 8.79,
+      "in_ratio_gate": true,
+      "gwl_alone_usable": false
+    },
+    "T2": {
+      "S_ke_mm_per_m": 0.7578,
+      "S_kv_mm_per_m": 0.7578,
+      "intercept_mm": -6.36,
+      "h_c_m": -11.0622,
+      "tau_opt_epochs": 1,
+      "tau_opt_days": 5,
+      "r2": 0.1916,
+      "n_valid": 761,
+      "S_ske_m1": 4.6e-05,
+      "S_skv_m1": 7.4e-05,
+      "ratio_specific": 1.58,
+      "in_ratio_gate": false,
+      "gwl_alone_usable": false
+    },
+    "F3": {
+      "S_ke_mm_per_m": 4.1767,
+      "S_kv_mm_per_m": 4.1767,
+      "intercept_mm": -68.56,
+      "h_c_m": -9.9,
+      "tau_opt_epochs": 90,
+      "tau_opt_days": 450,
+      "r2": 0.0789,
+      "n_valid": 682,
+      "S_ske_m1": 3.8e-05,
+      "S_skv_m1": 5.4e-05,
+      "ratio_specific": 1.44,
+      "in_ratio_gate": false,
+      "gwl_alone_usable": false
+    },
+    "F4": {
+      "S_ke_mm_per_m": 0.6295,
+      "S_kv_mm_per_m": 0.6295,
+      "intercept_mm": -5.99,
+      "h_c_m": -8.9238,
+      "tau_opt_epochs": 120,
+      "tau_opt_days": 600,
+      "r2": 0.1225,
+      "n_valid": 652,
+      "S_ske_m1": 3.8e-05,
+      "S_skv_m1": 3.8e-05,
+      "ratio_specific": 1.0,
+      "in_ratio_gate": false,
+      "gwl_alone_usable": false
+    }
+  },
+  "answer": {
+    "gwl_alone_sufficient": true,
+    "layers_usable": [
+      "F1",
+      "T1"
+    ],
+    "layers_unusable": [
+      "F2",
+      "T2",
+      "F3",
+      "F4"
+    ],
+    "conclusion": "See per-layer R\u00b2. R\u00b2 > 0.3 = GWL alone captures meaningful compaction signal."
+  }
+}

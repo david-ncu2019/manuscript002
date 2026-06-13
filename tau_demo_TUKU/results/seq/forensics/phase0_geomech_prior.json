@@ -1,0 +1,62 @@
+{
+  "phase": 0,
+  "title": "Geomechanical Prior for F3 forensic triage",
+  "date": "2026-06-12",
+  "source": "NotebookLM CLI live queries (not fallback)",
+  "notebooks_queried": {
+    "Choushui_Sub": "7ff80e8e",
+    "Subsidence_Papers": "dbcc4e4a",
+    "InSAR_Thesis": "8c6faa4f",
+    "MLCW": "fe2eaf50"
+  },
+  "storage_coefficients": {
+    "middle_fan": {"S_ske_per_m": 1.15e-4, "S_skv_per_m": 1.33e-3, "ratio": 11.6},
+    "distal_fan": {"S_ske_per_m": 1.16e-4, "S_skv_per_m_notebook": 1.91e-4, "S_skv_per_m_claudemd_authoritative": 1.91e-3, "ratio_claudemd": 16.0, "discrepancy_flag": "10x mismatch between NotebookLM render and CLAUDE.md guardrail; CLAUDE.md authoritative"},
+    "coastal_dacheng_numerical": {"S_skv_aquifer2_per_m": 3.19e-3, "S_skv_aquitard2_per_m": 2.51e-2}
+  },
+  "consolidation_lag": {
+    "tksh_tuku_90pct_compaction_days": [26, 488],
+    "tksh_tuku_90pct_compaction_epochs_5day": [5, 98],
+    "depth_interval_m": [220, 300],
+    "f3_diagnosed_tau_epochs": 163,
+    "f3_diagnosed_tau_days": 815,
+    "flag": "F3 fitted tau (163 ep / 815 d) EXCEEDS literature 90pct-compaction upper bound (98 ep / 488 d) for this depth"
+  },
+  "deep_clay_behavior": {
+    "soil_creep_secondary_compression": true,
+    "visco_elasto_plastic": true,
+    "irreversible_pore_collapse": true,
+    "out_of_phase_with_seasonal_gwl": true,
+    "tksh_observed_out_of_phase_years": [2004, 2007],
+    "noordbergum_rhade_effect": true
+  },
+  "identifiability": {
+    "surface_geodesy_depth_resolution": false,
+    "phase_opposition_masking": true,
+    "surface_only_inversion": "rank_deficient_underdetermined",
+    "requires": ["multi_depth_piezometers", "a_priori_regularization"],
+    "corroborates_redteam_feasibility_proof": true
+  },
+  "mlcw_precision": {
+    "instrument_precision_mm": 1,
+    "sampling_cadence": "monthly",
+    "genuine_reading_expectation": "integer_millimetres",
+    "noninteger_fingerprint": "interpolation_or_postprocessing",
+    "validates_phase22_test": true,
+    "redteam_f6_noninteger_fraction": {"pre_2019": 0.155, "2019_2023": 0.417, "2024": 1.0}
+  },
+  "named_physical_traps": [
+    "hydrodynamic_lag_residual_compaction",
+    "soil_creep_secondary_compression",
+    "noordbergum_rhade_reversal",
+    "phase_opposition_masking_at_surface"
+  ],
+  "synthetic_test_priors": {
+    "S_ske_per_m_range": [1.1e-4, 1.2e-4],
+    "S_skv_per_m_range": [1.3e-3, 1.9e-3],
+    "ratio_range": [8, 20],
+    "tau_physical_max_epochs": 98,
+    "tau_injected_stress_test_epochs": 200,
+    "note": "tau=200 injected deliberately beyond physical range to stress-test solver recovery, not a physical claim"
+  }
+}

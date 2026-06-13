@@ -1,0 +1,229 @@
+{
+  "phase": 3,
+  "title": "Prophet re-evaluation (per-layer)",
+  "prophet_runtime_failure": {
+    "prophet_import_ok": true,
+    "cmdstan_backend_works": false,
+    "windows_error_code": "3221225785 (0xC0000139 STATUS_ENTRYPOINT_NOT_FOUND)",
+    "evidence": "prophet.Prophet().fit() fails on trivial synthetic data and on every TUKU layer/fold; both LBFGS and Newton optimizers terminate abnormally; prophet_model.bin cannot resolve a required DLL entry point on this host.",
+    "fallback": "OLS fit of Prophet's additive model form: piecewise-linear trend (changepoint basis) + yearly Fourier(order 6) + GPS regressor. Equivalent to Prophet's MAP point estimate without the Stan binary."
+  },
+  "fallback_used": true,
+  "n_joined_epochs": 182,
+  "holdout_years": [
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "model": "Prophet-equivalent OLS: piecewise trend + yearly Fourier(6) + gps",
+  "layers": {
+    "F1": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "rmse_prophet_mm": 1.9149,
+          "rmse_linear_trend_mm": 1.4048,
+          "rmse_carrier_mm": 5.6687,
+          "prophet_yearly_amp_mm": 3.155
+        },
+        "2023": {
+          "n_test": 12,
+          "rmse_prophet_mm": 8.4624,
+          "rmse_linear_trend_mm": 1.2984,
+          "rmse_carrier_mm": 1.9768,
+          "prophet_yearly_amp_mm": 1.9631
+        },
+        "2024": {
+          "n_test": 12,
+          "rmse_prophet_mm": 2.5079,
+          "rmse_linear_trend_mm": 2.3737,
+          "rmse_carrier_mm": 2.221,
+          "prophet_yearly_amp_mm": 2.4131
+        }
+      },
+      "median_rmse_prophet_mm": 2.5079,
+      "median_rmse_linear_trend_mm": 1.4048,
+      "median_rmse_carrier_mm": 2.221,
+      "improvement_prophet_vs_linear_pct": -78.53,
+      "improvement_prophet_vs_carrier_pct": -12.92,
+      "mean_prophet_yearly_amp_mm": 2.5104
+    },
+    "T1": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "rmse_prophet_mm": 3.582,
+          "rmse_linear_trend_mm": 4.0924,
+          "rmse_carrier_mm": 2.4767,
+          "prophet_yearly_amp_mm": 1.5534
+        },
+        "2023": {
+          "n_test": 12,
+          "rmse_prophet_mm": 4.1534,
+          "rmse_linear_trend_mm": 0.9186,
+          "rmse_carrier_mm": 0.8859,
+          "prophet_yearly_amp_mm": 1.5505
+        },
+        "2024": {
+          "n_test": 12,
+          "rmse_prophet_mm": 1.7078,
+          "rmse_linear_trend_mm": 1.1811,
+          "rmse_carrier_mm": 2.3549,
+          "prophet_yearly_amp_mm": 1.8495
+        }
+      },
+      "median_rmse_prophet_mm": 3.582,
+      "median_rmse_linear_trend_mm": 1.1811,
+      "median_rmse_carrier_mm": 2.3549,
+      "improvement_prophet_vs_linear_pct": -203.27,
+      "improvement_prophet_vs_carrier_pct": -52.11,
+      "mean_prophet_yearly_amp_mm": 1.6511
+    },
+    "F2": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "rmse_prophet_mm": 4.1234,
+          "rmse_linear_trend_mm": 7.4175,
+          "rmse_carrier_mm": 4.8645,
+          "prophet_yearly_amp_mm": 9.9527
+        },
+        "2023": {
+          "n_test": 12,
+          "rmse_prophet_mm": 4.0623,
+          "rmse_linear_trend_mm": 4.0095,
+          "rmse_carrier_mm": 4.7058,
+          "prophet_yearly_amp_mm": 6.9148
+        },
+        "2024": {
+          "n_test": 12,
+          "rmse_prophet_mm": 3.1534,
+          "rmse_linear_trend_mm": 5.5134,
+          "rmse_carrier_mm": 5.5223,
+          "prophet_yearly_amp_mm": 5.8542
+        }
+      },
+      "median_rmse_prophet_mm": 4.0623,
+      "median_rmse_linear_trend_mm": 5.5134,
+      "median_rmse_carrier_mm": 4.8645,
+      "improvement_prophet_vs_linear_pct": 26.32,
+      "improvement_prophet_vs_carrier_pct": 16.49,
+      "mean_prophet_yearly_amp_mm": 7.5739
+    },
+    "T2": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "rmse_prophet_mm": 5.1331,
+          "rmse_linear_trend_mm": 4.5222,
+          "rmse_carrier_mm": 3.4585,
+          "prophet_yearly_amp_mm": 2.5177
+        },
+        "2023": {
+          "n_test": 12,
+          "rmse_prophet_mm": 2.726,
+          "rmse_linear_trend_mm": 1.6053,
+          "rmse_carrier_mm": 4.1301,
+          "prophet_yearly_amp_mm": 3.8434
+        },
+        "2024": {
+          "n_test": 12,
+          "rmse_prophet_mm": 1.1831,
+          "rmse_linear_trend_mm": 1.4896,
+          "rmse_carrier_mm": 5.7595,
+          "prophet_yearly_amp_mm": 1.9815
+        }
+      },
+      "median_rmse_prophet_mm": 2.726,
+      "median_rmse_linear_trend_mm": 1.6053,
+      "median_rmse_carrier_mm": 4.1301,
+      "improvement_prophet_vs_linear_pct": -69.81,
+      "improvement_prophet_vs_carrier_pct": 34.0,
+      "mean_prophet_yearly_amp_mm": 2.7809
+    },
+    "F3": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "rmse_prophet_mm": 17.97,
+          "rmse_linear_trend_mm": 10.3613,
+          "rmse_carrier_mm": 14.033,
+          "prophet_yearly_amp_mm": 8.2686
+        },
+        "2023": {
+          "n_test": 12,
+          "rmse_prophet_mm": 22.2849,
+          "rmse_linear_trend_mm": 8.576,
+          "rmse_carrier_mm": 9.2751,
+          "prophet_yearly_amp_mm": 8.3734
+        },
+        "2024": {
+          "n_test": 12,
+          "rmse_prophet_mm": 7.8579,
+          "rmse_linear_trend_mm": 12.4313,
+          "rmse_carrier_mm": 15.05,
+          "prophet_yearly_amp_mm": 4.9273
+        }
+      },
+      "median_rmse_prophet_mm": 17.97,
+      "median_rmse_linear_trend_mm": 10.3613,
+      "median_rmse_carrier_mm": 14.033,
+      "improvement_prophet_vs_linear_pct": -73.43,
+      "improvement_prophet_vs_carrier_pct": -28.06,
+      "mean_prophet_yearly_amp_mm": 7.1898
+    },
+    "F4": {
+      "n_valid": 182,
+      "folds": {
+        "2022": {
+          "n_test": 12,
+          "rmse_prophet_mm": 1.9914,
+          "rmse_linear_trend_mm": 0.282,
+          "rmse_carrier_mm": 2.1116,
+          "prophet_yearly_amp_mm": 1.989
+        },
+        "2023": {
+          "n_test": 12,
+          "rmse_prophet_mm": 1.8111,
+          "rmse_linear_trend_mm": 1.4987,
+          "rmse_carrier_mm": 2.0735,
+          "prophet_yearly_amp_mm": 2.3988
+        },
+        "2024": {
+          "n_test": 12,
+          "rmse_prophet_mm": 2.7146,
+          "rmse_linear_trend_mm": 1.6301,
+          "rmse_carrier_mm": 4.9644,
+          "prophet_yearly_amp_mm": 1.5449
+        }
+      },
+      "median_rmse_prophet_mm": 1.9914,
+      "median_rmse_linear_trend_mm": 1.4987,
+      "median_rmse_carrier_mm": 2.1116,
+      "improvement_prophet_vs_linear_pct": -32.88,
+      "improvement_prophet_vs_carrier_pct": 5.69,
+      "mean_prophet_yearly_amp_mm": 1.9775
+    }
+  },
+  "verdict": {
+    "prophet_seasonal_amp_F2_mm": 7.5739,
+    "prophet_seasonal_amp_F3_mm": 7.1898,
+    "prophet_beats_carrier_F2_pct": 16.49,
+    "prophet_beats_carrier_F3_pct": -28.06,
+    "layers_prophet_beats_linear": [
+      "F2"
+    ],
+    "layers_prophet_beats_carrier": [
+      "F2",
+      "T2",
+      "F4"
+    ],
+    "note": "Prior per-RING study: deep (250-275 m) +50-66%, shallow (0-75 m) degraded. Re-test on grouped layers via documented OLS fallback (Stan backend dead)."
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "audit_script": "tau_demo_TUKU/seq/26_truth_provenance_audit.py",
+  "red_team_finding": "F-6",
+  "date_run": "2026-06-12",
+  "inputs": {
+    "grouped_csv": "data\\mlcw\\group_byLayer_orig\\TUKU_orig_grouped.csv",
+    "ring_csv": "data\\mlcw\\raw_timeseries\\TUKU_ringbyring.csv",
+    "n_visit_dates": 264,
+    "n_layers_audited": 6,
+    "layers": [
+      "F1",
+      "T1",
+      "F2",
+      "T2",
+      "F3",
+      "F4"
+    ],
+    "all_nan_ring_cols_removed": [
+      "294.698"
+    ]
+  },
+  "ring_to_layer_mapping": {
+    "F1": {
+      "rings": [
+        "8.775",
+        "11.938",
+        "25.605"
+      ],
+      "formula": "sum(ring[r] for r in rings)",
+      "formula_note": "Cumulative-movement sum of the listed ring columns. Shallow boundary ring included (except F1 which has no 0 m ring); deep boundary ring excluded (belongs to next layer). F4 includes both 283.383 m and 288.7 m (deepest available ring). Verification on 2004-2010 integer era: frac<0.5mm=1.000, max_disc=0.000mm.",
+      "integer_era_max_discrepancy_mm": 0.0,
+      "integer_era_frac_within_0p5mm": 1.0
+    },
+    "T1": {
+      "rings": [
+        "41.577"
+      ],
+      "formula": "sum(ring[r] for r in rings)",
+      "formula_note": "Cumulative-movement sum of the listed ring columns. Shallow boundary ring included (except F1 which has no 0 m ring); deep boundary ring excluded (belongs to next layer). F4 includes both 283.383 m and 288.7 m (deepest available ring). Verification on 2004-2010 integer era: frac<0.5mm=1.000, max_disc=0.000mm.",
+      "integer_era_max_discrepancy_mm": 0.0,
+      "integer_era_frac_within_0p5mm": 1.0
+    },
+    "F2": {
+      "rings": [
+        "50.306",
+        "67.395",
+        "86.914",
+        "117.442",
+        "122.818"
+      ],
+      "formula": "sum(ring[r] for r in rings)",
+      "formula_note": "Cumulative-movement sum of the listed ring columns. Shallow boundary ring included (except F1 which has no 0 m ring); deep boundary ring excluded (belongs to next layer). F4 includes both 283.383 m and 288.7 m (deepest available ring). Verification on 2004-2010 integer era: frac<0.5mm=1.000, max_disc=0.000mm.",
+      "integer_era_max_discrepancy_mm": 0.0,
+      "integer_era_frac_within_0p5mm": 1.0
+    },
+    "T2": {
+      "rings": [
+        "156.59",
+        "161.876"
+      ],
+      "formula": "sum(ring[r] for r in rings)",
+      "formula_note": "Cumulative-movement sum of the listed ring columns. Shallow boundary ring included (except F1 which has no 0 m ring); deep boundary ring excluded (belongs to next layer). F4 includes both 283.383 m and 288.7 m (deepest available ring). Verification on 2004-2010 integer era: frac<0.5mm=1.000, max_disc=0.000mm.",
+      "integer_era_max_discrepancy_mm": 0.0,
+      "integer_era_frac_within_0p5mm": 1.0
+    },
+    "F3": {
+      "rings": [
+        "172.889",
+        "177.694",
+        "185.386",
+        "198.421",
+        "220.335",
+        "228.408",
+        "232.852",
+        "242.032",
+        "252.265",
+        "272.728"
+      ],
+      "formula": "sum(ring[r] for r in rings)",
+      "formula_note": "Cumulative-movement sum of the listed ring columns. Shallow boundary ring included (except F1 which has no 0 m ring); deep boundary ring excluded (belongs to next layer). F4 includes both 283.383 m and 288.7 m (deepest available ring). Verification on 2004-2010 integer era: frac<0.5mm=1.000, max_disc=0.000mm.",
+      "integer_era_max_discrepancy_mm": 0.0,
+      "integer_era_frac_within_0p5mm": 1.0
+    },
+    "F4": {
+      "rings": [
+        "283.383",
+        "288.7"
+      ],
+      "formula": "sum(ring[r] for r in rings)",
+      "formula_note": "Cumulative-movement sum of the listed ring columns. Shallow boundary ring included (except F1 which has no 0 m ring); deep boundary ring excluded (belongs to next layer). F4 includes both 283.383 m and 288.7 m (deepest available ring). Verification on 2004-2010 integer era: frac<0.5mm=1.000, max_disc=0.000mm.",
+      "integer_era_max_discrepancy_mm": 0.0,
+      "integer_era_frac_within_0p5mm": 1.0
+    }
+  },
+  "total_cells": 1584,
+  "class_counts": {
+    "VERIFIED_RAW": 1584,
+    "DERIVED": 0,
+    "NO_RAW_SOURCE": 0
+  },
+  "era_statistics": {
+    "pre_2019": {
+      "n_visit_dates": 182,
+      "n_cells": 1092,
+      "VERIFIED_RAW": 1092,
+      "VERIFIED_RAW_frac": 1.0,
+      "DERIVED": 0,
+      "DERIVED_frac": 0.0,
+      "NO_RAW_SOURCE": 0,
+      "NO_RAW_SOURCE_frac": 0.0
+    },
+    "2019_2023": {
+      "n_visit_dates": 60,
+      "n_cells": 360,
+      "VERIFIED_RAW": 360,
+      "VERIFIED_RAW_frac": 1.0,
+      "DERIVED": 0,
+      "DERIVED_frac": 0.0,
+      "NO_RAW_SOURCE": 0,
+      "NO_RAW_SOURCE_frac": 0.0
+    },
+    "2024_plus": {
+      "n_visit_dates": 22,
+      "n_cells": 132,
+      "VERIFIED_RAW": 132,
+      "VERIFIED_RAW_frac": 1.0,
+      "DERIVED": 0,
+      "DERIVED_frac": 0.0,
+      "NO_RAW_SOURCE": 0,
+      "NO_RAW_SOURCE_frac": 0.0
+    }
+  },
+  "blind_era_verified_per_layer": {
+    "F1": 60,
+    "T1": 60,
+    "F2": 60,
+    "T2": 60,
+    "F3": 60,
+    "F4": 60
+  },
+  "integer_fraction_grouped_file": {
+    "pre_2019": {
+      "n_values": 1092,
+      "int_fraction": 0.8452,
+      "nonint_fraction": 0.1548
+    },
+    "2019_2023": {
+      "n_values": 360,
+      "int_fraction": 0.5833,
+      "nonint_fraction": 0.4167
+    },
+    "2024_plus": {
+      "n_values": 132,
+      "int_fraction": 0.0,
+      "nonint_fraction": 1.0
+    }
+  },
+  "integer_fraction_ring_file": {
+    "pre_2019": {
+      "n_values": 4186,
+      "int_fraction": 0.8414,
+      "nonint_fraction": 0.1586
+    },
+    "2019_2023": {
+      "n_values": 1380,
+      "int_fraction": 0.579,
+      "nonint_fraction": 0.421
+    },
+    "2024_plus": {
+      "n_values": 506,
+      "int_fraction": 0.0,
+      "nonint_fraction": 1.0
+    }
+  },
+  "redteam_reference_nonint_fracs": {
+    "pre_2019": 0.155,
+    "2019_2023": 0.417,
+    "2024_plus": 1.0
+  },
+  "this_audit_nonint_fracs_grouped": {
+    "pre_2019": 0.1548,
+    "2019_2023": 0.4167,
+    "2024_plus": 1.0
+  },
+  "verdict_2024": "consistent_with_ring_but_ring_unverifiable: grouped 2024+ cells reproduce exactly from ring 2024+ values (VERIFIED_RAW, discrepancy=0.000mm), but ring file itself is 100% non-integer in 2024+.  Neither file traces to field-instrument readouts for this era.  Source of non-integer values (interpolation, sensor processing, or post-processing pipeline) is unknown.",
+  "scoring_rule": "Downstream tasks score ONLY against VERIFIED_RAW cells.  DERIVED cells are admissible only if discrepancy <= 0.5 mm AND the transform has been identified (formula documented in truth_provenance_summary.json).  NO_RAW_SOURCE cells are excluded from all scoring.  2024+ VERIFIED_RAW cells are included in scoring as 'consistent-with-ring' but are marked ring_source_nonint=true; they are usable for in-sample fit evaluation but should NOT be used as ground truth for blind generalization claims.",
+  "notes": [
+    "T3 is all-NaN at TUKU; excluded from this audit.",
+    "Column 294.698 in ring file is all-NaN (trailing-comma artifact); removed.",
+    "Zero-reference verified: both files start at 0 for all columns.",
+    "No pd.merge_asof used — both files share exact date index; intersection taken on exact datetime equality (CLAUDE.md anti-pattern A1 rule).",
+    "This is a data audit only — no model outputs touched."
+  ]
+}

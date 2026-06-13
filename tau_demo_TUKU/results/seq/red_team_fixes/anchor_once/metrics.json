@@ -1,0 +1,1962 @@
+{
+  "schedule": "anchor_once",
+  "n_visits_used": 1,
+  "n_scoring_points": 60,
+  "scoring_note": "All schedules graded on the SAME full genuine-visit scoring set (all ~60 blind-era genuine dates, merge_asof \u22643 days to 5-day grid). Prediction recorded BEFORE assimilation at each scoring date. Assimilation (hard level reset) only at reveal dates for this schedule.",
+  "visit_dates": [
+    "2019-01-11T00:00:00"
+  ],
+  "leakage_fired": false,
+  "layers": {
+    "F1": {
+      "n_prequential_visits": 60,
+      "n_scoring_points": 60,
+      "MAE_mm": 2.672,
+      "RMSE_mm": 3.103,
+      "skill_vs_baseline": null,
+      "band_coverage_fraction": null,
+      "n_hw_defined_visits": 0,
+      "mean_half_width_mm": null,
+      "converged": false,
+      "innovations": [
+        {
+          "date": "2019-01-11T00:00:00",
+          "value": 0.1813,
+          "in_band": false
+        },
+        {
+          "date": "2019-02-11T00:00:00",
+          "value": -3.0711,
+          "in_band": false
+        },
+        {
+          "date": "2019-03-06T00:00:00",
+          "value": -1.4509,
+          "in_band": false
+        },
+        {
+          "date": "2019-04-11T00:00:00",
+          "value": 0.9194,
+          "in_band": false
+        },
+        {
+          "date": "2019-05-06T00:00:00",
+          "value": 3.3486,
+          "in_band": false
+        },
+        {
+          "date": "2019-06-11T00:00:00",
+          "value": 3.7664,
+          "in_band": false
+        },
+        {
+          "date": "2019-07-01T00:00:00",
+          "value": 4.6316,
+          "in_band": false
+        },
+        {
+          "date": "2019-08-06T00:00:00",
+          "value": 1.6155,
+          "in_band": false
+        },
+        {
+          "date": "2019-09-01T00:00:00",
+          "value": 2.5604,
+          "in_band": false
+        },
+        {
+          "date": "2019-10-06T00:00:00",
+          "value": 3.4283,
+          "in_band": false
+        },
+        {
+          "date": "2019-11-06T00:00:00",
+          "value": 2.4824,
+          "in_band": false
+        },
+        {
+          "date": "2019-12-11T00:00:00",
+          "value": 1.4334,
+          "in_band": false
+        },
+        {
+          "date": "2020-01-16T00:00:00",
+          "value": 2.2883,
+          "in_band": false
+        },
+        {
+          "date": "2020-02-06T00:00:00",
+          "value": 1.5695,
+          "in_band": false
+        },
+        {
+          "date": "2020-03-06T00:00:00",
+          "value": 2.4974,
+          "in_band": false
+        },
+        {
+          "date": "2020-04-21T00:00:00",
+          "value": 1.3546,
+          "in_band": false
+        },
+        {
+          "date": "2020-05-06T00:00:00",
+          "value": 0.2758,
+          "in_band": false
+        },
+        {
+          "date": "2020-06-11T00:00:00",
+          "value": 2.3875,
+          "in_band": false
+        },
+        {
+          "date": "2020-07-06T00:00:00",
+          "value": 5.0643,
+          "in_band": false
+        },
+        {
+          "date": "2020-08-06T00:00:00",
+          "value": 5.5705,
+          "in_band": false
+        },
+        {
+          "date": "2020-09-11T00:00:00",
+          "value": 1.5596,
+          "in_band": false
+        },
+        {
+          "date": "2020-10-16T00:00:00",
+          "value": -0.0304,
+          "in_band": false
+        },
+        {
+          "date": "2020-11-11T00:00:00",
+          "value": 0.6881,
+          "in_band": false
+        },
+        {
+          "date": "2020-12-11T00:00:00",
+          "value": 4.7505,
+          "in_band": false
+        },
+        {
+          "date": "2021-01-11T00:00:00",
+          "value": 3.2163,
+          "in_band": false
+        },
+        {
+          "date": "2021-02-16T00:00:00",
+          "value": 3.452,
+          "in_band": false
+        },
+        {
+          "date": "2021-03-11T00:00:00",
+          "value": 4.2683,
+          "in_band": false
+        },
+        {
+          "date": "2021-04-06T00:00:00",
+          "value": 2.1973,
+          "in_band": false
+        },
+        {
+          "date": "2021-05-06T00:00:00",
+          "value": -1.6068,
+          "in_band": false
+        },
+        {
+          "date": "2021-06-01T00:00:00",
+          "value": -0.3168,
+          "in_band": false
+        },
+        {
+          "date": "2021-07-01T00:00:00",
+          "value": 2.6079,
+          "in_band": false
+        },
+        {
+          "date": "2021-08-01T00:00:00",
+          "value": -1.0166,
+          "in_band": false
+        },
+        {
+          "date": "2021-09-11T00:00:00",
+          "value": 1.3725,
+          "in_band": false
+        },
+        {
+          "date": "2021-10-06T00:00:00",
+          "value": 1.3283,
+          "in_band": false
+        },
+        {
+          "date": "2021-11-06T00:00:00",
+          "value": -0.1139,
+          "in_band": false
+        },
+        {
+          "date": "2021-12-01T00:00:00",
+          "value": -0.4151,
+          "in_band": false
+        },
+        {
+          "date": "2022-01-01T00:00:00",
+          "value": 2.4572,
+          "in_band": false
+        },
+        {
+          "date": "2022-02-01T00:00:00",
+          "value": 2.3381,
+          "in_band": false
+        },
+        {
+          "date": "2022-03-01T00:00:00",
+          "value": 3.1762,
+          "in_band": false
+        },
+        {
+          "date": "2022-04-01T00:00:00",
+          "value": 4.255,
+          "in_band": false
+        },
+        {
+          "date": "2022-05-01T00:00:00",
+          "value": 4.944,
+          "in_band": false
+        },
+        {
+          "date": "2022-06-01T00:00:00",
+          "value": 5.4031,
+          "in_band": false
+        },
+        {
+          "date": "2022-07-01T00:00:00",
+          "value": 5.4085,
+          "in_band": false
+        },
+        {
+          "date": "2022-08-01T00:00:00",
+          "value": 4.5339,
+          "in_band": false
+        },
+        {
+          "date": "2022-09-01T00:00:00",
+          "value": 4.5627,
+          "in_band": false
+        },
+        {
+          "date": "2022-10-01T00:00:00",
+          "value": 4.5353,
+          "in_band": false
+        },
+        {
+          "date": "2022-11-01T00:00:00",
+          "value": 5.1274,
+          "in_band": false
+        },
+        {
+          "date": "2022-12-01T00:00:00",
+          "value": 5.2001,
+          "in_band": false
+        },
+        {
+          "date": "2023-01-01T00:00:00",
+          "value": 4.4901,
+          "in_band": false
+        },
+        {
+          "date": "2023-02-21T00:00:00",
+          "value": 1.4672,
+          "in_band": false
+        },
+        {
+          "date": "2023-03-16T00:00:00",
+          "value": 4.1654,
+          "in_band": false
+        },
+        {
+          "date": "2023-04-11T00:00:00",
+          "value": 2.8633,
+          "in_band": false
+        },
+        {
+          "date": "2023-05-11T00:00:00",
+          "value": 1.8649,
+          "in_band": false
+        },
+        {
+          "date": "2023-06-11T00:00:00",
+          "value": 1.8116,
+          "in_band": false
+        },
+        {
+          "date": "2023-07-11T00:00:00",
+          "value": 3.1245,
+          "in_band": false
+        },
+        {
+          "date": "2023-08-16T00:00:00",
+          "value": 2.7848,
+          "in_band": false
+        },
+        {
+          "date": "2023-09-06T00:00:00",
+          "value": 3.0504,
+          "in_band": false
+        },
+        {
+          "date": "2023-10-01T00:00:00",
+          "value": 1.6255,
+          "in_band": false
+        },
+        {
+          "date": "2023-11-16T00:00:00",
+          "value": 0.2623,
+          "in_band": false
+        },
+        {
+          "date": "2023-12-11T00:00:00",
+          "value": 2.0061,
+          "in_band": false
+        }
+      ],
+      "drought_2021_detection_date": null,
+      "dynamics_vs_densefill_diagnostic": {
+        "amplitude_ratio_increments": 1.1953,
+        "detrended_corr": 0.4834,
+        "detrended_std_obs_mm": 0.888,
+        "detrended_std_pred_mm": 0.861
+      },
+      "meets_L1_threshold": true,
+      "L1_thresholds": {
+        "MAE_mm": 5,
+        "RMSE_mm": 10
+      }
+    },
+    "T1": {
+      "n_prequential_visits": 60,
+      "n_scoring_points": 60,
+      "MAE_mm": 1.456,
+      "RMSE_mm": 1.827,
+      "skill_vs_baseline": null,
+      "band_coverage_fraction": null,
+      "n_hw_defined_visits": 0,
+      "mean_half_width_mm": null,
+      "converged": false,
+      "innovations": [
+        {
+          "date": "2019-01-11T00:00:00",
+          "value": 0.0959,
+          "in_band": false
+        },
+        {
+          "date": "2019-02-11T00:00:00",
+          "value": 0.2399,
+          "in_band": false
+        },
+        {
+          "date": "2019-03-06T00:00:00",
+          "value": -0.3642,
+          "in_band": false
+        },
+        {
+          "date": "2019-04-11T00:00:00",
+          "value": 1.1238,
+          "in_band": false
+        },
+        {
+          "date": "2019-05-06T00:00:00",
+          "value": 1.0253,
+          "in_band": false
+        },
+        {
+          "date": "2019-06-11T00:00:00",
+          "value": 1.0331,
+          "in_band": false
+        },
+        {
+          "date": "2019-07-01T00:00:00",
+          "value": 0.8981,
+          "in_band": false
+        },
+        {
+          "date": "2019-08-06T00:00:00",
+          "value": 2.5366,
+          "in_band": false
+        },
+        {
+          "date": "2019-09-01T00:00:00",
+          "value": 1.4886,
+          "in_band": false
+        },
+        {
+          "date": "2019-10-06T00:00:00",
+          "value": 1.6215,
+          "in_band": false
+        },
+        {
+          "date": "2019-11-06T00:00:00",
+          "value": -0.0198,
+          "in_band": false
+        },
+        {
+          "date": "2019-12-11T00:00:00",
+          "value": 4.0259,
+          "in_band": false
+        },
+        {
+          "date": "2020-01-16T00:00:00",
+          "value": 2.7135,
+          "in_band": false
+        },
+        {
+          "date": "2020-02-06T00:00:00",
+          "value": 1.7959,
+          "in_band": false
+        },
+        {
+          "date": "2020-03-06T00:00:00",
+          "value": 1.127,
+          "in_band": false
+        },
+        {
+          "date": "2020-04-21T00:00:00",
+          "value": 1.8723,
+          "in_band": false
+        },
+        {
+          "date": "2020-05-06T00:00:00",
+          "value": 0.8495,
+          "in_band": false
+        },
+        {
+          "date": "2020-06-11T00:00:00",
+          "value": 2.0776,
+          "in_band": false
+        },
+        {
+          "date": "2020-07-06T00:00:00",
+          "value": -0.1333,
+          "in_band": false
+        },
+        {
+          "date": "2020-08-06T00:00:00",
+          "value": 0.6206,
+          "in_band": false
+        },
+        {
+          "date": "2020-09-11T00:00:00",
+          "value": 2.8694,
+          "in_band": false
+        },
+        {
+          "date": "2020-10-16T00:00:00",
+          "value": 1.9884,
+          "in_band": false
+        },
+        {
+          "date": "2020-11-11T00:00:00",
+          "value": 2.2648,
+          "in_band": false
+        },
+        {
+          "date": "2020-12-11T00:00:00",
+          "value": 2.3376,
+          "in_band": false
+        },
+        {
+          "date": "2021-01-11T00:00:00",
+          "value": 2.1137,
+          "in_band": false
+        },
+        {
+          "date": "2021-02-16T00:00:00",
+          "value": 2.4486,
+          "in_band": false
+        },
+        {
+          "date": "2021-03-11T00:00:00",
+          "value": 0.9156,
+          "in_band": false
+        },
+        {
+          "date": "2021-04-06T00:00:00",
+          "value": 2.5002,
+          "in_band": false
+        },
+        {
+          "date": "2021-05-06T00:00:00",
+          "value": 2.838,
+          "in_band": false
+        },
+        {
+          "date": "2021-06-01T00:00:00",
+          "value": 0.9893,
+          "in_band": false
+        },
+        {
+          "date": "2021-07-01T00:00:00",
+          "value": -1.1251,
+          "in_band": false
+        },
+        {
+          "date": "2021-08-01T00:00:00",
+          "value": 1.2749,
+          "in_band": false
+        },
+        {
+          "date": "2021-09-11T00:00:00",
+          "value": 1.0793,
+          "in_band": false
+        },
+        {
+          "date": "2021-10-06T00:00:00",
+          "value": 0.0168,
+          "in_band": false
+        },
+        {
+          "date": "2021-11-06T00:00:00",
+          "value": 1.367,
+          "in_band": false
+        },
+        {
+          "date": "2021-12-01T00:00:00",
+          "value": -0.2698,
+          "in_band": false
+        },
+        {
+          "date": "2022-01-01T00:00:00",
+          "value": -3.1997,
+          "in_band": false
+        },
+        {
+          "date": "2022-02-01T00:00:00",
+          "value": -3.9382,
+          "in_band": false
+        },
+        {
+          "date": "2022-03-01T00:00:00",
+          "value": -3.9921,
+          "in_band": false
+        },
+        {
+          "date": "2022-04-01T00:00:00",
+          "value": -3.6083,
+          "in_band": false
+        },
+        {
+          "date": "2022-05-01T00:00:00",
+          "value": -3.2628,
+          "in_band": false
+        },
+        {
+          "date": "2022-06-01T00:00:00",
+          "value": -2.6955,
+          "in_band": false
+        },
+        {
+          "date": "2022-07-01T00:00:00",
+          "value": -2.0102,
+          "in_band": false
+        },
+        {
+          "date": "2022-08-01T00:00:00",
+          "value": -1.3152,
+          "in_band": false
+        },
+        {
+          "date": "2022-09-01T00:00:00",
+          "value": -0.2814,
+          "in_band": false
+        },
+        {
+          "date": "2022-10-01T00:00:00",
+          "value": 0.2084,
+          "in_band": false
+        },
+        {
+          "date": "2022-11-01T00:00:00",
+          "value": 0.6943,
+          "in_band": false
+        },
+        {
+          "date": "2022-12-01T00:00:00",
+          "value": 0.7823,
+          "in_band": false
+        },
+        {
+          "date": "2023-01-01T00:00:00",
+          "value": -0.003,
+          "in_band": false
+        },
+        {
+          "date": "2023-02-21T00:00:00",
+          "value": 1.2478,
+          "in_band": false
+        },
+        {
+          "date": "2023-03-16T00:00:00",
+          "value": -0.4707,
+          "in_band": false
+        },
+        {
+          "date": "2023-04-11T00:00:00",
+          "value": 0.0153,
+          "in_band": false
+        },
+        {
+          "date": "2023-05-11T00:00:00",
+          "value": 1.0333,
+          "in_band": false
+        },
+        {
+          "date": "2023-06-11T00:00:00",
+          "value": 0.9542,
+          "in_band": false
+        },
+        {
+          "date": "2023-07-11T00:00:00",
+          "value": -0.2873,
+          "in_band": false
+        },
+        {
+          "date": "2023-08-16T00:00:00",
+          "value": 0.5043,
+          "in_band": false
+        },
+        {
+          "date": "2023-09-06T00:00:00",
+          "value": 0.4537,
+          "in_band": false
+        },
+        {
+          "date": "2023-10-01T00:00:00",
+          "value": 0.3705,
+          "in_band": false
+        },
+        {
+          "date": "2023-11-16T00:00:00",
+          "value": 1.4914,
+          "in_band": false
+        },
+        {
+          "date": "2023-12-11T00:00:00",
+          "value": 2.4563,
+          "in_band": false
+        }
+      ],
+      "drought_2021_detection_date": null,
+      "dynamics_vs_densefill_diagnostic": {
+        "amplitude_ratio_increments": 1.0762,
+        "detrended_corr": 0.6576,
+        "detrended_std_obs_mm": 1.043,
+        "detrended_std_pred_mm": 0.456
+      },
+      "meets_L1_threshold": true,
+      "L1_thresholds": {
+        "MAE_mm": 5,
+        "RMSE_mm": 10
+      }
+    },
+    "F2": {
+      "n_prequential_visits": 60,
+      "n_scoring_points": 60,
+      "MAE_mm": 3.396,
+      "RMSE_mm": 4.546,
+      "skill_vs_baseline": null,
+      "band_coverage_fraction": null,
+      "n_hw_defined_visits": 0,
+      "mean_half_width_mm": null,
+      "converged": false,
+      "innovations": [
+        {
+          "date": "2019-01-11T00:00:00",
+          "value": -19.3499,
+          "in_band": false
+        },
+        {
+          "date": "2019-02-11T00:00:00",
+          "value": -5.1604,
+          "in_band": false
+        },
+        {
+          "date": "2019-03-06T00:00:00",
+          "value": -3.759,
+          "in_band": false
+        },
+        {
+          "date": "2019-04-11T00:00:00",
+          "value": -3.5001,
+          "in_band": false
+        },
+        {
+          "date": "2019-05-06T00:00:00",
+          "value": 0.3261,
+          "in_band": false
+        },
+        {
+          "date": "2019-06-11T00:00:00",
+          "value": 0.6002,
+          "in_band": false
+        },
+        {
+          "date": "2019-07-01T00:00:00",
+          "value": 2.4581,
+          "in_band": false
+        },
+        {
+          "date": "2019-08-06T00:00:00",
+          "value": -0.2145,
+          "in_band": false
+        },
+        {
+          "date": "2019-09-01T00:00:00",
+          "value": 6.2267,
+          "in_band": false
+        },
+        {
+          "date": "2019-10-06T00:00:00",
+          "value": 1.3138,
+          "in_band": false
+        },
+        {
+          "date": "2019-11-06T00:00:00",
+          "value": 1.9998,
+          "in_band": false
+        },
+        {
+          "date": "2019-12-11T00:00:00",
+          "value": 1.637,
+          "in_band": false
+        },
+        {
+          "date": "2020-01-16T00:00:00",
+          "value": 1.5763,
+          "in_band": false
+        },
+        {
+          "date": "2020-02-06T00:00:00",
+          "value": -1.3,
+          "in_band": false
+        },
+        {
+          "date": "2020-03-06T00:00:00",
+          "value": -1.453,
+          "in_band": false
+        },
+        {
+          "date": "2020-04-21T00:00:00",
+          "value": -0.4225,
+          "in_band": false
+        },
+        {
+          "date": "2020-05-06T00:00:00",
+          "value": -1.3405,
+          "in_band": false
+        },
+        {
+          "date": "2020-06-11T00:00:00",
+          "value": 1.6374,
+          "in_band": false
+        },
+        {
+          "date": "2020-07-06T00:00:00",
+          "value": 0.8267,
+          "in_band": false
+        },
+        {
+          "date": "2020-08-06T00:00:00",
+          "value": -1.9503,
+          "in_band": false
+        },
+        {
+          "date": "2020-09-11T00:00:00",
+          "value": 3.5897,
+          "in_band": false
+        },
+        {
+          "date": "2020-10-16T00:00:00",
+          "value": -0.253,
+          "in_band": false
+        },
+        {
+          "date": "2020-11-11T00:00:00",
+          "value": 3.1494,
+          "in_band": false
+        },
+        {
+          "date": "2020-12-11T00:00:00",
+          "value": 2.6535,
+          "in_band": false
+        },
+        {
+          "date": "2021-01-11T00:00:00",
+          "value": 4.0368,
+          "in_band": false
+        },
+        {
+          "date": "2021-02-16T00:00:00",
+          "value": 0.2666,
+          "in_band": false
+        },
+        {
+          "date": "2021-03-11T00:00:00",
+          "value": -1.0856,
+          "in_band": false
+        },
+        {
+          "date": "2021-04-06T00:00:00",
+          "value": -3.0907,
+          "in_band": false
+        },
+        {
+          "date": "2021-05-06T00:00:00",
+          "value": -1.6643,
+          "in_band": false
+        },
+        {
+          "date": "2021-06-01T00:00:00",
+          "value": -5.8192,
+          "in_band": false
+        },
+        {
+          "date": "2021-07-01T00:00:00",
+          "value": -0.9313,
+          "in_band": false
+        },
+        {
+          "date": "2021-08-01T00:00:00",
+          "value": -3.3028,
+          "in_band": false
+        },
+        {
+          "date": "2021-09-11T00:00:00",
+          "value": -0.7086,
+          "in_band": false
+        },
+        {
+          "date": "2021-10-06T00:00:00",
+          "value": 1.4464,
+          "in_band": false
+        },
+        {
+          "date": "2021-11-06T00:00:00",
+          "value": -0.4151,
+          "in_band": false
+        },
+        {
+          "date": "2021-12-01T00:00:00",
+          "value": 3.8571,
+          "in_band": false
+        },
+        {
+          "date": "2022-01-01T00:00:00",
+          "value": -4.5442,
+          "in_band": false
+        },
+        {
+          "date": "2022-02-01T00:00:00",
+          "value": -6.0416,
+          "in_band": false
+        },
+        {
+          "date": "2022-03-01T00:00:00",
+          "value": -5.5401,
+          "in_band": false
+        },
+        {
+          "date": "2022-04-01T00:00:00",
+          "value": -6.3728,
+          "in_band": false
+        },
+        {
+          "date": "2022-05-01T00:00:00",
+          "value": -6.3645,
+          "in_band": false
+        },
+        {
+          "date": "2022-06-01T00:00:00",
+          "value": -6.6936,
+          "in_band": false
+        },
+        {
+          "date": "2022-07-01T00:00:00",
+          "value": -8.9283,
+          "in_band": false
+        },
+        {
+          "date": "2022-08-01T00:00:00",
+          "value": -7.5163,
+          "in_band": false
+        },
+        {
+          "date": "2022-09-01T00:00:00",
+          "value": -5.0085,
+          "in_band": false
+        },
+        {
+          "date": "2022-10-01T00:00:00",
+          "value": -3.2334,
+          "in_band": false
+        },
+        {
+          "date": "2022-11-01T00:00:00",
+          "value": -1.6684,
+          "in_band": false
+        },
+        {
+          "date": "2022-12-01T00:00:00",
+          "value": -3.8259,
+          "in_band": false
+        },
+        {
+          "date": "2023-01-01T00:00:00",
+          "value": -7.7072,
+          "in_band": false
+        },
+        {
+          "date": "2023-02-21T00:00:00",
+          "value": -3.6864,
+          "in_band": false
+        },
+        {
+          "date": "2023-03-16T00:00:00",
+          "value": -7.3335,
+          "in_band": false
+        },
+        {
+          "date": "2023-04-11T00:00:00",
+          "value": -2.4891,
+          "in_band": false
+        },
+        {
+          "date": "2023-05-11T00:00:00",
+          "value": -4.8719,
+          "in_band": false
+        },
+        {
+          "date": "2023-06-11T00:00:00",
+          "value": -2.3921,
+          "in_band": false
+        },
+        {
+          "date": "2023-07-11T00:00:00",
+          "value": -5.253,
+          "in_band": false
+        },
+        {
+          "date": "2023-08-16T00:00:00",
+          "value": -1.1545,
+          "in_band": false
+        },
+        {
+          "date": "2023-09-06T00:00:00",
+          "value": -1.6178,
+          "in_band": false
+        },
+        {
+          "date": "2023-10-01T00:00:00",
+          "value": -3.5541,
+          "in_band": false
+        },
+        {
+          "date": "2023-11-16T00:00:00",
+          "value": -2.0618,
+          "in_band": false
+        },
+        {
+          "date": "2023-12-11T00:00:00",
+          "value": -2.5534,
+          "in_band": false
+        }
+      ],
+      "drought_2021_detection_date": null,
+      "dynamics_vs_densefill_diagnostic": {
+        "amplitude_ratio_increments": 2.978,
+        "detrended_corr": 0.7546,
+        "detrended_std_obs_mm": 3.734,
+        "detrended_std_pred_mm": 3.953
+      },
+      "meets_L1_threshold": true,
+      "L1_thresholds": {
+        "MAE_mm": 10,
+        "RMSE_mm": 20
+      }
+    },
+    "T2": {
+      "n_prequential_visits": 60,
+      "n_scoring_points": 60,
+      "MAE_mm": 1.84,
+      "RMSE_mm": 2.353,
+      "skill_vs_baseline": null,
+      "band_coverage_fraction": null,
+      "n_hw_defined_visits": 0,
+      "mean_half_width_mm": null,
+      "converged": false,
+      "innovations": [
+        {
+          "date": "2019-01-11T00:00:00",
+          "value": -2.2331,
+          "in_band": false
+        },
+        {
+          "date": "2019-02-11T00:00:00",
+          "value": 1.1989,
+          "in_band": false
+        },
+        {
+          "date": "2019-03-06T00:00:00",
+          "value": 0.7257,
+          "in_band": false
+        },
+        {
+          "date": "2019-04-11T00:00:00",
+          "value": -0.3025,
+          "in_band": false
+        },
+        {
+          "date": "2019-05-06T00:00:00",
+          "value": -0.2596,
+          "in_band": false
+        },
+        {
+          "date": "2019-06-11T00:00:00",
+          "value": -0.7509,
+          "in_band": false
+        },
+        {
+          "date": "2019-07-01T00:00:00",
+          "value": 0.4179,
+          "in_band": false
+        },
+        {
+          "date": "2019-08-06T00:00:00",
+          "value": -1.2432,
+          "in_band": false
+        },
+        {
+          "date": "2019-09-01T00:00:00",
+          "value": -3.5704,
+          "in_band": false
+        },
+        {
+          "date": "2019-10-06T00:00:00",
+          "value": -1.06,
+          "in_band": false
+        },
+        {
+          "date": "2019-11-06T00:00:00",
+          "value": -1.2566,
+          "in_band": false
+        },
+        {
+          "date": "2019-12-11T00:00:00",
+          "value": 0.05,
+          "in_band": false
+        },
+        {
+          "date": "2020-01-16T00:00:00",
+          "value": -0.409,
+          "in_band": false
+        },
+        {
+          "date": "2020-02-06T00:00:00",
+          "value": 0.4733,
+          "in_band": false
+        },
+        {
+          "date": "2020-03-06T00:00:00",
+          "value": 0.4217,
+          "in_band": false
+        },
+        {
+          "date": "2020-04-21T00:00:00",
+          "value": 0.1668,
+          "in_band": false
+        },
+        {
+          "date": "2020-05-06T00:00:00",
+          "value": -2.5653,
+          "in_band": false
+        },
+        {
+          "date": "2020-06-11T00:00:00",
+          "value": -1.891,
+          "in_band": false
+        },
+        {
+          "date": "2020-07-06T00:00:00",
+          "value": -1.586,
+          "in_band": false
+        },
+        {
+          "date": "2020-08-06T00:00:00",
+          "value": 0.3368,
+          "in_band": false
+        },
+        {
+          "date": "2020-09-11T00:00:00",
+          "value": 0.2714,
+          "in_band": false
+        },
+        {
+          "date": "2020-10-16T00:00:00",
+          "value": -1.06,
+          "in_band": false
+        },
+        {
+          "date": "2020-11-11T00:00:00",
+          "value": 0.3272,
+          "in_band": false
+        },
+        {
+          "date": "2020-12-11T00:00:00",
+          "value": 0.4698,
+          "in_band": false
+        },
+        {
+          "date": "2021-01-11T00:00:00",
+          "value": 0.0535,
+          "in_band": false
+        },
+        {
+          "date": "2021-02-16T00:00:00",
+          "value": -0.5888,
+          "in_band": false
+        },
+        {
+          "date": "2021-03-11T00:00:00",
+          "value": 0.1448,
+          "in_band": false
+        },
+        {
+          "date": "2021-04-06T00:00:00",
+          "value": 1.8819,
+          "in_band": false
+        },
+        {
+          "date": "2021-05-06T00:00:00",
+          "value": 4.1491,
+          "in_band": false
+        },
+        {
+          "date": "2021-06-01T00:00:00",
+          "value": 3.5476,
+          "in_band": false
+        },
+        {
+          "date": "2021-07-01T00:00:00",
+          "value": 4.2967,
+          "in_band": false
+        },
+        {
+          "date": "2021-08-01T00:00:00",
+          "value": 4.8377,
+          "in_band": false
+        },
+        {
+          "date": "2021-09-11T00:00:00",
+          "value": 3.4803,
+          "in_band": false
+        },
+        {
+          "date": "2021-10-06T00:00:00",
+          "value": -0.2145,
+          "in_band": false
+        },
+        {
+          "date": "2021-11-06T00:00:00",
+          "value": 3.1266,
+          "in_band": false
+        },
+        {
+          "date": "2021-12-01T00:00:00",
+          "value": 0.9608,
+          "in_band": false
+        },
+        {
+          "date": "2022-01-01T00:00:00",
+          "value": 4.7122,
+          "in_band": false
+        },
+        {
+          "date": "2022-02-01T00:00:00",
+          "value": 5.2351,
+          "in_band": false
+        },
+        {
+          "date": "2022-03-01T00:00:00",
+          "value": 2.145,
+          "in_band": false
+        },
+        {
+          "date": "2022-04-01T00:00:00",
+          "value": -1.1467,
+          "in_band": false
+        },
+        {
+          "date": "2022-05-01T00:00:00",
+          "value": -1.5075,
+          "in_band": false
+        },
+        {
+          "date": "2022-06-01T00:00:00",
+          "value": 0.8041,
+          "in_band": false
+        },
+        {
+          "date": "2022-07-01T00:00:00",
+          "value": 2.8683,
+          "in_band": false
+        },
+        {
+          "date": "2022-08-01T00:00:00",
+          "value": 3.1738,
+          "in_band": false
+        },
+        {
+          "date": "2022-09-01T00:00:00",
+          "value": 0.6803,
+          "in_band": false
+        },
+        {
+          "date": "2022-10-01T00:00:00",
+          "value": -1.5967,
+          "in_band": false
+        },
+        {
+          "date": "2022-11-01T00:00:00",
+          "value": -1.5076,
+          "in_band": false
+        },
+        {
+          "date": "2022-12-01T00:00:00",
+          "value": 0.9478,
+          "in_band": false
+        },
+        {
+          "date": "2023-01-01T00:00:00",
+          "value": 3.8475,
+          "in_band": false
+        },
+        {
+          "date": "2023-02-21T00:00:00",
+          "value": 3.052,
+          "in_band": false
+        },
+        {
+          "date": "2023-03-16T00:00:00",
+          "value": 1.5549,
+          "in_band": false
+        },
+        {
+          "date": "2023-04-11T00:00:00",
+          "value": 4.0838,
+          "in_band": false
+        },
+        {
+          "date": "2023-05-11T00:00:00",
+          "value": 4.397,
+          "in_band": false
+        },
+        {
+          "date": "2023-06-11T00:00:00",
+          "value": 2.6716,
+          "in_band": false
+        },
+        {
+          "date": "2023-07-11T00:00:00",
+          "value": 3.6024,
+          "in_band": false
+        },
+        {
+          "date": "2023-08-16T00:00:00",
+          "value": 2.8878,
+          "in_band": false
+        },
+        {
+          "date": "2023-09-06T00:00:00",
+          "value": 3.9223,
+          "in_band": false
+        },
+        {
+          "date": "2023-10-01T00:00:00",
+          "value": 1.4032,
+          "in_band": false
+        },
+        {
+          "date": "2023-11-16T00:00:00",
+          "value": 1.3216,
+          "in_band": false
+        },
+        {
+          "date": "2023-12-11T00:00:00",
+          "value": 0.9751,
+          "in_band": false
+        }
+      ],
+      "drought_2021_detection_date": null,
+      "dynamics_vs_densefill_diagnostic": {
+        "amplitude_ratio_increments": 1.7644,
+        "detrended_corr": 0.7369,
+        "detrended_std_obs_mm": 2.244,
+        "detrended_std_pred_mm": 1.938
+      },
+      "meets_L1_threshold": true,
+      "L1_thresholds": {
+        "MAE_mm": 5,
+        "RMSE_mm": 10
+      }
+    },
+    "F3": {
+      "n_prequential_visits": 60,
+      "n_scoring_points": 60,
+      "MAE_mm": 6.357,
+      "RMSE_mm": 9.149,
+      "skill_vs_baseline": null,
+      "band_coverage_fraction": null,
+      "n_hw_defined_visits": 0,
+      "mean_half_width_mm": null,
+      "converged": false,
+      "innovations": [
+        {
+          "date": "2019-01-11T00:00:00",
+          "value": -44.3051,
+          "in_band": false
+        },
+        {
+          "date": "2019-02-11T00:00:00",
+          "value": -4.689,
+          "in_band": false
+        },
+        {
+          "date": "2019-03-06T00:00:00",
+          "value": -3.8698,
+          "in_band": false
+        },
+        {
+          "date": "2019-04-11T00:00:00",
+          "value": -1.2134,
+          "in_band": false
+        },
+        {
+          "date": "2019-05-06T00:00:00",
+          "value": -3.5834,
+          "in_band": false
+        },
+        {
+          "date": "2019-06-11T00:00:00",
+          "value": -5.548,
+          "in_band": false
+        },
+        {
+          "date": "2019-07-01T00:00:00",
+          "value": -1.3479,
+          "in_band": false
+        },
+        {
+          "date": "2019-08-06T00:00:00",
+          "value": -1.6322,
+          "in_band": false
+        },
+        {
+          "date": "2019-09-01T00:00:00",
+          "value": 0.3923,
+          "in_band": false
+        },
+        {
+          "date": "2019-10-06T00:00:00",
+          "value": 0.2422,
+          "in_band": false
+        },
+        {
+          "date": "2019-11-06T00:00:00",
+          "value": 0.9408,
+          "in_band": false
+        },
+        {
+          "date": "2019-12-11T00:00:00",
+          "value": -2.4559,
+          "in_band": false
+        },
+        {
+          "date": "2020-01-16T00:00:00",
+          "value": 0.0452,
+          "in_band": false
+        },
+        {
+          "date": "2020-02-06T00:00:00",
+          "value": 0.6217,
+          "in_band": false
+        },
+        {
+          "date": "2020-03-06T00:00:00",
+          "value": 2.2023,
+          "in_band": false
+        },
+        {
+          "date": "2020-04-21T00:00:00",
+          "value": 0.95,
+          "in_band": false
+        },
+        {
+          "date": "2020-05-06T00:00:00",
+          "value": 4.432,
+          "in_band": false
+        },
+        {
+          "date": "2020-06-11T00:00:00",
+          "value": 4.1721,
+          "in_band": false
+        },
+        {
+          "date": "2020-07-06T00:00:00",
+          "value": 1.7759,
+          "in_band": false
+        },
+        {
+          "date": "2020-08-06T00:00:00",
+          "value": -2.6198,
+          "in_band": false
+        },
+        {
+          "date": "2020-09-11T00:00:00",
+          "value": 2.8162,
+          "in_band": false
+        },
+        {
+          "date": "2020-10-16T00:00:00",
+          "value": 5.2981,
+          "in_band": false
+        },
+        {
+          "date": "2020-11-11T00:00:00",
+          "value": 2.219,
+          "in_band": false
+        },
+        {
+          "date": "2020-12-11T00:00:00",
+          "value": 3.4868,
+          "in_band": false
+        },
+        {
+          "date": "2021-01-11T00:00:00",
+          "value": 5.1463,
+          "in_band": false
+        },
+        {
+          "date": "2021-02-16T00:00:00",
+          "value": 4.8292,
+          "in_band": false
+        },
+        {
+          "date": "2021-03-11T00:00:00",
+          "value": 5.3796,
+          "in_band": false
+        },
+        {
+          "date": "2021-04-06T00:00:00",
+          "value": 4.0754,
+          "in_band": false
+        },
+        {
+          "date": "2021-05-06T00:00:00",
+          "value": 4.8102,
+          "in_band": false
+        },
+        {
+          "date": "2021-06-01T00:00:00",
+          "value": 1.94,
+          "in_band": false
+        },
+        {
+          "date": "2021-07-01T00:00:00",
+          "value": 4.4725,
+          "in_band": false
+        },
+        {
+          "date": "2021-08-01T00:00:00",
+          "value": 5.7859,
+          "in_band": false
+        },
+        {
+          "date": "2021-09-11T00:00:00",
+          "value": 7.2009,
+          "in_band": false
+        },
+        {
+          "date": "2021-10-06T00:00:00",
+          "value": 6.8598,
+          "in_band": false
+        },
+        {
+          "date": "2021-11-06T00:00:00",
+          "value": 6.8889,
+          "in_band": false
+        },
+        {
+          "date": "2021-12-01T00:00:00",
+          "value": 6.5357,
+          "in_band": false
+        },
+        {
+          "date": "2022-01-01T00:00:00",
+          "value": 4.8133,
+          "in_band": false
+        },
+        {
+          "date": "2022-02-01T00:00:00",
+          "value": 7.8945,
+          "in_band": false
+        },
+        {
+          "date": "2022-03-01T00:00:00",
+          "value": 14.7177,
+          "in_band": false
+        },
+        {
+          "date": "2022-04-01T00:00:00",
+          "value": 20.731,
+          "in_band": false
+        },
+        {
+          "date": "2022-05-01T00:00:00",
+          "value": 20.412,
+          "in_band": false
+        },
+        {
+          "date": "2022-06-01T00:00:00",
+          "value": 13.0422,
+          "in_band": false
+        },
+        {
+          "date": "2022-07-01T00:00:00",
+          "value": 3.012,
+          "in_band": false
+        },
+        {
+          "date": "2022-08-01T00:00:00",
+          "value": -4.132,
+          "in_band": false
+        },
+        {
+          "date": "2022-09-01T00:00:00",
+          "value": -6.3552,
+          "in_band": false
+        },
+        {
+          "date": "2022-10-01T00:00:00",
+          "value": -6.4698,
+          "in_band": false
+        },
+        {
+          "date": "2022-11-01T00:00:00",
+          "value": -8.2721,
+          "in_band": false
+        },
+        {
+          "date": "2022-12-01T00:00:00",
+          "value": -11.1159,
+          "in_band": false
+        },
+        {
+          "date": "2023-01-01T00:00:00",
+          "value": -9.3325,
+          "in_band": false
+        },
+        {
+          "date": "2023-02-21T00:00:00",
+          "value": -4.2363,
+          "in_band": false
+        },
+        {
+          "date": "2023-03-16T00:00:00",
+          "value": -2.9205,
+          "in_band": false
+        },
+        {
+          "date": "2023-04-11T00:00:00",
+          "value": -1.8596,
+          "in_band": false
+        },
+        {
+          "date": "2023-05-11T00:00:00",
+          "value": -8.0025,
+          "in_band": false
+        },
+        {
+          "date": "2023-06-11T00:00:00",
+          "value": -7.7788,
+          "in_band": false
+        },
+        {
+          "date": "2023-07-11T00:00:00",
+          "value": -9.482,
+          "in_band": false
+        },
+        {
+          "date": "2023-08-16T00:00:00",
+          "value": -10.9426,
+          "in_band": false
+        },
+        {
+          "date": "2023-09-06T00:00:00",
+          "value": -11.4041,
+          "in_band": false
+        },
+        {
+          "date": "2023-10-01T00:00:00",
+          "value": -9.5881,
+          "in_band": false
+        },
+        {
+          "date": "2023-11-16T00:00:00",
+          "value": -9.5726,
+          "in_band": false
+        },
+        {
+          "date": "2023-12-11T00:00:00",
+          "value": -10.5312,
+          "in_band": false
+        }
+      ],
+      "drought_2021_detection_date": null,
+      "dynamics_vs_densefill_diagnostic": {
+        "amplitude_ratio_increments": 7.5015,
+        "detrended_corr": -0.1491,
+        "detrended_std_obs_mm": 5.402,
+        "detrended_std_pred_mm": 4.499
+      },
+      "meets_L1_threshold": true,
+      "L1_thresholds": {
+        "MAE_mm": 10,
+        "RMSE_mm": 20
+      }
+    },
+    "F4": {
+      "n_prequential_visits": 60,
+      "n_scoring_points": 60,
+      "MAE_mm": 1.314,
+      "RMSE_mm": 1.733,
+      "skill_vs_baseline": null,
+      "band_coverage_fraction": null,
+      "n_hw_defined_visits": 0,
+      "mean_half_width_mm": null,
+      "converged": false,
+      "innovations": [
+        {
+          "date": "2019-01-11T00:00:00",
+          "value": -5.915,
+          "in_band": false
+        },
+        {
+          "date": "2019-02-11T00:00:00",
+          "value": 2.1735,
+          "in_band": false
+        },
+        {
+          "date": "2019-03-06T00:00:00",
+          "value": 1.3616,
+          "in_band": false
+        },
+        {
+          "date": "2019-04-11T00:00:00",
+          "value": -0.516,
+          "in_band": false
+        },
+        {
+          "date": "2019-05-06T00:00:00",
+          "value": 1.5739,
+          "in_band": false
+        },
+        {
+          "date": "2019-06-11T00:00:00",
+          "value": 3.7491,
+          "in_band": false
+        },
+        {
+          "date": "2019-07-01T00:00:00",
+          "value": -0.2401,
+          "in_band": false
+        },
+        {
+          "date": "2019-08-06T00:00:00",
+          "value": 0.9538,
+          "in_band": false
+        },
+        {
+          "date": "2019-09-01T00:00:00",
+          "value": 1.2211,
+          "in_band": false
+        },
+        {
+          "date": "2019-10-06T00:00:00",
+          "value": 1.4616,
+          "in_band": false
+        },
+        {
+          "date": "2019-11-06T00:00:00",
+          "value": -0.6529,
+          "in_band": false
+        },
+        {
+          "date": "2019-12-11T00:00:00",
+          "value": 2.1245,
+          "in_band": false
+        },
+        {
+          "date": "2020-01-16T00:00:00",
+          "value": 2.0016,
+          "in_band": false
+        },
+        {
+          "date": "2020-02-06T00:00:00",
+          "value": 1.0917,
+          "in_band": false
+        },
+        {
+          "date": "2020-03-06T00:00:00",
+          "value": -0.6477,
+          "in_band": false
+        },
+        {
+          "date": "2020-04-21T00:00:00",
+          "value": 0.7288,
+          "in_band": false
+        },
+        {
+          "date": "2020-05-06T00:00:00",
+          "value": -1.1171,
+          "in_band": false
+        },
+        {
+          "date": "2020-06-11T00:00:00",
+          "value": 0.2076,
+          "in_band": false
+        },
+        {
+          "date": "2020-07-06T00:00:00",
+          "value": 2.2125,
+          "in_band": false
+        },
+        {
+          "date": "2020-08-06T00:00:00",
+          "value": 2.2462,
+          "in_band": false
+        },
+        {
+          "date": "2020-09-11T00:00:00",
+          "value": 2.5045,
+          "in_band": false
+        },
+        {
+          "date": "2020-10-16T00:00:00",
+          "value": 1.5371,
+          "in_band": false
+        },
+        {
+          "date": "2020-11-11T00:00:00",
+          "value": 1.4648,
+          "in_band": false
+        },
+        {
+          "date": "2020-12-11T00:00:00",
+          "value": 2.379,
+          "in_band": false
+        },
+        {
+          "date": "2021-01-11T00:00:00",
+          "value": 0.3577,
+          "in_band": false
+        },
+        {
+          "date": "2021-02-16T00:00:00",
+          "value": 0.7388,
+          "in_band": false
+        },
+        {
+          "date": "2021-03-11T00:00:00",
+          "value": -0.9595,
+          "in_band": false
+        },
+        {
+          "date": "2021-04-06T00:00:00",
+          "value": 0.2464,
+          "in_band": false
+        },
+        {
+          "date": "2021-05-06T00:00:00",
+          "value": 0.5369,
+          "in_band": false
+        },
+        {
+          "date": "2021-06-01T00:00:00",
+          "value": -0.153,
+          "in_band": false
+        },
+        {
+          "date": "2021-07-01T00:00:00",
+          "value": -4.0728,
+          "in_band": false
+        },
+        {
+          "date": "2021-08-01T00:00:00",
+          "value": 0.0802,
+          "in_band": false
+        },
+        {
+          "date": "2021-09-11T00:00:00",
+          "value": 0.4511,
+          "in_band": false
+        },
+        {
+          "date": "2021-10-06T00:00:00",
+          "value": 4.5162,
+          "in_band": false
+        },
+        {
+          "date": "2021-11-06T00:00:00",
+          "value": 0.481,
+          "in_band": false
+        },
+        {
+          "date": "2021-12-01T00:00:00",
+          "value": 0.9754,
+          "in_band": false
+        },
+        {
+          "date": "2022-01-01T00:00:00",
+          "value": 0.7359,
+          "in_band": false
+        },
+        {
+          "date": "2022-02-01T00:00:00",
+          "value": 0.8378,
+          "in_band": false
+        },
+        {
+          "date": "2022-03-01T00:00:00",
+          "value": 0.9639,
+          "in_band": false
+        },
+        {
+          "date": "2022-04-01T00:00:00",
+          "value": 0.9573,
+          "in_band": false
+        },
+        {
+          "date": "2022-05-01T00:00:00",
+          "value": 0.9906,
+          "in_band": false
+        },
+        {
+          "date": "2022-06-01T00:00:00",
+          "value": 1.1647,
+          "in_band": false
+        },
+        {
+          "date": "2022-07-01T00:00:00",
+          "value": 1.108,
+          "in_band": false
+        },
+        {
+          "date": "2022-08-01T00:00:00",
+          "value": 1.0948,
+          "in_band": false
+        },
+        {
+          "date": "2022-09-01T00:00:00",
+          "value": 1.109,
+          "in_band": false
+        },
+        {
+          "date": "2022-10-01T00:00:00",
+          "value": 1.0011,
+          "in_band": false
+        },
+        {
+          "date": "2022-11-01T00:00:00",
+          "value": 0.6882,
+          "in_band": false
+        },
+        {
+          "date": "2022-12-01T00:00:00",
+          "value": 0.3469,
+          "in_band": false
+        },
+        {
+          "date": "2023-01-01T00:00:00",
+          "value": -0.016,
+          "in_band": false
+        },
+        {
+          "date": "2023-02-21T00:00:00",
+          "value": 2.7585,
+          "in_band": false
+        },
+        {
+          "date": "2023-03-16T00:00:00",
+          "value": -0.1699,
+          "in_band": false
+        },
+        {
+          "date": "2023-04-11T00:00:00",
+          "value": -3.2142,
+          "in_band": false
+        },
+        {
+          "date": "2023-05-11T00:00:00",
+          "value": 1.8589,
+          "in_band": false
+        },
+        {
+          "date": "2023-06-11T00:00:00",
+          "value": -1.0698,
+          "in_band": false
+        },
+        {
+          "date": "2023-07-11T00:00:00",
+          "value": 0.7824,
+          "in_band": false
+        },
+        {
+          "date": "2023-08-16T00:00:00",
+          "value": 0.7681,
+          "in_band": false
+        },
+        {
+          "date": "2023-09-06T00:00:00",
+          "value": 0.8534,
+          "in_band": false
+        },
+        {
+          "date": "2023-10-01T00:00:00",
+          "value": 0.8376,
+          "in_band": false
+        },
+        {
+          "date": "2023-11-16T00:00:00",
+          "value": -0.3714,
+          "in_band": false
+        },
+        {
+          "date": "2023-12-11T00:00:00",
+          "value": 1.4864,
+          "in_band": false
+        }
+      ],
+      "drought_2021_detection_date": null,
+      "dynamics_vs_densefill_diagnostic": {
+        "amplitude_ratio_increments": 10.2874,
+        "detrended_corr": -0.3874,
+        "detrended_std_obs_mm": 0.604,
+        "detrended_std_pred_mm": 0.67
+      },
+      "meets_L1_threshold": true,
+      "L1_thresholds": {
+        "MAE_mm": 5,
+        "RMSE_mm": 10
+      }
+    }
+  }
+}

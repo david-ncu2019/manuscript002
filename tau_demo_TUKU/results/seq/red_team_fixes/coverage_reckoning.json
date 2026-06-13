@@ -1,0 +1,1086 @@
+{
+  "script": "29_coverage_reckoning.py",
+  "red_team_findings_resolved": [
+    "F-2",
+    "F-6"
+  ],
+  "description": "Part 1: honest blind-era (2019-2023) split-conformal band coverage recomputed over full n=27-60 band-defined points per layer. Part 2: 2024 prediction timeseries persisted to disk; all grades PROVISIONAL.",
+  "coverage_per_schedule_per_layer": {
+    "none": {
+      "F1": {
+        "n_band_defined": 3,
+        "k_in_band_full": 2,
+        "coverage_full": 0.6667,
+        "CI95_low_full": 0.0943,
+        "CI95_high_full": 0.9916,
+        "n_band_defined_post": 2,
+        "k_in_band_post": 1,
+        "coverage_postentry": 0.5,
+        "CI95_low_post": 0.0126,
+        "CI95_high_post": 0.9874
+      },
+      "T1": {
+        "n_band_defined": 3,
+        "k_in_band_full": 3,
+        "coverage_full": 1.0,
+        "CI95_low_full": 0.2924,
+        "CI95_high_full": 1.0,
+        "n_band_defined_post": 2,
+        "k_in_band_post": 2,
+        "coverage_postentry": 1.0,
+        "CI95_low_post": 0.1581,
+        "CI95_high_post": 1.0
+      },
+      "F2": {
+        "n_band_defined": 3,
+        "k_in_band_full": 0,
+        "coverage_full": 0.0,
+        "CI95_low_full": 0.0,
+        "CI95_high_full": 0.7076,
+        "n_band_defined_post": 2,
+        "k_in_band_post": 0,
+        "coverage_postentry": 0.0,
+        "CI95_low_post": 0.0,
+        "CI95_high_post": 0.8419
+      },
+      "T2": {
+        "n_band_defined": 3,
+        "k_in_band_full": 3,
+        "coverage_full": 1.0,
+        "CI95_low_full": 0.2924,
+        "CI95_high_full": 1.0,
+        "n_band_defined_post": 2,
+        "k_in_band_post": 2,
+        "coverage_postentry": 1.0,
+        "CI95_low_post": 0.1581,
+        "CI95_high_post": 1.0
+      },
+      "F3": {
+        "n_band_defined": 3,
+        "k_in_band_full": 0,
+        "coverage_full": 0.0,
+        "CI95_low_full": 0.0,
+        "CI95_high_full": 0.7076,
+        "n_band_defined_post": 2,
+        "k_in_band_post": 0,
+        "coverage_postentry": 0.0,
+        "CI95_low_post": 0.0,
+        "CI95_high_post": 0.8419
+      },
+      "F4": {
+        "n_band_defined": 3,
+        "k_in_band_full": 1,
+        "coverage_full": 0.3333,
+        "CI95_low_full": 0.0084,
+        "CI95_high_full": 0.9057,
+        "n_band_defined_post": 2,
+        "k_in_band_post": 1,
+        "coverage_postentry": 0.5,
+        "CI95_low_post": 0.0126,
+        "CI95_high_post": 0.9874
+      }
+    },
+    "annual": {
+      "F1": {
+        "n_band_defined": 14,
+        "k_in_band_full": 12,
+        "coverage_full": 0.8571,
+        "CI95_low_full": 0.5719,
+        "CI95_high_full": 0.9822,
+        "n_band_defined_post": 13,
+        "k_in_band_post": 11,
+        "coverage_postentry": 0.8462,
+        "CI95_low_post": 0.5455,
+        "CI95_high_post": 0.9808
+      },
+      "T1": {
+        "n_band_defined": 14,
+        "k_in_band_full": 14,
+        "coverage_full": 1.0,
+        "CI95_low_full": 0.7684,
+        "CI95_high_full": 1.0,
+        "n_band_defined_post": 13,
+        "k_in_band_post": 13,
+        "coverage_postentry": 1.0,
+        "CI95_low_post": 0.7529,
+        "CI95_high_post": 1.0
+      },
+      "F2": {
+        "n_band_defined": 14,
+        "k_in_band_full": 12,
+        "coverage_full": 0.8571,
+        "CI95_low_full": 0.5719,
+        "CI95_high_full": 0.9822,
+        "n_band_defined_post": 13,
+        "k_in_band_post": 12,
+        "coverage_postentry": 0.9231,
+        "CI95_low_post": 0.6397,
+        "CI95_high_post": 0.9981
+      },
+      "T2": {
+        "n_band_defined": 14,
+        "k_in_band_full": 13,
+        "coverage_full": 0.9286,
+        "CI95_low_full": 0.6613,
+        "CI95_high_full": 0.9982,
+        "n_band_defined_post": 13,
+        "k_in_band_post": 12,
+        "coverage_postentry": 0.9231,
+        "CI95_low_post": 0.6397,
+        "CI95_high_post": 0.9981
+      },
+      "F3": {
+        "n_band_defined": 14,
+        "k_in_band_full": 9,
+        "coverage_full": 0.6429,
+        "CI95_low_full": 0.3514,
+        "CI95_high_full": 0.8724,
+        "n_band_defined_post": 13,
+        "k_in_band_post": 9,
+        "coverage_postentry": 0.6923,
+        "CI95_low_post": 0.3857,
+        "CI95_high_post": 0.9091
+      },
+      "F4": {
+        "n_band_defined": 14,
+        "k_in_band_full": 13,
+        "coverage_full": 0.9286,
+        "CI95_low_full": 0.6613,
+        "CI95_high_full": 0.9982,
+        "n_band_defined_post": 13,
+        "k_in_band_post": 13,
+        "coverage_postentry": 1.0,
+        "CI95_low_post": 0.7529,
+        "CI95_high_post": 1.0
+      }
+    },
+    "semiannual": {
+      "F1": {
+        "n_band_defined": 27,
+        "k_in_band_full": 18,
+        "coverage_full": 0.6667,
+        "CI95_low_full": 0.4604,
+        "CI95_high_full": 0.8348,
+        "n_band_defined_post": 26,
+        "k_in_band_post": 17,
+        "coverage_postentry": 0.6538,
+        "CI95_low_post": 0.4433,
+        "CI95_high_post": 0.8279
+      },
+      "T1": {
+        "n_band_defined": 27,
+        "k_in_band_full": 22,
+        "coverage_full": 0.8148,
+        "CI95_low_full": 0.6192,
+        "CI95_high_full": 0.937,
+        "n_band_defined_post": 26,
+        "k_in_band_post": 21,
+        "coverage_postentry": 0.8077,
+        "CI95_low_post": 0.6065,
+        "CI95_high_post": 0.9345
+      },
+      "F2": {
+        "n_band_defined": 27,
+        "k_in_band_full": 23,
+        "coverage_full": 0.8519,
+        "CI95_low_full": 0.6627,
+        "CI95_high_full": 0.9581,
+        "n_band_defined_post": 26,
+        "k_in_band_post": 23,
+        "coverage_postentry": 0.8846,
+        "CI95_low_post": 0.6985,
+        "CI95_high_post": 0.9755
+      },
+      "T2": {
+        "n_band_defined": 27,
+        "k_in_band_full": 23,
+        "coverage_full": 0.8519,
+        "CI95_low_full": 0.6627,
+        "CI95_high_full": 0.9581,
+        "n_band_defined_post": 26,
+        "k_in_band_post": 22,
+        "coverage_postentry": 0.8462,
+        "CI95_low_post": 0.6513,
+        "CI95_high_post": 0.9564
+      },
+      "F3": {
+        "n_band_defined": 27,
+        "k_in_band_full": 21,
+        "coverage_full": 0.7778,
+        "CI95_low_full": 0.5774,
+        "CI95_high_full": 0.9138,
+        "n_band_defined_post": 26,
+        "k_in_band_post": 21,
+        "coverage_postentry": 0.8077,
+        "CI95_low_post": 0.6065,
+        "CI95_high_post": 0.9345
+      },
+      "F4": {
+        "n_band_defined": 27,
+        "k_in_band_full": 24,
+        "coverage_full": 0.8889,
+        "CI95_low_full": 0.7084,
+        "CI95_high_full": 0.9765,
+        "n_band_defined_post": 26,
+        "k_in_band_post": 24,
+        "coverage_postentry": 0.9231,
+        "CI95_low_post": 0.7487,
+        "CI95_high_post": 0.9905
+      }
+    },
+    "quarterly": {
+      "F1": {
+        "n_band_defined": 54,
+        "k_in_band_full": 38,
+        "coverage_full": 0.7037,
+        "CI95_low_full": 0.5639,
+        "CI95_high_full": 0.8202,
+        "n_band_defined_post": 53,
+        "k_in_band_post": 37,
+        "coverage_postentry": 0.6981,
+        "CI95_low_post": 0.5566,
+        "CI95_high_post": 0.8166
+      },
+      "T1": {
+        "n_band_defined": 54,
+        "k_in_band_full": 48,
+        "coverage_full": 0.8889,
+        "CI95_low_full": 0.7737,
+        "CI95_high_full": 0.9581,
+        "n_band_defined_post": 53,
+        "k_in_band_post": 47,
+        "coverage_postentry": 0.8868,
+        "CI95_low_post": 0.7697,
+        "CI95_high_post": 0.9573
+      },
+      "F2": {
+        "n_band_defined": 54,
+        "k_in_band_full": 49,
+        "coverage_full": 0.9074,
+        "CI95_low_full": 0.797,
+        "CI95_high_full": 0.9692,
+        "n_band_defined_post": 53,
+        "k_in_band_post": 49,
+        "coverage_postentry": 0.9245,
+        "CI95_low_post": 0.8179,
+        "CI95_high_post": 0.9791
+      },
+      "T2": {
+        "n_band_defined": 54,
+        "k_in_band_full": 43,
+        "coverage_full": 0.7963,
+        "CI95_low_full": 0.6647,
+        "CI95_high_full": 0.8937,
+        "n_band_defined_post": 53,
+        "k_in_band_post": 42,
+        "coverage_postentry": 0.7925,
+        "CI95_low_post": 0.6589,
+        "CI95_high_post": 0.8916
+      },
+      "F3": {
+        "n_band_defined": 54,
+        "k_in_band_full": 44,
+        "coverage_full": 0.8148,
+        "CI95_low_full": 0.6857,
+        "CI95_high_full": 0.9075,
+        "n_band_defined_post": 53,
+        "k_in_band_post": 44,
+        "coverage_postentry": 0.8302,
+        "CI95_low_post": 0.702,
+        "CI95_high_post": 0.9193
+      },
+      "F4": {
+        "n_band_defined": 54,
+        "k_in_band_full": 50,
+        "coverage_full": 0.9259,
+        "CI95_low_full": 0.8211,
+        "CI95_high_full": 0.9794,
+        "n_band_defined_post": 53,
+        "k_in_band_post": 50,
+        "coverage_postentry": 0.9434,
+        "CI95_low_post": 0.8434,
+        "CI95_high_post": 0.9882
+      }
+    },
+    "monthly": {
+      "F1": {
+        "n_band_defined": 60,
+        "k_in_band_full": 47,
+        "coverage_full": 0.7833,
+        "CI95_low_full": 0.658,
+        "CI95_high_full": 0.8793,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 46,
+        "coverage_postentry": 0.7797,
+        "CI95_low_post": 0.6527,
+        "CI95_high_post": 0.8771
+      },
+      "T1": {
+        "n_band_defined": 60,
+        "k_in_band_full": 57,
+        "coverage_full": 0.95,
+        "CI95_low_full": 0.8608,
+        "CI95_high_full": 0.9896,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 56,
+        "coverage_postentry": 0.9492,
+        "CI95_low_post": 0.8585,
+        "CI95_high_post": 0.9894
+      },
+      "F2": {
+        "n_band_defined": 60,
+        "k_in_band_full": 57,
+        "coverage_full": 0.95,
+        "CI95_low_full": 0.8608,
+        "CI95_high_full": 0.9896,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 57,
+        "coverage_postentry": 0.9661,
+        "CI95_low_post": 0.8829,
+        "CI95_high_post": 0.9959
+      },
+      "T2": {
+        "n_band_defined": 60,
+        "k_in_band_full": 53,
+        "coverage_full": 0.8833,
+        "CI95_low_full": 0.7743,
+        "CI95_high_full": 0.9518,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 52,
+        "coverage_postentry": 0.8814,
+        "CI95_low_post": 0.7707,
+        "CI95_high_post": 0.9509
+      },
+      "F3": {
+        "n_band_defined": 60,
+        "k_in_band_full": 52,
+        "coverage_full": 0.8667,
+        "CI95_low_full": 0.7541,
+        "CI95_high_full": 0.9406,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 52,
+        "coverage_postentry": 0.8814,
+        "CI95_low_post": 0.7707,
+        "CI95_high_post": 0.9509
+      },
+      "F4": {
+        "n_band_defined": 60,
+        "k_in_band_full": 53,
+        "coverage_full": 0.8833,
+        "CI95_low_full": 0.7743,
+        "CI95_high_full": 0.9518,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 53,
+        "coverage_postentry": 0.8983,
+        "CI95_low_post": 0.7917,
+        "CI95_high_post": 0.9618
+      }
+    },
+    "blackout": {
+      "F1": {
+        "n_band_defined": 11,
+        "k_in_band_full": 9,
+        "coverage_full": 0.8182,
+        "CI95_low_full": 0.4822,
+        "CI95_high_full": 0.9772,
+        "n_band_defined_post": 10,
+        "k_in_band_post": 8,
+        "coverage_postentry": 0.8,
+        "CI95_low_post": 0.4439,
+        "CI95_high_post": 0.9748
+      },
+      "T1": {
+        "n_band_defined": 11,
+        "k_in_band_full": 11,
+        "coverage_full": 1.0,
+        "CI95_low_full": 0.7151,
+        "CI95_high_full": 1.0,
+        "n_band_defined_post": 10,
+        "k_in_band_post": 10,
+        "coverage_postentry": 1.0,
+        "CI95_low_post": 0.6915,
+        "CI95_high_post": 1.0
+      },
+      "F2": {
+        "n_band_defined": 11,
+        "k_in_band_full": 7,
+        "coverage_full": 0.6364,
+        "CI95_low_full": 0.3079,
+        "CI95_high_full": 0.8907,
+        "n_band_defined_post": 10,
+        "k_in_band_post": 7,
+        "coverage_postentry": 0.7,
+        "CI95_low_post": 0.3475,
+        "CI95_high_post": 0.9333
+      },
+      "T2": {
+        "n_band_defined": 11,
+        "k_in_band_full": 10,
+        "coverage_full": 0.9091,
+        "CI95_low_full": 0.5872,
+        "CI95_high_full": 0.9977,
+        "n_band_defined_post": 10,
+        "k_in_band_post": 9,
+        "coverage_postentry": 0.9,
+        "CI95_low_post": 0.555,
+        "CI95_high_post": 0.9975
+      },
+      "F3": {
+        "n_band_defined": 11,
+        "k_in_band_full": 4,
+        "coverage_full": 0.3636,
+        "CI95_low_full": 0.1093,
+        "CI95_high_full": 0.6921,
+        "n_band_defined_post": 10,
+        "k_in_band_post": 4,
+        "coverage_postentry": 0.4,
+        "CI95_low_post": 0.1216,
+        "CI95_high_post": 0.7376
+      },
+      "F4": {
+        "n_band_defined": 11,
+        "k_in_band_full": 9,
+        "coverage_full": 0.8182,
+        "CI95_low_full": 0.4822,
+        "CI95_high_full": 0.9772,
+        "n_band_defined_post": 10,
+        "k_in_band_post": 9,
+        "coverage_postentry": 0.9,
+        "CI95_low_post": 0.555,
+        "CI95_high_post": 0.9975
+      }
+    },
+    "actual": {
+      "F1": {
+        "n_band_defined": 60,
+        "k_in_band_full": 48,
+        "coverage_full": 0.8,
+        "CI95_low_full": 0.6767,
+        "CI95_high_full": 0.8922,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 47,
+        "coverage_postentry": 0.7966,
+        "CI95_low_post": 0.6717,
+        "CI95_high_post": 0.8902
+      },
+      "T1": {
+        "n_band_defined": 60,
+        "k_in_band_full": 57,
+        "coverage_full": 0.95,
+        "CI95_low_full": 0.8608,
+        "CI95_high_full": 0.9896,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 56,
+        "coverage_postentry": 0.9492,
+        "CI95_low_post": 0.8585,
+        "CI95_high_post": 0.9894
+      },
+      "F2": {
+        "n_band_defined": 60,
+        "k_in_band_full": 57,
+        "coverage_full": 0.95,
+        "CI95_low_full": 0.8608,
+        "CI95_high_full": 0.9896,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 57,
+        "coverage_postentry": 0.9661,
+        "CI95_low_post": 0.8829,
+        "CI95_high_post": 0.9959
+      },
+      "T2": {
+        "n_band_defined": 60,
+        "k_in_band_full": 53,
+        "coverage_full": 0.8833,
+        "CI95_low_full": 0.7743,
+        "CI95_high_full": 0.9518,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 52,
+        "coverage_postentry": 0.8814,
+        "CI95_low_post": 0.7707,
+        "CI95_high_post": 0.9509
+      },
+      "F3": {
+        "n_band_defined": 60,
+        "k_in_band_full": 50,
+        "coverage_full": 0.8333,
+        "CI95_low_full": 0.7148,
+        "CI95_high_full": 0.9171,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 50,
+        "coverage_postentry": 0.8475,
+        "CI95_low_post": 0.7301,
+        "CI95_high_post": 0.9278
+      },
+      "F4": {
+        "n_band_defined": 60,
+        "k_in_band_full": 53,
+        "coverage_full": 0.8833,
+        "CI95_low_full": 0.7743,
+        "CI95_high_full": 0.9518,
+        "n_band_defined_post": 59,
+        "k_in_band_post": 53,
+        "coverage_postentry": 0.8983,
+        "CI95_low_post": 0.7917,
+        "CI95_high_post": 0.9618
+      }
+    },
+    "anchor_once": {
+      "F1": {
+        "n_band_defined": 0,
+        "k_in_band_full": 0,
+        "coverage_full": null,
+        "CI95_low_full": NaN,
+        "CI95_high_full": NaN,
+        "n_band_defined_post": 0,
+        "k_in_band_post": 0,
+        "coverage_postentry": null,
+        "CI95_low_post": NaN,
+        "CI95_high_post": NaN
+      },
+      "T1": {
+        "n_band_defined": 0,
+        "k_in_band_full": 0,
+        "coverage_full": null,
+        "CI95_low_full": NaN,
+        "CI95_high_full": NaN,
+        "n_band_defined_post": 0,
+        "k_in_band_post": 0,
+        "coverage_postentry": null,
+        "CI95_low_post": NaN,
+        "CI95_high_post": NaN
+      },
+      "F2": {
+        "n_band_defined": 0,
+        "k_in_band_full": 0,
+        "coverage_full": null,
+        "CI95_low_full": NaN,
+        "CI95_high_full": NaN,
+        "n_band_defined_post": 0,
+        "k_in_band_post": 0,
+        "coverage_postentry": null,
+        "CI95_low_post": NaN,
+        "CI95_high_post": NaN
+      },
+      "T2": {
+        "n_band_defined": 0,
+        "k_in_band_full": 0,
+        "coverage_full": null,
+        "CI95_low_full": NaN,
+        "CI95_high_full": NaN,
+        "n_band_defined_post": 0,
+        "k_in_band_post": 0,
+        "coverage_postentry": null,
+        "CI95_low_post": NaN,
+        "CI95_high_post": NaN
+      },
+      "F3": {
+        "n_band_defined": 0,
+        "k_in_band_full": 0,
+        "coverage_full": null,
+        "CI95_low_full": NaN,
+        "CI95_high_full": NaN,
+        "n_band_defined_post": 0,
+        "k_in_band_post": 0,
+        "coverage_postentry": null,
+        "CI95_low_post": NaN,
+        "CI95_high_post": NaN
+      },
+      "F4": {
+        "n_band_defined": 0,
+        "k_in_band_full": 0,
+        "coverage_full": null,
+        "CI95_low_full": NaN,
+        "CI95_high_full": NaN,
+        "n_band_defined_post": 0,
+        "k_in_band_post": 0,
+        "coverage_postentry": null,
+        "CI95_low_post": NaN,
+        "CI95_high_post": NaN
+      }
+    }
+  },
+  "cadence_verdicts": {
+    "none": {
+      "overall_verdict": "INSUFFICIENT_N",
+      "verdict_string": "INSUFFICIENT_N \u2014 fewer than 5/6 layers reach n\u226520 band-defined points (only 0/6 qualify).",
+      "n_layers_pass": 0,
+      "n_layers_n_sufficient": 0,
+      "layer_verdicts": {
+        "F1": "INSUFFICIENT_N (n=3)",
+        "T1": "INSUFFICIENT_N (n=3)",
+        "F2": "INSUFFICIENT_N (n=3)",
+        "T2": "INSUFFICIENT_N (n=3)",
+        "F3": "INSUFFICIENT_N (n=3)",
+        "F4": "INSUFFICIENT_N (n=3)"
+      }
+    },
+    "annual": {
+      "overall_verdict": "INSUFFICIENT_N",
+      "verdict_string": "INSUFFICIENT_N \u2014 fewer than 5/6 layers reach n\u226520 band-defined points (only 0/6 qualify).",
+      "n_layers_pass": 0,
+      "n_layers_n_sufficient": 0,
+      "layer_verdicts": {
+        "F1": "INSUFFICIENT_N (n=14)",
+        "T1": "INSUFFICIENT_N (n=14)",
+        "F2": "INSUFFICIENT_N (n=14)",
+        "T2": "INSUFFICIENT_N (n=14)",
+        "F3": "INSUFFICIENT_N (n=14)",
+        "F4": "INSUFFICIENT_N (n=14)"
+      }
+    },
+    "semiannual": {
+      "overall_verdict": "FAIL",
+      "verdict_string": "FAIL \u2014 split-conformal as configured is a failed uncertainty quantifier at semiannual cadence for this record (only 3/6 layers reach 0.85 on n\u226520).",
+      "n_layers_pass": 3,
+      "n_layers_n_sufficient": 6,
+      "layer_verdicts": {
+        "F1": "FAIL (0.667)",
+        "T1": "FAIL (0.815)",
+        "F2": "PASS (0.852)",
+        "T2": "PASS (0.852)",
+        "F3": "FAIL (0.778)",
+        "F4": "PASS (0.889)"
+      }
+    },
+    "quarterly": {
+      "overall_verdict": "FAIL",
+      "verdict_string": "FAIL \u2014 split-conformal as configured is a failed uncertainty quantifier at quarterly cadence for this record (only 3/6 layers reach 0.85 on n\u226520).",
+      "n_layers_pass": 3,
+      "n_layers_n_sufficient": 6,
+      "layer_verdicts": {
+        "F1": "FAIL (0.704)",
+        "T1": "PASS (0.889)",
+        "F2": "PASS (0.907)",
+        "T2": "FAIL (0.796)",
+        "F3": "FAIL (0.815)",
+        "F4": "PASS (0.926)"
+      }
+    },
+    "monthly": {
+      "overall_verdict": "PASS",
+      "verdict_string": "PASS \u2014 split-conformal as configured reaches \u22650.85 on 5/6 layers at monthly cadence (n\u226520).",
+      "n_layers_pass": 5,
+      "n_layers_n_sufficient": 6,
+      "layer_verdicts": {
+        "F1": "FAIL (0.783)",
+        "T1": "PASS (0.950)",
+        "F2": "PASS (0.950)",
+        "T2": "PASS (0.883)",
+        "F3": "PASS (0.867)",
+        "F4": "PASS (0.883)"
+      }
+    },
+    "blackout": {
+      "overall_verdict": "INSUFFICIENT_N",
+      "verdict_string": "INSUFFICIENT_N \u2014 fewer than 5/6 layers reach n\u226520 band-defined points (only 0/6 qualify).",
+      "n_layers_pass": 0,
+      "n_layers_n_sufficient": 0,
+      "layer_verdicts": {
+        "F1": "INSUFFICIENT_N (n=11)",
+        "T1": "INSUFFICIENT_N (n=11)",
+        "F2": "INSUFFICIENT_N (n=11)",
+        "T2": "INSUFFICIENT_N (n=11)",
+        "F3": "INSUFFICIENT_N (n=11)",
+        "F4": "INSUFFICIENT_N (n=11)"
+      }
+    },
+    "actual": {
+      "overall_verdict": "FAIL",
+      "verdict_string": "FAIL \u2014 split-conformal as configured is a failed uncertainty quantifier at actual cadence for this record (only 4/6 layers reach 0.85 on n\u226520).",
+      "n_layers_pass": 4,
+      "n_layers_n_sufficient": 6,
+      "layer_verdicts": {
+        "F1": "FAIL (0.800)",
+        "T1": "PASS (0.950)",
+        "F2": "PASS (0.950)",
+        "T2": "PASS (0.883)",
+        "F3": "FAIL (0.833)",
+        "F4": "PASS (0.883)"
+      }
+    },
+    "anchor_once": {
+      "overall_verdict": "INSUFFICIENT_N",
+      "verdict_string": "INSUFFICIENT_N \u2014 fewer than 5/6 layers reach n\u226520 band-defined points (only 0/6 qualify).",
+      "n_layers_pass": 0,
+      "n_layers_n_sufficient": 0,
+      "layer_verdicts": {
+        "F1": "INSUFFICIENT_N (n=0)",
+        "T1": "INSUFFICIENT_N (n=0)",
+        "F2": "INSUFFICIENT_N (n=0)",
+        "T2": "INSUFFICIENT_N (n=0)",
+        "F3": "INSUFFICIENT_N (n=0)",
+        "F4": "INSUFFICIENT_N (n=0)"
+      }
+    }
+  },
+  "coverage_verdict_semiannual": "FAIL \u2014 split-conformal as configured is a failed uncertainty quantifier at semiannual cadence for this record (only 3/6 layers reach 0.85 on n\u226520).",
+  "cross_check_semiannual_vs_redteam": {
+    "F1": {
+      "our_coverage": 0.6667,
+      "redteam_coverage": 0.667,
+      "delta": 0.0003,
+      "pass": true
+    },
+    "T1": {
+      "our_coverage": 0.8148,
+      "redteam_coverage": 0.815,
+      "delta": 0.0002,
+      "pass": true
+    },
+    "F2": {
+      "our_coverage": 0.8519,
+      "redteam_coverage": 0.852,
+      "delta": 0.0001,
+      "pass": true
+    },
+    "T2": {
+      "our_coverage": 0.8519,
+      "redteam_coverage": 0.852,
+      "delta": 0.0001,
+      "pass": true
+    },
+    "F3": {
+      "our_coverage": 0.7778,
+      "redteam_coverage": 0.778,
+      "delta": 0.0002,
+      "pass": true
+    },
+    "F4": {
+      "our_coverage": 0.8889,
+      "redteam_coverage": 0.889,
+      "delta": 0.0001,
+      "pass": true
+    },
+    "all_pass": true
+  },
+  "leakage_manifest": [],
+  "confirmatory_2024": {
+    "task": "F-6 fix \u2014 2024 confirmatory timeseries persisted to disk",
+    "gps_last_epoch": "2024-12-31",
+    "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence.",
+    "schedules": {
+      "semiannual": {
+        "leakage_fired": false,
+        "layers": {
+          "F1": {
+            "n_2024_points": 12,
+            "MAE_mm": 1.4,
+            "RMSE_mm": 1.757,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 1.7944,
+              "detrended_corr": 0.6707,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "T1": {
+            "n_2024_points": 12,
+            "MAE_mm": 1.462,
+            "RMSE_mm": 1.815,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 4.8169,
+              "detrended_corr": 0.6804,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "F2": {
+            "n_2024_points": 12,
+            "MAE_mm": 3.994,
+            "RMSE_mm": 4.602,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 2.1849,
+              "detrended_corr": 0.7831,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 10,
+              "RMSE_mm": 20
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "T2": {
+            "n_2024_points": 8,
+            "MAE_mm": 1.915,
+            "RMSE_mm": 2.146,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 3.6745,
+              "detrended_corr": 0.8854,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "F3": {
+            "n_2024_points": 12,
+            "MAE_mm": 2.821,
+            "RMSE_mm": 3.768,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 3.8027,
+              "detrended_corr": 0.7715,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 10,
+              "RMSE_mm": 20
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "F4": {
+            "n_2024_points": 12,
+            "MAE_mm": 2.421,
+            "RMSE_mm": 2.545,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 15.7463,
+              "detrended_corr": 0.6258,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          }
+        }
+      },
+      "annual": {
+        "leakage_fired": false,
+        "layers": {
+          "F1": {
+            "n_2024_points": 12,
+            "MAE_mm": 1.463,
+            "RMSE_mm": 2.072,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 5.8143,
+              "detrended_corr": 0.6507,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "T1": {
+            "n_2024_points": 12,
+            "MAE_mm": 0.899,
+            "RMSE_mm": 1.253,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 3.2738,
+              "detrended_corr": 0.7517,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "F2": {
+            "n_2024_points": 12,
+            "MAE_mm": 1.819,
+            "RMSE_mm": 2.205,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 1.6663,
+              "detrended_corr": 0.8956,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 10,
+              "RMSE_mm": 20
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "T2": {
+            "n_2024_points": 8,
+            "MAE_mm": 2.098,
+            "RMSE_mm": 2.341,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 1.3602,
+              "detrended_corr": 0.8759,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "F3": {
+            "n_2024_points": 12,
+            "MAE_mm": 5.697,
+            "RMSE_mm": 6.02,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 12.0723,
+              "detrended_corr": 0.5552,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 10,
+              "RMSE_mm": 20
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          },
+          "F4": {
+            "n_2024_points": 12,
+            "MAE_mm": 0.74,
+            "RMSE_mm": 0.924,
+            "band_coverage_fraction": null,
+            "n_points_with_defined_band": 0,
+            "mean_half_width_mm": null,
+            "dynamics_vs_densefill_diagnostic": {
+              "amplitude_ratio_increments": 4.6856,
+              "detrended_corr": 0.5995,
+              "note": "2024 model vs dense reconstruction, detrended"
+            },
+            "meets_L1_threshold": true,
+            "L1_thresholds": {
+              "MAE_mm": 5,
+              "RMSE_mm": 10
+            },
+            "verdict": {
+              "meets_threshold": true,
+              "coverage_ok": "undetermined",
+              "coverage_value": null,
+              "note": "Band undefined for all 0 2024 prequential points \u2014 conformal bank has too few samples in the relevant horizon bucket at this sparse cadence.  Coverage cannot be measured."
+            },
+            "grade_status": "PROVISIONAL",
+            "ground_truth_2024_status": "NOT field-verifiable (ring source 100% non-integer in 2024 per truth_provenance_summary.json); grades are provisional, must not be cited as blind-generalization evidence."
+          }
+        }
+      }
+    }
+  }
+}
