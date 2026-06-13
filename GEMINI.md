@@ -40,6 +40,10 @@ Following a reorganization on 2026-05-19, the project is structured hierarchical
 - `gis/`: Spatial layers (shapefiles, Kriging/velocity layers).
 - `docs/`: Reorganization logs, path mappings, and technical notes.
 
+## Current Status (2026-06-13)
+
+**BLOCKED — awaiting human review.** M6–M9 complete (2026-06-11); Red Team remediation complete (2026-06-12, scripts 26–30); DP-SEQ re-graded **PARTIAL** (accuracy PASS at annual cadence, skill ≤ 0 for F2/T2 on honest anchor-once baseline, coverage FAIL at semiannual 3/6 layers). Corrected deployable claim: **secular trend apportionment + datum maintenance by sparse visits + partial F2 seasonal dynamics**. Sub-annual multilayer dynamics at sparse cadence are mathematically underdetermined (carrier rank-1 proven by SVD; amplitude-bound lemma). F3 forensic triage verdict: CONFLUENCE — instrumentation gap (no piezometer screened in F3 clay 240–275 m), code exonerated. Do not proceed to Part 2/3 without human sign-off.
+
 ## Current Development Focus
 
 Following the rigorous Zero-Trust Audit (2026-06-09), the incremental solver (IHM-F v3) has been officially abandoned due to structural failure (cancellation of preconsolidation stress memory). The project is now executing a **Two-Track Strategy**:

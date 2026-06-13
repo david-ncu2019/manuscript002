@@ -3,7 +3,7 @@
 > **This is the single authoritative PROGRESS.md** (merged 2026-06-05; content from docs repo 2026-06-04).
 > All future updates go here only.
 
-**Date:** 2026-06-12
+**Date:** 2026-06-13
 **Status:** ✅ M6–M9 COMPLETE + RED TEAM REMEDIATION COMPLETE (2026-06-12). The full `super_plan_2026-06-11.md` ran end-to-end; an independent Red Team re-audit then invalidated four headline framings (no fabrication, no leakage — but inflated skill, an unfixable F3 phase error, an evaded coverage failure, and mixed-provenance truth). All four corrected via scripts 26–30 (`tau_demo_TUKU/seq/`, results in `results/seq/red_team_fixes/`). See `discussions/SEQ_REHEARSAL_FINDINGS_20260611.md` §10 and `discussions/FEASIBILITY_VERDICT_FINAL_20260611.md`.
 
 > **GATE M8 — DP-SEQ = PARTIAL (re-graded, harsher basis).**
@@ -25,6 +25,8 @@
 > - **Sharpens the Red Team verdict into an instrumentation conclusion:** the network has NO piezometer screened in the F3 clay (240–275 m), so the slow driving head is unmeasured; no shallow re-assignment fixes F3. Next step would be a deep co-screened piezometer or a modelled deep head (MODFLOW-CSUB) as the F3 driver. Advisory only — does not unblock Part 2/3.
 
 **Next (BLOCKED, awaiting human review):** ratify DP-SCOPE (single-well pivot) and the re-graded DP-SEQ; decide whether to (a) restrict the deployable claim to trend + datum (+ F2 partial dynamics) and write Part 1 up on that honest basis, (b) move F3/F4 dynamics to a monthly-cadence or independent-observable track, (c) test the three not-disproven augmentations (InSAR ascending/descending decomposition, per-layer distinct wells, multi-station joint inversion) before opening Part 2 (per-station physics) / Part 3 (8,577 grid points). 2024 confirmatory grades are PROVISIONAL (ground truth not field-verifiable; ring source 100% non-integer in 2024). Structural finding still standing: with the GPS carrier present, 4/6 layers calibrate to purely elastic head response; only T2/F3 keep an inelastic term, and F3's true lag (~815 d) exceeds the τ=120 production cap.
+
+**Advisory — Kalman design brainstorm (2026-06-12/13):** `discussions/KALMAN_DESIGN_BRAINSTORM_20260612.md` shows the M8 level reset is the Kalman update limit when P_prior >> R. Three of four standard Kalman objections are resolved (regime mask precomputable, ref date data-driven, scalar z(t) = total column solves the rank-1 problem). Adding ~30 lines of covariance propagation would make the estimator formally Bayesian. Not required to unblock Part 2 — filed as advisory for future implementation.
 
 ---
 

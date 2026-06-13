@@ -1,7 +1,7 @@
 # Discussion Memory: InSAR–MLCW–GWL Integration for Depth-Stratified Subsidence Monitoring
 
-**Last updated: 2026-06-08**
-**Current focus: Cumulative-domain solver pivot (2026-06-08); IHM-F v3 incremental solver structurally failed at TUKU; results/ reorganization complete**
+**Last updated: 2026-06-13**
+**Current focus: M6–M9 complete + Red Team remediation complete (2026-06-12); DP-SEQ re-graded PARTIAL; F3 forensic triage complete (CONFLUENCE, instrumentation gap); Kalman design brainstorm filed advisory; BLOCKED pending human review**
 
 ---
 
@@ -758,3 +758,32 @@ carries the full stress history through $V(t)$ — a term that never decreases, 
 6. **Collinearity is NOT a solver bug** — it is a physical identifiability limit. Flag as "InSAR-dominated" and move on.
 7. **Model structure is uniform across all stations** — parameters vary, structure does not. No per-station selection by inspection.
 8. **Incremental cancellation is a physical domain mismatch — not a tuning problem.** The first-difference operator erases preconsolidation stress memory. Do not attempt to fix this with regularization, bounds, or lag optimization. The cumulative domain (Script 12) is the correct formulation for monotonic consolidation. See `discussions/POST_MORTEM_INCREMENTAL_CANCELLATION.md`.
+
+---
+
+## 12. M6–M9 Sequential Rehearsal and Red Team Audit (2026-06-11 to 2026-06-12)
+
+**M6–M9 complete (2026-06-11).** The `super_plan_2026-06-11.md` ran end-to-end at TUKU pilot.
+- M8 sequential estimator (`tau_demo_TUKU/seq/`): TimeOracle leak-guard, frozen calibration `results/seq/frozen_calibration.json` (sum_a_k = 0.559), walk-forward 7 cadences, confirmatory 2024. DP-SEQ = PARTIAL (accuracy PASS, but skill inflated and coverage undetermined).
+- M9 GPS-only deployment: 29/37 stations run, 8 excluded (ERLUN no GPS + 7 overlap<300). Median holdout RMSE 2.52 mm.
+
+**Red Team audit + remediation (2026-06-12, scripts 26–30).** An independent Red Team (`audit_red_team_v2/RED_TEAM_VERDICT_20260611.md`) found no fabrication or leakage but invalidated four headline framings:
+- F-1: annual skill 0.79/0.82 was vs a contaminated baseline (model entered blind era −19.3 mm / −44.3 mm off-datum). Honest anchor-once skill: ≤ 0 for F2/T2, +0.19 for F3 (script 27).
+- F-4: F3 τ uncap 120→163 cut dense SSE 62% but did not restore blind dynamics (r 0.41→0.44). F3 seasonal is in the un-lagged carrier; no τ re-phases it (script 28).
+- F-2: coverage at semiannual FAIL — 3/6 layers pass 0.85 threshold (script 29).
+- F-6: 2024 truth 100% non-integer (smoothed interpolation); not field-verifiable.
+
+**Feasibility verdict (script 30, `discussions/FEASIBILITY_VERDICT_FINAL_20260611.md`).** Sub-annual per-layer dynamics from surface + 1D head are mathematically underdetermined at annual/semiannual cadence — proven by carrier rank-1 (SVD: SV1=7.29e3, SV2-6 < 4e-13 relative) and amplitude-bound lemma (F2 seasonal 4.71 mm > surface seasonal 3.83 mm). Monthly recovers F3 (r=0.862). Corrected deployable claim: secular trend apportionment (<1% trend error) + datum maintenance by sparse visits + partial F2 seasonal dynamics.
+
+---
+
+## 13. F3 Forensic Triage and Kalman Design Brainstorm (2026-06-12 to 2026-06-13)
+
+**F3 forensic triage (scripts 31–33, `discussions/F3_FORENSIC_VERDICT_20260612.md`).** Verdict: CONFLUENCE, code exonerated.
+- Script 31 (synthetic reputation): code recovers injected τ=200 exactly. Driver quality, not code, governs lag recovery; real F3 well driver peaks at |r|=0.10–0.24.
+- Script 32 (real-input audit): F3 well `09050331` screened 176–179 m but compacting clay is at 238–275 m → 79 m gap, 0 overlap. Detrended-seasonal |r|=0.10. Ranks 237/242 wells.
+- Verdict: no piezometer exists screened in F3 clay (240–275 m); the slow driving head is unmeasured. Fix requires a deep co-screened piezometer or modelled deep head (MODFLOW-CSUB). Advisory only — does not unblock Part 2/3.
+
+**Method retrospective + Kalman design brainstorm (2026-06-12/13).** Two advisory documents added:
+- `discussions/METHOD_PATH_RETROSPECTIVE_20260612.md`: explains why the predict-and-reveal walk-forward protocol was not the starting point; the six-week model search was the prerequisite the protocol silently assumed. Plain-language version also written.
+- `discussions/KALMAN_DESIGN_BRAINSTORM_20260612.md`: design analysis showing the M8 level reset is the Kalman update limit when P_prior >> R; resolves three of four standard Kalman objections (regime mask precomputable, ref date data-driven, scalar z(t) = total column solves rank-1 problem); recommends adding ~30 lines of covariance propagation.

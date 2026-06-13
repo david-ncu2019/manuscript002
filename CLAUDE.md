@@ -269,6 +269,21 @@ for warn in result.warnings:
 - **Cumulative diagnostics (2026-06-08).** `scripts/10_ihmf/diagnose_cumulative_tuku.py` writes per-layer cumulative timeseries CSVs + fit PNGs to `results/ihmf/v3/diagnostics/`. Use for rapid visual inspection of two-regressor NNLS fits without re-running the full solver. Currently TUKU-only; generalize to all stations before batch use.
 - **Borehole logging files (added 2026-06-09):** 32 MLCW borehole log files stored at `data/mlcw/borehole_materials/`. Filenames contain both CGS well identifiers (e.g., `CH_WSCH01G1`, `YL_WSYL23G1`) and English + Chinese station names. Not yet parsed by any script — available for layer geometry verification and $S_{ske}$/$S_{kv}$ physical bounds checking. Two wells (LUNFENG, JINHU) have borehole files but no entry in `gwl_to_mlcw_layer_assignment_v4.csv`.
 
+### Anti-Patterns That Corrupt Physical Interpretation (2026-06-11)
+
+These patterns produce code that runs without error but produces physically wrong results. **Never use them in any data-analysis script in this repo.**
+
+| # | Anti-pattern | Why wrong | Correct alternative |
+|---|-------------|-----------|---------------------|
+| A1 | `pd.merge_asof(df1, df2, direction='nearest')` for different-cadence time series | Fabricates cross-date matches (e.g., 2010-01-01 MLCW $\to$ 2010-01-02 GPS) | `df1.index.intersection(df2.index)` — GPS is daily, MLCW is 5-day, exact matches exist |
+| A2 | `ax.twinx()` for two series in the same physical units | Independent y-axes hide magnitude ordering; makes A > B look like B > A | Single shared y-axis with `ax.set_ylim(min(y1.min(), y2.min()) * 1.05, 0)` |
+| A3 | `np.arange(len(y))` as time variable in `np.polyfit` | Time is a physical quantity, not an array position | `(dates - dates[0]).dt.days.to_numpy(float)` |
+| A4 | Detrending cumulative data before zero-referencing (`y - y[0]`) | Trend includes arbitrary datum offset; physically meaningless | Zero-reference first: `y_zeroed = y - y[0]`, then detrend `y_zeroed` |
+| A5 | `y.max() - y.min()` as "range" for cumulative data without zero-referencing | Range depends on arbitrary starting value | Zero-reference first, then compute range |
+| A6 | `plt.subplots()` without `sharey=True` for same-unit comparisons | Each panel gets independent y-limits; hides relative magnitude | `sharey=True` or manual `set_ylim` from global min/max |
+
+**Rule of thumb:** If two quantities are measured in the same units and you're comparing them visually, they MUST share a y-axis. If you're writing `twinx()`, stop — you're about to mislead.
+
 ### IHM-F Naming
 
 - **IHM-F** = Candidate F of the Inelastic Head Model (IHM). The "F" is the candidate letter from the A-F method enumeration in `discussion_20260519_v3.md` — **not** an abbreviation of "Formational" or "Formation."
@@ -280,6 +295,16 @@ for warn in result.warnings:
 ## AI Verification & Safety Protocol
 
 **These rules govern what I must and must not do. They override conversational memory.**
+
+### Pre-Coding Physics Checklist (MANDATORY — before any data-analysis code)
+
+Before writing any `pd.merge`, `plt.subplots`, `np.polyfit`, or data alignment call, answer these 5 questions. If you cannot answer a question from information already in context, **read the data files on disk first** — do not guess.
+
+1. **Units**: What are the physical units of every variable? (mm? m? m MSL? dimensionless?)
+2. **Zero-reference**: Is this cumulative data? If yes → subtract first valid value (`y - y[0]`) before any detrending, correlation, or plotting.
+3. **Inequality constraints**: What must be larger/smaller than what? (GPS $\ge$ MLCW_total always; $S_{skv} \ge S_{ske}$; InSAR = column integral of all compaction)
+4. **Time axis**: What is the actual datetime range? Detrend against `(dates - dates[0]).dt.days.to_numpy(float)`, never against `np.arange(len(y))`.
+5. **Existing reference**: Which script in this repo already does something similar? Read it before writing new code. At minimum: check `scripts/11_data_analysis/`, `tau_demo_TUKU/`, and `scripts/10_ihmf/` for reusable patterns.
 
 ### Insufficient-data rule
 
