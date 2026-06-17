@@ -18,3 +18,13 @@
 *.feather
 # Track the gitignore itself
 !.gitignore
+
+# --- cleanup 2026-06-17: keep scratch out of git ---
+# The trash/ graveyard must never be committed (overrides the !*.py/!*.md/!*.json rules above)
+/trash/
+# Root-level throwaway scratch scripts (tmp_*.py)
+/tmp_*.py
+# Caches
+__pycache__/
+.ipynb_checkpoints/
+.pytest_cache/
