@@ -1,0 +1,67 @@
+{
+  "label": "v1 baseline (v4 driver assignment)",
+  "span": [
+    "2012-08-01",
+    "2023-02-01"
+  ],
+  "section_well": {
+    "S1": [
+      "09050111",
+      "monthly_gwl_timeseries_HONGLUN_09050111.csv"
+    ],
+    "S2": [
+      "09050321",
+      "monthly_gwl_timeseries_TUKU_09050321.csv"
+    ],
+    "S3": [
+      "09050321",
+      "monthly_gwl_timeseries_TUKU_09050321.csv"
+    ],
+    "S4": [
+      "09170121",
+      "monthly_gwl_timeseries_LUNZI_09170121.csv"
+    ],
+    "S5": [
+      "09050331",
+      "monthly_gwl_timeseries_TUKU_09050331.csv"
+    ],
+    "S6": [
+      "09080251",
+      "monthly_gwl_timeseries_LIUZHUANG_09080251.csv"
+    ]
+  },
+  "gwl_lags": [
+    1,
+    3,
+    6,
+    12
+  ],
+  "ds_lags": [
+    1,
+    3
+  ],
+  "rain_windows": [
+    3,
+    6,
+    12
+  ],
+  "split": {
+    "train": [
+      "2012-08-01",
+      "2018-12-31"
+    ],
+    "val": [
+      "2019-01-01",
+      "2020-12-31"
+    ],
+    "test": [
+      "2021-01-01",
+      "2023-02-28"
+    ]
+  },
+  "model": "BayesianRidge",
+  "alpha": 0.1,
+  "tier1_features": [],
+  "conformal_mode": "global",
+  "_written_utc": "2026-06-21T23:39:33.466218+00:00"
+}

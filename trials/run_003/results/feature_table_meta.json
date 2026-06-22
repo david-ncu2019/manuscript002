@@ -1,0 +1,92 @@
+{
+  "generated_utc": "2026-06-21T23:38:36.793842+00:00",
+  "span": [
+    "2012-08-01",
+    "2023-02-01"
+  ],
+  "n_rows": 723,
+  "n_sections": 6,
+  "date_min": "2012-08-01",
+  "date_max": "2023-02-01",
+  "per_section_counts": {
+    "S1": {
+      "kept": 127,
+      "dropped": 0
+    },
+    "S2": {
+      "kept": 114,
+      "dropped": 13
+    },
+    "S3": {
+      "kept": 114,
+      "dropped": 13
+    },
+    "S4": {
+      "kept": 127,
+      "dropped": 0
+    },
+    "S5": {
+      "kept": 114,
+      "dropped": 13
+    },
+    "S6": {
+      "kept": 127,
+      "dropped": 0
+    }
+  },
+  "target_col": "y",
+  "feature_columns": [
+    "dS_total",
+    "dS_total_lag1",
+    "dS_total_lag3",
+    "gwl_head",
+    "dGWL",
+    "gwl_head_lag1",
+    "gwl_head_lag3",
+    "gwl_head_lag6",
+    "gwl_head_lag12",
+    "dGWL_lag1",
+    "dGWL_lag3",
+    "dGWL_lag6",
+    "dGWL_lag12",
+    "rain",
+    "rain_sum3",
+    "rain_sum6",
+    "rain_sum12",
+    "month_sin",
+    "month_cos",
+    "depth_mid",
+    "fine_pct",
+    "coarse_pct",
+    "V_t",
+    "sigma_eff",
+    "V_t_x_fine_pct"
+  ],
+  "id_columns": [
+    "datetime",
+    "section"
+  ],
+  "section_well_map": {
+    "S1": "09050111",
+    "S2": "09050321",
+    "S3": "09050321",
+    "S4": "09170121",
+    "S5": "09050331",
+    "S6": "09080251"
+  },
+  "dS_identical_per_month": true,
+  "gwl_sign_note": "head in m MSL, never negated; LUNZI head legitimately negative",
+  "mlcw_resample_note": "source resampled with .last() on cumulative series (user-fixed)",
+  "rainfall_end": "2023-02",
+  "tier1_features": [
+    "V_t",
+    "sigma_eff",
+    "V_t_x_fine_pct"
+  ],
+  "tier1_constants": {
+    "gamma_kN_per_m3": 18.0,
+    "gamma_w_kN_per_m3": 9.81
+  },
+  "run_id": "run_003",
+  "label": "Phase 1 Tier 1 physics-informed features + per-section conformal"
+}

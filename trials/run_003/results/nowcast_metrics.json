@@ -1,0 +1,192 @@
+{
+  "generated_utc": "2026-06-21T23:38:52.006926+00:00",
+  "model": "BayesianRidge",
+  "alpha": 0.1,
+  "conformal_mode": "per_section",
+  "conformal_q": 1.028869338226833,
+  "conformal_q_by_section": {
+    "S1": {
+      "q": 0.7628837703235873,
+      "n_cal": 24,
+      "fallback": null
+    },
+    "S2": {
+      "q": 2.2325773506672895,
+      "n_cal": 24,
+      "fallback": null
+    },
+    "S3": {
+      "q": 0.8740979748642275,
+      "n_cal": 24,
+      "fallback": null
+    },
+    "S4": {
+      "q": 0.7099013605751976,
+      "n_cal": 24,
+      "fallback": null
+    },
+    "S5": {
+      "q": 1.0191558459592254,
+      "n_cal": 24,
+      "fallback": null
+    },
+    "S6": {
+      "q": 1.9163041544124972,
+      "n_cal": 24,
+      "fallback": null
+    }
+  },
+  "splits": {
+    "train": [
+      "2012-08-01",
+      "2018-12-31"
+    ],
+    "val": [
+      "2019-01-01",
+      "2020-12-31"
+    ],
+    "test": [
+      "2021-01-01",
+      "2023-02-28"
+    ]
+  },
+  "n": {
+    "train": 423,
+    "val": 144,
+    "test": 156
+  },
+  "coefficients": {
+    "feature_names": [
+      "dS_total",
+      "dS_total_lag1",
+      "dS_total_lag3",
+      "gwl_head",
+      "dGWL",
+      "gwl_head_lag1",
+      "gwl_head_lag3",
+      "gwl_head_lag6",
+      "gwl_head_lag12",
+      "dGWL_lag1",
+      "dGWL_lag3",
+      "dGWL_lag6",
+      "dGWL_lag12",
+      "rain",
+      "rain_sum3",
+      "rain_sum6",
+      "rain_sum12",
+      "month_sin",
+      "month_cos",
+      "depth_mid",
+      "fine_pct",
+      "coarse_pct",
+      "V_t",
+      "sigma_eff",
+      "V_t_x_fine_pct"
+    ],
+    "coef": [
+      0.26935102640160247,
+      0.005770520267911847,
+      -0.05955463126243161,
+      0.052597979719665955,
+      0.023806705384143978,
+      0.0459398555943141,
+      0.07805107884644448,
+      -0.10649195020868348,
+      -0.030158531226306674,
+      -0.030641094117434327,
+      -0.0280844657586052,
+      0.012560309345823792,
+      0.0435235699350946,
+      -0.022493293388568425,
+      -0.0058534824301918024,
+      0.027589800111534602,
+      -0.011821750274119091,
+      -0.22775721243837516,
+      -0.024940747462668035,
+      -0.04990759720125631,
+      0.03942807866292333,
+      -0.039428078662923347,
+      2.4651903288156616e-32,
+      -0.05085727192464706,
+      0.0
+    ],
+    "intercept": -0.31795050981127954,
+    "note": "standardized association in a pooled model; not per-layer attribution"
+  },
+  "pooled": {
+    "n": 156,
+    "r2": 0.31844762290161543,
+    "rmse": 0.8598150269324701,
+    "mae": 0.6244191105786069,
+    "skill_vs_persistence": 0.012713638903294577,
+    "skill_vs_mean": 0.2065693413226689,
+    "rmse_persistence": 0.8708871719623104,
+    "rmse_mean_baseline": 1.0836675108645328,
+    "conformal_coverage": 0.8717948717948718,
+    "mean_interval_width": 2.504973485600675
+  },
+  "per_section": {
+    "S1": {
+      "n": 26,
+      "r2": 0.8045890169699557,
+      "rmse": 0.27672933925920995,
+      "mae": 0.22727451795788872,
+      "skill_vs_persistence": 0.35965061708447676,
+      "skill_vs_mean": 0.5677912358706425,
+      "conformal_coverage": 1.0,
+      "mean_interval_width": 1.5257675406471745
+    },
+    "S2": {
+      "n": 26,
+      "r2": 0.4957680129846984,
+      "rmse": 1.1222877180651654,
+      "mae": 0.8865281055940522,
+      "skill_vs_persistence": 0.12203659960069457,
+      "skill_vs_mean": 0.2992715144373054,
+      "conformal_coverage": 0.9230769230769231,
+      "mean_interval_width": 4.465154701334579
+    },
+    "S3": {
+      "n": 26,
+      "r2": 0.30859242306702617,
+      "rmse": 0.6686708509816547,
+      "mae": 0.4560207098626492,
+      "skill_vs_persistence": 0.031189526123119093,
+      "skill_vs_mean": 0.16905166619357925,
+      "conformal_coverage": 0.9230769230769231,
+      "mean_interval_width": 1.748195949728455
+    },
+    "S4": {
+      "n": 26,
+      "r2": 0.69412807983285,
+      "rmse": 0.44180563939707534,
+      "mae": 0.36558575265773224,
+      "skill_vs_persistence": 0.2038955399018778,
+      "skill_vs_mean": 0.4616437782259182,
+      "conformal_coverage": 0.8461538461538461,
+      "mean_interval_width": 1.4198027211503954
+    },
+    "S5": {
+      "n": 26,
+      "r2": -0.14581470812935304,
+      "rmse": 0.9325249637856727,
+      "mae": 0.8349868131294174,
+      "skill_vs_persistence": -1.8374442368393011,
+      "skill_vs_mean": -0.04859568249844326,
+      "conformal_coverage": 0.5769230769230769,
+      "mean_interval_width": 2.0383116919184507
+    },
+    "S6": {
+      "n": 26,
+      "r2": -0.12437938531611659,
+      "rmse": 1.260026466336121,
+      "mae": 0.976118764269901,
+      "skill_vs_persistence": 0.07047286526593999,
+      "skill_vs_mean": -0.05110071311606479,
+      "conformal_coverage": 0.9615384615384616,
+      "mean_interval_width": 3.832608308824995
+    }
+  },
+  "run_id": "run_003",
+  "label": "Phase 1 Tier 1 physics-informed features + per-section conformal"
+}

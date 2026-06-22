@@ -1,0 +1,155 @@
+{
+  "generated_utc": "2026-06-21T23:39:37.159857+00:00",
+  "model": "BayesianRidge",
+  "alpha": 0.1,
+  "conformal_mode": "global",
+  "conformal_q": 1.0308308857070043,
+  "conformal_q_by_section": null,
+  "splits": {
+    "train": [
+      "2012-08-01",
+      "2018-12-31"
+    ],
+    "val": [
+      "2019-01-01",
+      "2020-12-31"
+    ],
+    "test": [
+      "2021-01-01",
+      "2023-02-28"
+    ]
+  },
+  "n": {
+    "train": 423,
+    "val": 144,
+    "test": 156
+  },
+  "coefficients": {
+    "feature_names": [
+      "dS_total",
+      "dS_total_lag1",
+      "dS_total_lag3",
+      "gwl_head",
+      "dGWL",
+      "gwl_head_lag1",
+      "gwl_head_lag3",
+      "gwl_head_lag6",
+      "gwl_head_lag12",
+      "dGWL_lag1",
+      "dGWL_lag3",
+      "dGWL_lag6",
+      "dGWL_lag12",
+      "rain",
+      "rain_sum3",
+      "rain_sum6",
+      "rain_sum12",
+      "month_sin",
+      "month_cos",
+      "depth_mid",
+      "fine_pct",
+      "coarse_pct"
+    ],
+    "coef": [
+      0.27169897911346563,
+      0.005561163567659545,
+      -0.05864345940768268,
+      0.05419042468688939,
+      0.023849838694973424,
+      0.047519054995849075,
+      0.08081397716528159,
+      -0.10834264550475034,
+      -0.030235647704672505,
+      -0.031210650957263837,
+      -0.028536871562502467,
+      0.012431270217837409,
+      0.042939716967589706,
+      -0.02235870588851188,
+      -0.006009286104690998,
+      0.025666163674055137,
+      -0.01138478483127524,
+      -0.22983245905661015,
+      -0.02583964066763632,
+      -0.09365319383229129,
+      0.0382938945993241,
+      -0.038293894599324106
+    ],
+    "intercept": -0.31795050981127954,
+    "note": "standardized association in a pooled model; not per-layer attribution"
+  },
+  "pooled": {
+    "n": 156,
+    "r2": 0.31851108458291677,
+    "rmse": 0.859774995836328,
+    "mae": 0.6241160882460038,
+    "skill_vs_persistence": 0.01275960478433047,
+    "skill_vs_mean": 0.20660628170866446,
+    "rmse_persistence": 0.8708871719623104,
+    "rmse_mean_baseline": 1.0836675108645328,
+    "conformal_coverage": 0.8076923076923077,
+    "mean_interval_width": 2.061661771414009
+  },
+  "per_section": {
+    "S1": {
+      "n": 26,
+      "r2": 0.8094109760322552,
+      "rmse": 0.2732937276754782,
+      "mae": 0.2257846644487493,
+      "skill_vs_persistence": 0.36760059363365405,
+      "skill_vs_mean": 0.5731571339738513,
+      "conformal_coverage": 1.0,
+      "mean_interval_width": 2.0616617714140086
+    },
+    "S2": {
+      "n": 26,
+      "r2": 0.49713300147720907,
+      "rmse": 1.1207676360292922,
+      "mae": 0.8855385189484826,
+      "skill_vs_persistence": 0.12322575668725877,
+      "skill_vs_mean": 0.3002206157825156,
+      "conformal_coverage": 0.6538461538461539,
+      "mean_interval_width": 2.0616617714140086
+    },
+    "S3": {
+      "n": 26,
+      "r2": 0.30709995521777467,
+      "rmse": 0.6693921561913749,
+      "mae": 0.45652272158200013,
+      "skill_vs_persistence": 0.030144455830294015,
+      "skill_vs_mean": 0.1681553098453057,
+      "conformal_coverage": 0.9615384615384616,
+      "mean_interval_width": 2.0616617714140086
+    },
+    "S4": {
+      "n": 26,
+      "r2": 0.699642552669874,
+      "rmse": 0.4378049350244931,
+      "mae": 0.36216031743848615,
+      "skill_vs_persistence": 0.21110454384056287,
+      "skill_vs_mean": 0.4665187818437935,
+      "conformal_coverage": 1.0,
+      "mean_interval_width": 2.0616617714140086
+    },
+    "S5": {
+      "n": 26,
+      "r2": -0.15027131375133318,
+      "rmse": 0.9343367151770724,
+      "mae": 0.8361023362373755,
+      "skill_vs_persistence": -1.8429569509689512,
+      "skill_vs_mean": -0.050632941296395284,
+      "conformal_coverage": 0.5769230769230769,
+      "mean_interval_width": 2.0616617714140086
+    },
+    "S6": {
+      "n": 26,
+      "r2": -0.12725316876105586,
+      "rmse": 1.2616356795860204,
+      "mae": 0.97858797082093,
+      "skill_vs_persistence": 0.06928574148614786,
+      "skill_vs_mean": -0.05244310174020517,
+      "conformal_coverage": 0.6538461538461539,
+      "mean_interval_width": 2.0616617714140086
+    }
+  },
+  "run_id": "run_001",
+  "label": "v1 baseline (v4 driver assignment)"
+}
