@@ -93,9 +93,9 @@
 	linkcolor=blue,
 	citecolor=blue,
 	urlcolor=blue,
-	pdftitle={High-Resolution Subsurface Mapping},
+	pdftitle={High-Resolution Subsurface Mapping}, % REMOVE GWR: replace for BRR nowcasting
 	pdfauthor={Author One et al.},
-	pdfkeywords={land subsidence, mitigation, layer-wise compaction},
+	pdfkeywords={land subsidence, mitigation, layer-wise compaction}, % REMOVE GWR: replace for BRR nowcasting
 	pdfdisplaydoctitle=true,
 	bookmarksnumbered=true,
 	bookmarksopen=true,
@@ -119,7 +119,7 @@
 
 % Front matter
 \pagenumbering{roman}
-\title{\textbf{High-Resolution Subsurface Mapping Using SBAS-InSAR and Multilayer Compaction Monitoring Wells for Land Subsidence Mitigation}}
+\title{\textbf{\st{High-Resolution Subsurface Mapping Using SBAS-InSAR and Multilayer Compaction Monitoring Wells for Land Subsidence Mitigation}}}
 \author{
   Author One\thanks{Department of X, University A, Country. \texttt{author.one@example.com}} \and
   Author Two\footnotemark[1] \and
@@ -130,10 +130,10 @@
 \maketitle
 
 \begin{abstract}
-Land subsidence from excessive groundwater extraction has long affected the Choushui River Fluvial Plain (CRFP) in Taiwan, increasing flood risks and threatening infrastructure like the Taiwan High Speed Rail (THSR). A network of multilayer compaction monitoring wells (MLCWs) aids in understanding subsidence mechanisms, but their high installation costs limit dense deployment. This study integrates SBAS-InSAR surface deformation data with MLCW measurements using geographically weighted regression (GWR) to map layer-wise compaction regionally. This approach enables cost-effective, high-resolution monitoring to inform groundwater management and infrastructure protection.
+Land subsidence from excessive groundwater extraction has long affected the Choushui River Fluvial Plain (CRFP) in Taiwan, increasing flood risks and threatening infrastructure like the Taiwan High Speed Rail (THSR). A network of multilayer compaction monitoring wells (MLCWs) aids in understanding subsidence mechanisms, but their high installation costs limit dense deployment. \st{This study integrates SBAS-InSAR surface deformation data with MLCW measurements using geographically weighted regression (GWR) to map layer-wise compaction regionally. This approach enables cost-effective, high-resolution monitoring to inform groundwater management and infrastructure protection.}
 \end{abstract}
 
-\keywords{land subsidence; mitigation; layer-wise compaction}
+\keywords{land subsidence; \st{mitigation; layer-wise compaction}}
 
 \tableofcontents
 \listoffigures
@@ -150,11 +150,10 @@ Land subsidence from excessive groundwater extraction has long affected the Chou
 \input{sections/intro001}
 
 \section{Study Area \& Data sets}
-\label{sec:studyarea}
+\label{sec:study_and_data}
+
 \input{sections/studyarea001}
 
-%\section{Data Sets}
-\label{sec:dataset}
 \input{sections/dataset001}
 
 %\section{Methodology}
@@ -177,5 +176,5 @@ Land subsidence from excessive groundwater extraction has long affected the Chou
 \section*{Acknowledgements}
 Acknowledge any funding, institutional support, or personal contributions that helped your research.
 
-\bibliography{ref_manu2}
+\bibliography{writing_manu2}
 \end{document}

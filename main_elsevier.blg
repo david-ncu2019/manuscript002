@@ -5,52 +5,52 @@ Reallocating 'name_of_file' (item size: 1) to 17 items.
 The style file: cas-model2-names.bst
 Reallocating 'name_of_file' (item size: 1) to 10 items.
 Database file #1: ref_manu2.bib
-Repeated entry---line 102 of file ref_manu2.bib
+Repeated entry---line 100 of file ref_manu2.bib
  : %@techreport{RN46
  :                  ,
 I'm skipping whatever remains of this entry
 Warning--entry type for "hyp3-isce2" isn't style-file defined
---line 170 of file ref_manu2.bib
+--line 168 of file ref_manu2.bib
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 25 entries,
+You've used 19 entries,
             2990 wiz_defined-function locations,
-            952 strings with 13446 characters,
-and the built_in function-call counts, 18596 in all, are:
-= -- 1454
-> -- 818
-< -- 8
-+ -- 325
-- -- 288
-* -- 2200
-:= -- 2715
-add.period$ -- 92
-call.type$ -- 25
-change.case$ -- 223
-chr.to.int$ -- 25
-cite$ -- 25
-duplicate$ -- 1306
-empty$ -- 1260
-format.name$ -- 363
-if$ -- 3461
+            900 strings with 11557 characters,
+and the built_in function-call counts, 13946 in all, are:
+= -- 1090
+> -- 606
+< -- 7
++ -- 238
+- -- 213
+* -- 1639
+:= -- 2040
+add.period$ -- 70
+call.type$ -- 19
+change.case$ -- 167
+chr.to.int$ -- 19
+cite$ -- 19
+duplicate$ -- 985
+empty$ -- 950
+format.name$ -- 268
+if$ -- 2602
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 266
-newline$ -- 157
-num.names$ -- 100
-pop$ -- 398
+missing$ -- 199
+newline$ -- 123
+num.names$ -- 76
+pop$ -- 301
 preamble$ -- 1
-purify$ -- 196
+purify$ -- 147
 quote$ -- 0
-skip$ -- 363
+skip$ -- 281
 stack$ -- 0
-substring$ -- 748
-swap$ -- 1034
+substring$ -- 543
+swap$ -- 775
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 222
+type$ -- 168
 warning$ -- 0
-while$ -- 99
+while$ -- 74
 width$ -- 0
-write$ -- 420
+write$ -- 322
 (There was 1 error message)

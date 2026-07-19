@@ -3,53 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 Reallocating 'name_of_file' (item size: 1) to 9 items.
 The style file: plainnat.bst
-Reallocating 'name_of_file' (item size: 1) to 10 items.
-Database file #1: ref_manu2.bib
-Repeated entry---line 100 of file ref_manu2.bib
- : %@techreport{RN46
- :                  ,
-I'm skipping whatever remains of this entry
-Warning--entry type for "hyp3-isce2" isn't style-file defined
---line 168 of file ref_manu2.bib
-You've used 33 entries,
+Reallocating 'name_of_file' (item size: 1) to 14 items.
+Database file #1: writing_manu2.bib
+You've used 37 entries,
             2773 wiz_defined-function locations,
-            886 strings with 14629 characters,
-and the built_in function-call counts, 19746 in all, are:
-= -- 1734
-> -- 1504
-< -- 11
-+ -- 504
-- -- 471
-* -- 1890
-:= -- 3186
-add.period$ -- 168
-call.type$ -- 33
-change.case$ -- 254
-chr.to.int$ -- 33
-cite$ -- 66
-duplicate$ -- 685
-empty$ -- 1300
-format.name$ -- 512
-if$ -- 4039
+            903 strings with 16365 characters,
+and the built_in function-call counts, 23120 in all, are:
+= -- 2076
+> -- 1775
+< -- 17
++ -- 595
+- -- 558
+* -- 2176
+:= -- 3713
+add.period$ -- 199
+call.type$ -- 37
+change.case$ -- 295
+chr.to.int$ -- 37
+cite$ -- 74
+duplicate$ -- 787
+empty$ -- 1479
+format.name$ -- 609
+if$ -- 4709
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 34
-newline$ -- 242
-num.names$ -- 132
-pop$ -- 409
+missing$ -- 38
+newline$ -- 281
+num.names$ -- 148
+pop$ -- 476
 preamble$ -- 1
-purify$ -- 223
+purify$ -- 260
 quote$ -- 0
-skip$ -- 573
+skip$ -- 679
 stack$ -- 0
-substring$ -- 641
-swap$ -- 50
-text.length$ -- 3
+substring$ -- 806
+swap$ -- 71
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 348
+type$ -- 392
 warning$ -- 0
-while$ -- 126
+while$ -- 163
 width$ -- 0
-write$ -- 572
-(There was 1 error message)
+write$ -- 662

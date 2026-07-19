@@ -1,9 +1,11 @@
 % ================================================================================
+%\subsection{Data Sets}
+%\label{subsec:dataset}
 
 \subsection{Multilayer Compaction Monitoring Wells}
 \label{subsubsec:mlcw}
 
-A multilayer compaction monitoring well (MLCW) is a specialized borehole extensometer that captures the subtle subsurface compaction by reading measurements at magnetic rings, strategically installed at boundaries between significant aquifers, or transitions between fine and coarse sedimentary materials, as defined by the Geological Survey and Mining Management Agency (GSMMA).  The depth of each MLCW often extends up to 300 m, with 21 to 26 magnetic rings anchored throughout the profile. Based on hydrogeological properties, aquifer units at each well are determined, each containing a number of corresponding magnetic rings, providing measurements of aquifer-specific compaction. The installation and measurement approaches of the MLCWs have been comprehensively described by \citep{Hung2021_MLCW}. In this study, 29 MLCWs were employed, with monthly data collected from April 2016 to November 2021.  The coordinates, elevation, and depth of the MLCWs are shown in \Cref{tab:mlcw_info}.
+A multilayer compaction monitoring well (MLCW) is a specialized borehole extensometer that captures the subtle subsurface compaction by reading measurements at magnetic rings, strategically installed at boundaries between significant aquifers, or transitions between fine and coarse sedimentary materials, as defined by the Geological Survey and Mining Management Agency (GSMMA).  The depth of each MLCW often extends up to 300 m, with 21 to 26 magnetic rings anchored throughout the profile. Based on hydrogeological properties, aquifer units at each well are determined, each containing a number of corresponding magnetic rings, providing measurements of aquifer-specific compaction. The installation and measurement approaches of the MLCWs have been comprehensively described by \citep{hung_measuring_2021}. In this study, 29 MLCWs were employed, with monthly data collected from April 2016 to November 2021.  The coordinates, elevation, and depth of the MLCWs are shown in \Cref{tab:mlcw_info}.
 
 % Add these lines to your document's preamble if they're not already there
 % \usepackage{siunitx}
@@ -28,7 +30,7 @@ A multilayer compaction monitoring well (MLCW) is a specialized borehole extenso
 		CH05 & Hunan     & 120.4791 & 23.9484 & 19 & 300.0 \\
 		CH06 & Xizhou    & 120.4981 & 23.8524 & 38 & 300.0 \\
 		CH07 & Qiaoyi    & 120.4793 & 23.8437 & 34 & 300.0 \\
-		CH08 & Zhutang    & 120.4283 & 23.8601 & 27 & 300.0 \\
+		CH08 & Zhutang   & 120.4283 & 23.8601 & 27 & 300.0 \\
 		YL09 & Fengan    & 120.2332 & 23.7892 &  4 & 300.0 \\
 		YL10 & Haifeng   & 120.2264 & 23.7643 &  1 & 200.0 \\
 		YL11 & Xinxing   & 120.2223 & 23.7392 &  4 & 300.0 \\
@@ -57,6 +59,10 @@ A multilayer compaction monitoring well (MLCW) is a specialized borehole extenso
 \subsection{Sentinel-1 SAR datasets}
 \label{subsubsec:sentinel}
 
+The SAR dataset comprised Level-1 Single-Look Complex acquisitions from the Sentinel-1A mission of the European Space Agency's Copernicus program. Sentinel-1A carries a C-band SAR instrument, and the Interferometric Wide swath mode acquires data across three sub-swaths using the Terrain Observation by Progressive Scans technique \citep{torres_gmes_2012,yague-martinez_interferometric_2016}. This acquisition mode provides a nominal 250~km swath with ground-range and azimuth resolutions of approximately 5~m and 20~m, respectively \citep{torres_gmes_2012}.
+
+The dataset contained 530 VV-polarized acquisitions collected from April 2016 to November 2021. The ascending stack contained 266 acquisitions from relative orbit 69, with incidence angles of $32^{\circ}$--$38^{\circ}$ and a satellite heading of $347.63^{\circ}$. The descending stack contained 264 acquisitions from relative orbit 105, with incidence angles of $38^{\circ}$--$43^{\circ}$ and a satellite heading of $192.37^{\circ}$. \Cref{tab:sentinel1_info} summarizes the acquisition parameters for both viewing geometries.
+
 \begin{table}[H]
 	\centering
 	\caption{Summary of the Sentinel-1A datasets used in this study.}
@@ -67,12 +73,69 @@ A multilayer compaction monitoring well (MLCW) is a specialized borehole extenso
 		\textbf{Parameters} & \textbf{Ascending} & \textbf{Descending} \\
 		\midrule
 		Relative Orbit (Path) & 69 & 105 \\
-		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{4/2016 – 11/2021} \\
+		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{April 2016--November 2021} \\
 		Number of Images      & 266 & 264 \\
 		\multicolumn{1}{l}{Acquisition Mode} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
 		\multicolumn{1}{l}{Polarization} & \multicolumn{2}{c}{VV} \\
-		Incidence Angles & 32° – 38° & 38° – 43° \\
-		Satellite Headings & 347.63° & 192.37° \\
+		Incidence Angles & $32^{\circ}$--$38^{\circ}$ & $38^{\circ}$--$43^{\circ}$ \\
+		Satellite Headings & $347.63^{\circ}$ & $192.37^{\circ}$ \\
 		\bottomrule
 	\end{tabular}
 \end{table}
+
+\subsection{Groundwater-Level Monitoring Wells}
+\label{subsubsec:gwl_wells}
+% Manuscript placeholder: Draft the groundwater-level dataset description from the
+% 014_ml_nowcast GWL sources. Include source agency, monitoring-well count or station
+% selection, screen-depth assignment logic, measurement datum in m MSL, monthly
+% aggregation, and the distinction between the legacy monthly product and the v5
+% monthly product used in run_043/run_044. State that groundwater head is never
+% negated and that dGWL is defined as month-to-month head change.
+% Evidence anchors:
+% - 014_ml_nowcast/raw_data/02_gwl_wells_raw/
+% - 014_ml_nowcast/raw_data/08_gwl_at_mlcw_monthly_extended/monthly/
+% - 014_ml_nowcast/CHANGE_NOTES/20260708_run043_run044_gwl_v5_results.md
+
+\subsection{Global Navigation Satellite System Stations}
+\label{subsubsec:gnss}
+% Manuscript placeholder: Draft the GNSS dataset description from the at-well
+% surface-displacement carrier files. Include station list, date span by station,
+% cumulative displacement units, sign convention, monthly alignment to MLCW rows,
+% and the derived dS_total and d2S_total features. Use GNSS in the manuscript text
+% unless a source file specifically documents GPS-only processing.
+% Evidence anchors:
+% - 014_ml_nowcast/raw_data/03_gps_subsidence/
+% - 014_ml_nowcast/docs/20260711_ML_features_v4_extended.md
+
+\subsection{Precise Leveling Surveys}
+\label{subsubsec:precise_leveling}
+% Manuscript placeholder: Draft the precise-leveling dataset description used for
+% independent validation of InSAR vertical velocity. Include benchmark coverage,
+% annual or campaign sampling, rate-based comparison to InSAR, and the 200 m search
+% radius already described in the SBAS-InSAR method. Keep this dataset subsection
+% descriptive and avoid duplicating the validation workflow.
+% Evidence anchors:
+% - Manuscript/sections/methods002.tex, SBAS-InSAR validation paragraph
+% - Study-area figure references already present in the manuscript
+
+\subsection{Borehole Lithology Logs}
+\label{subsubsec:borehole_lithology}
+% Manuscript placeholder: Draft the borehole lithology dataset description for the
+% material-composition features. Include station-specific borehole logs, conversion
+% from logged materials to section-level fractions, the six 50 m depth sections
+% S1--S6, and the reason raw fractions are treated as compositional data before ILR
+% transformation in the methodology.
+% Evidence anchors:
+% - 014_ml_nowcast/raw_data/05_borehole_materials/
+% - 014_ml_nowcast/docs/20260711_ML_features_v4_extended.md
+
+\subsection{Rainfall Records}
+\label{subsubsec:rainfall}
+% Manuscript placeholder: Draft the rainfall dataset description from the station
+% rainfall files. Include raw temporal resolution if documented, monthly aggregation,
+% current-month rainfall, 3-, 6-, and 12-month accumulated rainfall features, and
+% the caution that rainfall was retained as a hydrologic proxy even though earlier
+% ablation showed limited independent skill after GWL and seasonal terms.
+% Evidence anchors:
+% - 014_ml_nowcast/raw_data/04_rainfall/
+% - 014_ml_nowcast/docs/20260711_ML_features_v4_extended.md

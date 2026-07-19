@@ -1,131 +1,160 @@
-\begin{thebibliography}{33}
+\begin{thebibliography}{37}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Bock and Melgar(2016)]{bock_2016_GPS}
+\bibitem[Bock and Melgar(2016)]{bock_physical_2016}
 Yehuda Bock and Diego Melgar.
-\newblock Physical applications of gps geodesy: a review.
+\newblock Physical applications of {GPS} geodesy: a review.
 \newblock \emph{Reports on Progress in Physics}, 79\penalty0 (10):\penalty0
-  106801, aug 2016.
+  106801, August 2016.
 \newblock \doi{10.1088/0034-4885/79/10/106801}.
 \newblock URL \url{https://doi.org/10.1088/0034-4885/79/10/106801}.
 
 \bibitem[Brunsdon et~al.(1996)Brunsdon, Fotheringham, and
-  Charlton]{brunsdon1996}
+  Charlton]{brunsdon_geographically_1996}
 Chris Brunsdon, A.~Stewart Fotheringham, and Martin~E. Charlton.
-\newblock Geographically weighted regression: A method for exploring spatial
-  nonstationarity.
+\newblock Geographically {Weighted} {Regression}: {A} {Method} for {Exploring}
+  {Spatial} {Nonstationarity}.
 \newblock \emph{Geographical Analysis}, 28\penalty0 (4):\penalty0 281--298,
   1996.
-\newblock \doi{https://doi.org/10.1111/j.1538-4632.1996.tb00936.x}.
+\newblock \doi{10.1111/j.1538-4632.1996.tb00936.x}.
 \newblock URL
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.1996.tb00936.x}.
+\newblock \_eprint:
+  https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.1538-4632.1996.tb00936.x.
 
-\bibitem[Buffardi and Ruberti(2023)]{buffardi_2023_coastalsub}
+\bibitem[Buffardi and Ruberti(2023)]{buffardi_issue_2023}
 Carla Buffardi and Daniela Ruberti.
-\newblock The issue of land subsidence in coastal and alluvial plains: A
-  bibliometric review.
+\newblock The {Issue} of {Land} {Subsidence} in {Coastal} and {Alluvial}
+  {Plains}: {A} {Bibliometric} {Review}.
 \newblock \emph{Remote Sensing}, 15\penalty0 (9), 2023.
 \newblock ISSN 2072-4292.
 \newblock \doi{10.3390/rs15092409}.
 \newblock URL \url{https://www.mdpi.com/2072-4292/15/9/2409}.
 
-\bibitem[Chang et~al.(2020)Chang, Chen, Wang, and Chang]{RN64}
+\bibitem[Burbey(2020)]{burbey_extensometer_2020}
+Thomas~J. Burbey.
+\newblock Extensometer forensics: what can the data really tell us?
+\newblock \emph{Hydrogeology Journal}, 28\penalty0 (2):\penalty0 637--655,
+  2020.
+\newblock ISSN 1435-0157.
+\newblock \doi{10.1007/s10040-019-02060-6}.
+\newblock URL \url{https://doi.org/10.1007/s10040-019-02060-6}.
+\newblock Type: Journal Article.
+
+\bibitem[Chang et~al.(2020)Chang, Chen, Wang, and Chang]{chang_rice-field_2020}
 Lena Chang, Yi-Ting Chen, Jung-Hua Wang, and Yang-Lang Chang.
-\newblock Rice-field mapping with sentinel-1a sar time-series data.
+\newblock Rice-{Field} {Mapping} with {Sentinel}-{1A} {SAR} {Time}-{Series}
+  {Data}.
 \newblock \emph{Remote Sensing}, 13\penalty0 (1):\penalty0 103, 2020.
 \newblock ISSN 2072-4292.
 \newblock \doi{10.3390/rs13010103}.
 \newblock URL \url{https://doi.org/10.3390/rs13010103}.
+\newblock Type: Journal Article.
 
 \bibitem[Chaussard et~al.(2021)Chaussard, Havazli, Fattahi, Cabral-Cano, and
-  Solano-Rojas]{chaussard_2021_mexico}
+  Solano-Rojas]{chaussard_over_2021}
 E.~Chaussard, E.~Havazli, H.~Fattahi, E.~Cabral-Cano, and D.~Solano-Rojas.
-\newblock Over a century of sinking in mexico city: No hope for significant
-  elevation and storage capacity recovery.
+\newblock Over a {Century} of {Sinking} in {Mexico} {City}: {No} {Hope} for
+  {Significant} {Elevation} and {Storage} {Capacity} {Recovery}.
 \newblock \emph{Journal of Geophysical Research: Solid Earth}, 126\penalty0
   (4):\penalty0 e2020JB020648, 2021.
-\newblock \doi{https://doi.org/10.1029/2020JB020648}.
+\newblock \doi{10.1029/2020jb020648}.
 \newblock URL
   \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020JB020648}.
-\newblock e2020JB020648 2020JB020648.
+\newblock \_eprint:
+  https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020JB020648.
 
 \bibitem[Chaussard et~al.(2013)Chaussard, Amelung, Abidin, and
-  Hong]{chaussard_2013_Indonesia}
+  Hong]{chaussard_sinking_2013}
 Estelle Chaussard, Falk Amelung, Hasanudin Abidin, and Sang-Hoon Hong.
-\newblock Sinking cities in indonesia: Alos palsar detects rapid subsidence due
-  to groundwater and gas extraction.
+\newblock Sinking cities in {Indonesia}: {ALOS} {PALSAR} detects rapid
+  subsidence due to groundwater and gas extraction.
 \newblock \emph{Remote Sensing of Environment}, 128:\penalty0 150--161, 2013.
 \newblock ISSN 0034-4257.
-\newblock \doi{https://doi.org/10.1016/j.rse.2012.10.015}.
+\newblock \doi{10.1016/j.rse.2012.10.015}.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0034425712003975}.
 
 \bibitem[Doin et~al.(2009)Doin, Lasserre, Peltzer, Cavalié, and
-  Doubre]{height_correlation}
+  Doubre]{doin_corrections_2009}
 M.-P. Doin, C.~Lasserre, G.~Peltzer, O.~Cavalié, and C.~Doubre.
-\newblock Corrections of stratified tropospheric delays in sar interferometry:
-  Validation with global atmospheric models.
+\newblock Corrections of stratified tropospheric delays in {SAR}
+  interferometry: {Validation} with global atmospheric models.
 \newblock \emph{Journal of Applied Geophysics}, 69\penalty0 (1):\penalty0
   35--50, 2009.
 \newblock ISSN 0926-9851.
-\newblock \doi{https://doi.org/10.1016/j.jappgeo.2009.03.010}.
+\newblock \doi{10.1016/j.jappgeo.2009.03.010}.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0926985109000603}.
-\newblock Advances in SAR Interferometry from the 2007 Fringe Workshop.
 
-\bibitem[Erban et~al.(2014)Erban, Gorelick, and Zebker]{erban_2014_mekong}
+\bibitem[Erban et~al.(2014)Erban, Gorelick, and Zebker]{erban_groundwater_2014}
 Laura~E Erban, Steven~M Gorelick, and Howard~A Zebker.
 \newblock Groundwater extraction, land subsidence, and sea-level rise in the
-  mekong delta, vietnam.
+  {Mekong} {Delta}, {Vietnam}.
 \newblock \emph{Environmental Research Letters}, 9\penalty0 (8):\penalty0
-  084010, aug 2014.
+  084010, August 2014.
 \newblock \doi{10.1088/1748-9326/9/8/084010}.
 \newblock URL \url{https://doi.org/10.1088/1748-9326/9/8/084010}.
 
-\bibitem[Fattahi et~al.(2017)Fattahi, Agram, and Simons]{nesd_tops}
+\bibitem[Fattahi et~al.(2017)Fattahi, Agram, and
+  Simons]{fattahi_network-based_2017}
 Heresh Fattahi, Piyush Agram, and Mark Simons.
-\newblock A network-based enhanced spectral diversity approach for tops
-  time-series analysis.
+\newblock A {Network}-{Based} {Enhanced} {Spectral} {Diversity} {Approach} for
+  {TOPS} {Time}-{Series} {Analysis}.
 \newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
   55\penalty0 (2):\penalty0 777--786, 2017.
 \newblock \doi{10.1109/TGRS.2016.2614925}.
 
-\bibitem[Fotheringham et~al.(2017)Fotheringham, Yang, and Kang]{mgwr_book_2017}
-A.~Stewart Fotheringham, Wenbai Yang, and Wei Kang.
-\newblock Multiscale geographically weighted regression (mgwr).
-\newblock \emph{Annals of the American Association of Geographers},
-  107\penalty0 (6):\penalty0 1247--1265, 2017.
-\newblock \doi{10.1080/24694452.2017.1352480}.
-\newblock URL \url{https://doi.org/10.1080/24694452.2017.1352480}.
-
-\bibitem[Fotheringham(2002)]{fotheringham2002geographically}
+\bibitem[Fotheringham(2002)]{fotheringham_geographically_2002}
 AS~Fotheringham.
 \newblock Geographically weighted regression: the analysis of spatially varying
   relationships.
 \newblock \emph{John Wily and Sons Ltd}, 2002.
 
-\bibitem[Galloway et~al.(1999)Galloway, Jones, and Ingebritsen]{galloway_1999}
-Devin~L Galloway, David~Richard Jones, and Steven~E Ingebritsen.
-\newblock \emph{Land subsidence in the United States}, volume 1182.
-\newblock Geological Survey (USGS), 1999.
+\bibitem[Galloway and Hoffmann(2007)]{galloway_application_2007}
+Devin~L. Galloway and Jörn Hoffmann.
+\newblock The application of satellite differential {SAR}
+  interferometry-derived ground displacements in hydrogeology.
+\newblock \emph{Hydrogeology Journal}, 15\penalty0 (1):\penalty0 133--154,
+  2007.
+\newblock ISSN 1435-0157.
+\newblock \doi{10.1007/s10040-006-0121-5}.
+\newblock URL \url{https://doi.org/10.1007/s10040-006-0121-5}.
+\newblock Type: Journal Article.
 
-\bibitem[Hanssen(2001)]{hanssen_book}
+\bibitem[Galloway et~al.(1999)Galloway, Jones, and
+  Ingebritsen]{galloway_land_1999}
+Devin~L Galloway, David~Richard Jones, and Steven~E Ingebritsen.
+\newblock \emph{Land subsidence in the {United} {States}}, volume 1182.
+\newblock Geological Survey (USGS), 1999.
+\newblock \doi{10.3133/cir1182}.
+
+\bibitem[Geudtner and Torres(2012)]{geudtner_sentinel-1_2012}
+Dirk Geudtner and Ramón Torres.
+\newblock Sentinel-1 system overview and performance.
+\newblock In \emph{2012 {IEEE} {International} {Geoscience} and {Remote}
+  {Sensing} {Symposium}}, pages 1719--1721, 2012.
+\newblock \doi{10.1109/IGARSS.2012.6351191}.
+
+\bibitem[Hanssen(2001)]{hanssen_radar_2001}
 Ramon~F. Hanssen.
-\newblock \emph{Radar Interferometry: Data Interpretation and Error Analysis},
-  volume~2 of \emph{Remote Sensing and Digital Image Processing}.
+\newblock \emph{Radar {Interferometry}: {Data} {Interpretation} and {Error}
+  {Analysis}}, volume~2 of \emph{Remote {Sensing} and {Digital} {Image}
+  {Processing}}.
 \newblock Springer Dordrecht, 1 edition, 2001.
 \newblock ISBN 978-0-7923-6945-5.
 \newblock \doi{10.1007/0-306-47633-9}.
 \newblock URL \url{https://doi.org/10.1007/0-306-47633-9}.
+\newblock Type: Book.
 
 \bibitem[Herrera-García et~al.(2021)Herrera-García, Ezquerro, Tomás,
   Béjar-Pizarro, López-Vinielles, Rossi, Mateos, Carreón-Freyre, Lambert,
   Teatini, Cabral-Cano, Erkens, Galloway, Hung, Kakar, Sneed, Tosi, Wang, and
-  Ye]{herrera_2021}
+  Ye]{herrera-garcia_mapping_2021}
 Gerardo Herrera-García, Pablo Ezquerro, Roberto Tomás, Marta Béjar-Pizarro,
   Juan López-Vinielles, Mauro Rossi, Rosa~M. Mateos, Dora Carreón-Freyre,
   John Lambert, Pietro Teatini, Enrique Cabral-Cano, Gilles Erkens, Devin
@@ -135,66 +164,61 @@ Gerardo Herrera-García, Pablo Ezquerro, Roberto Tomás, Marta Béjar-Pizarro,
 \newblock \emph{Science}, 371\penalty0 (6524):\penalty0 34--36, 2021.
 \newblock \doi{10.1126/science.abb8549}.
 \newblock URL \url{https://www.science.org/doi/abs/10.1126/science.abb8549}.
+\newblock \_eprint: https://www.science.org/doi/pdf/10.1126/science.abb8549.
 
 \bibitem[Hogenson et~al.(2025)Hogenson, Kristenson, Kennedy, Johnston, Rine,
-  Logan, Zhu, Williams, Herrmann, Smale, and Meyer]{hyp3-isce2}
+  Logan, Zhu, Williams, Herrmann, Smale, and Meyer]{hogenson_hybrid_2025}
 Kirk Hogenson, Heidi Kristenson, Joseph Kennedy, Andrew Johnston, James Rine,
   Thomas Logan, Jiang Zhu, Forrest Williams, Jake Herrmann, Jacquelyn Smale,
   and Franz Meyer.
-\newblock Hybrid pluggable processing pipeline (hyp3): A cloud-native
-  infrastructure for generic processing of sar data, May 2025.
+\newblock Hybrid {Pluggable} {Processing} {Pipeline} ({HyP3}): {A} cloud-native
+  infrastructure for generic processing of {SAR} data, May 2025.
 \newblock URL \url{https://doi.org/10.5281/zenodo.15498989}.
 
-\bibitem[Hung et~al.(2015)Hung, Wang, Hwang, Chen, Chiu, and Lin]{RN47}
+\bibitem[Hung et~al.(2015)Hung, Wang, Hwang, Chen, Chiu, and
+  Lin]{hung_multiple_2015}
 W.~C. Hung, C.~Wang, C.~Hwang, Y.~A. Chen, H.~C. Chiu, and S.~H. Lin.
-\newblock Multiple sensors applied to monitor land subsidence in central
-  taiwan.
+\newblock Multiple sensors applied to monitor land subsidence in {Central}
+  {Taiwan}.
 \newblock \emph{Proc. IAHS}, 372:\penalty0 385--391, 2015.
 \newblock ISSN 2199-899X.
 \newblock \doi{10.5194/piahs-372-385-2015}.
 \newblock URL \url{https://piahs.copernicus.org/articles/372/385/2015/}.
+\newblock Type: Journal Article.
 
 \bibitem[Hung et~al.(2021)Hung, Hwang, Sneed, Chen, Chu, and
-  Lin]{Hung2021_MLCW}
+  Lin]{hung_measuring_2021}
 Wei-Chia Hung, Cheinway Hwang, Michelle Sneed, Yi-An Chen, Chi-Hua Chu, and
   Shao-Hung Lin.
-\newblock Measuring and interpreting multilayer aquifer-system compactions for
-  a sustainable groundwater-system development.
+\newblock Measuring and {Interpreting} {Multilayer} {Aquifer}-{System}
+  {Compactions} for a {Sustainable} {Groundwater}-{System} {Development}.
 \newblock \emph{Water Resources Research}, 57\penalty0 (4):\penalty0
   e2020WR028194, 2021.
-\newblock \doi{https://doi.org/10.1029/2020WR028194}.
+\newblock \doi{10.1029/2020wr028194}.
 \newblock URL
   \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020WR028194}.
-\newblock e2020WR028194 2020WR028194.
+\newblock \_eprint:
+  https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020WR028194.
 
 \bibitem[Huning et~al.(2024)Huning, Love, Anjileli, Vahedifard, Zhao, Chaffe,
   Cooper, Alborzi, Pleitez, Martinez, Ashraf, Mallakpour, Moftakhari, and
-  AghaKouchak]{huning_2024_globalsub}
+  AghaKouchak]{huning_global_2024}
 Laurie~S. Huning, Charlotte~A. Love, Hassan Anjileli, Farshid Vahedifard,
   Yunxia Zhao, Pedro L.~B. Chaffe, Kevin Cooper, Aneseh Alborzi, Edward
   Pleitez, Alexandre Martinez, Samaneh Ashraf, Iman Mallakpour, Hamed
   Moftakhari, and Amir AghaKouchak.
-\newblock Global land subsidence: Impact of climate extremes and human
-  activities.
+\newblock Global {Land} {Subsidence}: {Impact} of {Climate} {Extremes} and
+  {Human} {Activities}.
 \newblock \emph{Reviews of Geophysics}, 62\penalty0 (4):\penalty0
   e2023RG000817, 2024.
-\newblock \doi{https://doi.org/10.1029/2023RG000817}.
+\newblock \doi{10.1029/2023rg000817}.
 \newblock URL
   \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2023RG000817}.
-\newblock e2023RG000817 2023RG000817.
-
-\bibitem[Hurvich et~al.(2002)Hurvich, Simonoff, and Tsai]{Hurvich2002_AICc}
-Clifford~M. Hurvich, Jeffrey~S. Simonoff, and Chih-Ling Tsai.
-\newblock Smoothing parameter selection in nonparametric regression using an
-  improved akaike information criterion.
-\newblock \emph{Journal of the Royal Statistical Society Series B: Statistical
-  Methodology}, 60\penalty0 (2):\penalty0 271--293, 01 2002.
-\newblock ISSN 1369-7412.
-\newblock \doi{10.1111/1467-9868.00125}.
-\newblock URL \url{https://doi.org/10.1111/1467-9868.00125}.
+\newblock \_eprint:
+  https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2023RG000817.
 
 \bibitem[Jasechko et~al.(2024)Jasechko, Seybold, Perrone, Fan, Shamsudduha,
-  Taylor, Fallatah, and Kirchner]{jasechko_2024}
+  Taylor, Fallatah, and Kirchner]{jasechko_rapid_2024}
 Scott Jasechko, Hansjörg Seybold, Debra Perrone, Ying Fan, Mohammad
   Shamsudduha, Richard~G. Taylor, Othman Fallatah, and James~W. Kirchner.
 \newblock Rapid groundwater decline and some cases of recovery in aquifers
@@ -203,30 +227,33 @@ Scott Jasechko, Hansjörg Seybold, Debra Perrone, Ying Fan, Mohammad
 \newblock ISSN 1476-4687.
 \newblock \doi{10.1038/s41586-023-06879-8}.
 \newblock URL \url{https://doi.org/10.1038/s41586-023-06879-8}.
+\newblock Type: Journal Article.
 
-\bibitem[Liu et~al.(2004)Liu, Pan, Liao, Huang, and Ouyang]{RN17}
+\bibitem[Liu et~al.(2004)Liu, Pan, Liao, Huang, and
+  Ouyang]{liu_characterization_2004}
 Chih-Hsi Liu, Yii-Wen Pan, Jyh-Jong Liao, Chen-Tair Huang, and Shoung Ouyang.
-\newblock Characterization of land subsidence in the choshui river alluvial
-  fan, taiwan.
+\newblock Characterization of land subsidence in the {Choshui} {River} alluvial
+  fan, {Taiwan}.
 \newblock \emph{Environmental Geology}, 45\penalty0 (8):\penalty0 1154--1166,
   2004.
 \newblock ISSN 1432-0495.
 \newblock \doi{10.1007/s00254-004-0983-6}.
 \newblock URL \url{https://doi.org/10.1007/s00254-004-0983-6}.
+\newblock Type: Journal Article.
 
 \bibitem[Miller et~al.(2020)Miller, Jones, Sangha, and
-  Bekaert]{Miller_2020_california}
+  Bekaert]{miller_rapid_2020}
 Megan~M. Miller, Cathleen~E. Jones, Simran~S. Sangha, and David~P. Bekaert.
 \newblock Rapid drought-induced land subsidence and its impact on the
-  california aqueduct.
+  {California} aqueduct.
 \newblock \emph{Remote Sensing of Environment}, 251:\penalty0 112063, 2020.
 \newblock ISSN 0034-4257.
-\newblock \doi{https://doi.org/10.1016/j.rse.2020.112063}.
+\newblock \doi{10.1016/j.rse.2020.112063}.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0034425720304338}.
 
 \bibitem[Nicholls et~al.(2021)Nicholls, Lincke, Hinkel, Brown, Vafeidis,
-  Meyssignac, Hanson, Merkens, and Fang]{nicholls_2021}
+  Meyssignac, Hanson, Merkens, and Fang]{nicholls_global_2021}
 Robert~J. Nicholls, Daniel Lincke, Jochen Hinkel, Sally Brown, Athanasios~T.
   Vafeidis, Benoit Meyssignac, Susan~E. Hanson, Jan-Ludolf Merkens, and Jiayi
   Fang.
@@ -237,42 +264,69 @@ Robert~J. Nicholls, Daniel Lincke, Jochen Hinkel, Sally Brown, Athanasios~T.
 \newblock ISSN 1758-6798.
 \newblock \doi{10.1038/s41558-021-00993-z}.
 \newblock URL \url{https://doi.org/10.1038/s41558-021-00993-z}.
+\newblock Type: Journal Article.
 
-\bibitem[Pepe and Lanari(2006)]{temporal_coherence}
+\bibitem[Pepe and Lanari(2006)]{pepe_extension_2006}
 A.~Pepe and R.~Lanari.
-\newblock On the extension of the minimum cost flow algorithm for phase
-  unwrapping of multitemporal differential sar interferograms.
+\newblock On the {Extension} of the {Minimum} {Cost} {Flow} {Algorithm} for
+  {Phase} {Unwrapping} of {Multitemporal} {Differential} {SAR}
+  {Interferograms}.
 \newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
   44\penalty0 (9):\penalty0 2374--2383, 2006.
 \newblock \doi{10.1109/TGRS.2006.873207}.
 
-\bibitem[Perissin and Wang(2012)]{mst_perissin}
+\bibitem[Perissin and Wang(2012)]{perissin_repeat-pass_2012}
 Daniele Perissin and Teng Wang.
-\newblock Repeat-pass sar interferometry with partially coherent targets.
+\newblock Repeat-{Pass} {SAR} {Interferometry} {With} {Partially} {Coherent}
+  {Targets}.
 \newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
   50\penalty0 (1):\penalty0 271--280, 2012.
 \newblock \doi{10.1109/TGRS.2011.2160644}.
 
-\bibitem[Poland(1984)]{poland_1984}
+\bibitem[Poland(1984)]{poland_guidebook_1984}
 Joseph~F. Poland.
 \newblock \emph{Guidebook to studies of land subsidence due to groundwater
   withdrawal}.
 \newblock UNESCO, Paris, 1984.
-\newblock ISBN 92-3-102213-x.
+\newblock ISBN 92-3-102213-X.
+\newblock \doi{10.1130/reg2-p187}.
 \newblock URL \url{https://wwwrcamnl.wr.usgs.gov/rgws/Unesco/}.
+\newblock Type: Book.
 
-\bibitem[Rosen et~al.(2012)Rosen, Gurrola, Sacco, and Zebker]{isce2_rosen}
+\bibitem[Rosen et~al.(2012)Rosen, Gurrola, Sacco, and Zebker]{rosen_insar_2012}
 Paul~A. Rosen, Eric Gurrola, Gian~Franco Sacco, and Howard Zebker.
-\newblock The insar scientific computing environment.
-\newblock In \emph{EUSAR 2012; 9th European Conference on Synthetic Aperture
-  Radar}, pages 730--733, 2012.
+\newblock The {InSAR} scientific computing environment.
+\newblock In \emph{{EUSAR} 2012; 9th {European} {Conference} on {Synthetic}
+  {Aperture} {Radar}}, pages 730--733, 2012.
 
-\bibitem[Survey(1999)]{RN46}
+\bibitem[Snoeij et~al.(2008)Snoeij, Attema, Davidson, Floury, Levrini, Rosich,
+  and Rommen]{snoeij_sentinel-1_2008}
+Paul Snoeij, Evert Attema, Malcolm Davidson, Nicolas Floury, Guido Levrini,
+  Betlem Rosich, and Bjorn Rommen.
+\newblock Sentinel-1, the {GMES} radar mission.
+\newblock In \emph{2008 {IEEE} {Radar} {Conference}}, pages 1--5, 2008.
+\newblock \doi{10.1109/RADAR.2008.4720735}.
+
+\bibitem[Survey(1999)]{survey_project_1999}
 Central~Geological Survey.
-\newblock Project of groundwater monitoring network in taiwan during first
-  stage: Research report of choushui river alluvial fan, 1999.
+\newblock Project of groundwater monitoring network in {Taiwan} during first
+  stage: {Research} report of {Choushui} {River} alluvial fan, 1999.
+\newblock Pages: 130 Publication Title: Water Resources Bureau Report.
 
-\bibitem[Tough et~al.(1995)Tough, Blacknell, and Quegan]{networkinverse_var}
+\bibitem[Torres et~al.(2012)Torres, Snoeij, Geudtner, Bibby, Davidson, Attema,
+  Potin, Rommen, Floury, Brown, Traver, Deghaye, Duesmann, Rosich, Miranda,
+  Bruno, L'Abbate, Croci, Pietropaolo, Huchler, and Rostan]{torres_gmes_2012}
+Ramon Torres, Paul Snoeij, Dirk Geudtner, David Bibby, Malcolm Davidson, Evert
+  Attema, Pierre Potin, Bjorn Rommen, Nicolas Floury, Mike Brown, Ignacio~Navas
+  Traver, Patrick Deghaye, Berthyl Duesmann, Betlem Rosich, Nuno Miranda,
+  Claudio Bruno, Michele L'Abbate, Renato Croci, Andrea Pietropaolo, Markus
+  Huchler, and Friedhelm Rostan.
+\newblock Gmes sentinel-1 mission.
+\newblock \emph{Remote Sensing of Environment}, 120:\penalty0 9--24, 2012.
+\newblock \doi{10.1016/j.rse.2011.05.028}.
+
+\bibitem[Tough et~al.(1995)Tough, Blacknell, and
+  Quegan]{tough_statistical_1995}
 J.~A. Tough, D.~Blacknell, and S.~Quegan.
 \newblock A statistical description of polarimetric and interferometric
   synthetic aperture radar data.
@@ -282,45 +336,56 @@ J.~A. Tough, D.~Blacknell, and S.~Quegan.
 \newblock \doi{10.1098/rspa.1995.0059}.
 \newblock URL
   \url{https://royalsocietypublishing.org/doi/abs/10.1098/rspa.1995.0059}.
+\newblock \_eprint:
+  https://royalsocietypublishing.org/doi/pdf/10.1098/rspa.1995.0059.
 
-\bibitem[Tseng et~al.(2024)Tseng, Lin, and Yu]{craf_pumping}
+\bibitem[Tseng et~al.(2024)Tseng, Lin, and Yu]{tseng_estimating_2024}
 Hua-Ting Tseng, Ying-Fan Lin, and Hwa-Lung Yu.
 \newblock Estimating spatiotemporal pumping amounts using multiple signal
   decomposition methods.
 \newblock \emph{Journal of Hydrology}, 633:\penalty0 130856, 2024.
 \newblock ISSN 0022-1694.
-\newblock \doi{https://doi.org/10.1016/j.jhydrol.2024.130856}.
+\newblock \doi{10.1016/j.jhydrol.2024.130856}.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0022169424002506}.
 
 \bibitem[Tzampoglou et~al.(2023)Tzampoglou, Ilia, Karalis, Tsangaratos, Zhao,
-  and Chen]{tzampoglou_2023_groundwater}
+  and Chen]{tzampoglou_selected_2023}
 Ploutarchos Tzampoglou, Ioanna Ilia, Konstantinos Karalis, Paraskevas
   Tsangaratos, Xia Zhao, and Wei Chen.
-\newblock Selected worldwide cases of land subsidence due to groundwater
-  withdrawal.
+\newblock Selected {Worldwide} {Cases} of {Land} {Subsidence} {Due} to
+  {Groundwater} {Withdrawal}.
 \newblock \emph{Water}, 15\penalty0 (6), 2023.
 \newblock ISSN 2073-4441.
 \newblock \doi{10.3390/w15061094}.
 \newblock URL \url{https://www.mdpi.com/2073-4441/15/6/1094}.
 
 \bibitem[Yagüe-Martínez et~al.(2016)Yagüe-Martínez, Prats-Iraola,
-  Rodríguez~González, Brcic, Shau, Geudtner, Eineder, and Bamler]{tops}
+  Rodríguez~González, Brcic, Shau, Geudtner, Eineder, and
+  Bamler]{yague-martinez_interferometric_2016}
 Néstor Yagüe-Martínez, Pau Prats-Iraola, Fernando Rodríguez~González,
   Ramon Brcic, Robert Shau, Dirk Geudtner, Michael Eineder, and Richard Bamler.
-\newblock Interferometric processing of sentinel-1 tops data.
+\newblock Interferometric {Processing} of {Sentinel}-1 {TOPS} {Data}.
 \newblock \emph{IEEE Transactions on Geoscience and Remote Sensing},
   54\penalty0 (4):\penalty0 2220--2234, 2016.
 \newblock \doi{10.1109/TGRS.2015.2497902}.
 
-\bibitem[Yunjun et~al.(2019)Yunjun, Fattahi, and Amelung]{mintpy_yunjun}
+\bibitem[Yunjun et~al.(2019)Yunjun, Fattahi, and Amelung]{yunjun_small_2019}
 Zhang Yunjun, Heresh Fattahi, and Falk Amelung.
-\newblock Small baseline insar time series analysis: Unwrapping error
+\newblock Small baseline {InSAR} time series analysis: {Unwrapping} error
   correction and noise reduction.
 \newblock \emph{Computers \& Geosciences}, 133:\penalty0 104331, 2019.
 \newblock ISSN 0098-3004.
 \newblock \doi{10.1016/j.cageo.2019.104331}.
 \newblock URL
   \url{https://www.sciencedirect.com/science/article/pii/S0098300419304194}.
+
+\bibitem[Zhang and Burbey(2016)]{zhang_inverse_2016}
+Meijing Zhang and Thomas~J Burbey.
+\newblock Inverse modelling using {PS}-{InSAR} data for improved land
+  subsidence simulation in {Las} {Vegas} {Valley}, {Nevada}.
+\newblock \emph{Hydrological Processes}, 30\penalty0 (24):\penalty0 4494--4516,
+  2016.
+\newblock \doi{10.1002/hyp.10945}.
 
 \end{thebibliography}

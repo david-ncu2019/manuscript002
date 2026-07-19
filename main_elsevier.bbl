@@ -1,4 +1,4 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{19}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -87,13 +87,6 @@
 \newblock \bibinfo{edition}{1} ed., \bibinfo{publisher}{Springer Dordrecht}.
 \newblock \URLprefix \url{https://doi.org/10.1007/0-306-47633-9},
   \DOIprefix\doi{10.1007/0-306-47633-9}.
-%Type = Article
-\bibitem[{Hoaglin and Welsch(1978)}]{hat_matrix}
-\bibinfo{author}{Hoaglin, D.C.}, \bibinfo{author}{Welsch, R.E.},
-  \bibinfo{year}{1978}.
-\newblock \bibinfo{title}{The hat matrix in regression and anova}.
-\newblock \bibinfo{journal}{The American Statistician} \bibinfo{volume}{32},
-  \bibinfo{pages}{17--22}.
 %Type = Misc
 \bibitem[{Hogenson et~al.(2025)Hogenson, Kristenson, Kennedy, Johnston, Rine,
   Logan, Zhu, Williams, Herrmann, Smale and Meyer}]{hyp3-isce2}
@@ -107,31 +100,6 @@
   cloud-native infrastructure for generic processing of sar data}.
 \newblock \URLprefix \url{https://doi.org/10.5281/zenodo.15498989},
   \DOIprefix\doi{10.5281/zenodo.15498989}.
-%Type = Article
-\bibitem[{Huang et~al.(2010)Huang, Wu and Barry}]{huang2010geographically}
-\bibinfo{author}{Huang, B.}, \bibinfo{author}{Wu, B.}, \bibinfo{author}{Barry,
-  M.}, \bibinfo{year}{2010}.
-\newblock \bibinfo{title}{Geographically and temporally weighted regression for
-  modeling spatio-temporal variation in house prices}.
-\newblock \bibinfo{journal}{International journal of geographical information
-  science} \bibinfo{volume}{24}, \bibinfo{pages}{383--401}.
-%Type = Article
-\bibitem[{Hung et~al.(2021)Hung, Hwang, Sneed, Chen, Chu and
-  Lin}]{Hung2021_MLCW}
-\bibinfo{author}{Hung, W.C.}, \bibinfo{author}{Hwang, C.},
-  \bibinfo{author}{Sneed, M.}, \bibinfo{author}{Chen, Y.A.},
-  \bibinfo{author}{Chu, C.H.}, \bibinfo{author}{Lin, S.H.},
-  \bibinfo{year}{2021}.
-\newblock \bibinfo{title}{Measuring and interpreting multilayer aquifer-system
-  compactions for a sustainable groundwater-system development}.
-\newblock \bibinfo{journal}{Water Resources Research} \bibinfo{volume}{57},
-  \bibinfo{pages}{e2020WR028194}.
-\newblock \URLprefix
-  \url{https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2020WR028194},
-  \DOIprefix\doi{https://doi.org/10.1029/2020WR028194},
-  \href{http://arxiv.org/abs/https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020WR028194}{\tt
-  arXiv:https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2020WR028194}.
-  \bibinfo{note}{e2020WR028194 2020WR028194}.
 %Type = Article
 \bibitem[{Hung et~al.(2015)Hung, Wang, Hwang, Chen, Chiu and Lin}]{RN47}
 \bibinfo{author}{Hung, W.C.}, \bibinfo{author}{Wang, C.},
@@ -168,20 +136,6 @@
 \newblock \URLprefix \url{https://doi.org/10.1007/s00254-004-0983-6},
   \DOIprefix\doi{10.1007/s00254-004-0983-6}.
 %Type = Article
-\bibitem[{Nguyen et~al.(2024)Nguyen, Ni, Hsu, Chen, Hiep, Lee, Lin and
-  Gosselin}]{my_paper}
-\bibinfo{author}{Nguyen, T.V.T.}, \bibinfo{author}{Ni, C.F.},
-  \bibinfo{author}{Hsu, Y.J.}, \bibinfo{author}{Chen, P.E.R.},
-  \bibinfo{author}{Hiep, N.H.}, \bibinfo{author}{Lee, I.H.},
-  \bibinfo{author}{Lin, C.P.}, \bibinfo{author}{Gosselin, G.},
-  \bibinfo{year}{2024}.
-\newblock \bibinfo{title}{Quantitative evaluations of pumping-induced land
-  subsidence and mitigation strategies by integrated remote sensing and
-  site-specific hydrogeological observations}.
-\newblock \bibinfo{journal}{Remote Sensing} \bibinfo{volume}{16}.
-\newblock \URLprefix \url{https://www.mdpi.com/2072-4292/16/20/3789},
-  \DOIprefix\doi{10.3390/rs16203789}.
-%Type = Article
 \bibitem[{Pepe and Lanari(2006)}]{temporal_coherence}
 \bibinfo{author}{Pepe, A.}, \bibinfo{author}{Lanari, R.}, \bibinfo{year}{2006}.
 \newblock \bibinfo{title}{On the extension of the minimum cost flow algorithm
@@ -198,17 +152,6 @@
 \newblock \bibinfo{journal}{IEEE Transactions on Geoscience and Remote Sensing}
   \bibinfo{volume}{50}, \bibinfo{pages}{271--280}.
 \newblock \DOIprefix\doi{10.1109/TGRS.2011.2160644}.
-%Type = Article
-\bibitem[{Páez et~al.(2002)Páez, Uchida and Miyamoto}]{Paez2002Framework}
-\bibinfo{author}{Páez, A.}, \bibinfo{author}{Uchida, T.},
-  \bibinfo{author}{Miyamoto, K.}, \bibinfo{year}{2002}.
-\newblock \bibinfo{title}{A general framework for estimation and inference of
-  geographically weighted regression models: 1. location-specific kernel
-  bandwidths and a test for locational heterogeneity}.
-\newblock \bibinfo{journal}{Environment and Planning A} \bibinfo{volume}{34},
-  \bibinfo{pages}{733--754}.
-\newblock \URLprefix \url{https://doi.org/10.1068/a34110},
-  \DOIprefix\doi{10.1068/a34110}.
 %Type = Inproceedings
 \bibitem[{Rosen et~al.(2012)Rosen, Gurrola, Sacco and Zebker}]{isce2_rosen}
 \bibinfo{author}{Rosen, P.A.}, \bibinfo{author}{Gurrola, E.},
@@ -247,16 +190,6 @@
 \newblock \URLprefix
   \url{https://www.sciencedirect.com/science/article/pii/S0022169424002506},
   \DOIprefix\doi{https://doi.org/10.1016/j.jhydrol.2024.130856}.
-%Type = Article
-\bibitem[{Wu et~al.(2014)Wu, Li and Huang}]{Wu2014Geographically}
-\bibinfo{author}{Wu, B.}, \bibinfo{author}{Li, R.}, \bibinfo{author}{Huang,
-  B.}, \bibinfo{year}{2014}.
-\newblock \bibinfo{title}{A geographically and temporally weighted
-  autoregressive model with application to housing prices}.
-\newblock \bibinfo{journal}{International Journal of Geographical Information
-  Science} \bibinfo{volume}{28}, \bibinfo{pages}{1186--1204}.
-\newblock \URLprefix \url{https://doi.org/10.1080/13658816.2013.878463},
-  \DOIprefix\doi{10.1080/13658816.2013.878463}.
 %Type = Article
 \bibitem[{Yagüe-Martínez et~al.(2016)Yagüe-Martínez, Prats-Iraola,
   Rodríguez~González, Brcic, Shau, Geudtner, Eineder and Bamler}]{tops}
