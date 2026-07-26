@@ -15,11 +15,54 @@ Total surface deformation measurements record the integrated ground displacement
 \subsection{Data Processing and Standardization}
 \label{subsec_data_processing}
 
-Standardization of multi-station analysis converted cumulative ring displacements measured at raw extensometer depths into monthly compaction increments across six uniform 50~m depth sections. These standardized depth intervals are designated as S1 from 0 to 50~m, S2 from 50 to 100~m, S3 from 100 to 150~m, S4 from 150 to 200~m, S5 from 200 to 250~m, and S6 from 250 to 300~m. Conversion of cumulative ring displacements into monthly section-level increments isolates the temporal compaction response within each 50~m subsurface interval.
+Integration of multi-source observations into a unified machine learning nowcasting framework required systematic spatiotemporal alignment and physical feature transformation. Because raw monitoring datasets operate across disparate temporal cadences and spatial geometries, a multi-stage standardization protocol was implemented to construct matching input-output feature tables.
 
-Subsurface material properties were aggregated and transformed to match the standardized depth sections while eliminating compositional multicollinearity. Volumetric fractions of four primary sediment facies (gravel, coarse sand, fine sand, and clay/silt) were derived within each 50~m depth section from logged borehole facies profiles and 3D hydrogeological model extractions. Because raw volumetric percentages sum to unity, direct inclusion of all fractions induces constant-sum closure constraints and severe multicollinearity in predictive nowcasting. An Isometric Log-Ratio (ILR) transformation constructed via a Sequential Binary Partition (SBP) hierarchy resolved these compositional constraints \citep{egozcue_isometric_2003, oh_using_2024}. The SBP defines orthogonal log-ratio balances that isolate the hydrogeological contrast between rigid aquifer skeletal grains (sand and gravel) and highly compressible aquitard fines (clay and silt), mapping the constrained 4-part facies composition into three linearly independent, unconstrained Euclidean coordinates across matching depth intervals.
+First, subsurface compaction target variables were constructed by converting cumulative extensometer ring displacements into monthly compaction increments across six uniform 50~m depth sections. These standardized depth intervals are designated as S1 from 0 to 50~m, S2 from 50 to 100~m, S3 from 100 to 150~m, S4 from 150 to 200~m, S5 from 200 to 250~m, and S6 from 250 to 300~m. Conversion of cumulative ring displacements into monthly section-level increments isolates the specific temporal compaction response within each 50~m subsurface interval.
 
-Temporal and spatial alignment of hydrological and surface deformation time series complemented the section-level compaction targets. Hydraulic head measurements were zero-referenced to baseline epochs and differenced at monthly steps to capture head changes driving effective stress. Continuous GNSS vertical positions and InSAR displacement series were temporally resampled to monthly intervals and spatially matched to MLCW locations, serving as surface displacement constraints for the multi-depth compaction system.
+Second, subsurface material properties were aggregated and transformed to match the standardized depth sections while eliminating compositional multicollinearity. Volumetric fractions of four primary sediment facies (gravel, coarse sand, fine sand, and clay/silt) were derived within each 50~m depth section from logged borehole facies profiles and 3D hydrogeological model extractions. Because raw volumetric percentages sum to unity, direct inclusion of all fractions induces constant-sum closure constraints and severe multicollinearity in predictive nowcasting. An Isometric Log-Ratio (ILR) transformation constructed via a Sequential Binary Partition (SBP) hierarchy resolved these compositional constraints \citep{egozcue_isometric_2003, oh_using_2024}. The SBP defines orthogonal log-ratio balances that isolate the hydrogeological contrast between rigid aquifer skeletal grains (sand and gravel) and highly compressible aquitard fines (clay and silt), mapping the constrained 4-part facies composition into three linearly independent, unconstrained Euclidean coordinates across matching depth intervals.
+
+Third, groundwater level (GWL) observations were transformed to isolate transient effective stress drivers. Rather than using absolute hydraulic heads, which contain arbitrary datum offsets and static preconsolidation history, head series were zero-referenced to initial baseline epochs and differenced at monthly steps ($\text{dGWL} = H_t - H_{t-1}$). Under Terzaghi effective stress theory, monthly head drawdowns directly represent transient increases in effective overburden stress driving clay consolidation.
+
+Fourth, surface displacement constraints and lithological controls were spatially aligned to the MLCW coordinates and temporally resampled to monthly steps. Continuous GNSS position series and 2D vector-decomposed InSAR vertical displacement fields were resampled to match the monthly MLCW observation schedule. Simultaneously, spatial extractions from the 3D hydrogeological model provided continuous stratigraphy across unmonitored zones. A schematic overview of raw dataset inputs, standardization transformations, and integrated feature table outputs is illustrated in \Cref{fig:preprocessing_workflow}.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[
+		node distance=0.8cm and 0.4cm,
+		box/.style={draw, rectangle, rounded corners=3pt, align=center, fill=blue!5, line width=0.7pt, font=\footnotesize, inner sep=4pt},
+		proc/.style={draw, rectangle, rounded corners=3pt, align=center, fill=orange!5, line width=0.7pt, font=\footnotesize, inner sep=4pt},
+		resbox/.style={draw, rectangle, rounded corners=3pt, align=center, fill=green!5, line width=0.8pt, font=\small, inner sep=6pt},
+		arrow/.style={-{Stealth[scale=0.9]}, line width=0.7pt, draw=gray!80}
+	]
+		% Step 1: Raw Inputs
+		\node (raw_mlcw) [box] {\textbf{MLCW Extensometers}\\21--26 rings per well};
+		\node (raw_gwl)  [box, right=of raw_mlcw] {\textbf{Groundwater Wells}\\54 Piezometric Wells};
+		\node (raw_insar)[box, right=of raw_gwl] {\textbf{Sentinel-1 SAR}\\530 SLC Acquisitions};
+		\node (raw_coda) [box, right=of raw_insar] {\textbf{Subsurface Facies}\\Logged Cores \& 3D Model};
+
+		% Step 2: Processing Nodes
+		\node (proc_mlcw) [proc, below=of raw_mlcw] {\textbf{Ring Differencing}\\Monthly 50~m Increments\\(Target $y$: S1--S6)};
+		\node (proc_gwl)  [proc, below=of raw_gwl] {\textbf{Head Differencing}\\Zero-Ref \& Monthly Step\\($\text{dGWL} = H_t - H_{t-1}$)};
+		\node (proc_insar)[proc, below=of raw_insar] {\textbf{Phase Inversion}\\2D Vector Decomposition\\\& Monthly Resampling};
+		\node (proc_coda) [proc, below=of raw_coda] {\textbf{ILR / SBP Transform}\\Orthogonal Balances\\(No Collinearity)};
+
+		% Step 3: Feature Matrix Integration
+		\node (out_matrix) [resbox, below=1.0cm of $(proc_gwl)!0.5!(proc_insar)$, minimum width=13cm] {\textbf{Unified Spatiotemporal Feature Matrix}\\[2pt]Features $X \in \mathbb{R}^{N \times P} \quad \text{vs} \quad \text{Compaction Targets } y \in \mathbb{R}^{N \times 6}$};
+
+		% Connectors
+		\draw [arrow] (raw_mlcw) -- (proc_mlcw);
+		\draw [arrow] (raw_gwl) -- (proc_gwl);
+		\draw [arrow] (raw_insar) -- (proc_insar);
+		\draw [arrow] (raw_coda) -- (proc_coda);
+
+		\draw [arrow] (proc_mlcw) |- (out_matrix);
+		\draw [arrow] (proc_gwl) -- (out_matrix);
+		\draw [arrow] (proc_insar) -- (out_matrix);
+		\draw [arrow] (proc_coda) |- (out_matrix);
+	\end{tikzpicture}
+	\caption{Workflow diagram of multi-source observation preprocessing, feature transformation, and spatiotemporal alignment into the unified compaction nowcasting matrix.}
+	\label{fig:preprocessing_workflow}
+\end{figure}
 
 
 \begin{table}[ht!]
