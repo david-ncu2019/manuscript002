@@ -5,7 +5,18 @@ Characterization of the multi-depth land subsidence process across the Choushui 
 
 Subsurface layerwise compaction records provide the direct target measurements for evaluating depth-dependent deformation. An MLCW is a specialized borehole extensometer that records vertical strain at magnetic rings anchored along the well profile at major hydrostratigraphic boundaries and lithological transitions \citep{hung_measuring_2021}. Extending to depths up to 300~m, each MLCW contains 21 to 26 magnetic rings configured to isolate compaction within individual aquifer and aquitard units with a measurement precision of 1~mm \citep{hung_measuring_2021, nguyen_quantitative_2024}. This study utilizes monthly records from five primary MLCW stations (Tuku, Guangfu, Huwei, Honglun, and Xiutan) located in Yunlin County, with station parameters summarized in \Cref{tab:mlcw_info}. These stations monitor the central zone of intensive land subsidence in the CRAF \citep{liu_characterization_2004, hung2015_multiple, nguyen_quantitative_2024}.
 
-\begin{table}[ht!]
+Borehole lithological profiles and regional stratigraphy define the sedimentological framework controlling subsurface compressibility and drainage behavior. High-resolution lithological logs co-located with each MLCW record the vertical distribution of sedimentary facies, including gravel, coarse sand, fine sand, silt, and clay, down to 300~m depth. For unmonitored zones between boreholes, stratigraphy is complemented by the 3D hydrogeological model developed by the Geological Survey and Mining Management Agency \citep{gsmma_3d}. % TODO(CITATION): Find a peer-reviewed source supporting the 1 m vertical resolution and 500 m horizontal grid spacing of the 3D hydrogeological model; add its BibTeX entry to writing_manu2.bib, then insert \citep{citation_key} here.
+This model supplies continuous hydrostratigraphic profiles at a 1~m vertical resolution and a 500~m horizontal grid spacing, providing regional lithological constraints across the alluvial fan.
+
+Groundwater level (GWL) observations supply the subsurface hydraulic head dynamics that regulate transient pore-water pressure and effective stress across the multi-aquifer system. Operated by the Water Resources Agency (WRA) of Taiwan, the regional monitoring network comprises nested observation wells strategically screened at discrete depth intervals corresponding to Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004, nguyen_quantitative_2024}. Daily piezometric head measurements, expressed as elevations relative to Mean Sea Level (m~MSL), span from January 2000 to December 2025 across Yunlin County. These GWL time series capture the interplay between seasonal agricultural pumping drawdowns, wet-season monsoon recharge replenishment, and multi-decadal head declines \citep{hung2012_mlcw, hung2015_multiple, lu2020_crfp}. Station coordinates and screen depth attributes are summarized in \Cref{tab:gwl_info}.
+
+Total surface deformation measurements record the integrated ground displacement resulting from compaction across all underlying depth intervals. Daily 3D coordinate observations from continuous GNSS (cGNSS) stations co-located with or positioned near the MLCW sites \citep{IESAS_TGM_2026} supply point-based vertical displacement time series from 2010 to 2024. Station parameters for the cGNSS network are provided in \Cref{tab:gnss_info}. Spatial expansion of deformation monitoring beyond discrete geodetic stations utilized Small Baseline Subset (SBAS) InSAR analysis applied to Sentinel-1A Synthetic Aperture Radar (SAR) imagery acquired in Interferometric Wide (IW) Terrain Observation with Progressive Scans (TOPS) mode \citep{torres_gmes_2012,yague-martinez_interferometric_2016}. The SAR dataset comprises 530 Level-1 Single Look Complex (SLC) acquisitions collected between April 2016 and November 2021, containing 266 VV-polarized images along ascending orbit 69 (incidence angles $32^{\circ}$ to $38^{\circ}$) and 264 images along descending orbit 105 (incidence angles $38^{\circ}$ to $43^{\circ}$). Small-baseline interferogram stacks generated via the HyP3 pipeline \citep{hogenson_hybrid_2025} and multitemporal phase inversion conducted using MintPy \citep{yunjun_small_2019} yielded initial line-of-sight (LOS) displacement series. Two-dimensional vector decomposition combining the ascending and descending LOS time series resolved the vertical deformation component \citep{fuhrmann_resolving_2019, hanssen_radar_2001}, providing high-density vertical velocity fields and monthly vertical displacement series across the study domain. Parameters for the Sentinel-1A SAR datasets are summarized in \Cref{tab:sentinel1_info}.
+
+% ===================================================================
+% SEQUENTIAL TABLE GROUP (End of Subsection 2.1)
+% ===================================================================
+
+\begin{table}[p]
 	\centering
 	\caption{Multilayer Compaction Monitoring Well (MLCW) Locations and Parameters}
 	\label{tab:mlcw_info}
@@ -22,12 +33,7 @@ Subsurface layerwise compaction records provide the direct target measurements f
 	\end{tabular}
 \end{table}
 
-Borehole lithological profiles and regional stratigraphy define the sedimentological framework controlling subsurface compressibility and drainage behavior. High-resolution lithological logs co-located with each MLCW record the vertical distribution of sedimentary facies, including gravel, coarse sand, fine sand, silt, and clay, down to 300~m depth. For unmonitored zones between boreholes, stratigraphy is complemented by the 3D hydrogeological model developed by the Geological Survey and Mining Management Agency \citep{gsmma_3d}. % TODO(CITATION): Find a peer-reviewed source supporting the 1 m vertical resolution and 500 m horizontal grid spacing of the 3D hydrogeological model; add its BibTeX entry to writing_manu2.bib, then insert \citep{citation_key} here.
-This model supplies continuous hydrostratigraphic profiles at a 1~m vertical resolution and a 500~m horizontal grid spacing, providing regional lithological constraints across the alluvial fan.
-
-Groundwater level (GWL) observations supply the subsurface hydraulic head dynamics that regulate transient pore-water pressure and effective stress across the multi-aquifer system. Operated by the Water Resources Agency (WRA) of Taiwan, the regional monitoring network comprises nested observation wells strategically screened at discrete depth intervals corresponding to Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004, nguyen_quantitative_2024}. Daily piezometric head measurements, expressed as elevations relative to Mean Sea Level (m~MSL), span from January 2000 to December 2025 across Yunlin County. These GWL time series capture the interplay between seasonal agricultural pumping drawdowns, wet-season monsoon recharge replenishment, and multi-decadal head declines \citep{hung2012_mlcw, hung2015_multiple, lu2020_crfp}. Station coordinates and screen depth attributes are summarized in \Cref{tab:gwl_info}.
-
-\begin{table}[ht!]
+\begin{table}[p]
 	\centering
 	\footnotesize
 	\setlength{\tabcolsep}{2.5pt}
@@ -68,9 +74,7 @@ Groundwater level (GWL) observations supply the subsurface hydraulic head dynami
 	\end{tabular}
 \end{table}
 
-Total surface deformation measurements record the integrated ground displacement resulting from compaction across all underlying depth intervals. Daily 3D coordinate observations from continuous GNSS (cGNSS) stations co-located with or positioned near the MLCW sites \citep{IESAS_TGM_2026} supply point-based vertical displacement time series from 2010 to 2024. Station parameters for the cGNSS network are provided in \Cref{tab:gnss_info}. Spatial expansion of deformation monitoring beyond discrete geodetic stations utilized Small Baseline Subset (SBAS) InSAR analysis applied to Sentinel-1A Synthetic Aperture Radar (SAR) imagery acquired in Interferometric Wide (IW) Terrain Observation with Progressive Scans (TOPS) mode \citep{torres_gmes_2012,yague-martinez_interferometric_2016}. The SAR dataset comprises 530 Level-1 Single Look Complex (SLC) acquisitions collected between April 2016 and November 2021, containing 266 VV-polarized images along ascending orbit 69 (incidence angles $32^{\circ}$ to $38^{\circ}$) and 264 images along descending orbit 105 (incidence angles $38^{\circ}$ to $43^{\circ}$). Small-baseline interferogram stacks generated via the HyP3 pipeline \citep{hogenson_hybrid_2025} and multitemporal phase inversion conducted using MintPy \citep{yunjun_small_2019} yielded initial line-of-sight (LOS) displacement series. Two-dimensional vector decomposition combining the ascending and descending LOS time series resolved the vertical deformation component \citep{fuhrmann_resolving_2019, hanssen_radar_2001}, providing high-density vertical velocity fields and monthly vertical displacement series across the study domain. Parameters for the Sentinel-1A SAR datasets are summarized in \Cref{tab:sentinel1_info}.
-
-\begin{table}[ht!]
+\begin{table}[p]
 	\centering
 	\caption{Continuous GNSS Station Parameters and Coordinates}
 	\label{tab:gnss_info}
@@ -87,7 +91,7 @@ Total surface deformation measurements record the integrated ground displacement
 	\end{tabular}
 \end{table}
 
-\begin{table}[ht!]
+\begin{table}[p]
 	\centering
 	\caption{Summary of the Sentinel-1A datasets used in this study.}
 	\label{tab:sentinel1_info}
