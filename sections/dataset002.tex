@@ -12,119 +12,18 @@ Groundwater level (GWL) observations supply the subsurface hydraulic head dynami
 
 Total surface deformation measurements record the integrated ground displacement resulting from compaction across all underlying depth intervals. Daily 3D coordinate observations from continuous GNSS (cGNSS) stations co-located with or positioned near the MLCW sites \citep{IESAS_TGM_2026} supply point-based vertical displacement time series from 2010 to 2024. Station parameters for the cGNSS network are provided in \Cref{tab:gnss_info}. Spatial expansion of deformation monitoring beyond discrete geodetic stations utilized Small Baseline Subset (SBAS) InSAR analysis applied to Sentinel-1A Synthetic Aperture Radar (SAR) imagery acquired in Interferometric Wide (IW) Terrain Observation with Progressive Scans (TOPS) mode \citep{torres_gmes_2012,yague-martinez_interferometric_2016}. The SAR dataset comprises 530 Level-1 Single Look Complex (SLC) acquisitions collected between April 2016 and November 2021, containing 266 VV-polarized images along ascending orbit 69 (incidence angles $32^{\circ}$ to $38^{\circ}$) and 264 images along descending orbit 105 (incidence angles $38^{\circ}$ to $43^{\circ}$). Small-baseline interferogram stacks generated via the HyP3 pipeline \citep{hogenson_hybrid_2025} and multitemporal phase inversion conducted using MintPy \citep{yunjun_small_2019} yielded initial line-of-sight (LOS) displacement series. Two-dimensional vector decomposition combining the ascending and descending LOS time series resolved the vertical deformation component \citep{fuhrmann_resolving_2019, hanssen_radar_2001}, providing high-density vertical velocity fields and monthly vertical displacement series across the study domain. Parameters for the Sentinel-1A SAR datasets are summarized in \Cref{tab:sentinel1_info}.
 
-% ===================================================================
-% SEQUENTIAL TABLE GROUP (End of Subsection 2.1)
-% ===================================================================
-
-\begin{table}[p]
-	\centering
-	\caption{Multilayer Compaction Monitoring Well (MLCW) Locations and Parameters}
-	\label{tab:mlcw_info}
-	\begin{tabular}{llrrrr}
-		\toprule
-		\textbf{ID} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Bottom Depth (m)} \\
-		\midrule
-		YL23 & Tuku     & 120.3898 & 23.6881 & 23 & 300.0 \\
-		YL27 & Guangfu  & 120.4025 & 23.7414 & 22 & 300.0 \\
-		YL26 & Huwei    & 120.4316 & 23.7153 & 25 & 300.0 \\
-		YL25 & Honglun  & 120.3478 & 23.6866 & 17 & 340.0 \\
-		YL24 & Xiutan   & 120.3496 & 23.6589 & 14 & 300.0 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\begin{table}[p]
-	\centering
-	\footnotesize
-	\setlength{\tabcolsep}{2.5pt}
-	\caption{Groundwater Level (GWL) Monitoring Stations in Yunlin County}
-	\label{tab:gwl_info}
-	\begin{tabular}{llcc|llcc}
-		\toprule
-		\textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} \\
-		\midrule
-		Annan & ANN & 120.2488 & 23.7039 & Jiulong & JLG & 120.4310 & 23.7511 \\
-		Beigang & BGG & 120.3019 & 23.5789 & Kanjiao & KJO & 120.5379 & 23.6124 \\
-		Bozi & BZI & 120.1515 & 23.6335 & Kecuo & KCO & 120.3342 & 23.6266 \\
-		Caicuo & CCO & 120.2193 & 23.6122 & Liuhe & LHE & 120.5627 & 23.7689 \\
-		Chenguang & CGU & 120.3271 & 23.5858 & Liuzhuang & JZG & 120.4006 & 23.6344 \\
-		Chukou & CKU & 120.6430 & 23.7701 & Lunzi & LZI & 120.3548 & 23.6077 \\
-		Citong & CTG & 120.4969 & 23.7567 & Mingde & MDE & 120.1993 & 23.6529 \\
-		Dagou & DGU & 120.2107 & 23.5662 & Pingding & PDG & 120.6407 & 23.7558 \\
-		Dapi & DPI & 120.4232 & 23.6629 & Qiongbu & QBU & 120.2073 & 23.5184 \\
-		Dongguang & DGG & 120.2720 & 23.6519 & Sanhe & SHE & 120.4879 & 23.6051 \\
-		Donghe & DHE & 120.5694 & 23.6858 & Shangyi & SYI & 120.4519 & 23.6342 \\
-		Erlun & ELU & 120.4142 & 23.7717 & Shiliu & SLU & 120.5859 & 23.7207 \\
-		Fangcao & FCO & 120.3741 & 23.7184 & Shuilin & SLN & 120.2461 & 23.5731 \\
-		Fengrong & FRG & 120.3110 & 23.7907 & Tianyang & TYG & 120.3090 & 23.7254 \\
-		Ganghou & GHU & 120.3921 & 23.7965 & Tuku & TKU & 120.3899 & 23.6879 \\
-		Guangfu & GFU & 120.4024 & 23.7414 & Wencuo & WCO & 120.5121 & 23.6577 \\
-		Gukeng & GKN & 120.5668 & 23.6446 & Wutu & WTU & 120.5980 & 23.7672 \\
-		Haifeng & HFG & 120.2259 & 23.7649 & Xiluo & XLO & 120.4673 & 23.7959 \\
-		Haiyuan & HYN & 120.1791 & 23.7208 & Xinghua & XIH & 120.2890 & 23.7603 \\
-		Hefeng & HFE & 120.2234 & 23.7390 & Xiutan & XTA & 120.3496 & 23.6588 \\
-		Honglun & HLN & 120.3481 & 23.6866 & Yiwu & YWU & 120.1883 & 23.5413 \\
-		Houan & HAN & 120.2349 & 23.7892 & Yongding & YDN & 120.4196 & 23.7977 \\
-		Huwei & HWI & 120.4323 & 23.7142 & Yuanzhang & YZG & 120.3101 & 23.6529 \\
-		Huxi & HXI & 120.5112 & 23.7221 & Zhengmin & ZMN & 120.4073 & 23.7093 \\
-		Huzinei & HZN & 120.5602 & 23.7834 & Zhongshan & ZHS & 120.2443 & 23.7971 \\
-		Jiaxing & JXG & 120.4595 & 23.6482 & Zhongxiao & ZXO & 120.3150 & 23.6221 \\
-		Jinhu & JHU & 120.1533 & 23.5734 & Zhongxing & ZXG & 120.5891 & 23.7808 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\begin{table}[p]
-	\centering
-	\caption{Continuous GNSS Station Parameters and Coordinates}
-	\label{tab:gnss_info}
-	\begin{tabular}{lllrrrr}
-		\toprule
-		\textbf{ID} & \textbf{Station} & \textbf{TGM Code} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Period} \\
-		\midrule
-		GN01 & Tuku     & TKJS & 120.3898 & 23.6880 & 41.13 & 2010--2024 \\
-		GN02 & Guangfu  & GFES & 120.4025 & 23.7414 & 45.07 & 2010--2024 \\
-		GN03 & Huwei    & NTUH & 120.4276 & 23.7330 & 48.27 & 2014--2024 \\
-		GN04 & Honglun  & HLES & 120.3478 & 23.6866 & 37.07 & 2011--2024 \\
-		GN05 & Xiutan   & STES & 120.3498 & 23.6587 & 38.69 & 2018--2024 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\begin{table}[p]
-	\centering
-	\caption{Summary of the Sentinel-1A datasets used in this study.}
-	\label{tab:sentinel1_info}
-	
-	\begin{tabular}{lcc}
-		\toprule
-		\textbf{Parameters} & \textbf{Ascending} & \textbf{Descending} \\
-		\midrule
-		Relative Orbit (Path) & 69 & 105 \\
-		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{April 2016--November 2021} \\
-		Number of Images      & 266 & 264 \\
-		\multicolumn{1}{l}{Acquisition Mode} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
-		\multicolumn{1}{l}{Polarization} & \multicolumn{2}{c}{VV} \\
-		Incidence Angles & $32^{\circ}$--$38^{\circ}$ & $38^{\circ}$--$43^{\circ}$ \\
-		Satellite Headings & $347.63^{\circ}$ & $192.37^{\circ}$ \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\clearpage
-
 \subsection{Data Processing and Standardization}
 \label{subsec_data_processing}
 
-Standardization of multi-source monitoring data constructed a uniform monthly feature matrix ($X \in \mathbb{R}^{N \times P}$) aligned with section-level compaction targets ($y \in \mathbb{R}^{N \times 6}$). 
+Integration of multi-source observations into a unified machine learning nowcasting framework required systematic spatiotemporal alignment and feature transformation. Because raw monitoring datasets operate across disparate temporal cadences and spatial geometries, a multi-stage standardization protocol was implemented to construct matching input-output feature tables.
 
-Subsurface compaction targets were derived by differencing cumulative extensometer ring displacements into monthly increments across six uniform 50~m depth intervals (S1: 0 to 50~m through S6: 250 to 300~m). This sectioning harmonizes variable extensometer anchor depths across stations into consistent depth-dependent compaction series.
+First, subsurface compaction target variables were constructed by converting cumulative extensometer ring displacements into monthly compaction increments across six uniform 50~m depth sections. These standardized depth intervals are designated as S1 from 0 to 50~m, S2 from 50 to 100~m, S3 from 100 to 150~m, S4 from 150 to 200~m, S5 from 200 to 250~m, and S6 from 250 to 300~m. Conversion of cumulative ring displacements into monthly section-level increments isolates the temporal compaction response within each 50~m subsurface interval.
 
-Sediment facies compositions (gravel, coarse sand, fine sand, and clay/silt) derived from borehole logs and 3D hydrogeological model extractions were transformed to eliminate constant-sum closure and multicollinearity. An Isometric Log-Ratio (ILR) transformation constructed via a Sequential Binary Partition (SBP) hierarchy mapped the four volumetric percentages into three unconstrained, orthogonal log-ratio balances \citep{egozcue_isometric_2003, oh_using_2024}.
+Second, subsurface material properties were aggregated and transformed to match the standardized depth sections while eliminating compositional multicollinearity. Volumetric fractions of four primary sediment facies (gravel, coarse sand, fine sand, and clay/silt) were derived within each 50~m depth section from logged borehole facies profiles and 3D hydrogeological model extractions. Because raw volumetric percentages sum to unity, direct inclusion of all fractions induces constant-sum closure constraints and severe multicollinearity in predictive nowcasting. An Isometric Log-Ratio (ILR) transformation constructed via a Sequential Binary Partition (SBP) hierarchy resolved these compositional constraints \citep{egozcue_isometric_2003, oh_using_2024}. The SBP defines orthogonal log-ratio balances that quantify facies composition across matching depth intervals.
 
-Groundwater level (GWL) series were zero-referenced to baseline epochs and differenced monthly ($\text{dGWL} = H_t - H_{t-1}$). This first-difference transformation removes arbitrary datum offsets and achieves temporal stationarity across seasonal pumping drawdowns and monsoon recovery cycles.
+Third, groundwater level (GWL) observations were converted to monthly head changes to isolate short-term piezometric fluctuations and achieve temporal stationarity. Hydraulic head series were zero-referenced to baseline epochs and differenced at monthly intervals ($\text{dGWL} = H_t - H_{t-1}$). This first-difference transformation removes arbitrary datum offsets and isolates monthly drawdowns and recovery cycles driving the ML feature matrix.
 
-Continuous GNSS position series and 2D vector-decomposed InSAR vertical displacement fields were resampled to monthly steps at the MLCW station coordinates. Spatial extractions from the 3D hydrogeological model provided continuous stratigraphy across unmonitored zones. \Cref{fig:preprocessing_workflow} illustrates the overall spatiotemporal alignment workflow.
+Fourth, surface displacement constraints and lithological controls were spatially aligned to the MLCW coordinates and temporally resampled to monthly steps. Continuous GNSS position series and 2D vector-decomposed InSAR vertical displacement fields were resampled to match the monthly MLCW observation schedule. Simultaneously, spatial extractions from the 3D hydrogeological model provided continuous stratigraphy across unmonitored zones. A schematic overview of raw dataset inputs, standardization transformations, and integrated feature table outputs is illustrated in \Cref{fig:preprocessing_workflow}.
 
 \begin{figure}[htbp]
 	\centering
@@ -165,4 +64,102 @@ Continuous GNSS position series and 2D vector-decomposed InSAR vertical displace
 	\label{fig:preprocessing_workflow}
 \end{figure}
 
-\clearpage
+
+\begin{table}[ht!]
+	\centering
+	\caption{Multilayer Compaction Monitoring Well (MLCW) Locations and Parameters}
+	\label{tab:mlcw_info}
+	\begin{tabular}{llrrrr}
+		\toprule
+		\textbf{ID} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Bottom Depth (m)} \\
+		\midrule
+		YL23 & Tuku     & 120.3898 & 23.6881 & 23 & 300.0 \\
+		YL27 & Guangfu  & 120.4025 & 23.7414 & 22 & 300.0 \\
+		YL26 & Huwei    & 120.4316 & 23.7153 & 25 & 300.0 \\
+		YL25 & Honglun  & 120.3478 & 23.6866 & 17 & 340.0 \\
+		YL24 & Xiutan   & 120.3496 & 23.6589 & 14 & 300.0 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\begin{table}[ht!]
+	\centering
+	\footnotesize
+	\setlength{\tabcolsep}{2.5pt}
+	\caption{Groundwater Level (GWL) Monitoring Stations in Yunlin County}
+	\label{tab:gwl_info}
+	\begin{tabular}{llcc|llcc}
+		\toprule
+		\textbf{ID} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{ID} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} \\
+		\midrule
+		GW01 & ANNAN (ANN) & 120.2488 & 23.7039 & GW28 & JIULONG (JLG) & 120.4310 & 23.7511 \\
+		GW02 & BEIGANG (BGG) & 120.3019 & 23.5789 & GW29 & KANJIAO (KJO) & 120.5379 & 23.6124 \\
+		GW03 & BOZI (BZI) & 120.1515 & 23.6335 & GW30 & KECUO (KCO) & 120.3342 & 23.6266 \\
+		GW04 & CAICUO (CCO) & 120.2193 & 23.6122 & GW31 & LIUHE (LHE) & 120.5627 & 23.7689 \\
+		GW05 & CHENGUANG (CGU) & 120.3271 & 23.5858 & GW32 & LIUZHUANG (JZG) & 120.4006 & 23.6344 \\
+		GW06 & CHUKOU (CKU) & 120.6430 & 23.7701 & GW33 & LUNZI (LZI) & 120.3548 & 23.6077 \\
+		GW07 & CITONG (CTG) & 120.4969 & 23.7567 & GW34 & MINGDE (MDE) & 120.1993 & 23.6529 \\
+		GW08 & DAGOU (DGU) & 120.2107 & 23.5662 & GW35 & PINGDING (PDG) & 120.6407 & 23.7558 \\
+		GW09 & DAPI (DPI) & 120.4232 & 23.6629 & GW36 & QIONGBU (QBU) & 120.2073 & 23.5184 \\
+		GW10 & DONGGUANG (DGG) & 120.2720 & 23.6519 & GW37 & SANHE (SHE) & 120.4879 & 23.6051 \\
+		GW11 & DONGHE (DHE) & 120.5694 & 23.6858 & GW38 & SHANGYI (SYI) & 120.4519 & 23.6342 \\
+		GW12 & ERLUN (ELU) & 120.4142 & 23.7717 & GW39 & SHILIU (SLU) & 120.5859 & 23.7207 \\
+		GW13 & FANGCAO (FCO) & 120.3741 & 23.7184 & GW40 & SHUILIN (SLN) & 120.2461 & 23.5731 \\
+		GW14 & FENGRONG (FRG) & 120.3110 & 23.7907 & GW41 & TIANYANG (TYG) & 120.3090 & 23.7254 \\
+		GW15 & GANGHOU (GHU) & 120.3921 & 23.7965 & GW42 & Tuku (TKU) & 120.3899 & 23.6879 \\
+		GW16 & Guangfu (GFU) & 120.4024 & 23.7414 & GW43 & WENCUO (WCO) & 120.5121 & 23.6577 \\
+		GW17 & GUKENG (GKN) & 120.5668 & 23.6446 & GW44 & WUTU (WTU) & 120.5980 & 23.7672 \\
+		GW18 & HAIFENG (HFG) & 120.2259 & 23.7649 & GW45 & XILUO (XLO) & 120.4673 & 23.7959 \\
+		GW19 & HAIYUAN (HYN) & 120.1791 & 23.7208 & GW46 & XINGHUA (XIH) & 120.2890 & 23.7603 \\
+		GW20 & HEFENG (HFE) & 120.2234 & 23.7390 & GW47 & Xiutan (XTA) & 120.3496 & 23.6588 \\
+		GW21 & Honglun (HLN) & 120.3481 & 23.6866 & GW48 & YIWU (YWU) & 120.1883 & 23.5413 \\
+		GW22 & HOUAN (HAN) & 120.2349 & 23.7892 & GW49 & YONGDING (YDN) & 120.4196 & 23.7977 \\
+		GW23 & Huwei (HWI) & 120.4323 & 23.7142 & GW50 & YUANZHANG (YZG) & 120.3101 & 23.6529 \\
+		GW24 & HUXI (HXI) & 120.5112 & 23.7221 & GW51 & Zhengmin (ZMN) & 120.4073 & 23.7093 \\
+		GW25 & HUZINEI (HZN) & 120.5602 & 23.7834 & GW52 & ZHONGSHAN (ZHS) & 120.2443 & 23.7971 \\
+		GW26 & JIAXING (JXG) & 120.4595 & 23.6482 & GW53 & ZHONGXIAO (ZXO) & 120.3150 & 23.6221 \\
+		GW27 & JINHU (JHU) & 120.1533 & 23.5734 & GW54 & ZHONGXING (ZXG) & 120.5891 & 23.7808 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\begin{table}[ht!]
+	\centering
+	\caption{Continuous GNSS Station Parameters and Coordinates}
+	\label{tab:gnss_info}
+	\begin{tabular}{lllrrrrc}
+		\toprule
+		\textbf{ID} & \textbf{Station} & \textbf{TGM Code} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Agency} & \textbf{Period} \\
+		\midrule
+		GN01 & Tuku     & TKJS & 120.3898 & 23.6880 & 41.13 & WRA & 2010--2024 \\
+		GN02 & Guangfu  & GFES & 120.4025 & 23.7414 & 45.07 & WRA & 2010--2024 \\
+		GN03 & Huwei    & NTUH & 120.4276 & 23.7330 & 48.27 & WRA & 2014--2024 \\
+		GN04 & Honglun  & HLES & 120.3478 & 23.6866 & 37.07 & WRA & 2011--2024 \\
+		GN05 & Xiutan   & STES & 120.3498 & 23.6587 & 38.69 & WRA & 2018--2024 \\
+		GN06 & Zhengmin & JMES & 120.4072 & 23.7093 & 44.45 & WRA & 2018--2024 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\begin{table}[ht!]
+	\centering
+	\caption{Summary of the Sentinel-1A datasets used in this study.}
+	\label{tab:sentinel1_info}
+	
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Parameters} & \textbf{Ascending} & \textbf{Descending} \\
+		\midrule
+		Relative Orbit (Path) & 69 & 105 \\
+		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{April 2016--November 2021} \\
+		Number of Images      & 266 & 264 \\
+		\multicolumn{1}{l}{Acquisition Mode} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
+		\multicolumn{1}{l}{Polarization} & \multicolumn{2}{c}{VV} \\
+		Incidence Angles & $32^{\circ}$--$38^{\circ}$ & $38^{\circ}$--$43^{\circ}$ \\
+		Satellite Headings & $347.63^{\circ}$ & $192.37^{\circ}$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
