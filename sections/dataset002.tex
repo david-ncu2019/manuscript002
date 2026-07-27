@@ -5,12 +5,109 @@ Characterization of the multi-depth land subsidence process across the Choushui 
 
 Subsurface layerwise compaction records provide the direct target measurements for evaluating depth-dependent deformation. An MLCW is a specialized borehole extensometer that records vertical strain at magnetic rings anchored along the well profile at major hydrostratigraphic boundaries and lithological transitions \citep{hung_measuring_2021}. Extending to depths up to 300~m, each MLCW contains 21 to 26 magnetic rings configured to isolate compaction within individual aquifer and aquitard units with a measurement precision of 1~mm \citep{hung_measuring_2021, nguyen_quantitative_2024}. This study utilizes monthly records from five primary MLCW stations (Tuku, Guangfu, Huwei, Honglun, and Xiutan) located in Yunlin County, with station parameters summarized in \Cref{tab:mlcw_info}. These stations monitor the central zone of intensive land subsidence in the CRAF \citep{liu_characterization_2004, hung2015_multiple, nguyen_quantitative_2024}.
 
+\begin{table}[ht!]
+	\centering
+	\caption{Multilayer Compaction Monitoring Well (MLCW) Locations and Parameters}
+	\label{tab:mlcw_info}
+	\begin{tabular}{llrrrr}
+		\toprule
+		\textbf{ID} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Bottom Depth (m)} \\
+		\midrule
+		YL23 & Tuku     & 120.3898 & 23.6881 & 23 & 300.0 \\
+		YL27 & Guangfu  & 120.4025 & 23.7414 & 22 & 300.0 \\
+		YL26 & Huwei    & 120.4316 & 23.7153 & 25 & 300.0 \\
+		YL25 & Honglun  & 120.3478 & 23.6866 & 17 & 340.0 \\
+		YL24 & Xiutan   & 120.3496 & 23.6589 & 14 & 300.0 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
 Borehole lithological profiles and regional stratigraphy define the sedimentological framework controlling subsurface compressibility and drainage behavior. High-resolution lithological logs co-located with each MLCW record the vertical distribution of sedimentary facies, including gravel, coarse sand, fine sand, silt, and clay, down to 300~m depth. For unmonitored zones between boreholes, stratigraphy is complemented by the 3D hydrogeological model developed by the Geological Survey and Mining Management Agency \citep{gsmma_3d}. % TODO(CITATION): Find a peer-reviewed source supporting the 1 m vertical resolution and 500 m horizontal grid spacing of the 3D hydrogeological model; add its BibTeX entry to writing_manu2.bib, then insert \citep{citation_key} here.
 This model supplies continuous hydrostratigraphic profiles at a 1~m vertical resolution and a 500~m horizontal grid spacing, providing regional lithological constraints across the alluvial fan.
 
 Groundwater level (GWL) observations supply the subsurface hydraulic head dynamics that regulate transient pore-water pressure and effective stress across the multi-aquifer system. Operated by the Water Resources Agency (WRA) of Taiwan, the regional monitoring network comprises nested observation wells strategically screened at discrete depth intervals corresponding to Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004, nguyen_quantitative_2024}. Daily piezometric head measurements, expressed as elevations relative to Mean Sea Level (m~MSL), span from January 2000 to December 2025 across Yunlin County. These GWL time series capture the interplay between seasonal agricultural pumping drawdowns, wet-season monsoon recharge replenishment, and multi-decadal head declines \citep{hung2012_mlcw, hung2015_multiple, lu2020_crfp}. Station coordinates and screen depth attributes are summarized in \Cref{tab:gwl_info}.
 
+\begin{table}[ht!]
+	\centering
+	\footnotesize
+	\setlength{\tabcolsep}{2.5pt}
+	\caption{Groundwater Level (GWL) Monitoring Stations in Yunlin County}
+	\label{tab:gwl_info}
+	\begin{tabular}{llcc|llcc}
+		\toprule
+		\textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} \\
+		\midrule
+		Annan & ANN & 120.2488 & 23.7039 & Jiulong & JLG & 120.4310 & 23.7511 \\
+		Beigang & BGG & 120.3019 & 23.5789 & Kanjiao & KJO & 120.5379 & 23.6124 \\
+		Bozi & BZI & 120.1515 & 23.6335 & Kecuo & KCO & 120.3342 & 23.6266 \\
+		Caicuo & CCO & 120.2193 & 23.6122 & Liuhe & LHE & 120.5627 & 23.7689 \\
+		Chenguang & CGU & 120.3271 & 23.5858 & Liuzhuang & JZG & 120.4006 & 23.6344 \\
+		Chukou & CKU & 120.6430 & 23.7701 & Lunzi & LZI & 120.3548 & 23.6077 \\
+		Citong & CTG & 120.4969 & 23.7567 & Mingde & MDE & 120.1993 & 23.6529 \\
+		Dagou & DGU & 120.2107 & 23.5662 & Pingding & PDG & 120.6407 & 23.7558 \\
+		Dapi & DPI & 120.4232 & 23.6629 & Qiongbu & QBU & 120.2073 & 23.5184 \\
+		Dongguang & DGG & 120.2720 & 23.6519 & Sanhe & SHE & 120.4879 & 23.6051 \\
+		Donghe & DHE & 120.5694 & 23.6858 & Shangyi & SYI & 120.4519 & 23.6342 \\
+		Erlun & ELU & 120.4142 & 23.7717 & Shiliu & SLU & 120.5859 & 23.7207 \\
+		Fangcao & FCO & 120.3741 & 23.7184 & Shuilin & SLN & 120.2461 & 23.5731 \\
+		Fengrong & FRG & 120.3110 & 23.7907 & Tianyang & TYG & 120.3090 & 23.7254 \\
+		Ganghou & GHU & 120.3921 & 23.7965 & Tuku & TKU & 120.3899 & 23.6879 \\
+		Guangfu & GFU & 120.4024 & 23.7414 & Wencuo & WCO & 120.5121 & 23.6577 \\
+		Gukeng & GKN & 120.5668 & 23.6446 & Wutu & WTU & 120.5980 & 23.7672 \\
+		Haifeng & HFG & 120.2259 & 23.7649 & Xiluo & XLO & 120.4673 & 23.7959 \\
+		Haiyuan & HYN & 120.1791 & 23.7208 & Xinghua & XIH & 120.2890 & 23.7603 \\
+		Hefeng & HFE & 120.2234 & 23.7390 & Xiutan & XTA & 120.3496 & 23.6588 \\
+		Honglun & HLN & 120.3481 & 23.6866 & Yiwu & YWU & 120.1883 & 23.5413 \\
+		Houan & HAN & 120.2349 & 23.7892 & Yongding & YDN & 120.4196 & 23.7977 \\
+		Huwei & HWI & 120.4323 & 23.7142 & Yuanzhang & YZG & 120.3101 & 23.6529 \\
+		Huxi & HXI & 120.5112 & 23.7221 & Zhengmin & ZMN & 120.4073 & 23.7093 \\
+		Huzinei & HZN & 120.5602 & 23.7834 & Zhongshan & ZHS & 120.2443 & 23.7971 \\
+		Jiaxing & JXG & 120.4595 & 23.6482 & Zhongxiao & ZXO & 120.3150 & 23.6221 \\
+		Jinhu & JHU & 120.1533 & 23.5734 & Zhongxing & ZXG & 120.5891 & 23.7808 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
 Total surface deformation measurements record the integrated ground displacement resulting from compaction across all underlying depth intervals. Daily 3D coordinate observations from continuous GNSS (cGNSS) stations co-located with or positioned near the MLCW sites \citep{IESAS_TGM_2026} supply point-based vertical displacement time series from 2010 to 2024. Station parameters for the cGNSS network are provided in \Cref{tab:gnss_info}. Spatial expansion of deformation monitoring beyond discrete geodetic stations utilized Small Baseline Subset (SBAS) InSAR analysis applied to Sentinel-1A Synthetic Aperture Radar (SAR) imagery acquired in Interferometric Wide (IW) Terrain Observation with Progressive Scans (TOPS) mode \citep{torres_gmes_2012,yague-martinez_interferometric_2016}. The SAR dataset comprises 530 Level-1 Single Look Complex (SLC) acquisitions collected between April 2016 and November 2021, containing 266 VV-polarized images along ascending orbit 69 (incidence angles $32^{\circ}$ to $38^{\circ}$) and 264 images along descending orbit 105 (incidence angles $38^{\circ}$ to $43^{\circ}$). Small-baseline interferogram stacks generated via the HyP3 pipeline \citep{hogenson_hybrid_2025} and multitemporal phase inversion conducted using MintPy \citep{yunjun_small_2019} yielded initial line-of-sight (LOS) displacement series. Two-dimensional vector decomposition combining the ascending and descending LOS time series resolved the vertical deformation component \citep{fuhrmann_resolving_2019, hanssen_radar_2001}, providing high-density vertical velocity fields and monthly vertical displacement series across the study domain. Parameters for the Sentinel-1A SAR datasets are summarized in \Cref{tab:sentinel1_info}.
+
+\begin{table}[ht!]
+	\centering
+	\caption{Continuous GNSS Station Parameters and Coordinates}
+	\label{tab:gnss_info}
+	\begin{tabular}{lllrrrr}
+		\toprule
+		\textbf{ID} & \textbf{Station} & \textbf{TGM Code} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Period} \\
+		\midrule
+		GN01 & Tuku     & TKJS & 120.3898 & 23.6880 & 41.13 & 2010--2024 \\
+		GN02 & Guangfu  & GFES & 120.4025 & 23.7414 & 45.07 & 2010--2024 \\
+		GN03 & Huwei    & NTUH & 120.4276 & 23.7330 & 48.27 & 2014--2024 \\
+		GN04 & Honglun  & HLES & 120.3478 & 23.6866 & 37.07 & 2011--2024 \\
+		GN05 & Xiutan   & STES & 120.3498 & 23.6587 & 38.69 & 2018--2024 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[ht!]
+	\centering
+	\caption{Summary of the Sentinel-1A datasets used in this study.}
+	\label{tab:sentinel1_info}
+	
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Parameters} & \textbf{Ascending} & \textbf{Descending} \\
+		\midrule
+		Relative Orbit (Path) & 69 & 105 \\
+		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{April 2016--November 2021} \\
+		Number of Images      & 266 & 264 \\
+		\multicolumn{1}{l}{Acquisition Mode} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
+		\multicolumn{1}{l}{Polarization} & \multicolumn{2}{c}{VV} \\
+		Incidence Angles & $32^{\circ}$--$38^{\circ}$ & $38^{\circ}$--$43^{\circ}$ \\
+		Satellite Headings & $347.63^{\circ}$ & $192.37^{\circ}$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\clearpage
 
 \subsection{Data Processing and Standardization}
 \label{subsec_data_processing}
@@ -64,101 +161,4 @@ Fourth, surface displacement constraints and lithological controls were spatiall
 	\label{fig:preprocessing_workflow}
 \end{figure}
 
-
-\begin{table}[ht!]
-	\centering
-	\caption{Multilayer Compaction Monitoring Well (MLCW) Locations and Parameters}
-	\label{tab:mlcw_info}
-	\begin{tabular}{llrrrr}
-		\toprule
-		\textbf{ID} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Bottom Depth (m)} \\
-		\midrule
-		YL23 & Tuku     & 120.3898 & 23.6881 & 23 & 300.0 \\
-		YL27 & Guangfu  & 120.4025 & 23.7414 & 22 & 300.0 \\
-		YL26 & Huwei    & 120.4316 & 23.7153 & 25 & 300.0 \\
-		YL25 & Honglun  & 120.3478 & 23.6866 & 17 & 340.0 \\
-		YL24 & Xiutan   & 120.3496 & 23.6589 & 14 & 300.0 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-
-\begin{table}[ht!]
-	\centering
-	\footnotesize
-	\setlength{\tabcolsep}{2.5pt}
-	\caption{Groundwater Level (GWL) Monitoring Stations in Yunlin County}
-	\label{tab:gwl_info}
-	\begin{tabular}{llcc|llcc}
-		\toprule
-		\textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} \\
-		\midrule
-		Annan & ANN & 120.2488 & 23.7039 & Jiulong & JLG & 120.4310 & 23.7511 \\
-		Beigang & BGG & 120.3019 & 23.5789 & Kanjiao & KJO & 120.5379 & 23.6124 \\
-		Bozi & BZI & 120.1515 & 23.6335 & Kecuo & KCO & 120.3342 & 23.6266 \\
-		Caicuo & CCO & 120.2193 & 23.6122 & Liuhe & LHE & 120.5627 & 23.7689 \\
-		Chenguang & CGU & 120.3271 & 23.5858 & Liuzhuang & JZG & 120.4006 & 23.6344 \\
-		Chukou & CKU & 120.6430 & 23.7701 & Lunzi & LZI & 120.3548 & 23.6077 \\
-		Citong & CTG & 120.4969 & 23.7567 & Mingde & MDE & 120.1993 & 23.6529 \\
-		Dagou & DGU & 120.2107 & 23.5662 & Pingding & PDG & 120.6407 & 23.7558 \\
-		Dapi & DPI & 120.4232 & 23.6629 & Qiongbu & QBU & 120.2073 & 23.5184 \\
-		Dongguang & DGG & 120.2720 & 23.6519 & Sanhe & SHE & 120.4879 & 23.6051 \\
-		Donghe & DHE & 120.5694 & 23.6858 & Shangyi & SYI & 120.4519 & 23.6342 \\
-		Erlun & ELU & 120.4142 & 23.7717 & Shiliu & SLU & 120.5859 & 23.7207 \\
-		Fangcao & FCO & 120.3741 & 23.7184 & Shuilin & SLN & 120.2461 & 23.5731 \\
-		Fengrong & FRG & 120.3110 & 23.7907 & Tianyang & TYG & 120.3090 & 23.7254 \\
-		Ganghou & GHU & 120.3921 & 23.7965 & Tuku & TKU & 120.3899 & 23.6879 \\
-		Guangfu & GFU & 120.4024 & 23.7414 & Wencuo & WCO & 120.5121 & 23.6577 \\
-		Gukeng & GKN & 120.5668 & 23.6446 & Wutu & WTU & 120.5980 & 23.7672 \\
-		Haifeng & HFG & 120.2259 & 23.7649 & Xiluo & XLO & 120.4673 & 23.7959 \\
-		Haiyuan & HYN & 120.1791 & 23.7208 & Xinghua & XIH & 120.2890 & 23.7603 \\
-		Hefeng & HFE & 120.2234 & 23.7390 & Xiutan & XTA & 120.3496 & 23.6588 \\
-		Honglun & HLN & 120.3481 & 23.6866 & Yiwu & YWU & 120.1883 & 23.5413 \\
-		Houan & HAN & 120.2349 & 23.7892 & Yongding & YDN & 120.4196 & 23.7977 \\
-		Huwei & HWI & 120.4323 & 23.7142 & Yuanzhang & YZG & 120.3101 & 23.6529 \\
-		Huxi & HXI & 120.5112 & 23.7221 & Zhengmin & ZMN & 120.4073 & 23.7093 \\
-		Huzinei & HZN & 120.5602 & 23.7834 & Zhongshan & ZHS & 120.2443 & 23.7971 \\
-		Jiaxing & JXG & 120.4595 & 23.6482 & Zhongxiao & ZXO & 120.3150 & 23.6221 \\
-		Jinhu & JHU & 120.1533 & 23.5734 & Zhongxing & ZXG & 120.5891 & 23.7808 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-
-\begin{table}[ht!]
-	\centering
-	\caption{Continuous GNSS Station Parameters and Coordinates}
-	\label{tab:gnss_info}
-	\begin{tabular}{lllrrrr}
-		\toprule
-		\textbf{ID} & \textbf{Station} & \textbf{TGM Code} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Period} \\
-		\midrule
-		GN01 & Tuku     & TKJS & 120.3898 & 23.6880 & 41.13 & 2010--2024 \\
-		GN02 & Guangfu  & GFES & 120.4025 & 23.7414 & 45.07 & 2010--2024 \\
-		GN03 & Huwei    & NTUH & 120.4276 & 23.7330 & 48.27 & 2014--2024 \\
-		GN04 & Honglun  & HLES & 120.3478 & 23.6866 & 37.07 & 2011--2024 \\
-		GN05 & Xiutan   & STES & 120.3498 & 23.6587 & 38.69 & 2018--2024 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-
-\begin{table}[ht!]
-	\centering
-	\caption{Summary of the Sentinel-1A datasets used in this study.}
-	\label{tab:sentinel1_info}
-	
-	\begin{tabular}{lcc}
-		\toprule
-		\textbf{Parameters} & \textbf{Ascending} & \textbf{Descending} \\
-		\midrule
-		Relative Orbit (Path) & 69 & 105 \\
-		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{April 2016--November 2021} \\
-		Number of Images      & 266 & 264 \\
-		\multicolumn{1}{l}{Acquisition Mode} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
-		\multicolumn{1}{l}{Polarization} & \multicolumn{2}{c}{VV} \\
-		Incidence Angles & $32^{\circ}$--$38^{\circ}$ & $38^{\circ}$--$43^{\circ}$ \\
-		Satellite Headings & $347.63^{\circ}$ & $192.37^{\circ}$ \\
-		\bottomrule
-	\end{tabular}
-\end{table}
+\clearpage
