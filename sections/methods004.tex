@@ -1,0 +1,128 @@
+% ===================================================================
+% SECTION 3: METHODOLOGY
+% File: sections/methods004.tex
+% ===================================================================
+
+\subsection{Deformation time series model}
+\label{subsec:parametric_deformation}
+
+The MLCW and vertical surface displacement records were represented with a common deformation time series model. The model comprised an intercept, linear displacement, annual and semiannual oscillations, discrete step offsets, and an observation residual \citep{nikolaidis_observation_2002,yunjun_small_2019}. Displacement at epoch $t_i$ was expressed as
+\begin{equation}
+y(t_i) =
+c + v t_i
++ \sum_{k=1}^{2}
+\left[
+a_k \sin\left(\frac{2\pi t_i}{T_k}\right)
++ b_k \cos\left(\frac{2\pi t_i}{T_k}\right)
+\right]
++ \sum_{j=1}^{J} s_j H(t_i-\tau_j)
++ \varepsilon_i ,
+\label{eq:parametric_deformation}
+\end{equation}
+where $c$ is the displacement intercept, $v$ is the linear displacement rate, $T_1=1$~yr and $T_2=0.5$~yr are the annual and semiannual periods, $a_k$ and $b_k$ are harmonic coefficients, $s_j$ is the magnitude of a step at epoch $\tau_j$, $H$ is the Heaviside function, and $\varepsilon_i$ is the residual.
+
+Model coefficients were estimated by ordinary least squares for each displacement series. The complete fitted series, including the retained linear, periodic, and step terms, was evaluated at monthly epochs. Consecutive monthly values were then differenced to derive the MLCW displacement increment for each depth section and the corresponding vertical surface displacement increment.
+
+\subsection{Isometric logratio transformation of sediment composition}
+\label{subsec:ilr_sbp_transformation}
+
+Sediment fractions form compositional data because the parts are nonnegative and sum to a constant. Direct use of all fractions in a regression model therefore retains the closure constraint and produces linearly dependent variables. Isometric logratio coordinates represent the relative information in a composition within an unconstrained Euclidean space \citep{oh_using_2024}.
+
+% TODO-CITATION: Complete the year and journal metadata for
+% egozcue_isometric_2003 in writing_manu2.bib, then cite it here as the
+% foundational source for the isometric logratio transformation.
+
+A sequential binary partition separates the $D$ compositional parts into paired groups and defines $D-1$ orthonormal balances. For a balance that contrasts a group $R$ containing $r$ parts with a group $S$ containing $s$ parts, the corresponding coordinate was defined as
+\begin{equation}
+z_k =
+\sqrt{\frac{rs}{r+s}}
+\ln\left[
+\frac{
+\left(\prod_{i \in R} x_i\right)^{1/r}
+}{
+\left(\prod_{j \in S} x_j\right)^{1/s}
+}
+\right],
+\label{eq:ilr_transformation}
+\end{equation}
+where $x_i$ and $x_j$ are positive sediment fractions. The resulting coordinates preserved distances and angles in the simplex while providing $D-1$ unconstrained variables for regression.
+
+\subsection{Preparation of predictor variables}
+\label{subsec:hydrogeological_drivers}
+
+The modeling dataset used one observation for each combination of station, depth section, and month. The response variable was the monthly MLCW displacement increment in mm per month, with negative values denoting compaction. Surface displacement, groundwater level, calendar, and sediment composition records were aligned with the response at the same monthly interval.
+
+The section specific models selected for reporting used 42 predictor variables arranged in six groups. Four surface displacement variables represented the current monthly increment, its second difference, and increments lagged by one and three months. Monthly groundwater level change was calculated as the current piezometric head minus the preceding monthly value, so negative changes represented head decline without altering the original m MSL sign convention. Ten groundwater level variables for the target section represented the current change, its second difference, changes lagged by 1, 3, 6, 12, and 24 months, rolling means over 3 and 6 months, and the absolute current change. Five calendar variables comprised annual and semiannual sine and cosine terms and an indicator for the dry season from November through April. Three isometric logratio coordinates represented sediment composition.
+
+Two interaction variables combined the current groundwater level change with the dry season indicator and with one sediment composition coordinate. Eighteen additional groundwater level variables represented the concurrent change and its 3 and 6 month rolling means in each of the six depth sections. Rainfall was not included in the selected predictor set.
+
+All preprocessing operations that depended on sample statistics were confined to the training observations within each evaluation fold. Target outliers were identified separately for each combination of station and section using a threshold of 5.19 median absolute deviations. Flagged training values were replaced with estimates from a temporal Bayesian ridge model fitted to the remaining training observations, whereas test targets remained unchanged. Predictor columns with zero variance in the training observations were omitted, and the remaining predictors were standardized using the training means and standard deviations.
+
+\subsection{Bayesian ridge regression}
+\label{subsec:bayesian_ridge_engine}
+
+Bayesian ridge regression related the monthly displacement increment to the standardized predictor variables while controlling coefficient magnitude under collinearity. For a response vector $\mathbf{y}$, predictor matrix $\mathbf{X}$, coefficient vector $\mathbf{w}$, and intercept $b$, the Gaussian likelihood was
+\begin{equation}
+p(\mathbf{y}\mid\mathbf{X},\mathbf{w},b,\alpha)
+=
+\mathcal{N}
+\left(
+\mathbf{y}\mid b\mathbf{1}+\mathbf{X}\mathbf{w},
+\alpha^{-1}\mathbf{I}_{N}
+\right),
+\label{eq:brr_likelihood}
+\end{equation}
+where $\alpha$ is the noise precision and $\mathbf{I}_{N}$ is the $N \times N$ identity matrix. A zero mean isotropic Gaussian prior was assigned to the coefficients,
+\begin{equation}
+p(\mathbf{w}\mid\lambda)
+=
+\mathcal{N}
+\left(
+\mathbf{w}\mid\mathbf{0},
+\lambda^{-1}\mathbf{I}_{P}
+\right),
+\label{eq:brr_prior}
+\end{equation}
+where $\lambda$ is the coefficient precision and $\mathbf{I}_{P}$ is the $P \times P$ identity matrix.
+
+The likelihood and coefficient prior produced a Gaussian posterior,
+\begin{equation}
+p(\mathbf{w}\mid\mathbf{X},\mathbf{y},\alpha,\lambda)
+=
+\mathcal{N}
+\left(
+\mathbf{w}\mid\boldsymbol{\mu},\boldsymbol{\Sigma}
+\right),
+\qquad
+\boldsymbol{\Sigma}
+=
+\left(
+\lambda\mathbf{I}_{P}
++\alpha\mathbf{X}^{\mathsf{T}}\mathbf{X}
+\right)^{-1},
+\label{eq:brr_posterior}
+\end{equation}
+with posterior mean
+\begin{equation}
+\boldsymbol{\mu}
+=
+\alpha\boldsymbol{\Sigma}\mathbf{X}^{\mathsf{T}}\widetilde{\mathbf{y}},
+\qquad
+\widetilde{\mathbf{y}}
+=
+\mathbf{y}-\widehat{b}\mathbf{1}.
+\label{eq:brr_posterior_mean}
+\end{equation}
+The noise and coefficient precisions were estimated iteratively from the training observations. Predictor standardization and model estimation were implemented with \texttt{StandardScaler} and \texttt{BayesianRidge(fit\_intercept=True)} in scikit-learn.
+
+% TODO-CITATION: Add MacKay (1992), Tipping (2001), and Pedregosa et al.
+% (2011) to writing_manu2.bib, then cite them in this subsection.
+
+\subsection{Model configurations and performance evaluation}
+\label{subsec:operational_validation_framework}
+
+Three evaluation designs examined temporal estimation and transfer between monitoring stations. The first design fitted a separate model for each combination of station and depth section. The second design pooled observations from the same depth section across all stations and fitted one coefficient vector shared among stations. The third design evaluated transfer to an unobserved station by withholding that station and fitting a shared model for the same depth section using the remaining stations.
+
+Temporal evaluation used an expanding training window followed by nonoverlapping test blocks of six months. Each test block required at least 36 preceding months of training observations. The first and second designs applied this temporal sequence directly. The transfer design combined the same temporal sequence with leave one station out evaluation, so the withheld station contributed no observations to model fitting for any test block. The pooled and transfer analyses selected for reporting used shared coefficient models without station specific intercept terms. The reported transfer analysis used the rolling leave one station out design.
+
+Performance was calculated separately for each depth section using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). The three metrics measured explained variance, sensitivity to errors of greater magnitude, and average absolute error, respectively.
