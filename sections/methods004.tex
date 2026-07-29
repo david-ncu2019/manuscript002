@@ -52,11 +52,13 @@ where $x_i$ and $x_j$ are positive sediment fractions. The resulting coordinates
 
 The modeling dataset used one observation for each combination of station, depth section, and month. The response variable was the monthly MLCW displacement increment in mm per month, with negative values denoting compaction. Surface displacement, groundwater level, calendar, and sediment composition records were aligned with the response at the same monthly interval.
 
-The section specific models selected for reporting used 42 predictor variables arranged in six groups. Four surface displacement variables represented the current monthly increment, its second difference, and increments lagged by one and three months. Monthly groundwater level change was calculated as the current piezometric head minus the preceding monthly value, so negative changes represented head decline without altering the original m MSL sign convention. Ten groundwater level variables for the target section represented the current change, its second difference, changes lagged by 1, 3, 6, 12, and 24 months, rolling means over 3 and 6 months, and the absolute current change. Five calendar variables comprised annual and semiannual sine and cosine terms and an indicator for the dry season from November through April. Three isometric logratio coordinates represented sediment composition.
+Predictor variables were organized according to their source, temporal transformation, spatial support, and role in estimating compaction within the target depth section (\Cref{tab:predictor_groups}). Vertical surface displacement represented the integrated deformation response of the monitored profile. Hydraulic head variables described conditions within the target section and concurrent variations in the other depth sections at the same station. Monthly hydraulic head change was calculated as the current piezometric head minus the preceding monthly value. Negative changes therefore represented hydraulic head decline without altering the original m MSL sign convention. Annual and semiannual terms and a dry season indicator represented recurring temporal variations associated with the regional pumping and recharge cycle.
 
-Two interaction variables combined the current groundwater level change with the dry season indicator and with one sediment composition coordinate. Eighteen additional groundwater level variables represented the concurrent change and its 3 and 6 month rolling means in each of the six depth sections. Rainfall was not included in the selected predictor set.
+Sediment composition represented differences in coarse- and fine-grained deposits among monitoring stations and depth sections. Isometric logratio coordinates allowed estimates from the pooled and transfer models to vary with the local material composition. An interaction between hydraulic head change and sediment composition further allowed the fitted relation between head variation and compaction to vary with material composition. These variables conditioned the estimates on observed sediment characteristics but were not interpreted as direct measurements of compressibility or skeletal storage. Because sediment composition did not vary through time within an individual station and depth section, the direct composition coordinates contributed only to the pooled and transfer models. Rainfall was not included among the selected predictor variables.
 
-All preprocessing operations that depended on sample statistics were confined to the training observations within each evaluation fold. Target outliers were identified separately for each combination of station and section using a threshold of 5.19 median absolute deviations. Flagged training values were replaced with estimates from a temporal Bayesian ridge model fitted to the remaining training observations, whereas test targets remained unchanged. Predictor columns with zero variance in the training observations were omitted, and the remaining predictors were standardized using the training means and standard deviations.
+Predictors were standardized using means and standard deviations estimated from the calibration observations within each evaluation period.
+
+For compact notation in \Cref{tab:predictor_groups}, $\Delta u_t$ denotes the monthly vertical surface displacement increment, and $\Delta h_{s,t}$ denotes the monthly hydraulic head change in depth section $s$. The expression $\overline{x}_t^{(w)}$ denotes a rolling mean over $w$ months, $I_{\mathrm{dry},t}$ denotes the dry season indicator for November through April, and $z_c$ denotes the sediment balance contrasting sand with the combined clay, silt, and mud fraction.
 
 \subsection{Bayesian ridge regression}
 \label{subsec:bayesian_ridge_engine}
@@ -113,16 +115,99 @@ with posterior mean
 \mathbf{y}-\widehat{b}\mathbf{1}.
 \label{eq:brr_posterior_mean}
 \end{equation}
-The noise and coefficient precisions were estimated iteratively from the training observations. Predictor standardization and model estimation were implemented with \texttt{StandardScaler} and \texttt{BayesianRidge(fit\_intercept=True)} in scikit-learn.
+The noise and coefficient precisions were estimated by iterative maximization of the marginal likelihood for the calibration observations.
 
-% TODO-CITATION: Add MacKay (1992), Tipping (2001), and Pedregosa et al.
-% (2011) to writing_manu2.bib, then cite them in this subsection.
+% TODO-CITATION: Add MacKay (1992) and Tipping (2001) to
+% writing_manu2.bib, then cite them in this subsection.
 
 \subsection{Model configurations and performance evaluation}
 \label{subsec:operational_validation_framework}
 
-Three evaluation designs examined temporal estimation and transfer between monitoring stations. The first design fitted a separate model for each combination of station and depth section. The second design pooled observations from the same depth section across all stations and fitted one coefficient vector shared among stations. The third design evaluated transfer to an unobserved station by withholding that station and fitting a shared model for the same depth section using the remaining stations.
+Three calibration and validation designs examined temporal estimation and transfer between monitoring stations (\Cref{tab:model_validation_designs}). The first design fitted a separate model for each combination of monitoring station and depth section. The second design pooled observations from the same depth section across all stations and estimated a common coefficient vector. Each pooled observation retained predictor values from its corresponding station, including hydraulic head variations in the target section and in the other depth sections at that station. Observations from different stations contributed to model calibration but were not combined as simultaneous predictors for an individual estimate.
 
-Temporal evaluation used an expanding training window followed by nonoverlapping test blocks of six months. Each test block required at least 36 preceding months of training observations. The first and second designs applied this temporal sequence directly. The transfer design combined the same temporal sequence with leave one station out evaluation, so the withheld station contributed no observations to model fitting for any test block. The pooled and transfer analyses selected for reporting used shared coefficient models without station specific intercept terms. The reported transfer analysis used the rolling leave one station out design.
+The third design assessed cross-station transfer by withholding one station and fitting a model for the same depth section using observations from the remaining stations. Sediment composition and dynamic predictor variables from the withheld station were retained for evaluation, whereas its MLCW observations were excluded from calibration. This design tested whether relations estimated from monitored stations could reproduce monthly compaction at an independent station using its observed site-specific sediment composition.
+
+Temporal evaluation used an expanding calibration window followed by nonoverlapping evaluation periods of six months. Each evaluation period required at least 36 preceding months of calibration observations. The first and second designs applied this temporal sequence directly. Cross-station transfer validation combined the same temporal sequence with sequential withholding of each station. A common intercept and coefficient vector were estimated across stations in the pooled and transfer designs.
 
 Performance was calculated separately for each depth section using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). The three metrics measured explained variance, sensitivity to errors of greater magnitude, and average absolute error, respectively.
+
+\begin{table}[htbp]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.15}
+	\caption{Predictor groups used for monthly compaction estimation within each depth section.}
+	\label{tab:predictor_groups}
+	\begin{tabularx}{\textwidth}{@{}
+		>{\raggedright\arraybackslash}p{0.18\textwidth}
+		>{\raggedright\arraybackslash}p{0.25\textwidth}
+		>{\raggedright\arraybackslash}p{0.18\textwidth}
+		>{\raggedright\arraybackslash}X@{}}
+		\toprule
+		\textbf{Predictor group} & \textbf{Transformation} & \textbf{Spatial support} & \textbf{Role in compaction estimation} \\
+		\midrule
+		Vertical surface displacement &
+		$\Delta u_t$, $\Delta^2 u_t$, and $\Delta u_{t-k}$, $k\in\{1,3\}$ &
+		Monitoring station &
+		Represented current and antecedent vertical surface deformation at the monitoring station. \\
+
+		Hydraulic head in the target section &
+		$\Delta h_{s,t}$, $\Delta^2 h_{s,t}$, $\Delta h_{s,t-k}$, $k\in\{1,3,6,12,24\}$, $\overline{\Delta h}_{s,t}^{(w)}$, $w\in\{3,6\}$, and $|\Delta h_{s,t}|$ &
+		Target depth section at the corresponding station &
+		Represented current head variation, antecedent conditions, and persistence within the section being estimated. \\
+
+		Hydraulic head in other sections &
+		$\Delta h_{r,t}$ and $\overline{\Delta h}_{r,t}^{(w)}$, $r\ne s$, $w\in\{3,6\}$ &
+		Other depth sections at the corresponding station &
+		Provided information on concurrent hydraulic conditions elsewhere in the monitored profile. \\
+
+		Seasonal terms &
+		$\sin(2\pi t/T)$, $\cos(2\pi t/T)$, $T\in\{6,12\}$ months, and $I_{\mathrm{dry},t}$ &
+		Common calendar support &
+		Represented recurring temporal variation associated with seasonal pumping and recharge. \\
+
+		Sediment composition &
+		$z_j$, $j\in\{1,2,3\}$ &
+		Target depth section at the corresponding station &
+		Represented contrasts between coarse- and fine-grained deposits and conditioned estimates on local material composition. \\
+
+		Interaction terms &
+		$\Delta h_{s,t}I_{\mathrm{dry},t}$ and $\Delta h_{s,t}z_c$ &
+		Target depth section at the corresponding station &
+		Allowed the fitted association between hydraulic head variation and compaction to vary with season and material composition. \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.15}
+	\caption{Calibration and validation designs used to evaluate monthly compaction estimates.}
+	\label{tab:model_validation_designs}
+	\begin{tabularx}{\textwidth}{@{}
+		>{\raggedright\arraybackslash}p{0.20\textwidth}
+		>{\raggedright\arraybackslash}p{0.23\textwidth}
+		>{\raggedright\arraybackslash}p{0.25\textwidth}
+		>{\raggedright\arraybackslash}X@{}}
+		\toprule
+		\textbf{Analysis design} & \textbf{Calibration data} & \textbf{Predictor origin} & \textbf{Validation objective} \\
+		\midrule
+		Individual station and depth section &
+		Historical observations from one station and one target depth section &
+		Target section and other depth sections at the same station &
+		Evaluate temporal estimation under local monitoring and sediment conditions. \\
+
+		Pooled calibration by depth section &
+		Observations for one depth section combined across all monitoring stations &
+		Each observation retained predictors from its corresponding station; one coefficient vector was shared among stations &
+		Evaluate a common relation for the selected depth section using information from all monitored stations. \\
+
+		Cross-station transfer validation &
+		Observations for one depth section from all stations except the station withheld for evaluation &
+		Dynamic and sediment predictors from the withheld station were used only during evaluation &
+		Evaluate monthly compaction estimates at an independent station whose MLCW observations were excluded from calibration. \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+\clearpage
