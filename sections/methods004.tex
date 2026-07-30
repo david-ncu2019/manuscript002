@@ -6,7 +6,7 @@
 \subsection{Deformation time series model}
 \label{subsec:parametric_deformation}
 
-The MLCW and vertical surface displacement records were represented with a common deformation time series model. The model comprised an intercept, linear displacement, annual and semiannual oscillations, discrete step offsets, and an observation residual \citep{nikolaidis_observation_2002,yunjun_small_2019}. Displacement at epoch $t_i$ was expressed as
+A common deformation time series model was used to derive monthly displacement increments from the MLCW and vertical surface displacement records. The model included an intercept, a linear trend, annual and semiannual harmonic terms, discrete step offsets, and a residual error term \citep{nikolaidis_observation_2002,yunjun_small_2019}. Displacement at epoch $t_i$ was expressed as
 \begin{equation}
 y(t_i) =
 c + v t_i
@@ -19,20 +19,20 @@ a_k \sin\left(\frac{2\pi t_i}{T_k}\right)
 + \varepsilon_i ,
 \label{eq:parametric_deformation}
 \end{equation}
-where $c$ is the displacement intercept, $v$ is the linear displacement rate, $T_1=1$~yr and $T_2=0.5$~yr are the annual and semiannual periods, $a_k$ and $b_k$ are harmonic coefficients, $s_j$ is the magnitude of a step at epoch $\tau_j$, $H$ is the Heaviside function, and $\varepsilon_i$ is the residual.
+In this expression, $c$ is the displacement intercept and $v$ is the linear displacement rate. The periods $T_1=1$~yr and $T_2=0.5$~yr represent the annual and semiannual components, and $a_k$ and $b_k$ are the corresponding sine and cosine coefficients. The coefficient $s_j$ is the magnitude of a step at epoch $\tau_j$, $H$ is the Heaviside function, and $\varepsilon_i$ is the residual error.
 
-Model coefficients were estimated by ordinary least squares for each displacement series. The complete fitted series, including the retained linear, periodic, and step terms, was evaluated at monthly epochs. Consecutive monthly values were then differenced to derive the MLCW displacement increment for each depth section and the corresponding vertical surface displacement increment.
+Model coefficients were estimated separately for each displacement series by ordinary least squares. The fitted model retained the linear, harmonic, and step terms and was evaluated at monthly epochs. Differences between consecutive fitted values provided the monthly MLCW displacement increment for each depth section and the monthly vertical surface displacement increment.
 
 \subsection{Isometric logratio transformation of sediment composition}
 \label{subsec:ilr_sbp_transformation}
 
-Sediment fractions form compositional data because the parts are nonnegative and sum to a constant. Direct use of all fractions in a regression model therefore retains the closure constraint and produces linearly dependent variables. Isometric logratio coordinates represent the relative information in a composition within an unconstrained Euclidean space \citep{oh_using_2024}.
+The sediment fractions were transformed into isometric logratio coordinates before regression. Sediment fractions are compositional because their values are nonnegative and sum to a constant. Direct use of every fraction would retain this closure constraint and introduce exact linear dependence among the predictors. The isometric logratio transformation instead represents the relative information in a composition as coordinates in an unconstrained Euclidean space \citep{oh_using_2024}.
 
 % TODO-CITATION: Complete the year and journal metadata for
 % egozcue_isometric_2003 in writing_manu2.bib, then cite it here as the
 % foundational source for the isometric logratio transformation.
 
-A sequential binary partition separates the $D$ compositional parts into paired groups and defines $D-1$ orthonormal balances. For a balance that contrasts a group $R$ containing $r$ parts with a group $S$ containing $s$ parts, the corresponding coordinate was defined as
+A sequential binary partition separates the $D$ compositional parts into paired groups and defines $D-1$ orthonormal balances. For a given balance, group $R$ contains $r$ parts and group $S$ contains $s$ parts. The coordinate that contrasts these groups is defined as
 \begin{equation}
 z_k =
 \sqrt{\frac{rs}{r+s}}
@@ -45,25 +45,25 @@ z_k =
 \right],
 \label{eq:ilr_transformation}
 \end{equation}
-where $x_i$ and $x_j$ are positive sediment fractions. The resulting coordinates preserved distances and angles in the simplex while providing $D-1$ unconstrained variables for regression.
+where $x_i$ and $x_j$ are positive sediment fractions. The resulting $D-1$ coordinates preserve distances and angles in the simplex and provide unconstrained variables for regression.
 
 \subsection{Preparation of predictor variables}
 \label{subsec:hydrogeological_drivers}
 
-The modeling dataset used one observation for each combination of station, depth section, and month. The response variable was the monthly MLCW displacement increment in mm per month, with negative values denoting compaction. Surface displacement, groundwater level, calendar, and sediment composition records were aligned with the response at the same monthly interval.
+Predictor variables were prepared at a common monthly interval for each combination of monitoring station and depth section. Each observation represented one station, one depth section, and one month. The response variable was the monthly MLCW displacement increment in mm per month, with negative values denoting compaction. Vertical surface displacement, groundwater level, calendar, and sediment composition records were aligned with the response for the same monthly interval.
 
-Predictor variables were organized according to their source, temporal transformation, spatial support, and role in estimating compaction within the target depth section (\Cref{tab:predictor_groups}). Vertical surface displacement represented the integrated deformation response of the monitored profile. Hydraulic head variables described conditions within the target section and concurrent variations in the other depth sections at the same station. Monthly hydraulic head change was calculated as the current piezometric head minus the preceding monthly value. Negative changes therefore represented hydraulic head decline without altering the original m MSL sign convention. Annual and semiannual terms and a dry season indicator represented recurring temporal variations associated with the regional pumping and recharge cycle.
+Predictor variables were grouped by data source, temporal transformation, spatial support, and role in estimating compaction within the target depth section (\Cref{tab:predictor_groups}). Monthly vertical surface displacement described net surface motion at the monitoring station and was not assumed to equal compaction within the target depth section. Hydraulic head variables described changes in the target section and concurrent changes in the other depth sections at the same station. Monthly hydraulic head change was calculated by subtracting the preceding monthly mean from the current value. A negative change therefore denoted hydraulic head decline. Annual and semiannual terms and a dry season indicator represented recurring seasonal variation in the hydrogeological records.
 
-Sediment composition represented differences in coarse- and fine-grained deposits among monitoring stations and depth sections. Isometric logratio coordinates allowed estimates from the pooled and transfer models to vary with the local material composition. An interaction between hydraulic head change and sediment composition further allowed the fitted relation between head variation and compaction to vary with material composition. These variables conditioned the estimates on observed sediment characteristics but were not interpreted as direct measurements of compressibility or skeletal storage. Because sediment composition did not vary through time within an individual station and depth section, the direct composition coordinates contributed only to the pooled and transfer models. Rainfall was not included among the selected predictor variables.
+Sediment composition described differences in coarse- and fine-grained deposits among monitoring stations and depth sections. Isometric logratio coordinates supplied site-specific and depth-specific sediment information to models calibrated with observations from multiple stations. An interaction between hydraulic head change and sediment composition allowed the fitted association between head variation and compaction to vary with sediment composition. The sediment variables conditioned the estimates on observed material composition but were not treated as direct measurements of compressibility or skeletal specific storage. Because sediment composition was constant through time within each station and depth section, the direct composition coordinates contributed only to models that combined or transferred information among stations. Rainfall was excluded from the selected predictors.
 
-Predictors were standardized using means and standard deviations estimated from the calibration observations within each evaluation period.
+Predictors were standardized with the means and standard deviations of the calibration observations in each evaluation period.
 
-For compact notation in \Cref{tab:predictor_groups}, $\Delta u_t$ denotes the monthly vertical surface displacement increment, and $\Delta h_{s,t}$ denotes the monthly hydraulic head change in depth section $s$. The expression $\overline{x}_t^{(w)}$ denotes a rolling mean over $w$ months, $I_{\mathrm{dry},t}$ denotes the dry season indicator for November through April, and $z_c$ denotes the sediment balance contrasting sand with the combined clay, silt, and mud fraction.
+The notation in \Cref{tab:predictor_groups} summarizes the temporal transformations applied to these predictors. The term $\Delta u_t$ denotes the monthly vertical surface displacement increment, and $\Delta h_{s,t}$ denotes the monthly hydraulic head change in depth section $s$. The expression $\overline{x}_t^{(w)}$ denotes a rolling mean over $w$ months. The dry season indicator for November through April is denoted by $I_{\mathrm{dry},t}$. The term $z_c$ denotes the sediment balance contrasting sand with the combined clay, silt, and mud fraction.
 
 \subsection{Bayesian ridge regression}
 \label{subsec:bayesian_ridge_engine}
 
-Bayesian ridge regression related the monthly displacement increment to the standardized predictor variables while controlling coefficient magnitude under collinearity. For a response vector $\mathbf{y}$, predictor matrix $\mathbf{X}$, coefficient vector $\mathbf{w}$, and intercept $b$, the Gaussian likelihood was
+Bayesian ridge regression was used to relate monthly displacement increments to the standardized predictors. The coefficient prior reduced instability associated with correlated predictors by shrinking weakly supported coefficients toward zero. For a response vector $\mathbf{y}$, predictor matrix $\mathbf{X}$, coefficient vector $\mathbf{w}$, and intercept $b$, the Gaussian likelihood was
 \begin{equation}
 p(\mathbf{y}\mid\mathbf{X},\mathbf{w},b,\alpha)
 =
@@ -74,7 +74,7 @@ p(\mathbf{y}\mid\mathbf{X},\mathbf{w},b,\alpha)
 \right),
 \label{eq:brr_likelihood}
 \end{equation}
-where $\alpha$ is the noise precision and $\mathbf{I}_{N}$ is the $N \times N$ identity matrix. A zero mean isotropic Gaussian prior was assigned to the coefficients,
+where $\alpha$ is the noise precision and $\mathbf{I}_{N}$ is the $N \times N$ identity matrix. An isotropic Gaussian prior with zero mean was assigned to the coefficients,
 \begin{equation}
 p(\mathbf{w}\mid\lambda)
 =
@@ -87,7 +87,7 @@ p(\mathbf{w}\mid\lambda)
 \end{equation}
 where $\lambda$ is the coefficient precision and $\mathbf{I}_{P}$ is the $P \times P$ identity matrix.
 
-The likelihood and coefficient prior produced a Gaussian posterior,
+The likelihood and coefficient prior produced the following Gaussian posterior,
 \begin{equation}
 p(\mathbf{w}\mid\mathbf{X},\mathbf{y},\alpha,\lambda)
 =
@@ -115,7 +115,7 @@ with posterior mean
 \mathbf{y}-\widehat{b}\mathbf{1}.
 \label{eq:brr_posterior_mean}
 \end{equation}
-The noise and coefficient precisions were estimated by iterative maximization of the marginal likelihood for the calibration observations.
+The noise and coefficient precision parameters were estimated by iteratively maximizing the marginal likelihood of the calibration observations.
 
 % TODO-CITATION: Add MacKay (1992) and Tipping (2001) to
 % writing_manu2.bib, then cite them in this subsection.
@@ -123,19 +123,19 @@ The noise and coefficient precisions were estimated by iterative maximization of
 \subsection{Model configurations and performance evaluation}
 \label{subsec:operational_validation_framework}
 
-Three calibration and validation designs examined temporal estimation and transfer between monitoring stations (\Cref{tab:model_validation_designs}). The first design fitted a separate model for each combination of monitoring station and depth section. The second design pooled observations from the same depth section across all stations and estimated a common coefficient vector. Each pooled observation retained predictor values from its corresponding station, including hydraulic head variations in the target section and in the other depth sections at that station. Observations from different stations contributed to model calibration but were not combined as simultaneous predictors for an individual estimate.
+Three calibration and validation designs were used to evaluate temporal estimation and transfer between monitoring stations (\Cref{tab:model_validation_designs}). The first design fitted a separate model for each combination of monitoring station and depth section. Each model used predictors from the target section and the other depth sections at the same station. The second design pooled observations from the same depth section across all stations and estimated a common coefficient vector. Each pooled observation retained predictors from its corresponding station, including hydraulic head changes in the target section and the other depth sections at that station. Observations from different stations contributed to calibration but were not used as simultaneous predictors for an individual estimate.
 
-The third design assessed cross-station transfer by withholding one station and fitting a model for the same depth section using observations from the remaining stations. Sediment composition and dynamic predictor variables from the withheld station were retained for evaluation, whereas its MLCW observations were excluded from calibration. This design tested whether relations estimated from monitored stations could reproduce monthly compaction at an independent station using its observed site-specific sediment composition.
+The third design assessed cross-station transfer by withholding one station and fitting a model for the same depth section with observations from the remaining stations. Dynamic predictors and sediment composition from the withheld station were retained for evaluation, whereas its MLCW observations were excluded from calibration. The design tested whether relations estimated at the monitored stations could reproduce monthly compaction at an independent station from its observed predictors.
 
-Temporal evaluation used an expanding calibration window followed by nonoverlapping evaluation periods of six months. Each evaluation period required at least 36 preceding months of calibration observations. The first and second designs applied this temporal sequence directly. Cross-station transfer validation combined the same temporal sequence with sequential withholding of each station. A common intercept and coefficient vector were estimated across stations in the pooled and transfer designs.
+Temporal performance was evaluated with an expanding calibration window followed by nonoverlapping evaluation periods of six months. Each evaluation period required at least 36 preceding months of calibration observations. The first and second designs applied this temporal sequence directly. Cross-station transfer validation combined the same sequence with the successive withholding of each station. A common intercept and coefficient vector were estimated across stations in the pooled and transfer designs.
 
-Performance was calculated separately for each depth section using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). The three metrics measured explained variance, sensitivity to errors of greater magnitude, and average absolute error, respectively.
+Performance was calculated separately for each depth section with the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). The coefficient of determination quantified the reduction in squared error relative to prediction by the observed mean. RMSE gave greater weight to errors of greater magnitude through squaring, whereas MAE reported the mean absolute magnitude of the errors.
 
 \begin{table}[htbp]
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.15}
-	\caption{Predictor groups used for monthly compaction estimation within each depth section.}
+	\caption{Predictor groups used to estimate monthly compaction in each depth section.}
 	\label{tab:predictor_groups}
 	\begin{tabularx}{\textwidth}{@{}
 		>{\raggedright\arraybackslash}p{0.18\textwidth}
@@ -182,7 +182,7 @@ Performance was calculated separately for each depth section using the coefficie
 	\centering
 	\small
 	\renewcommand{\arraystretch}{1.15}
-	\caption{Calibration and validation designs used to evaluate monthly compaction estimates.}
+	\caption{Calibration and validation designs used to assess monthly compaction estimates.}
 	\label{tab:model_validation_designs}
 	\begin{tabularx}{\textwidth}{@{}
 		>{\raggedright\arraybackslash}p{0.20\textwidth}

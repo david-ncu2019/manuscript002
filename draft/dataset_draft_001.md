@@ -271,3 +271,245 @@ The section does not have a missing-citation-key problem. Its main weakness is t
 | `yunjun_small_2019` | [Yunjun et al. (2019), Computers and Geosciences](https://doi.org/10.1016/j.cageo.2019.104331) | MintPy time-series inversion, displacement estimation, corrections, and average velocity estimation. |
 | `IESAS_TGM_2026` | [Taiwan Geodetic Model](https://tgm.earth.sinica.edu.tw/) | Continuous GNSS archive and station metadata, but not the complete processed-data claim in line 12. |
 | `gsmma_3d` | [Taiwan Hydrogeological Information System](https://hydro.geologycloud.tw/map3d/model) | Official model provenance; the exact spatial and vertical resolutions still require a versioned supporting record. |
+
+---
+
+# 2026-07-27: Citation Rationalization Plan for `nguyen_quantitative_2024` and `hung*`
+
+## 1. Phân tích Hiện trạng & Nguyên nhân Dùng quá tải (Diagnosis of Over-citation)
+
+Khi rà soát Section 2 (`sections/dataset002.tex`), việc trích dẫn các bài báo của nhóm nghiên cứu `hung*` (Hung et al., 2012, 2015, 2021) và `nguyen_quantitative_2024` (Nguyen et al., 2024) đang mắc phải 3 lỗi phổ biến trong viết báo khoa học:
+
+1. **Chồng chéo trích dẫn phần cứng (Hardware Attribution Stacking):** 
+   - `hung_measuring_2021` (Water Resources Research, 2021) là bài báo gốc giải thích chi tiết cấu tạo giếng MLCW, các vòng từ tính (magnetic rings), độ sâu 300m và độ chính xác 1 mm tại ĐBS Sông Choushui (CRAF).
+   - Việc chèn thêm `nguyen_quantitative_2024` ngay sau câu mô tả thiết bị MLCW tạo cảm giác "nhồi trích dẫn" (citation padding), vì `nguyen_quantitative_2024` là bài báo sử dụng lại dữ liệu MLCW cho bài toán ML, không phải bài báo thiết kế hay kiểm định độ chính xác phần cứng của thiết bị MLCW.
+2. **Trích dẫn sai phạm vi dữ liệu (Scope Mismatch):**
+   - Mạng lưới giếng quan trắc mực nước ngầm (GWL) của Cục Tài nguyên Nước Taiwan (WRA) cho các Tầng chứa nước 1-4 được thành lập từ các báo cáo WRA (`survey_project_1999`) và công trình địa chất thủy văn (`liu_characterization_2004`). Việc trích `nguyen_quantitative_2024` cho nguồn gốc mạng lưới giếng GWL của WRA là không đúng thẩm quyền dữ liệu gốc.
+3. **Cụm trích dẫn lặp lại vô ích (Redundant Cluster Stacking):**
+   - Ghép 3 bài (`liu_characterization_2004, hung2015_multiple, nguyen_quantitative_2024`) chỉ để minh họa cho ý "các trạm này nằm ở khu vực sụt lún trọng điểm" là thừa. Chỉ cần 1-2 bài nền tảng là đủ.
+
+---
+
+## 2. Bảng Cân chỉnh Trích dẫn Đề xuất (Citation Alignment Matrix)
+
+| Vị trí & Nội dung câu trong `dataset002.tex` | Trích dẫn Hiện tại | Trích dẫn Đề xuất | Lý do Cân chỉnh (Rationale) |
+|---|---|---|---|
+| **Mục 2.1 - Đoạn 2 (MLCW Extensometer Specs):**<br>`...magnetic rings installed along the well profile to depths of up to 300 m... measurement precision of 1 mm` | `\citep{hung_measuring_2021, nguyen_quantitative_2024}` | `\citep{hung_measuring_2021}` | **Giữ 1 bài gốc duy nhất.** `hung_measuring_2021` là công trình WRR chính thống mô tả thiết kế và độ chính xác 1 mm của MLCW. Bỏ `nguyen_quantitative_2024` vì đây là bài ứng dụng ML. |
+| **Mục 2.1 - Đoạn 2 (CRAF Subsidence Zone):**<br>`...monitored the central zone of intensive land subsidence in the CRAF` | `\citep{liu_characterization_2004, hung2015_multiple, nguyen_quantitative_2024}` | `\citep{hung2015_multiple}` *(hoặc `\citep{liu_characterization_2004, hung2015_multiple}`)* | **Rút gọn cụm 3 bài xuống 1-2 bài nền tảng.** `hung2015_multiple` và `liu_characterization_2004` đã định nghĩa vùng sụt lún trọng điểm CRAF. Bỏ `nguyen_quantitative_2024` khỏi vị trí này. |
+| **Mục 2.1 - Đoạn 4 (WRA GWL Network):**<br>`...nested observation wells strategically screened at discrete depth intervals corresponding to Aquifers 1 through 4` | `\citep{survey_project_1999, liu_characterization_2004, nguyen_quantitative_2024}` | `\citep{survey_project_1999, liu_characterization_2004}` | **Bỏ trích dẫn không đúng thẩm quyền.** Mạng lưới giếng GWL do WRA thành lập, `nguyen_quantitative_2024` chỉ khai thác lại dữ liệu nên không dùng làm nguồn trích dẫn cho hạ tầng mạng lưới giếng. |
+| **Mục 2.1 - Đoạn 4 (GWL Dynamic Cycles):**<br>`...seasonal agricultural pumping drawdowns, wet-season monsoon recharge...` | `\citep{hung2012_mlcw, hung2015_multiple, lu2020_crfp}` | `\citep{hung2015_multiple, lu2020_crfp}` | **Loại bỏ bài trùng lặp.** `hung2015_multiple` và `lu2020_crfp` đã bao quát toàn bộ động lực học bơm hút và hồi phục mực nước ngầm mùa mưa ở Vân Lâm. Bỏ `hung2012_mlcw` để tránh cụm `hung*` quá dày. |
+| **Mục 2.2 - Đoạn 3 (ILR / SBP Transformation):**<br>`...Isometric Log-Ratio transformation constructed via a Sequential Binary Partition hierarchy...` | `\citep{egozcue_isometric_2003, oh_using_2024}` | `\citep{egozcue_isometric_2003, oh_using_2024}` | **GIỮ NGUYÊN.** `egozcue_isometric_2003` là bài gốc thành lập phương pháp ILR; `oh_using_2024` là bài báo gần đây ứng dụng SBP/ILR cho địa chất thủy văn/nước ngầm. Phân công trích dẫn chuẩn xác. |
+
+---
+
+## 3. Vai trò Chuẩn xác cho `nguyen_quantitative_2024` trong Toàn văn Manuscript
+
+Để `nguyen_quantitative_2024` thể hiện đúng giá trị và không bị gượng ép ở Section 2 (Data):
+- **Không đặt `nguyen_quantitative_2024` ở Section 2 (Data sources):** Vì Section 2 chỉ giới thiệu dữ liệu thô (raw measurements).
+- **Đặt `nguyen_quantitative_2024` ở Section 3 (Methodology) và Section 4/5 (Results/Discussion):** Trích dẫn `nguyen_quantitative_2024` khi thảo luận về bài toán phân bổ sụt lún theo tầng (layerwise compaction apportionment), mô hình hóa mối quan hệ giữa biến dạng bề mặt InSAR và biến dạng sâu MLCW, hoặc so sánh hiệu năng dự báo hiện tại (nowcasting) với các kết quả ML trước đó.
+
+---
+
+## 4. Đoạn văn LaTeX Đề xuất cho Section 2.1 (Sau khi Cân chỉnh Trích dẫn)
+
+```latex
+Subsurface layerwise compaction records provided the direct target measurements for evaluating depth-dependent deformation. Each MLCW is a specialized borehole extensometer equipped with 21 to 26 magnetic rings installed along the well profile to depths of up to 300 m and anchored at major hydrostratigraphic boundaries and lithological transitions, enabling compaction within individual aquifer and aquitard units to be isolated with a measurement precision of 1 mm \citep{hung_measuring_2021}. This study utilized monthly records from five primary MLCW stations (Tuku, Guangfu, Huwei, Honglun, and Xiutan) located in Yunlin County, with station parameters summarized in \Cref{tab:mlcw_info}. These stations monitored the central zone of intensive land subsidence in the CRAF \citep{liu_characterization_2004, hung2015_multiple}.
+
+...
+
+Groundwater level (GWL) observations supplied the subsurface hydraulic head dynamics that regulated transient pore-water pressure and effective stress across the multi-aquifer system. Operated by the Water Resources Agency (WRA) of Taiwan, the regional monitoring network comprised nested observation wells strategically screened at discrete depth intervals corresponding to Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004}. Daily piezometric head measurements, expressed as elevations relative to Mean Sea Level (m~MSL), spanned from January 2000 to December 2025 across Yunlin County. These GWL time series captured seasonal agricultural pumping drawdowns, wet-season monsoon recharge replenishment, and multi-decadal head declines \citep{hung2015_multiple, lu2020_crfp}. Station coordinates and screen depth attributes are summarized in \Cref{tab:gwl_info}.
+```
+
+---
+
+# 2026-07-27 14:52:00
+
+\subsection{Observational Data Sources}
+\label{subsec_data_sources}
+
+Characterizing the multi-depth land subsidence process across the Choushui River Alluvial Fan (CRAF) required an integrated monitoring framework bridging subsurface compaction mechanics, hydrostratigraphy, hydraulic head variations, and surface displacement. This study integrated four primary observational datasets, comprising (1) subsurface layerwise compaction records from multilayer compaction monitoring wells (MLCWs), (2) borehole lithology logs and 3D hydrogeological modeling, (3) long-term groundwater level (GWL) observations, and (4) total surface deformation derived from Global Navigation Satellite System (GNSS) stations and Small Baseline Subset Interferometric Synthetic Aperture Radar (SBAS-InSAR) analysis.
+
+Subsurface layerwise compaction records provided the direct target measurements for evaluating depth-dependent deformation. Each MLCW is a specialized borehole extensometer equipped with 21 to 26 magnetic rings installed along the well profile to depths of up to 300 m and anchored at major hydrostratigraphic boundaries and lithological transitions, enabling compaction within individual aquifer and aquitard units to be isolated with a measurement precision of 1 mm \citep{hung_measuring_2021}. This study utilized monthly records from five primary MLCW stations (Tuku, Guangfu, Huwei, Honglun, and Xiutan) located in Yunlin County, with station parameters summarized in \Cref{tab:mlcw_info}. These stations monitored the central zone of intensive land subsidence in the CRAF \citep{liu_characterization_2004, hung2015_multiple}.
+
+Borehole lithological profiles and regional stratigraphy defined the sedimentological framework controlling subsurface compressibility and drainage behavior. High-resolution lithological logs co-located with each MLCW recorded the vertical distribution of sedimentary facies, including gravel, coarse sand, fine sand, silt, and clay, down to 300~m depth. For unmonitored zones between boreholes, stratigraphy was complemented by the 3D hydrogeological model developed by the Geological Survey and Mining Management Agency \citep{gsmma_3d}. % TODO(CITATION): Find a peer-reviewed source supporting the 1 m vertical resolution and 500 m horizontal grid spacing of the 3D hydrogeological model; add its BibTeX entry to writing_manu2.bib, then insert \citep{citation_key} here.
+This model supplied continuous hydrostratigraphic profiles at a 1~m vertical resolution and a 500~m horizontal grid spacing, providing regional lithological constraints across the alluvial fan.
+
+Groundwater level (GWL) observations were obtained from a regional monitoring network operated by the Water Resources Agency (WRA) of Taiwan. The network comprises nested observation wells screened at discrete depth intervals corresponding to Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004}. Daily piezometric head measurements, expressed as elevations relative to Mean Sea Level (m MSL), were collected from January 2000 to December 2025 across Yunlin County. These observations captured the temporal dynamics of hydraulic head, which regulate transient pore-water pressure and effective stress across the multi-aquifer system. The GWL time series further documented seasonal agricultural pumping drawdowns, wet-season monsoon recharge replenishment, and multi-decadal groundwater-level declines \citep{hung2012_mlcw, lu2020_crfp}. Station coordinates and screen depth attributes are summarized in \Cref{tab:gwl_info}.
+
+Total surface deformation measurements recorded the integrated ground displacement resulting from compaction across all underlying depth intervals. Daily 3D coordinate observations from continuous GNSS (cGNSS) stations co-located with or positioned near the MLCW sites \citep{IESAS_TGM_2026} supplied point-based vertical displacement time series from 2010 to 2024. Station parameters for the cGNSS network are summarized in \Cref{tab:gnss_info}. Spatial expansion of deformation monitoring beyond discrete geodetic stations utilized Small Baseline Subset (SBAS) InSAR analysis applied to Sentinel-1A Synthetic Aperture Radar (SAR) imagery acquired in Interferometric Wide (IW) Terrain Observation with Progressive Scans (TOPS) mode \citep{torres_gmes_2012,yague-martinez_interferometric_2016}. The SAR dataset comprised 530 Level-1 Single Look Complex (SLC) acquisitions collected between April 2016 and November 2021, containing 266 VV-polarized images along ascending orbit 69 (incidence angles $32^{\circ}$ to $38^{\circ}$) and 264 images along descending orbit 105 (incidence angles $38^{\circ}$ to $43^{\circ}$). Small-baseline interferogram stacks generated via the HyP3 pipeline \citep{hogenson_hybrid_2025} and multitemporal phase inversion conducted using MintPy \citep{yunjun_small_2019} yielded initial line-of-sight (LOS) displacement series. Two-dimensional vector decomposition combining the ascending and descending LOS time series resolved the vertical deformation component \citep{fuhrmann_resolving_2019, hanssen_radar_2001}, providing high-density vertical velocity fields and monthly vertical displacement series across the study domain. Parameters for the Sentinel-1A SAR datasets are summarized in \Cref{tab:sentinel1_info}.
+
+% ===================================================================
+% SEQUENTIAL TABLE GROUP (End of Subsection 2.1)
+% ===================================================================
+
+\begin{table}[p]
+	\centering
+	\caption{Multilayer Compaction Monitoring Well (MLCW) Locations and Parameters}
+	\label{tab:mlcw_info}
+	\begin{tabular}{llrrrr}
+		\toprule
+		\textbf{ID} & \textbf{Station} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Bottom Depth (m)} \\
+		\midrule
+		YL23 & Tuku     & 120.3898 & 23.6881 & 23 & 300.0 \\
+		YL27 & Guangfu  & 120.4025 & 23.7414 & 22 & 300.0 \\
+		YL26 & Huwei    & 120.4316 & 23.7153 & 25 & 300.0 \\
+		YL25 & Honglun  & 120.3478 & 23.6866 & 17 & 340.0 \\
+		YL24 & Xiutan   & 120.3496 & 23.6589 & 14 & 300.0 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[p]
+	\centering
+	\footnotesize
+	\setlength{\tabcolsep}{2.5pt}
+	\caption{Groundwater Level (GWL) Monitoring Stations in Yunlin County}
+	\label{tab:gwl_info}
+	\begin{tabular}{llcc|llcc}
+		\toprule
+		\textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Station} & \textbf{Abbrev.} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} \\
+		\midrule
+		Annan & ANN & 120.2488 & 23.7039 & Jiulong & JLG & 120.4310 & 23.7511 \\
+		Beigang & BGG & 120.3019 & 23.5789 & Kanjiao & KJO & 120.5379 & 23.6124 \\
+		Bozi & BZI & 120.1515 & 23.6335 & Kecuo & KCO & 120.3342 & 23.6266 \\
+		Caicuo & CCO & 120.2193 & 23.6122 & Liuhe & LHE & 120.5627 & 23.7689 \\
+		Chenguang & CGU & 120.3271 & 23.5858 & Liuzhuang & JZG & 120.4006 & 23.6344 \\
+		Chukou & CKU & 120.6430 & 23.7701 & Lunzi & LZI & 120.3548 & 23.6077 \\
+		Citong & CTG & 120.4969 & 23.7567 & Mingde & MDE & 120.1993 & 23.6529 \\
+		Dagou & DGU & 120.2107 & 23.5662 & Pingding & PDG & 120.6407 & 23.7558 \\
+		Dapi & DPI & 120.4232 & 23.6629 & Qiongbu & QBU & 120.2073 & 23.5184 \\
+		Dongguang & DGG & 120.2720 & 23.6519 & Sanhe & SHE & 120.4879 & 23.6051 \\
+		Donghe & DHE & 120.5694 & 23.6858 & Shangyi & SYI & 120.4519 & 23.6342 \\
+		Erlun & ELU & 120.4142 & 23.7717 & Shiliu & SLU & 120.5859 & 23.7207 \\
+		Fangcao & FCO & 120.3741 & 23.7184 & Shuilin & SLN & 120.2461 & 23.5731 \\
+		Fengrong & FRG & 120.3110 & 23.7907 & Tianyang & TYG & 120.3090 & 23.7254 \\
+		Ganghou & GHU & 120.3921 & 23.7965 & Tuku & TKU & 120.3899 & 23.6879 \\
+		Guangfu & GFU & 120.4024 & 23.7414 & Wencuo & WCO & 120.5121 & 23.6577 \\
+		Gukeng & GKN & 120.5668 & 23.6446 & Wutu & WTU & 120.5980 & 23.7672 \\
+		Haifeng & HFG & 120.2259 & 23.7649 & Xiluo & XLO & 120.4673 & 23.7959 \\
+		Haiyuan & HYN & 120.1791 & 23.7208 & Xinghua & XIH & 120.2890 & 23.7603 \\
+		Hefeng & HFE & 120.2234 & 23.7390 & Xiutan & XTA & 120.3496 & 23.6588 \\
+		Honglun & HLN & 120.3481 & 23.6866 & Yiwu & YWU & 120.1883 & 23.5413 \\
+		Houan & HAN & 120.2349 & 23.7892 & Yongding & YDN & 120.4196 & 23.7977 \\
+		Huwei & HWI & 120.4323 & 23.7142 & Yuanzhang & YZG & 120.3101 & 23.6529 \\
+		Huxi & HXI & 120.5112 & 23.7221 & Zhengmin & ZMN & 120.4073 & 23.7093 \\
+		Huzinei & HZN & 120.5602 & 23.7834 & Zhongshan & ZHS & 120.2443 & 23.7971 \\
+		Jiaxing & JXG & 120.4595 & 23.6482 & Zhongxiao & ZXO & 120.3150 & 23.6221 \\
+		Jinhu & JHU & 120.1533 & 23.5734 & Zhongxing & ZXG & 120.5891 & 23.7808 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[p]
+	\centering
+	\caption{Continuous GNSS Station Parameters and Coordinates}
+	\label{tab:gnss_info}
+	\begin{tabular}{lllrrrr}
+		\toprule
+		\textbf{ID} & \textbf{Station} & \textbf{TGM Code} & \textbf{Lon. (\si{\degree})} & \textbf{Lat. (\si{\degree})} & \textbf{Elev. (m)} & \textbf{Period} \\
+		\midrule
+		GN01 & Tuku     & TKJS & 120.3898 & 23.6880 & 41.13 & 2010--2024 \\
+		GN02 & Guangfu  & GFES & 120.4025 & 23.7414 & 45.07 & 2010--2024 \\
+		GN03 & Huwei    & NTUH & 120.4276 & 23.7330 & 48.27 & 2014--2024 \\
+		GN04 & Honglun  & HLES & 120.3478 & 23.6866 & 37.07 & 2011--2024 \\
+		GN05 & Xiutan   & STES & 120.3498 & 23.6587 & 38.69 & 2018--2024 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[p]
+	\centering
+	\caption{Summary of the Sentinel-1A datasets used in this study.}
+	\label{tab:sentinel1_info}
+	
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Parameters} & \textbf{Ascending} & \textbf{Descending} \\
+		\midrule
+		Relative Orbit (Path) & 69 & 105 \\
+		\multicolumn{1}{l}{Acquisition Period} & \multicolumn{2}{c}{April 2016--November 2021} \\
+		Number of Images      & 266 & 264 \\
+		\multicolumn{1}{l}{Acquisition Mode} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
+		\multicolumn{1}{l}{Polarization} & \multicolumn{2}{c}{VV} \\
+		Incidence Angles & $32^{\circ}$--$38^{\circ}$ & $38^{\circ}$--$43^{\circ}$ \\
+		Satellite Headings & $347.63^{\circ}$ & $192.37^{\circ}$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection{Data Processing and Standardization}
+\label{subsec_data_processing}
+
+The raw monitoring datasets exhibited strong spatiotemporal asymmetry across the alluvial fan. Multilayer extensometers provided vertically detailed but spatially sparse monthly compaction records at five boreholes. Conversely, Sentinel-1 InSAR yielded dense spatial coverage at multi-day acquisition cadences, continuous GNSS recorded daily surface coordinates, and observation wells supplied irregular piezometric head series. Standardizing these asymmetric data streams constructed a unified monthly feature matrix aligned with section-level compaction targets.
+
+Subsurface compaction target variables were constructed by differencing cumulative extensometer ring displacements into monthly compaction increments. Partitioning the upper 300~m profile into six uniform 50~m depth sections (S1 through S6) standardized variable extensometer anchor depths across boreholes. Differencing ring displacements within each 50~m interval isolated depth-dependent monthly compaction rates down the well profile.
+
+Subsurface material properties were aggregated to match these six 50~m depth sections. Volumetric percentages of four sediment facies (gravel, coarse sand, fine sand, and clay or silt) were extracted within each section from logged borehole profiles and the regional 3D hydrogeological model. Direct inclusion of raw volumetric percentages in predictive modeling induced constant-sum closure and severe multicollinearity because all fractions sum to 100 percent within any given section. An Isometric Log-Ratio transformation constructed via a Sequential Binary Partition hierarchy resolved these compositional constraints \citep{egozcue_isometric_2003, oh_using_2024}, mapping the four sediment fractions into three unconstrained, orthogonal log-ratio balances for each section.
+
+Groundwater level observations were converted to monthly head changes to isolate short-term piezometric drawdowns and establish temporal stationarity. Daily piezometric head series were zero-referenced to baseline epochs and differenced at monthly steps. This monthly first-difference transformation removed arbitrary wellhead datum offsets and isolated short-term drawdowns and recovery cycles driving effective stress variations.
+
+Surface deformation series and hydrogeological model extractions were spatially matched to the MLCW coordinates and resampled to monthly steps. Continuous GNSS vertical coordinates and 2D vector-decomposed InSAR vertical displacement fields were resampled to match the monthly extensometer observation schedule. Spatial extractions from the 3D hydrogeological model provided continuous stratigraphy across unmonitored zones between boreholes. \Cref{fig:preprocessing_workflow} summarizes the multi-source dataset preprocessing, feature transformation, and spatiotemporal alignment workflow.
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[
+		node distance=0.8cm and 0.4cm,
+		box/.style={draw, rectangle, rounded corners=3pt, align=center, fill=blue!5, line width=0.7pt, font=\footnotesize, inner sep=4pt},
+		proc/.style={draw, rectangle, rounded corners=3pt, align=center, fill=orange!5, line width=0.7pt, font=\footnotesize, inner sep=4pt},
+		resbox/.style={draw, rectangle, rounded corners=3pt, align=center, fill=green!5, line width=0.8pt, font=\small, inner sep=6pt},
+		arrow/.style={-{Stealth[scale=0.9]}, line width=0.7pt, draw=gray!80}
+	]
+		% Step 1: Raw Inputs
+		\node (raw_mlcw) [box] {\textbf{MLCW Extensometers}\\21--26 rings per well};
+		\node (raw_gwl)  [box, right=of raw_mlcw] {\textbf{Groundwater Wells}\\54 Piezometric Wells};
+		\node (raw_insar)[box, right=of raw_gwl] {\textbf{Sentinel-1 SAR}\\530 SLC Acquisitions};
+		\node (raw_coda) [box, right=of raw_insar] {\textbf{Subsurface Facies}\\Logged Cores \& 3D Model};
+
+		% Step 2: Processing Nodes
+		\node (proc_mlcw) [proc, below=of raw_mlcw] {\textbf{Ring Differencing}\\Monthly 50~m Increments\\(Target $y$: S1--S6)};
+		\node (proc_gwl)  [proc, below=of raw_gwl] {\textbf{Head Differencing}\\Zero-Ref \& Monthly Step\\($\text{dGWL} = H_t - H_{t-1}$)};
+		\node (proc_insar)[proc, below=of raw_insar] {\textbf{Phase Inversion}\\2D Vector Decomposition\\\& Monthly Resampling};
+		\node (proc_coda) [proc, below=of raw_coda] {\textbf{ILR / SBP Transform}\\Orthogonal Balances\\(No Collinearity)};
+
+		% Step 3: Feature Matrix Integration
+		\node (out_matrix) [resbox, below=1.0cm of $(proc_gwl)!0.5!(proc_insar)$, minimum width=13cm] {\textbf{Unified Spatiotemporal Feature Matrix}\\[2pt]Features $X \in \mathbb{R}^{N \times P} \quad \text{vs} \quad \text{Compaction Targets } y \in \mathbb{R}^{N \times 6}$};
+
+		% Connectors
+		\draw [arrow] (raw_mlcw) -- (proc_mlcw);
+		\draw [arrow] (raw_gwl) -- (proc_gwl);
+		\draw [arrow] (raw_insar) -- (proc_insar);
+		\draw [arrow] (raw_coda) -- (proc_coda);
+
+		\draw [arrow] (proc_mlcw) |- (out_matrix);
+		\draw [arrow] (proc_gwl) -- (out_matrix);
+		\draw [arrow] (proc_insar) -- (out_matrix);
+		\draw [arrow] (proc_coda) |- (out_matrix);
+	\end{tikzpicture}
+	\caption{Workflow diagram of multi-source observation preprocessing, feature transformation, and spatiotemporal alignment into the unified compaction nowcasting matrix.}
+	\label{fig:preprocessing_workflow}
+\end{figure}
+
+\clearpage
+
+---
+
+# 2026/07/28 16:27:00
+
+\subsection{Datasets}
+\label{subsec:datasets}
+
+The characterization of multi-depth land subsidence across the Choushui River Alluvial Fan (CRAF) required an integrated monitoring framework bridging subsurface compaction mechanics, hydrostratigraphy, hydraulic head variations, and surface displacement. The observational monitoring framework integrated four primary data sources, comprising (1) subsurface layerwise compaction records from multilayer compaction monitoring wells (MLCWs), (2) borehole lithology logs and 3D hydrogeological modeling, (3) long-term groundwater level (GWL) observations, and (4) total surface deformation derived from Global Navigation Satellite System (GNSS) stations and Small Baseline Subset Interferometric Synthetic Aperture Radar (SBAS-InSAR) analysis.
+
+Subsurface layerwise compaction records provided the direct target measurements for evaluating depth-dependent deformation. Each MLCW was a specialized borehole extensometer equipped with 21 to 26 magnetic rings installed along the well profile to depths of up to 300~m. These measurement rings were anchored near major hydrostratigraphic boundaries and lithological transitions, isolating compaction within individual aquifer and aquitard units with a measurement precision of 1~mm \citep{hung_measuring_2021}. Monthly records from five primary MLCW stations (Guangfu, Huwei, Tuku, Honglun, and Xiutan) provided the observational dataset for model development, with station attributes summarized in \Cref{tab:mlcw_info}. Vertical well profiles were partitioned into six uniform 50~m depth sections (designated as S1 through S6, spanning 0--300~m depth) to align variable anchor ring depths across boreholes, deriving monthly sectional compaction time series after isolating long-term linear displacement trends and seasonal signals (\Cref{subsec:parametric_deformation}).
+
+Borehole lithological profiles and regional stratigraphy defined the sedimentological framework controlling physical compressibility and drainage behavior within these six 50~m compaction sections. High-resolution lithological logs co-located with each MLCW recorded the vertical distribution of sedimentary facies, including gravel, coarse sand, fine sand, silt, and clay, down to 300~m depth. For unmonitored zones between boreholes, stratigraphy was complemented by the 3D hydrogeological model developed by the Geological Survey and Mining Management Agency \citep{gsmma_3d}, % TODO(CITATION): Find a peer-reviewed source supporting the 1 m vertical resolution and 500 m horizontal grid spacing of the 3D hydrogeological model; add its BibTeX entry to writing_manu2.bib, then insert \citep{citation_key} here.
+which provided continuous hydrostratigraphic profiles at a 1~m vertical resolution and a 500~m horizontal grid spacing. Volumetric percentages of the four sediment facies were aggregated within each 50~m depth section to represent section-level sedimentological storage properties, which were subsequently mapped into orthogonal log-ratio balances (\Cref{subsec:ilr_sbp_transformation}).
+
+While sedimentological compositions establish static storage properties, GWL observations provided the transient hydraulic head dynamics governing pore-water pressure and effective stress across the multi-aquifer system \citep{galloway_land_1999, gambolati_2015}. The regional monitoring network operated by the Water Resources Agency (WRA) of Taiwan comprised nested observation wells screened at discrete depth intervals corresponding to Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004}. Daily piezometric head measurements, expressed as elevations relative to Mean Sea Level (m MSL), spanned from January 2000 to December 2025 across Yunlin County, capturing seasonal agricultural pumping drawdowns, wet-season monsoon recharge replenishment, and multi-decadal head declines \citep{chang2022_wetanddry, lu2020_crfp}. Piezometric head series were converted into monthly observation steps, with station network attributes summarized in \Cref{tab:gwl_info}, providing dynamic forcing for section-specific driver construction (\Cref{subsec:hydrogeological_drivers}).
+
+Total surface deformation measurements recorded the integrated ground displacement resulting from compaction across all underlying depth intervals, providing surface displacement constraints above the multi-layer aquifer system. Daily 3D position time series from continuous GNSS (cGNSS) stations co-located with or positioned near the MLCW sites \citep{IESAS_TGM_2026} provided point-based vertical displacement series from 2010 to 2024, with station coordinates and monitoring periods summarized in \Cref{tab:gnss_info}. Small Baseline Subset (SBAS) InSAR analysis provided continuous regional surface deformation mapping beyond discrete geodetic stations \citep{torres_gmes_2012, yague-martinez_interferometric_2016}. Sentinel-1A C-band Synthetic Aperture Radar (SAR) imagery captured 530 Level-1 Single Look Complex (SLC) acquisitions in Interferometric Wide (IW) mode from April 2016 to November 2021. Orbit coverage included 266 VV-polarized images along ascending path 69 (incidence angles $32^{\circ}$ to $38^{\circ}$) and 264 images along descending path 105 (incidence angles $38^{\circ}$ to $43^{\circ}$), with acquisition specifications summarized in \Cref{tab:sentinel1_info}. Small-baseline interferogram stacks generated via the HyP3 pipeline \citep{hogenson_hybrid_2025} and multitemporal phase inversion conducted using MintPy \citep{yunjun_small_2019} generated initial line-of-sight displacement measurements. Vertical surface displacements were resolved via two-dimensional vector decomposition combining ascending and descending line-of-sight time series \citep{fuhrmann_resolving_2019, hanssen_radar_2001}, establishing top-boundary displacement forcing (\Cref{subsec:parametric_deformation,subsec:hydrogeological_drivers}).
+
+
+---

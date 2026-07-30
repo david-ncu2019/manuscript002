@@ -1,0 +1,169 @@
+% ===================================================================
+% BẢN DỊCH TIẾNG VIỆT CỦA SECTIONS/DATASET002.TEX
+% Nguồn: phiên bản tại commit 7a41a1d
+% ===================================================================
+
+\subsection{Các bộ dữ liệu}
+\label{subsec:datasets}
+
+Nghiên cứu này tích hợp bốn nguồn dữ liệu chính để đặc trưng hóa lún nén trong từng đoạn chiều sâu, bao gồm (1) số liệu quan trắc lún nén nhiều lớp, (2) số liệu mực nước dưới đất, (3) mặt cắt thạch học lỗ khoan, và (4) chuyển vị thẳng đứng bề mặt được xác định từ các trạm Hệ thống vệ tinh định vị toàn cầu (GNSS) và phân tích Giao thoa radar khẩu độ tổng hợp theo tập hợp đường đáy ngắn (SBAS-InSAR). Các tiểu mục sau mô tả từng bộ dữ liệu, vai trò của chúng trong phân tích lún nén, và các bước tiền xử lý được thực hiện trước khi xây dựng mô hình.
+
+\subsubsection{Lún nén nhiều lớp của hệ thống tầng chứa nước}
+
+Các giếng quan trắc lún nén nhiều lớp (MLCW) ghi nhận biến dạng tại nhiều độ sâu. Mỗi thiết bị đo biến dạng lỗ khoan chuyên dụng được lắp từ 21 đến 26 vòng từ dọc theo thân giếng đến độ sâu tối đa 300~m, qua đó cho phép phân tách lún nén trong từng đơn vị tầng chứa nước và lớp cách nước với độ chính xác đo 1~mm \citep{hung_measuring_2021}. Số liệu quan trắc thô theo tháng từ năm trạm MLCW chính (Guangfu, Huwei, Tuku, Honglun và Xiutan) được thu thập và phân chia thành sáu đoạn chiều sâu đồng nhất, mỗi đoạn dày 50~m (ký hiệu S1 đến S6, trong khoảng độ sâu 0--300~m), nhằm xử lý sự khác biệt về độ sâu lắp đặt vòng neo giữa các lỗ khoan. Tọa độ trạm và thông số quan trắc được tổng hợp trong \Cref{tab:mlcw_info}. Sau đó, chuỗi thời gian của từng đoạn chiều sâu được khớp bằng mô hình biến dạng gồm các hàm tuyến tính, tuần hoàn và hàm bước (\Cref{subsec:parametric_deformation}) để ước tính vận tốc tuyến tính cùng các thành phần chu kỳ năm và nửa năm. Sai phân giữa hai tháng liên tiếp được tính để thu được gia số lún nén của từng đoạn chiều sâu.
+
+\subsubsection{Quan trắc mực nước dưới đất}
+
+Số liệu mực nước dưới đất (GWL) ghi nhận biến động cột nước thủy lực liên quan đến lún nén hệ thống tầng chứa nước và sụt lún đất trong các hệ thống tầng chứa nước thuộc quạt bồi tích \citep{galloway_land_1999, gambolati_2015, herrera-garcia_mapping_2021, bagheri-gavkoshLandSubsidenceGlobal2021}. Mạng lưới quan trắc GWL khu vực do Cơ quan Tài nguyên nước Đài Loan (WRA) vận hành gồm các cụm giếng quan trắc nhiều độ sâu, với đoạn ống lọc được bố trí tại những khoảng độ sâu riêng biệt tương ứng với các tầng chứa nước 1 đến 4 \citep{survey_project_1999, liu_characterization_2004}. Số liệu cột nước áp lực hằng ngày, được biểu diễn dưới dạng cao độ so với mực nước biển trung bình (m MSL), kéo dài từ tháng 1 năm 2000 đến tháng 12 năm 2025 trên toàn huyện Yunlin. Chuỗi số liệu này ghi nhận hạ thấp mực nước theo mùa do khai thác nước phục vụ nông nghiệp, sự phục hồi trong mùa mưa do bổ cập gió mùa, và xu thế suy giảm cột nước trong nhiều thập kỷ \citep{chang2022_wetanddry, lu2020_crfp}. Vị trí trạm, khoảng đặt ống lọc và thời gian quan trắc được tổng hợp trong \Cref{tab:gwl_info}. Số liệu cột nước áp lực hằng ngày được lấy trung bình theo tháng, sau đó sai phân giữa hai tháng liên tiếp được tính để thu được thay đổi cột nước thủy lực theo tháng (\Cref{subsec:hydrogeological_drivers}).
+
+\subsubsection{Mặt cắt thạch học lỗ khoan}
+
+Mặt cắt thạch học lỗ khoan mô tả sự khác biệt về thành phần trầm tích giữa sáu đoạn chiều sâu lún nén, mỗi đoạn dày 50~m. Nhật ký thạch học chi tiết tại mỗi trạm MLCW ghi nhận phân bố theo phương thẳng đứng của sỏi, cát, bột, sét và các trầm tích hạt mịn hỗn hợp đến độ sâu 300~m. Vật liệu trong nhật ký được phân thành sỏi, cát thô, cát mịn, hoặc nhóm kết hợp gồm sét, bột và bùn trong từng đoạn chiều sâu. Thành phần trầm tích xác định từ lỗ khoan cung cấp các biến dự báo trầm tích cho quá trình hiệu chỉnh mô hình và kiểm định chuyển giao giữa các trạm sau phép biến đổi cân bằng logratio được mô tả trong \Cref{subsec:ilr_sbp_transformation}.
+
+Kiến trúc trầm tích giữa các trạm quan trắc được biểu diễn riêng bằng mô hình địa chất thủy văn 3D do Cơ quan Khảo sát Địa chất và Quản lý Khai khoáng xây dựng \citep{gsmma_3d}. % TODO(CITATION): Tìm nguồn bình duyệt hỗ trợ độ phân giải đứng 1 m và khoảng cách lưới ngang 500 m của mô hình địa chất thủy văn 3D; thêm mục BibTeX vào writing_manu2.bib rồi chèn \citep{citation_key} tại đây.
+Mô hình khu vực cung cấp các mặt cắt thạch học liên tục với độ phân giải đứng 1~m và khoảng cách lưới ngang 500~m. Sản phẩm khu vực này được giữ lại để mô tả biến thiên trầm tích giữa các trạm quan trắc và không thay thế thành phần trầm tích xác định từ lỗ khoan trong các phân tích theo trạm được trình bày trong nghiên cứu.
+
+\subsubsection{Chuyển vị thẳng đứng bề mặt}
+
+Số liệu chuyển vị thẳng đứng bề mặt ghi nhận chuyển vị tổng hợp của mặt đất do lún nén trong tất cả các khoảng chiều sâu bên dưới. Chuỗi tọa độ ba chiều hằng ngày từ các trạm GNSS liên tục (cGNSS) đặt tại hoặc gần các trạm MLCW \citep{IESAS_TGM_2026} cung cấp số liệu chuyển vị thẳng đứng tại điểm trong giai đoạn 2010--2024. Tọa độ trạm và thời gian quan trắc được tổng hợp trong \Cref{tab:gnss_info}. Tại các khu vực nằm ngoài phạm vi quan trắc của GNSS, chuyển động bề mặt được theo dõi bằng phân tích SBAS-InSAR từ ảnh radar khẩu độ tổng hợp (SAR) Sentinel-1. Bộ dữ liệu gồm 266 ảnh quỹ đạo đi lên thuộc path 69 và 264 ảnh quỹ đạo đi xuống thuộc path 105; các thông số thu nhận được tổng hợp trong \Cref{tab:sentinel1_info} \citep{torres_gmes_2012, yague-martinez_interferometric_2016}. Các chồng giao thoa đồ SBAS được tạo bằng quy trình HyP3 \citep{hogenson_hybrid_2025}, và phép nghịch đảo pha đa thời gian được thực hiện bằng MintPy \citep{yunjun_small_2019}. Các bước xử lý này tạo ra số liệu chuyển vị ban đầu theo hướng nhìn của radar. Sau đó, chuyển vị thẳng đứng bề mặt được xác định bằng phép phân rã vector hai chiều \citep{fuhrmann_resolving_2019, hanssen_radar_2001}. Chuỗi thời gian chuyển vị thẳng đứng bề mặt từ cGNSS và SBAS-InSAR tiếp tục được khớp bằng mô hình biến dạng gồm các hàm tuyến tính, tuần hoàn và hàm bước (\Cref{subsec:parametric_deformation}), lấy mẫu lại theo tháng, rồi tính sai phân giữa hai tháng liên tiếp để thu được gia số chuyển vị bề mặt.
+
+Việc tích hợp bốn nguồn dữ liệu đã qua tiền xử lý tạo ra một bộ dữ liệu theo tháng được đồng bộ trong không gian và thời gian. Bộ dữ liệu này liên kết thạch học dưới bề mặt, biến động cột nước thủy lực và chuyển vị thẳng đứng bề mặt với tốc độ lún nén trong sáu khoảng chiều sâu, mỗi khoảng dày 50~m (\Cref{fig:preprocessing_workflow}).
+
+% ===================================================================
+% HÌNH VÀ BẢNG CỦA MỤC 2
+% ===================================================================
+
+\begin{figure}[htbp]
+	\centering
+	\begin{tikzpicture}[
+		node distance=0.7cm and 0.35cm,
+		box/.style={draw, rectangle, rounded corners=3pt, align=center, fill=blue!5, line width=0.7pt, font=\footnotesize, inner sep=4pt, minimum height=0.9cm},
+		proc/.style={draw, rectangle, rounded corners=3pt, align=center, fill=orange!5, line width=0.7pt, font=\footnotesize, inner sep=4pt, minimum height=0.9cm},
+		resbox/.style={draw, rectangle, rounded corners=3pt, align=center, fill=green!5, line width=0.8pt, font=\small, inner sep=5pt},
+		arrow/.style={-{Stealth[scale=0.9]}, line width=0.7pt, draw=gray!80}
+	]
+		% Bước 1: Dữ liệu đầu vào
+		\node (raw_mlcw) [box] {\textbf{Thiết bị MLCW}\\Các vòng từ};
+		\node (raw_gwl)  [box, right=of raw_mlcw] {\textbf{Mạng lưới nước dưới đất}\\Giếng quan trắc cột nước};
+		\node (raw_insar)[box, right=of raw_gwl] {\textbf{cGNSS \& InSAR}\\Dữ liệu vệ tinh \& trắc địa};
+		\node (raw_coda) [box, right=of raw_insar] {\textbf{Địa tầng}\\Mô hình 3D \& lõi khoan};
+
+		% Bước 2: Xử lý
+		\node (proc_mlcw) [proc, below=of raw_mlcw] {\textbf{Sai phân theo đoạn}\\Gia số lún nén};
+		\node (proc_gwl)  [proc, below=of raw_gwl] {\textbf{Sai phân theo tháng}\\Thay đổi cột nước ($\text{dGWL}$)};
+		\node (proc_insar)[proc, below=of raw_insar] {\textbf{Phân rã vector}\\Chuyển động thẳng đứng};
+		\node (proc_coda) [proc, below=of raw_coda] {\textbf{Biến đổi ILR / SBP}\\Cân bằng logratio};
+
+		% Bước 3: Bộ dữ liệu tích hợp
+		\node (out_matrix) [resbox, below=0.8cm of $(proc_gwl)!0.5!(proc_insar)$, minimum width=12.5cm] {\textbf{Bộ dữ liệu lún nén theo tháng được đồng bộ trong không gian và thời gian}};
+
+		% Các đường nối
+		\draw [arrow] (raw_mlcw) -- (proc_mlcw);
+		\draw [arrow] (raw_gwl) -- (proc_gwl);
+		\draw [arrow] (raw_insar) -- (proc_insar);
+		\draw [arrow] (raw_coda) -- (proc_coda);
+
+		\draw [arrow] (proc_mlcw) |- (out_matrix);
+		\draw [arrow] (proc_gwl) -- (out_matrix);
+		\draw [arrow] (proc_insar) -- (out_matrix);
+		\draw [arrow] (proc_coda) |- (out_matrix);
+	\end{tikzpicture}
+	\caption{Sơ đồ quy trình tiền xử lý và đồng bộ không gian, thời gian của các nguồn dữ liệu quan trắc.}
+	\label{fig:preprocessing_workflow}
+\end{figure}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Vị trí và thông tin của các giếng quan trắc lún nén nhiều lớp (MLCW)}
+	\label{tab:mlcw_info}
+	\begin{tabular}{llrrrr}
+		\toprule
+		\textbf{ID} & \textbf{Trạm} & \textbf{Kinh độ (\si{\degree})} & \textbf{Vĩ độ (\si{\degree})} & \textbf{Cao độ (m)} & \textbf{Độ sâu đáy (m)} \\
+		\midrule
+		YL01 & Guangfu  & 120.4025 & 23.7414 & 22 & 300.0 \\
+		YL02 & Huwei    & 120.4316 & 23.7153 & 25 & 300.0 \\
+		YL03 & Tuku     & 120.3898 & 23.6881 & 23 & 300.0 \\
+		YL04 & Honglun  & 120.3478 & 23.6866 & 17 & 340.0 \\
+		YL05 & Xiutan   & 120.3496 & 23.6589 & 14 & 300.0 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\footnotesize
+	\setlength{\tabcolsep}{2.5pt}
+	\caption{Các trạm quan trắc mực nước dưới đất (GWL) tại huyện Yunlin}
+	\label{tab:gwl_info}
+	\begin{tabular}{llcc|llcc}
+		\toprule
+		\textbf{Trạm} & \textbf{Viết tắt} & \textbf{Kinh độ (\si{\degree})} & \textbf{Vĩ độ (\si{\degree})} & \textbf{Trạm} & \textbf{Viết tắt} & \textbf{Kinh độ (\si{\degree})} & \textbf{Vĩ độ (\si{\degree})} \\
+		\midrule
+		Annan & ANN & 120.2488 & 23.7039 & Jiulong & JLG & 120.4310 & 23.7511 \\
+		Beigang & BGG & 120.3019 & 23.5789 & Kanjiao & KJO & 120.5379 & 23.6124 \\
+		Bozi & BZI & 120.1515 & 23.6335 & Kecuo & KCO & 120.3342 & 23.6266 \\
+		Caicuo & CCO & 120.2193 & 23.6122 & Liuhe & LHE & 120.5627 & 23.7689 \\
+		Chenguang & CGU & 120.3271 & 23.5858 & Liuzhuang & JZG & 120.4006 & 23.6344 \\
+		Chukou & CKU & 120.6430 & 23.7701 & Lunzi & LZI & 120.3548 & 23.6077 \\
+		Citong & CTG & 120.4969 & 23.7567 & Mingde & MDE & 120.1993 & 23.6529 \\
+		Dagou & DGU & 120.2107 & 23.5662 & Pingding & PDG & 120.6407 & 23.7558 \\
+		Dapi & DPI & 120.4232 & 23.6629 & Qiongbu & QBU & 120.2073 & 23.5184 \\
+		Dongguang & DGG & 120.2720 & 23.6519 & Sanhe & SHE & 120.4879 & 23.6051 \\
+		Donghe & DHE & 120.5694 & 23.6858 & Shangyi & SYI & 120.4519 & 23.6342 \\
+		Erlun & ELU & 120.4142 & 23.7717 & Shiliu & SLU & 120.5859 & 23.7207 \\
+		Fangcao & FCO & 120.3741 & 23.7184 & Shuilin & SLN & 120.2461 & 23.5731 \\
+		Fengrong & FRG & 120.3110 & 23.7907 & Tianyang & TYG & 120.3090 & 23.7254 \\
+		Ganghou & GHU & 120.3921 & 23.7965 & Tuku & TKU & 120.3899 & 23.6879 \\
+		Guangfu & GFU & 120.4024 & 23.7414 & Wencuo & WCO & 120.5121 & 23.6577 \\
+		Gukeng & GKN & 120.5668 & 23.6446 & Wutu & WTU & 120.5980 & 23.7672 \\
+		Haifeng & HFG & 120.2259 & 23.7649 & Xiluo & XLO & 120.4673 & 23.7959 \\
+		Haiyuan & HYN & 120.1791 & 23.7208 & Xinghua & XIH & 120.2890 & 23.7603 \\
+		Hefeng & HFE & 120.2234 & 23.7390 & Xiutan & XTA & 120.3496 & 23.6588 \\
+		Honglun & HLN & 120.3481 & 23.6866 & Yiwu & YWU & 120.1883 & 23.5413 \\
+		Houan & HAN & 120.2349 & 23.7892 & Yongding & YDN & 120.4196 & 23.7977 \\
+		Huwei & HWI & 120.4323 & 23.7142 & Yuanzhang & YZG & 120.3101 & 23.6529 \\
+		Huxi & HXI & 120.5112 & 23.7221 & Zhengmin & ZMN & 120.4073 & 23.7093 \\
+		Huzinei & HZN & 120.5602 & 23.7834 & Zhongshan & ZHS & 120.2443 & 23.7971 \\
+		Jiaxing & JXG & 120.4595 & 23.6482 & Zhongxiao & ZXO & 120.3150 & 23.6221 \\
+		Jinhu & JHU & 120.1533 & 23.5734 & Zhongxing & ZXG & 120.5891 & 23.7808 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Tọa độ và thời gian quan trắc của các trạm GNSS liên tục}
+	\label{tab:gnss_info}
+	\begin{tabular}{llrrrr}
+		\toprule
+		\textbf{Trạm} & \textbf{Mã} & \textbf{Kinh độ (\si{\degree})} & \textbf{Vĩ độ (\si{\degree})} & \textbf{Cao độ (m)} & \textbf{Thời kỳ} \\
+		\midrule
+		Guangfu  & GFES & 120.4025 & 23.7414 & 45.07 & 2010--2024 \\
+		Huwei    & NTUH & 120.4276 & 23.7330 & 48.27 & 2014--2024 \\
+		Tuku     & TKJS & 120.3898 & 23.6880 & 41.13 & 2010--2024 \\
+		Honglun  & HLES & 120.3478 & 23.6866 & 37.07 & 2011--2024 \\
+		Xiutan   & STES & 120.3498 & 23.6587 & 38.69 & 2018--2024 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+	\centering
+	\caption{Tóm tắt các bộ dữ liệu Sentinel-1A được sử dụng trong nghiên cứu}
+	\label{tab:sentinel1_info}
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Thông số} & \textbf{Quỹ đạo đi lên} & \textbf{Quỹ đạo đi xuống} \\
+		\midrule
+		Quỹ đạo tương đối (Path) & 69 & 105 \\
+		\multicolumn{1}{l}{Thời gian thu nhận} & \multicolumn{2}{c}{Tháng 4 năm 2016--tháng 11 năm 2021} \\
+		Số lượng ảnh      & 266 & 264 \\
+		\multicolumn{1}{l}{Chế độ thu nhận} & \multicolumn{2}{c}{Interferometric Wide (IW)} \\
+		\multicolumn{1}{l}{Phân cực} & \multicolumn{2}{c}{VV} \\
+		Góc tới & $32^{\circ}$--$38^{\circ}$ & $38^{\circ}$--$43^{\circ}$ \\
+		Hướng bay vệ tinh & $347.63^{\circ}$ & $192.37^{\circ}$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\clearpage
