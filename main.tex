@@ -1,182 +1,127 @@
-\documentclass[12pt,twoside]{article}
+\documentclass[12pt,oneside]{article}
 
-% ===================================================================
-% 1. GEOMETRY
-% ===================================================================
 \usepackage[a4paper,top=25mm,bottom=25mm,left=25mm,right=25mm,headheight=15pt]{geometry}
-
-% ===================================================================
-% 2. FONTS
-% ===================================================================
-\usepackage{newtxtext} % Times-like text font
-\usepackage{newtxmath} % Times-like math font
-% \usepackage{DejaVuSans} % Commented out to avoid conflicts
-
-% ===================================================================
-% 3. CORE PACKAGES (MATH, GRAPHICS, TABLES)
-% ===================================================================
-% -- Mathematics --
-\usepackage{amsmath}     % Essential for advanced math typesetting. Recommended with newtxmath.
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{amsmath}
 \usepackage{siunitx}
-% \usepackage{amssymb,amsthm} % Enable if you need extra symbols or theorem environments
-% \usepackage{bm}        % Enable for bold math symbols, e.g., \bm{v}
-
-% -- Figures, Tables, and Captions --
-\usepackage{graphicx}    % For including images with \includegraphics
-\usepackage{booktabs}    % For professional-quality tables (e.g., \toprule, \midrule)
-\usepackage{float}       % Provides the [H] placement option for figures
-\usepackage{caption}     % Required by subcaption for customizing captions
-\usepackage{subcaption}  % For creating subfigures and subtables (e.g., Figure 1a, 1b)
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{makecell}
 \usepackage{tabularx}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
-
-% ===================================================================
-% 4. PAGE LAYOUT, SPACING, AND FORMATTING
-% ===================================================================
-% -- Headers and Footers --
+\usetikzlibrary{arrows.meta,positioning,calc}
 \usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\textit{Manuscript Draft}}
-%\fancyhead[LO]{\textit{\rightmark}}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0pt}
-% \setlength{\headheight}{15pt} % Already set in geometry, but good practice to keep if warning appears
-
-% -- Line and Paragraph Spacing --
 \usepackage{setspace}
-\onehalfspacing
-
-\usepackage{indentfirst} % Ensures the first paragraph after a heading is indented
-
-% Manually set paragraph indent and spacing for a custom hybrid style
-\setlength{\parindent}{1.5em}
-%\setlength{\parskip}{0.5em}
-\setlength{\parskip}{0pt} % Change this value to 0pt
-
-% -- Section Title Formatting --
+\usepackage{indentfirst}
 \usepackage{titlesec}
+\usepackage[authoryear]{natbib}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{lineno}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\onehalfspacing
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
 \titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
 \titlespacing*{\section}{0pt}{1.25\baselineskip}{0.35\baselineskip}
 \titlespacing*{\subsection}{0pt}{0.55\baselineskip}{0.25\baselineskip}
 \titlespacing*{\subsubsection}{0pt}{0.45\baselineskip}{0.2\baselineskip}
-%\titleformat{\section}... % Redundant
-%\titleformat{\subsection}... % Redundant
-%\titlespacing*{\section}... % Redundant
-%\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
-%\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
-%\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-%\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
-%\titlespacing*{\section}{0pt}{*0.5}{*0.25}
-%                 |       |    |     |
-%                 |       |    |     └─ After-title space (1/4 default)
-%                 |       |    └─ Before-title space (1/2 default)
-%                 |       └─ Horizontal left indent (0 points)
-%                 └─ Section type
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\textit{Tuku manuscript draft}}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% ===================================================================
-% 5. BIBLIOGRAPHY
-% ===================================================================
-\usepackage[authoryear]{natbib}
 \bibliographystyle{plainnat}
-
-% ===================================================================
-% 6. HYPERLINKS AND CROSS-REFERENCING (CRITICAL LOADING ORDER!)
-%    Load hyperref late, and cleveref AFTER hyperref.
-% ===================================================================
-\usepackage{hyperref}
 \hypersetup{
-	colorlinks=true,
-	linkcolor=blue,
-	citecolor=blue,
-	urlcolor=blue,
-	pdftitle={High-Resolution Subsurface Mapping}, % REMOVE GWR: replace for BRR nowcasting
-	pdfauthor={Author One et al.},
-	pdfkeywords={land subsidence, mitigation, layer-wise compaction}, % REMOVE GWR: replace for BRR nowcasting
-	pdfdisplaydoctitle=true,
-	bookmarksnumbered=true,
-	bookmarksopen=true,
-	pdfstartview=FitH
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Monthly estimation of depth-resolved aquifer-system compaction at Tuku},
+  pdfauthor={Author names to be confirmed},
+  pdfkeywords={aquifer-system compaction, groundwater level, delayed observations, Bayesian ridge regression, Tuku},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  pdfstartview=FitH
 }
-\usepackage{cleveref} % For smart cross-referencing (e.g., "figure 1" instead of just "1")
-\creflabelformat{equation}{#2#1#3}
 
-% ===================================================================
-% 7. UTILITIES AND CUSTOM COMMANDS
-% ===================================================================
-\usepackage{xcolor}      % For defining and using colors
-\usepackage{soul}        % For highlighting text with \hl{}
-\usepackage{lineno}      % For line numbering
-
-% -- Your custom commands --
 \newcommand{\keywords}[1]{\vspace{2mm}\noindent\textbf{Keywords:} #1}
+\newcommand{\placeholder}[1]{\begingroup\sethlcolor{yellow}\hl{[#1]}\endgroup}
 
-%% ========== DOCUMENT CONTENT ==========
 \begin{document}
 
-% Front matter
 \pagenumbering{roman}
-\title{\textbf{\st{High-Resolution Subsurface Mapping Using SBAS-InSAR and Multilayer Compaction Monitoring Wells for Land Subsidence Mitigation}}}
-\author{
-  Author One\thanks{Department of X, University A, Country. \texttt{author.one@example.com}} \and
-  Author Two\footnotemark[1] \and
-  Author Three\thanks{Department of Y, University B, Country. \texttt{author.three@example.com}} \and
-  Author Four\thanks{Department of Z, University C, Country. \texttt{author.four@example.com}}
-}
-\date{\today}
+\title{\textbf{Monthly Estimation of Depth-Resolved Aquifer-System Compaction during Delayed Monitoring Data Delivery at Tuku, Taiwan}}
+\author{\placeholder{AUTHOR NAMES AND AFFILIATIONS}}
+\date{Draft compiled on \today}
 \maketitle
 
 \begin{abstract}
-Land subsidence from excessive groundwater extraction has long affected the Choushui River Fluvial Plain (CRFP) in Taiwan, increasing flood risks and threatening infrastructure like the Taiwan High Speed Rail (THSR). A network of multilayer compaction monitoring wells (MLCWs) aids in understanding subsidence mechanisms, but their high installation costs limit dense deployment. \st{This study integrates SBAS-InSAR surface deformation data with MLCW measurements using geographically weighted regression (GWR) to map layer-wise compaction regionally. This approach enables cost-effective, high-resolution monitoring to inform groundwater management and infrastructure protection.}
+Land subsidence develops as groundwater withdrawal increases effective stress and compacts susceptible sediments within an aquifer system. Surface displacement measurements describe the total vertical response, but they do not show how the compaction is distributed with depth. Multilayer compaction monitoring wells provide this information directly, although their monthly observations may not be available when a current assessment is required. This study tested whether routinely available monitoring data could provide provisional estimates of monthly compaction during a six-month delay in the delivery of multilayer compaction observations at Tuku, central Taiwan. The analysis represented the monitored profile by six 50~m depth sections and related their monthly compaction to hydraulic head changes, vertical surface displacement from a continuous Global Navigation Satellite System station, and local sediment composition. Bayesian ridge regression was evaluated in temporal order. Six consecutive monthly compaction observations were withheld during each evaluation period, and the model was updated only after the withheld observations became available. The updated model achieved \placeholder{POOLED R2, RMSE, AND MAE} and \placeholder{MAIN DEPTH-DEPENDENT RESULT}. Its performance was \placeholder{COMPARISON WITH FROZEN AND PERSISTENCE BASELINES}. Error-calibrated 90\% prediction intervals attained \placeholder{EMPIRICAL COVERAGE} with a mean width of \placeholder{INTERVAL WIDTH}. These results \placeholder{CONCISE OPERATIONAL CONCLUSION SUPPORTED BY THE FINAL RUN}.
 \end{abstract}
 
-\keywords{land subsidence; \st{mitigation; layer-wise compaction}}
+\keywords{aquifer-system compaction; groundwater level; delayed observations; Bayesian ridge regression; Tuku}
 
 \tableofcontents
 \listoffigures
 \listoftables
 \clearpage
 
-% Main content
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\linenumbers % Start line numbering here
+\linenumbers
 
 \section{Introduction}
-\label{sec:intro}
+\label{sec:introduction}
 \input{sections/intro001}
 
-\section{Study Area \& Data sets}
-\label{sec:study_and_data}
-
+\section{Study Area and Datasets}
+\label{sec:study_data}
 \input{sections/studyarea001}
-
 \input{sections/dataset003}
 
-%\section{Methodology}
 \section{Methodology}
-\label{sec:method}
-
+\label{sec:methodology}
 \input{sections/methods004}
 
 \section{Results}
-\label{sec:result}
+\label{sec:results}
 \input{sections/results001}
 
 \section{Discussion}
-\label{sec:discuss}
+\label{sec:discussion}
 \input{sections/discuss001}
 
-\section{Conclusion}
-\label{sec:conclusion}
+\section{Conclusions}
+\label{sec:conclusions}
+\input{sections/conclusion001}
 
 \section*{Acknowledgements}
-Acknowledge any funding, institutional support, or personal contributions that helped your research.
+\placeholder{FUNDING, DATA PROVIDERS, AND CONTRIBUTOR ACKNOWLEDGEMENTS}
+
+\section*{Author contributions}
+\placeholder{AUTHOR CONTRIBUTION STATEMENT}
+
+\section*{Data availability}
+\placeholder{DATA AND CODE AVAILABILITY STATEMENT}
+
+\section*{Conflict of interest}
+\placeholder{CONFLICT OF INTEREST STATEMENT}
+
+\clearpage
+\appendix
+\input{sections/appendix001}
 
 \bibliography{writing_manu2}
+
 \end{document}
