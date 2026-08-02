@@ -61,16 +61,17 @@ Together, the four datasets linked monthly compaction within each 50~m depth sec
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
+  \setlength{\tabcolsep}{3pt}
   \caption{Datasets used for monthly compaction estimation at Tuku.}
   \label{tab:tuku_data_sources}
-  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}X@{}}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.15\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\centering\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}@{}}
     \toprule
-    \textbf{Dataset} & \textbf{Station or profile} & \textbf{Sampling interval} & \textbf{Observation period} & \textbf{Role in the analysis} \\
+    \textbf{Dataset} & \textbf{Station or profile} & \textbf{Longitude ($^\circ$E)} & \textbf{Latitude ($^\circ$N)} & \textbf{Sampling interval} & \textbf{Observation period} \\
     \midrule
-    MLCW compaction & Tuku MLCW, 0--300~m & Monthly & 01/2010--12/2024 & Monthly reference compaction for six depth sections \\
-    Groundwater level & Tuku wells, Aquifers 1--4 & Daily & 01/2008--12/2024 & Monthly hydraulic head changes \\
-    cGNSS displacement & TKJS & Daily & 01/2010--12/2024 & Monthly vertical surface displacement increments \\
-    Borehole lithology & Tuku borehole, 0--300~m & Static & -- & Sediment composition within each depth section \\
+    MLCW compaction & Tuku MLCW, 0--300~m & 120.390 & 23.688 & Monthly & 01/2010--12/2024 \\
+    Groundwater level & Tuku wells, Aquifers 1--4 & 120.390 & 23.688 & Daily & 01/2008--12/2024 \\
+    cGNSS displacement & TKJS & 120.390 & 23.688 & Daily & 01/2010--12/2024 \\
+    Borehole lithology & Tuku borehole, 0--300~m & 120.390 & 23.688 & Static & -- \\
     \bottomrule
   \end{tabularx}
 \end{table}
