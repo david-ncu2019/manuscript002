@@ -1,16 +1,16 @@
-The methodology followed three stages. First, the monitoring records were converted into monthly response and predictor variables for each depth section. Bayesian ridge regression was then used to estimate monthly compaction. Finally, the estimates and their uncertainty were evaluated during temporary gaps in MLCW data availability and under hypothetical schedules with less frequent MLCW measurements.
+The methodology proceeded from data preparation to model estimation and evaluation. First, the monitoring records were converted into monthly response and predictor variables for each depth section. These variables were then used in Bayesian ridge regression to estimate monthly compaction. Finally, the resulting estimates and their uncertainty were evaluated during temporary gaps in MLCW data availability and under hypothetical schedules with less frequent MLCW measurements.
 
 \subsection{Preparation of model inputs}
 \label{subsec:predictor_preparation}
 
-The observations described in \Cref{subsec:datasets} were first converted to a common monthly time scale. A deformation time series model aligned the MLCW and cGNSS displacement records and produced monthly increments. The sediment proportions were represented by isometric logratio coordinates, and the transformed records were combined with hydraulic head changes and seasonal terms to form the regression dataset.
+To prepare these monthly variables, the observations described in \Cref{subsec:datasets} were converted into a common monthly dataset. Because the MLCW and cGNSS measurements were collected on different dates, a deformation time series model was used to align their displacement records and express the observed deformation as monthly increments. Sediment composition, which provided time-independent information for each depth section, was represented by isometric logratio coordinates. These dynamic and static variables were then combined with hydraulic head changes and seasonal terms to form the regression dataset.
 
 \subsubsection{Deformation time series model}
 \label{subsec:deformation_model}
 
-The MLCW and cGNSS records did not share a uniform set of observation dates. Direct differencing of their raw measurements would therefore compare intervals with unequal starting and ending dates. A deformation time series model was fitted to each displacement series so that all series could be evaluated on the same monthly dates.
+This temporal alignment was necessary because the MLCW and cGNSS displacement records were collected on different dates. Consequently, direct differencing of the raw measurements would compare intervals with unequal starting and ending dates. To obtain comparable monthly increments, a deformation time series model was fitted to each displacement series so that all series could be evaluated on the same monthly dates.
 
-The model represented displacement as the sum of a reference value, a linear component, annual and semiannual components, and offsets at documented discontinuities. For observation time $t$, the fitted displacement was
+This model represented displacement as the sum of a reference value, a linear component, annual and semiannual components, and offsets at documented discontinuities. For observation time $t$, the fitted displacement was
 \begin{equation}
 d(t)=d_0+v(t-t_0)
 +\sum_{k\in\{1,2\}}
@@ -18,28 +18,28 @@ d(t)=d_0+v(t-t_0)
 +\sum_{j=1}^{J}c_j H(t-t_j),
 \label{eq:deformation_model}
 \end{equation}
-where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_k$ and $b_k$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002}. Evaluation at the common monthly dates produced aligned cumulative displacement records. Differences between consecutive fitted values represented the MLCW compaction and cGNSS vertical displacement that occurred during each month. The resulting monthly MLCW increments were used directly as the response variable in the subsequent regression analysis.
+where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_k$ and $b_k$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002}. Evaluating the fitted model at the common monthly dates produced aligned cumulative displacement records. Differences between consecutive fitted values then represented the MLCW compaction and cGNSS vertical displacement that occurred during each month. The resulting monthly MLCW increments served as the response variable in the subsequent regression analysis.
 
 \subsubsection{Isometric logratio transformation of sediment composition}
 \label{subsec:ilr_transformation}
 
-Sediment composition provided time-independent information that distinguished the six depth sections. Within each section, composition was expressed as the proportions of gravel, coarse sand, fine sand, and fine-grained deposits. Because the four proportions summed to 100\%, an increase in one proportion required a decrease in at least one other proportion. Treating all four proportions as independent predictors would therefore introduce exact linear dependence.
+Whereas the displacement increments described temporal variation, sediment composition provided time-independent information that distinguished the six depth sections. Within each section, composition was expressed as the proportions of gravel, coarse sand, fine sand, and fine-grained deposits. Because these four proportions summed to 100\%, an increase in one proportion required a decrease in at least one other proportion. Treating the proportions as independent predictors would therefore introduce exact linear dependence.
 
-An isometric logratio transformation represented the relative composition with three independent coordinates \citep{egozcue_isometric_2003, oh_using_2024}. A sequential binary partition first divided the four sediment components into physically interpretable groups. Each coordinate expressed the logarithmic ratio between the geometric means of two groups. For groups containing $r$ and $s$ components, the corresponding balance was
+To remove this dependence, an isometric logratio transformation represented the relative composition with three independent coordinates \citep{egozcue_isometric_2003, oh_using_2024}. A sequential binary partition first divided the four sediment components into physically interpretable groups. Each coordinate then expressed the logarithmic ratio between the geometric means of two groups. For groups containing $r$ and $s$ components, the corresponding balance was
 \begin{equation}
 z=\sqrt{\frac{rs}{r+s}}
 \ln\left(\frac{g(\boldsymbol{x}_{+})}{g(\boldsymbol{x}_{-})}\right),
 \label{eq:ilr_balance}
 \end{equation}
-where $g(\boldsymbol{x}_{+})$ and $g(\boldsymbol{x}_{-})$ denote the geometric means of the components in the two groups. The three balances retained the lithological differences among the Tuku sections without assigning unmeasured hydraulic or mechanical properties to the logged sediment types.
+where $g(\boldsymbol{x}_{+})$ and $g(\boldsymbol{x}_{-})$ denote the geometric means of the components in the two groups. Together, the three balances retained the lithological differences among the Tuku sections without assigning unmeasured hydraulic or mechanical properties to the logged sediment types.
 
 \subsubsection{Assembly of monthly model inputs}
 
-After temporal alignment and compositional transformation, each observation represented one depth section during one month. The corresponding response was the monthly MLCW compaction increment. The predictors described hydraulic conditions, vertical surface displacement, sediment composition, and seasonal variation.
+The monthly deformation increments and sediment balances were then assembled into a common model dataset. Each observation in this dataset represented one depth section during one month, with the monthly MLCW compaction increment serving as the response. The corresponding predictors described hydraulic conditions, vertical surface displacement, sediment composition, and seasonal variation.
 
-Monthly hydraulic head changes were included for the target section and for the other depth sections at Tuku. The cGNSS increments represented the concurrent vertical surface displacement, while the sediment balances distinguished lithology among sections. Annual and semiannual terms represented recurring seasonal variation. Current and lagged hydraulic head and cGNSS changes represented immediate and delayed associations with monthly compaction.
+Hydraulic conditions were represented by current and lagged head changes in the target section and by concurrent head changes in the other Tuku sections. Vertical surface displacement was represented by current and lagged cGNSS increments, while annual and semiannual terms described recurring seasonal variation. Together, these time-varying predictors represented concurrent and delayed associations with monthly compaction.
 
-Data from all six sections were combined in one station-specific calibration dataset. Section indicators and selected interaction terms allowed the relations with compaction to vary with depth, season, and sediment composition. Before each six-month evaluation block, predictor centering and scaling were calculated only from the calibration observations available at that time and were then applied to the evaluation block. Previous MLCW compaction values were not used as predictors. \Cref{tab:predictor_summary} summarizes the information represented by each predictor group, while \Cref{app:predictors} records the final variable names, temporal transformations, and lag periods.
+The sediment balances added the time-independent lithological information needed to distinguish the six depth sections. Section indicators and selected interaction terms further allowed the relations between the time-varying predictors and compaction to vary with depth, season, and sediment composition. Data from all six sections were therefore combined in one station-specific calibration dataset. Before each six-month evaluation block, predictor centering and scaling were calculated only from the calibration observations available at that time and were then applied to the evaluation block. Previous MLCW compaction values were not used as predictors. \Cref{tab:predictor_summary} summarizes the information represented by each predictor group, while \Cref{app:predictors} records the final variable names, temporal transformations, and lag periods.
 
 \begin{table}[htbp]
   \centering
@@ -51,8 +51,8 @@ Data from all six sections were combined in one station-specific calibration dat
     \toprule
     \textbf{Predictor group} & \textbf{Information represented} & \textbf{Role in the model} \\
     \midrule
-    cGNSS displacement & Current and earlier surface displacement & Described the integrated vertical response at Tuku \\
-    Target-section hydraulic head & Current and earlier hydraulic head changes & Described hydraulic conditions associated with the section being estimated \\
+    cGNSS displacement & Current and lagged vertical surface displacement increments & Described the integrated vertical response at Tuku \\
+    Target-section hydraulic head & Current and lagged hydraulic head changes & Described hydraulic conditions associated with the section being estimated \\
     Other-section hydraulic head & Concurrent head changes in the remaining sections & Described hydraulic conditions elsewhere in the monitored profile \\
     Seasonal terms & Annual and semiannual variation & Represented recurring seasonal patterns \\
     Sediment composition & Three isometric logratio balances & Distinguished material composition among depth sections \\
