@@ -20,6 +20,11 @@
 \usepackage{indentfirst}
 \usepackage{titlesec}
 \usepackage[authoryear]{natbib}
+% Number bibliography entries while retaining author-year citations in the text.
+\makeatletter
+\renewcommand{\NAT@biblabel}[1]{\hfill[#1]}
+\renewcommand{\NAT@bibsetup}[1]{\NAT@bibsetnum{#1}}
+\makeatother
 \usepackage{xcolor}
 \usepackage{soul}
 \usepackage{lineno}
@@ -67,7 +72,7 @@
 \maketitle
 
 \begin{abstract}
-Land subsidence develops as groundwater withdrawal increases effective stress and compacts susceptible sediments within an aquifer system. Surface displacement measurements describe the total vertical response, but they do not show how the compaction is distributed with depth. Multilayer compaction monitoring wells provide this information directly, although their monthly observations may not be available when a current assessment is required. This study tested whether routinely available monitoring data could provide provisional estimates of monthly compaction during a six-month delay in the delivery of multilayer compaction observations at Tuku, central Taiwan. The analysis represented the monitored profile by six 50~m depth sections and related their monthly compaction to hydraulic head changes, vertical surface displacement from a continuous Global Navigation Satellite System station, and local sediment composition. Bayesian ridge regression was evaluated in temporal order. Six consecutive monthly compaction observations were withheld during each evaluation period, and the model was updated only after the withheld observations became available. The updated model achieved \placeholder{POOLED R2, RMSE, AND MAE} and \placeholder{MAIN DEPTH-DEPENDENT RESULT}. Its performance was \placeholder{COMPARISON WITH FROZEN AND PERSISTENCE BASELINES}. Error-calibrated 90\% prediction intervals attained \placeholder{EMPIRICAL COVERAGE} with a mean width of \placeholder{INTERVAL WIDTH}. These results \placeholder{CONCISE OPERATIONAL CONCLUSION SUPPORTED BY THE FINAL RUN}.
+%Land subsidence develops as groundwater withdrawal increases effective stress and compacts susceptible sediments within an aquifer system. Surface displacement measurements describe the total vertical response, but they do not show how the compaction is distributed with depth. Multilayer compaction monitoring wells provide this information directly, although their monthly observations may not be available when a current assessment is required. This study tested whether routinely available monitoring data could provide provisional estimates of monthly compaction during a six-month delay in the delivery of multilayer compaction observations at Tuku, central Taiwan. The analysis represented the monitored profile by six 50~m depth sections and related their monthly compaction to hydraulic head changes, vertical surface displacement from a continuous Global Navigation Satellite System station, and local sediment composition. Bayesian ridge regression was evaluated in temporal order. Six consecutive monthly compaction observations were withheld during each evaluation period, and the model was updated only after the withheld observations became available. The updated model achieved \placeholder{POOLED R2, RMSE, AND MAE} and \placeholder{MAIN DEPTH-DEPENDENT RESULT}. Its performance was \placeholder{COMPARISON WITH FROZEN AND PERSISTENCE BASELINES}. Error-calibrated 90\% prediction intervals attained \placeholder{EMPIRICAL COVERAGE} with a mean width of \placeholder{INTERVAL WIDTH}. These results \placeholder{CONCISE OPERATIONAL CONCLUSION SUPPORTED BY THE FINAL RUN}.
 \end{abstract}
 
 \keywords{aquifer-system compaction; groundwater level; delayed observations; Bayesian ridge regression; Tuku}
@@ -92,19 +97,19 @@ Land subsidence develops as groundwater withdrawal increases effective stress an
 
 \section{Methodology}
 \label{sec:methodology}
-\input{sections/methods004}
+\input{sections/methods005}
 
 \section{Results}
 \label{sec:results}
-\input{sections/results001}
+\input{sections/results002}
 
 \section{Discussion}
 \label{sec:discussion}
-\input{sections/discuss001}
+\input{sections/discuss002}
 
 \section{Conclusions}
 \label{sec:conclusions}
-\input{sections/conclusion001}
+\input{sections/conclusion002}
 
 \section*{Acknowledgements}
 \placeholder{FUNDING, DATA PROVIDERS, AND CONTRIBUTOR ACKNOWLEDGEMENTS}

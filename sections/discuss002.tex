@@ -1,0 +1,44 @@
+\subsection{Monthly compaction estimation during delayed data delivery}
+\label{subsec:discussion_delay_v2}
+
+The Tuku experiment examined a practical monitoring problem. Monthly MLCW measurements were assumed to continue, but their delivery was delayed for six months. During that interval, contemporaneous hydraulic head and cGNSS observations provided provisional estimates of compaction in six depth sections. \placeholder{INTERPRET THE PER-SECTION MODEL PERFORMANCE RELATIVE TO BASELINES}. Direct MLCW observations nevertheless remained essential because they provided the reference measurements needed to evaluate and periodically update the model.
+
+The analysis estimated conditions during each target month rather than forecasting future groundwater behaviour. Each estimate used hydraulic head and cGNSS records observed in that same month. The resulting capability is therefore best understood as temporary completion of a delayed monitoring record and should not be described as a six-month forecast or as a replacement for subsurface compaction measurements.
+
+Previous data-driven studies reconstructed missing compaction observations from groundwater, rainfall, groundwater-use, and land-use information \citep{liu_reconstructing_2023, liu_deep_2025}. The present analysis extended this direction by estimating monthly increments within six standardised depth sections and by withholding consecutive observations in temporal order. \placeholder{COMPARE FINAL PERFORMANCE WITH PRIOR STUDIES USING COMPATIBLE METRICS ONLY}. The ordered evaluation represented delayed data delivery more closely than a random division of the historical record because every estimate depended only on information available at that time.
+
+\subsection{Differences in estimation performance with depth}
+\label{subsec:discussion_depth_v2}
+
+Section-level results showed \placeholder{MAIN DEPTH-DEPENDENT FINDING}. Several physical and observational factors can produce such differences. Hydraulic head was observed within screened intervals rather than continuously through the subsurface profile. The cGNSS record described vertical deformation integrated over the full underlying aquifer system and could not assign that deformation to a particular depth.
+
+The stronger performance in \placeholder{STRONG SECTION OR SECTIONS} was consistent with \placeholder{SUPPORTED RELATION AMONG OBSERVED HEAD, SURFACE DISPLACEMENT, AND COMPACTION}. By comparison, the larger errors in \placeholder{WEAK SECTION OR SECTIONS} coincided with \placeholder{OBSERVED EVIDENCE ONLY}. The 200--250~m depth section (S5) attained a near-zero or negative $R^2$, consistent with the absence of a piezometric observation well screened within the compacting fine-grained deposits at that depth. The hydraulic head changes used as predictors for this section were therefore a physically imprecise proxy for the actual pore-pressure conditions driving compaction.
+
+Any explanation involving delayed aquitard drainage, preconsolidation stress, or hydraulic connection must remain conditional unless those properties were measured independently. The present predictors described statistical associations with compaction and did not establish the mechanical cause of each monthly response. The sediment balances identified differences in the relative proportions of coarse- and fine-grained deposits among the Tuku sections but did not provide compressibility, skeletal specific storage, preconsolidation stress, or vertical hydraulic conductivity. Physical attribution of delayed deformation would require geotechnical measurements or a coupled groundwater flow and aquifer-system compaction model \citep{galloway_land_1999, hung2012_mlcw}.
+
+\subsection{Value of model updates and prediction intervals}
+\label{subsec:discussion_updates_v2}
+
+The comparison between the updated and frozen models tested whether newly released MLCW observations improved later estimates. The observed \placeholder{UPDATE BENEFIT OR LACK OF BENEFIT} indicates \placeholder{INTERPRETATION LIMITED TO THE TUKU RECORD}. The change in performance from the first to the sixth month after updating further showed \placeholder{INTERPRET UPDATE-DISTANCE PATTERN}. Together, these comparisons determined whether a fixed historical relation was adequate or whether the model needed recent compaction measurements to follow changing conditions.
+
+The Bayesian predictive intervals provided uncertainty bounds for every monthly estimate beginning with the first evaluation block. Their empirical coverage of \placeholder{COVERAGE} and mean width of \placeholder{WIDTH} showed \placeholder{INTERPRET CALIBRATION AND PRACTICAL PRECISION}. Interval width varied with \placeholder{SUPPORTED SECTION OR UPDATE-DISTANCE PATTERN}. Because the intervals were derived from the posterior predictive distribution rather than from an accumulated error archive, they were available from the start of the evaluation and did not require a minimum number of prior observations to become reportable.
+
+\subsection{Implications of less frequent MLCW measurements}
+\label{subsec:discussion_reduced_sampling_v2}
+
+Delayed data delivery and reduced measurement frequency create different information gaps. The evaluated design assumed that six monthly MLCW observations existed and became available together at the end of each block. A field schedule with one MLCW measurement every six or twelve months would instead provide only the total compaction accumulated between two visits. That endpoint difference would not reveal how compaction was distributed among the intervening months.
+
+Monthly model estimates could still describe the likely timing of compaction between less frequent field visits, while the next MLCW measurement could test their accumulated total. \placeholder{SUMMARISE COMBINED H6 AND H12 SENSITIVITY RESULTS}. The endpoint constraint added direct interval information to later model updates without revealing the individual monthly increments.
+
+Comparison between the six- and twelve-month schedules showed \placeholder{H6 VERSUS H12 COMPARISON}. \placeholder{INTERPRET WHETHER LONGER GAPS DEGRADE MONTHLY DISTRIBUTION OR ONLY ENDPOINT ACCURACY}. These results were limited to the Tuku station and the three initial calibration periods examined. Differences among scenarios reflected both the amount of initial MLCW information and the hydrogeological conditions during their evaluation periods and should not be transferred directly to other MLCW stations.
+
+\subsection{Limitations and practical scope}
+\label{subsec:discussion_limitations_v2}
+
+The first limitation is the use of one monitoring site. The fitted relations reflected the Tuku sediment profile, well configuration, observation periods, and historical range of hydraulic conditions. Their performance cannot be transferred directly to another site. Evaluation at additional MLCW stations is required before the approach can support broader application across the Choushui River Alluvial Fan.
+
+The second limitation concerns the information contained in the predictors. Surface displacement combined deformation above and below the deepest MLCW ring, and groundwater wells observed hydraulic head only within their screened intervals. The lithological log added depth information but did not describe time-varying material properties. These constraints should be considered when the estimates are used to identify short periods of elevated compaction.
+
+Within these limits, the study provided a local test of monitoring continuity. The model did not remove the need for MLCW observations. Instead, the model used more frequently available hydraulic and surface displacement records to bridge a known delay and then incorporated the direct compaction measurements when they arrived. This division of roles preserved the MLCW as the reference observation while allowing monthly subsurface conditions to be assessed before the monitoring record was complete.
+
+\FloatBarrier
