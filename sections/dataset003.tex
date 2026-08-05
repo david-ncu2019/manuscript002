@@ -19,6 +19,39 @@ Vertical surface displacement represented vertical deformation integrated over t
 
 The Tuku borehole lithological log documented changes in sediment composition with depth along the MLCW borehole. The source record specified the upper and lower boundaries of each logged interval and the corresponding sediment type. Because the original intervals did not coincide with the six standardized 50~m depth sections, sediment thicknesses were aggregated within each section. Within this standardized framework, sediment composition was represented by the proportions of gravel, coarse sand, fine sand, and fine-grained deposits comprising clay, silt, and mud. The resulting proportions described lithological differences among depth sections and remained constant through time. Before model development, these compositional data were transformed using the approach described in \Cref{subsec:ilr_transformation}.
 
+\begin{figure}[p]
+  \centering
+  \begin{subfigure}[t]{0.34\textwidth}
+    \centering
+    \fbox{\parbox[c][0.94\linewidth][c]{0.94\linewidth}{\centering
+      \placeholder{BOREHOLE LITHOLOGY PROFILE AND MLCW COMPACTION HISTORY (10:10)}}}
+    \caption{Borehole lithology and MLCW compaction history.}
+    \label{fig:tuku_observations_a}
+  \end{subfigure}
+
+  \vspace{0.6\baselineskip}
+
+  \begin{subfigure}[t]{0.68\textwidth}
+    \centering
+    \fbox{\parbox[c][0.52875\linewidth][c]{0.94\linewidth}{\centering
+      \placeholder{TOTAL VERTICAL SURFACE DEFORMATION AND MLCW TIME SERIES (16:9)}}}
+    \caption{Time series of total vertical surface deformation and MLCW compaction.}
+    \label{fig:tuku_observations_b}
+  \end{subfigure}
+
+  \vspace{0.6\baselineskip}
+
+  \begin{subfigure}[t]{0.68\textwidth}
+    \centering
+    \fbox{\parbox[c][0.52875\linewidth][c]{0.94\linewidth}{\centering
+      \placeholder{GROUNDWATER LEVEL TIME SERIES (16:9)}}}
+    \caption{Groundwater level time series.}
+    \label{fig:tuku_observations_c}
+  \end{subfigure}
+  \caption{Observational datasets used for the analysis at Tuku.}
+  \label{fig:tuku_observations}
+\end{figure}
+
 Together, the four datasets linked monthly compaction within each 50~m depth section to corresponding hydraulic head changes, vertical surface displacement, and sediment composition. The MLCW increments provided monthly section-level compaction, while hydraulic head changes and surface displacement described variation through time and the lithological profile described differences among depth sections. After temporal alignment, these records formed the integrated monthly dataset summarized in \Cref{fig:tuku_data_workflow}. The following section describes how the records were transformed, assembled for modeling, and used to estimate monthly section-level compaction with Bayesian ridge regression.
 
 \begin{figure}[htbp]
