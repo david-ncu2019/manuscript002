@@ -1,0 +1,56 @@
+Monthly compaction estimates were evaluated under delayed and reduced-frequency conditions of MLCW data availability. Results are presented with their practical implications because each condition provides a different amount of direct subsurface information.
+
+\subsection{Overall nowcasting performance}
+\label{subsec:results_delayed_nowcast}
+
+The delayed-data analysis contained \placeholder{TOTAL N} monthly estimates within \placeholder{NUMBER OF BLOCKS} nonoverlapping six-month blocks. Observed monthly compaction increments ranged from \placeholder{MIN OBSERVED} to \placeholder{MAX OBSERVED} across the six depth sections. \placeholder{MAIN OBSERVED DEPTH PATTERN}. These observations defined the magnitude and temporal variation that the model was required to reproduce.
+
+The observed and estimated increments showed \placeholder{OVERALL AGREEMENT PATTERN BY DEPTH}, with section-level $R^2$ ranging from \placeholder{MIN R2} to \placeholder{MAX R2} (\Cref{fig:delayed_monthly_nowcast}). The section-level results in \Cref{tab:delayed_performance} report the complete performance metrics for the six independent per-section models. The 200--250~m section (S5) attained \placeholder{S5 R2 VALUE}, the weakest result among the six sections; this section has no piezometer screened within its compacting fine-grained deposits, so the hydraulic head changes available as predictors are a physically imprecise proxy for the pore-pressure conditions driving compaction at that depth.
+
+A proportion of \placeholder{OBSERVATIONS WITHIN INTERVAL} of the monthly observations fell within their 90\% prediction interval, indicating \placeholder{PLAIN-LANGUAGE COVERAGE INTERPRETATION}.
+
+\subsection{Performance over the six-month evaluation gap}
+\label{subsec:results_gap_horizon}
+
+Because MLCW observations were withheld for six months at a time, estimation accuracy could change as the interval since the last confirmed measurement lengthened. Errors grouped by position within each block showed \placeholder{H1 TO H6 ACCURACY PATTERN}, with month-one RMSE of \placeholder{MONTH1 RMSE} compared with month-six RMSE of \placeholder{MONTH6 RMSE}. \placeholder{INTERPRETATION OF WHETHER PERFORMANCE REMAINS VIABLE THROUGH THE FULL SIX-MONTH GAP}.
+
+\subsection{Sensitivity to reduced MLCW measurement frequency}
+\label{subsec:results_reduced_frequency}
+
+\placeholder{THIS SUBSECTION REPORTS THE SIX- AND TWELVE-MONTH REDUCED-FREQUENCY SENSITIVITY RESULTS FOR THE ADOPTED P0/LEVEL1A PER-SECTION MODEL. NO SUCH ANALYSIS EXISTS YET: THE SIX-MONTH-BLOCK, PERIODIC-REMEASUREMENT-WITH-REFIT DESIGN DESCRIBED IN METHODS005.TEX SUBSEC:SPARSE\_MEASUREMENT\_SENSITIVITY HAS NOT BEEN RUN FOR ANY PROFILE. AN EARLIER, DIFFERENT EXPERIMENT (TOTAL MONITORING CESSATION WITH NO REFIT, UNDER THE P3/LEVEL1B POOLED MODEL) EXISTS BUT ANSWERS A DIFFERENT PHYSICAL QUESTION AND USES THE WRONG MODEL PROFILE; ITS NUMBERS MUST NOT BE SUBSTITUTED HERE. THIS SUBSECTION STAYS BLOCKED ON BLOCKER \#1.}
+
+\subsection{Predictor group contributions}
+\label{subsec:results_predictor_contributions}
+
+Standardized regression coefficients, grouped by predictor category, indicated \placeholder{DOMINANT PREDICTOR GROUP OR GROUPS BY SECTION}. \placeholder{DESCRIBE CGNSS DISPLACEMENT CONTRIBUTION}. \placeholder{DESCRIBE TARGET-SECTION HYDRAULIC HEAD CONTRIBUTION}. \placeholder{DESCRIBE OTHER-SECTION HYDRAULIC HEAD CONTRIBUTION}; these cross-section terms were included as candidate predictors representing system-wide hydraulic conditions and did not consistently outperform models restricted to a section's own head changes. \placeholder{DESCRIBE SEASONAL TERM CONTRIBUTION}. These coefficient patterns are presented as evidence that the model captured physically interpretable relations among the monitored variables rather than an unconstrained statistical fit.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{figures/TUKU_section_timeseries.pdf}
+  \caption{Observed and estimated monthly compaction increments for the six standardized depth sections during temporary MLCW data delays. Shaded bands represent 90\% Bayesian predictive intervals. Vertical lines mark the ends of the six-month evaluation blocks.}
+  \label{fig:delayed_monthly_nowcast}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \scriptsize
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Performance of monthly compaction estimates during temporary MLCW data delays (mm/month).}
+  \label{tab:delayed_performance}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    \textbf{Section} & \textbf{$n$} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} & \textbf{Coverage} & \textbf{Width} \\
+    \midrule
+    S1 & \placeholder{S1 N} & \placeholder{S1 R2} & \placeholder{S1 RMSE} & \placeholder{S1 MAE} & \placeholder{S1 COV}\% & \placeholder{S1 WID} \\
+    S2 & \placeholder{S2 N} & \placeholder{S2 R2} & \placeholder{S2 RMSE} & \placeholder{S2 MAE} & \placeholder{S2 COV}\% & \placeholder{S2 WID} \\
+    S3 & \placeholder{S3 N} & \placeholder{S3 R2} & \placeholder{S3 RMSE} & \placeholder{S3 MAE} & \placeholder{S3 COV}\% & \placeholder{S3 WID} \\
+    S4 & \placeholder{S4 N} & \placeholder{S4 R2} & \placeholder{S4 RMSE} & \placeholder{S4 MAE} & \placeholder{S4 COV}\% & \placeholder{S4 WID} \\
+    S5 & \placeholder{S5 N} & \placeholder{S5 R2} & \placeholder{S5 RMSE} & \placeholder{S5 MAE} & \placeholder{S5 COV}\% & \placeholder{S5 WID} \\
+    S6 & \placeholder{S6 N} & \placeholder{S6 R2} & \placeholder{S6 RMSE} & \placeholder{S6 MAE} & \placeholder{S6 COV}\% & \placeholder{S6 WID} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\FloatBarrier

@@ -1,84 +1,94 @@
-The results are presented in the same order as the evaluation questions. The first subsection describes the observed compaction that the model was required to reproduce. The second compares monthly estimates among the six depth sections. The third examines whether periodic updating improved the estimates and whether performance changed within a six-month delay. The final subsection evaluates the coverage and width of the prediction intervals. All yellow fields remain to be replaced by values from the frozen Tuku run.
+Monthly compaction estimates were evaluated under three conditions of MLCW data availability. The primary condition delayed complete monthly records for six months, whereas two reduced-frequency conditions provided one cumulative observation every six or twelve months. Results are presented with their practical implications because each condition provides a different amount of direct subsurface information.
 
-\subsection{Observed monthly compaction at Tuku}
-\label{subsec:results_observations}
+\subsection{Monthly compaction nowcasting during delayed MLCW data availability}
+\label{subsec:results_delayed_nowcast}
 
-The evaluation period contained \placeholder{NUMBER OF MONTHS} monthly observations for each of the six depth sections. Observed monthly compaction ranged from \placeholder{MINIMUM OBSERVED INCREMENT WITH UNIT} to \placeholder{MAXIMUM OBSERVED INCREMENT WITH UNIT}, while \placeholder{NUMBER OR PERCENTAGE} of the observations represented expansion or rebound. The distribution varied with depth. \placeholder{SECTIONS WITH GREATEST OBSERVED COMPACTION} accounted for \placeholder{SHARE OF TOTAL OR OTHER DESCRIPTIVE VALUE}, whereas \placeholder{SECTIONS WITH SMALLEST OBSERVED COMPACTION} showed \placeholder{CONCISE OBSERVED PATTERN}. These observations establish the range and temporal variability against which the estimates were evaluated.
+The delayed-data analysis contained 138 monthly estimates within 23 nonoverlapping six-month blocks. Observed monthly compaction increments ranged from $-3.67$~mm to $4.44$~mm across the six depth sections. \placeholder{MAIN OBSERVED DEPTH PATTERN}. These observations defined the magnitude and temporal variation that the model was required to reproduce.
 
-\subsection{Estimation performance among depth sections}
-\label{subsec:results_sections}
+The observed and estimated increments showed close agreement in most sections but weaker agreement in the two deepest sections, with section-level $R^2$ ranging from \placeholder{MIN R2} to \placeholder{MAX R2} (\Cref{fig:delayed_monthly_nowcast}). Performance differed with depth. Section \placeholder{BEST SECTION} attained the smallest RMSE (\placeholder{MIN RMSE}~mm), whereas Section \placeholder{WORST SECTION} attained the largest RMSE (\placeholder{MAX RMSE}~mm). The section-level results in \Cref{tab:delayed_performance} provide the complete performance metrics for the independent models.
 
-Across all evaluation blocks and depth sections, the updated model attained an $R^2$ of \placeholder{POOLED R2}, an RMSE of \placeholder{POOLED RMSE WITH UNIT}, and an MAE of \placeholder{POOLED MAE WITH UNIT}. The observed and estimated monthly increments followed \placeholder{MAIN TEMPORAL AGREEMENT OR DISAGREEMENT} (\Cref{fig:section_timeseries}). The largest individual error was \placeholder{MAXIMUM ABSOLUTE ERROR WITH UNIT} and occurred in \placeholder{SECTION AND MONTH}.
+The 90\% prediction intervals were constructed directly from the Bayesian posterior variance for all monthly section estimates. Their empirical coverage ranged from \placeholder{MIN COVERAGE} to \placeholder{MAX COVERAGE} across the sections. Coverage changed from \placeholder{MAIN MONTH1 COVERAGE} during the first month after a model update to \placeholder{MAIN MONTH6 COVERAGE} during the sixth month. Over the same period, mean interval width changed from \placeholder{MAIN MONTH1 WIDTH WITH UNIT} to \placeholder{MAIN MONTH6 WIDTH WITH UNIT}. These values indicate \placeholder{MAIN INTERVAL INTERPRETATION}, although the nominal coverage level does not guarantee the same performance under future monitoring conditions.
 
-Estimation performance differed among the six sections (\Cref{tab:performance_by_section}). \placeholder{BEST-PERFORMING SECTION OR SECTIONS} attained the smallest RMSE of \placeholder{VALUE WITH UNIT}, while \placeholder{WEAKEST SECTION OR SECTIONS} attained the largest RMSE of \placeholder{VALUE WITH UNIT}. Section-level $R^2$ values ranged from \placeholder{MINIMUM R2} to \placeholder{MAXIMUM R2}. The remaining sections showed \placeholder{CONCISE PATTERN NEEDED TO COMPLETE THE DEPTH COMPARISON}.
+The delayed-data analysis estimated compaction for months in which GWL and cGNSS observations were already available. It did not forecast future groundwater conditions. The results therefore describe the temporary completion of a delayed MLCW record rather than a replacement for direct subsurface measurements. Once the six monthly MLCW observations became available, they remained necessary for evaluating the estimates and updating the model before the next block.
 
-\subsection{Effect of periodic model updating}
-\label{subsec:results_updates}
+\subsection{Sensitivity to MLCW measurements collected every six months}
+\label{subsec:discussion_reduced_sampling}
+\label{subsec:results_sparse_h6}
 
-Periodic updating was assessed by comparing the expanding model with a model fitted only once during the initial calibration period. The updated model \placeholder{IMPROVED OR DID NOT IMPROVE} the pooled RMSE by \placeholder{ABSOLUTE AND PERCENTAGE CHANGE} relative to the frozen model (\Cref{tab:model_comparison}). Its error was also \placeholder{COMPARISON WITH LAST-OBSERVATION BASELINE} and \placeholder{COMPARISON WITH SEASONAL BASELINE}. These comparisons show \placeholder{DIRECT RESULT ABOUT THE VALUE OF NEWLY RELEASED MLCW OBSERVATIONS}.
+The six-month sensitivity analysis replaced the complete monthly MLCW record after the initial calibration period with one cumulative observation at the end of each six-month interval. The three scenarios began with 36, 60, or 96 consecutive monthly observations. Their first reduced-frequency measurements therefore occurred at months 42, 66, and 102, respectively. GWL and cGNSS observations remained available each month, while the endpoint MLCW observation constrained the accumulated compaction before the next interval was estimated.
 
-Performance within the six-month blocks followed \placeholder{PATTERN FROM MONTH 1 TO MONTH 6} (\Cref{fig:update_distance_performance}). RMSE changed from \placeholder{MONTH-1 RMSE} in the first month after updating to \placeholder{MONTH-6 RMSE} in the sixth month. The corresponding change in MAE was \placeholder{MONTH-1 TO MONTH-6 MAE CHANGE}. Section \placeholder{SECTION} showed the clearest deterioration with time since updating, whereas Section \placeholder{SECTION} showed \placeholder{STABLE OR DIFFERENT PATTERN}.
+Monthly estimation accuracy under the three initial calibration periods is summarized in \Cref{tab:sparse_interval_performance}. The 36-month scenario attained an MAE of \placeholder{SPARSE H6 TRAIN36 MONTHLY MAE WITH UNIT}, compared with \placeholder{SPARSE H6 TRAIN60 MONTHLY MAE WITH UNIT} after 60 months and \placeholder{SPARSE H6 TRAIN96 MONTHLY MAE WITH UNIT} after 96 months. The corresponding cumulative endpoint MAEs were \placeholder{SPARSE H6 TRAIN36 ENDPOINT MAE WITH UNIT}, \placeholder{SPARSE H6 TRAIN60 ENDPOINT MAE WITH UNIT}, and \placeholder{SPARSE H6 TRAIN96 ENDPOINT MAE WITH UNIT}. The individual interval errors in \Cref{fig:sparse_interval_sensitivity} show \placeholder{SPARSE H6 ERROR DISTRIBUTION PATTERN}.
 
-\subsection{Prediction interval performance}
-\label{subsec:results_intervals}
+The six-month results indicate \placeholder{H6 INTERPRETATION}. Monthly MLCW observations retained for retrospective evaluation showed how well the model distributed the accumulated deformation among the intervening months, whereas each simulated field visit provided only the cumulative change since the preceding measurement. The endpoint constraint therefore added direct interval information to later model updates without revealing the six hidden monthly increments.
 
-Prediction intervals were available for \placeholder{NUMBER AND PERCENTAGE OF ELIGIBLE ESTIMATES} after the minimum calibration archive had been established. The nominal 90\% intervals achieved a pooled empirical coverage of \placeholder{POOLED COVERAGE} and a mean width of \placeholder{POOLED WIDTH WITH UNIT}. Coverage among sections ranged from \placeholder{MINIMUM COVERAGE AND SECTION} to \placeholder{MAXIMUM COVERAGE AND SECTION}. The section-level values are reported in \Cref{tab:performance_by_section}.
+\subsection{Sensitivity to MLCW measurements collected every twelve months}
+\label{subsec:results_sparse_h12}
 
-Interval width \placeholder{PATTERN WITH DEPTH OR ERROR MAGNITUDE}. Across the six months after each update, coverage changed from \placeholder{MONTH-1 COVERAGE} to \placeholder{MONTH-6 COVERAGE}, while mean width changed from \placeholder{MONTH-1 WIDTH} to \placeholder{MONTH-6 WIDTH}. The combined coverage and width results show \placeholder{DIRECT CALIBRATION RESULT WITHOUT INTERPRETATION}.
+The twelve-month analysis followed the same sequence but provided one cumulative MLCW observation after every twelve estimated months. The first reduced-frequency measurements occurred at months 48, 72, and 108 for the 36-, 60-, and 96-month initial calibration periods. Each scenario then continued through complete twelve-month intervals ending no later than the final month shared by the MLCW, GWL, and cGNSS records.
+
+Monthly MAE was \placeholder{SPARSE H12 TRAIN36 MONTHLY MAE WITH UNIT}, \placeholder{SPARSE H12 TRAIN60 MONTHLY MAE WITH UNIT}, and \placeholder{SPARSE H12 TRAIN96 MONTHLY MAE WITH UNIT} for the three initial calibration periods. Their cumulative endpoint MAEs were \placeholder{SPARSE H12 TRAIN36 ENDPOINT MAE WITH UNIT}, \placeholder{SPARSE H12 TRAIN60 ENDPOINT MAE WITH UNIT}, and \placeholder{SPARSE H12 TRAIN96 ENDPOINT MAE WITH UNIT}, respectively. Comparison with the six-month scenarios showed \placeholder{SPARSE H12 VERSUS H6 RESULT}. The interval-level values in \Cref{fig:sparse_interval_sensitivity} further show \placeholder{SPARSE H12 ERROR DISTRIBUTION PATTERN}.
+
+The twelve-month results indicate \placeholder{H12 INTERPRETATION}. Longer intervals provide fewer direct constraints on how compaction is distributed through time, even though monthly GWL and cGNSS observations remain available. The analysis was limited to one monitoring site, and the three initial calibration periods ended in different calendar years. Differences among the 36-, 60-, and 96-month scenarios therefore reflect both the amount of initial MLCW information and the hydrogeological conditions during their subsequent evaluation periods. They should not be interpreted as the isolated causal effect of calibration length or transferred directly to other MLCW stations.
 
 \begin{figure}[htbp]
   \centering
-  \fbox{\parbox[c][8.0cm][c]{0.90\textwidth}{\centering
-  \placeholder{SIX-PANEL OBSERVED AND ESTIMATED COMPACTION FIGURE}}}
-  \caption{Observed and estimated monthly compaction increments for the six standardized depth sections at Tuku. Shaded bands show the 90\% prediction intervals where enough previous errors were available for calibration.}
-  \label{fig:section_timeseries}
+  \includegraphics[width=0.92\textwidth]{figures/TUKU_section_timeseries.pdf}
+  \caption{Observed and estimated monthly compaction increments for the six standardized depth sections during temporary MLCW data delays. Shaded bands represent 90\% Bayesian predictive intervals. Vertical lines mark the ends of the six-month evaluation blocks.}
+  \label{fig:delayed_monthly_nowcast}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \fbox{\parbox[c][6.2cm][c]{0.90\textwidth}{\centering
-  \placeholder{PERFORMANCE BY SECTION AND MONTH SINCE UPDATE}}}
-  \caption{Estimation error by depth section and the number of months since the latest model update. Error bars or shaded ranges will show \placeholder{CONFIRM VARIABILITY SUMMARY}.}
-  \label{fig:update_distance_performance}
+  \fbox{\parbox[c][10.0cm][c]{0.92\textwidth}{\centering
+  \placeholder{FOUR-PANEL H6 H12 MONTHLY AND ENDPOINT ERROR FIGURE}}}
+  \caption{Sensitivity of monthly and cumulative endpoint errors to MLCW measurements collected every six or twelve months after initial calibration periods of 36, 60, or 96 months. Individual points represent complete measurement intervals, and summary markers represent \placeholder{CONFIRM FIGURE SUMMARY STATISTIC}.}
+  \label{fig:sparse_interval_sensitivity}
 \end{figure}
 
 \begin{table}[htbp]
   \centering
-  \small
+  \scriptsize
   \renewcommand{\arraystretch}{1.12}
-  \caption{Performance of monthly compaction estimates by Tuku depth section. RMSE, MAE, and interval width are reported in \placeholder{CONFIRM UNIT}.}
-  \label{tab:performance_by_section}
+  \caption{Performance of monthly compaction estimates during temporary MLCW data delays.}
+  \label{tab:delayed_performance}
+  \resizebox{\textwidth}{!}{%
   \begin{tabular}{lrrrrrr}
     \toprule
     \textbf{Section} & \textbf{$n$} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} & \textbf{Coverage} & \textbf{Width} \\
     \midrule
-    S1 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    S2 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    S3 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    S4 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    S5 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    S6 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    All sections & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    S1 & 138 & \placeholder{S1 R2} & \placeholder{S1 RMSE} & \placeholder{S1 MAE} & \placeholder{S1 COV}\% & \placeholder{S1 WID} \\
+    S2 & 138 & \placeholder{S2 R2} & \placeholder{S2 RMSE} & \placeholder{S2 MAE} & \placeholder{S2 COV}\% & \placeholder{S2 WID} \\
+    S3 & 138 & \placeholder{S3 R2} & \placeholder{S3 RMSE} & \placeholder{S3 MAE} & \placeholder{S3 COV}\% & \placeholder{S3 WID} \\
+    S4 & 138 & \placeholder{S4 R2} & \placeholder{S4 RMSE} & \placeholder{S4 MAE} & \placeholder{S4 COV}\% & \placeholder{S4 WID} \\
+    S5 & 138 & \placeholder{S5 R2} & \placeholder{S5 RMSE} & \placeholder{S5 MAE} & \placeholder{S5 COV}\% & \placeholder{S5 WID} \\
+    S6 & 138 & \placeholder{S6 R2} & \placeholder{S6 RMSE} & \placeholder{S6 MAE} & \placeholder{S6 COV}\% & \placeholder{S6 WID} \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}%
+  }
 \end{table}
 
 \begin{table}[htbp]
   \centering
-  \small
+  \scriptsize
   \renewcommand{\arraystretch}{1.12}
-  \caption{Pooled performance of the updated model and reference estimates. RMSE and MAE are reported in \placeholder{CONFIRM UNIT}.}
-  \label{tab:model_comparison}
-  \begin{tabular}{lrrr}
+  \caption{Errors under reduced MLCW measurement frequencies.}
+  \label{tab:sparse_interval_performance}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{rrrrrrrrr}
     \toprule
-    \textbf{Estimate} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} \\
+    \textbf{Interval} & \textbf{Initial} & \textbf{$n$} & \multicolumn{3}{c}{\textbf{Monthly error}} & \multicolumn{3}{c}{\textbf{Endpoint error}} \\
+    \cmidrule(lr){4-6}\cmidrule(lr){7-9}
+    \textbf{(months)} & \textbf{months} & \textbf{intervals} & \textbf{MAE} & \textbf{RMSE} & \textbf{Bias} & \textbf{MAE} & \textbf{RMSE} & \textbf{Bias} \\
     \midrule
-    Updated Bayesian ridge model & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    Frozen Bayesian ridge model & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    Last-observation baseline & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
-    Seasonal baseline & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    6 & 36 & \placeholder{SPARSE H6 TRAIN36 N} & \placeholder{SPARSE H6 TRAIN36 MONTHLY MAE} & \placeholder{SPARSE H6 TRAIN36 MONTHLY RMSE} & \placeholder{SPARSE H6 TRAIN36 MONTHLY BIAS} & \placeholder{SPARSE H6 TRAIN36 ENDPOINT MAE} & \placeholder{SPARSE H6 TRAIN36 ENDPOINT RMSE} & \placeholder{SPARSE H6 TRAIN36 ENDPOINT BIAS} \\
+    6 & 60 & \placeholder{SPARSE H6 TRAIN60 N} & \placeholder{SPARSE H6 TRAIN60 MONTHLY MAE} & \placeholder{SPARSE H6 TRAIN60 MONTHLY RMSE} & \placeholder{SPARSE H6 TRAIN60 MONTHLY BIAS} & \placeholder{SPARSE H6 TRAIN60 ENDPOINT MAE} & \placeholder{SPARSE H6 TRAIN60 ENDPOINT RMSE} & \placeholder{SPARSE H6 TRAIN60 ENDPOINT BIAS} \\
+    6 & 96 & \placeholder{SPARSE H6 TRAIN96 N} & \placeholder{SPARSE H6 TRAIN96 MONTHLY MAE} & \placeholder{SPARSE H6 TRAIN96 MONTHLY RMSE} & \placeholder{SPARSE H6 TRAIN96 MONTHLY BIAS} & \placeholder{SPARSE H6 TRAIN96 ENDPOINT MAE} & \placeholder{SPARSE H6 TRAIN96 ENDPOINT RMSE} & \placeholder{SPARSE H6 TRAIN96 ENDPOINT BIAS} \\
+    12 & 36 & \placeholder{SPARSE H12 TRAIN36 N} & \placeholder{SPARSE H12 TRAIN36 MONTHLY MAE} & \placeholder{SPARSE H12 TRAIN36 MONTHLY RMSE} & \placeholder{SPARSE H12 TRAIN36 MONTHLY BIAS} & \placeholder{SPARSE H12 TRAIN36 ENDPOINT MAE} & \placeholder{SPARSE H12 TRAIN36 ENDPOINT RMSE} & \placeholder{SPARSE H12 TRAIN36 ENDPOINT BIAS} \\
+    12 & 60 & \placeholder{SPARSE H12 TRAIN60 N} & \placeholder{SPARSE H12 TRAIN60 MONTHLY MAE} & \placeholder{SPARSE H12 TRAIN60 MONTHLY RMSE} & \placeholder{SPARSE H12 TRAIN60 MONTHLY BIAS} & \placeholder{SPARSE H12 TRAIN60 ENDPOINT MAE} & \placeholder{SPARSE H12 TRAIN60 ENDPOINT RMSE} & \placeholder{SPARSE H12 TRAIN60 ENDPOINT BIAS} \\
+    12 & 96 & \placeholder{SPARSE H12 TRAIN96 N} & \placeholder{SPARSE H12 TRAIN96 MONTHLY MAE} & \placeholder{SPARSE H12 TRAIN96 MONTHLY RMSE} & \placeholder{SPARSE H12 TRAIN96 MONTHLY BIAS} & \placeholder{SPARSE H12 TRAIN96 ENDPOINT MAE} & \placeholder{SPARSE H12 TRAIN96 ENDPOINT RMSE} & \placeholder{SPARSE H12 TRAIN96 ENDPOINT BIAS} \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}%
+  }
 \end{table}
 
 \FloatBarrier
