@@ -1,0 +1,141 @@
+The methodology proceeded from data preparation to model estimation and evaluation. First, the monitoring records were converted into monthly response and predictor variables for each depth section. These variables were then used in Bayesian ridge regression to estimate monthly compaction. Finally, the resulting estimates and their uncertainty were evaluated during temporary gaps in MLCW data availability and under hypothetical schedules with less frequent MLCW measurements.
+
+\subsection{Preparation of model inputs}
+\label{subsec:predictor_preparation}
+
+To prepare these monthly variables, the observations described in \Cref{subsec:datasets} were converted into a common monthly dataset. Because the MLCW and cGNSS measurements were collected on different dates, a deformation time series model was used to align their displacement records and express the observed deformation as monthly increments. Sediment composition, which provided time-independent information for each depth section, was represented by isometric logratio coordinates. These dynamic and static variables were then combined with hydraulic head changes and seasonal terms to form the regression dataset.
+
+\subsubsection{Deformation time series model}
+\label{subsec:deformation_model}
+
+This temporal alignment was necessary because the MLCW and cGNSS displacement records were collected on different dates. Consequently, direct differencing of the raw measurements would compare intervals with unequal starting and ending dates. To obtain comparable monthly increments, a deformation time series model was fitted to each displacement series so that all series could be evaluated on the same monthly dates.
+
+This model represented displacement as the sum of a reference value, a linear component, annual and semiannual components, and offsets at documented discontinuities. For observation time $t$, the fitted displacement was
+\begin{equation}
+d(t)=d_0+v(t-t_0)
++\sum_{k\in\{1,2\}}
+\left[a_k\sin(2\pi k t)+b_k\cos(2\pi k t)\right]
++\sum_{j=1}^{J}c_j H(t-t_j),
+\label{eq:deformation_model}
+\end{equation}
+where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_k$ and $b_k$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002}. Evaluating the fitted model at the common monthly dates produced aligned cumulative displacement records. Differences between consecutive fitted values then represented the MLCW compaction and cGNSS vertical displacement that occurred during each month. The resulting monthly MLCW increments served as the response variable in the subsequent regression analysis.
+
+\subsubsection{Isometric logratio transformation of sediment composition}
+\label{subsec:ilr_transformation}
+
+Whereas the displacement increments described temporal variation, sediment composition provided time-independent information that distinguished the six depth sections. Within each section, composition was expressed as the proportions of gravel, coarse sand, fine sand, and fine-grained deposits. Because these four proportions summed to 100\%, an increase in one proportion required a decrease in at least one other proportion. Treating the proportions as independent predictors would therefore introduce exact linear dependence.
+
+To remove this dependence, an isometric logratio transformation represented the relative composition with three independent coordinates \citep{egozcue_isometric_2003, oh_using_2024}. A sequential binary partition first divided the four sediment components into physically interpretable groups. Each coordinate then expressed the logarithmic ratio between the geometric means of two groups. For groups containing $r$ and $s$ components, the corresponding balance was
+\begin{equation}
+z=\sqrt{\frac{rs}{r+s}}
+\ln\left(\frac{g(\boldsymbol{x}_{+})}{g(\boldsymbol{x}_{-})}\right),
+\label{eq:ilr_balance}
+\end{equation}
+where $g(\boldsymbol{x}_{+})$ and $g(\boldsymbol{x}_{-})$ denote the geometric means of the components in the two groups. Together, the three balances retained the lithological differences among the Tuku sections without assigning unmeasured hydraulic or mechanical properties to the logged sediment types.
+
+\subsubsection{Assembly of monthly model inputs}
+
+The monthly deformation increments and sediment balances were then assembled into a common model dataset. Each observation in this dataset represented one depth section during one month, with the monthly MLCW compaction increment serving as the response. The corresponding predictors described hydraulic conditions, vertical surface displacement, sediment composition, and seasonal variation.
+
+Hydraulic conditions were represented by current and lagged head changes in the target section and by concurrent head changes in the other Tuku sections. Vertical surface displacement was represented by current and lagged cGNSS increments, while annual and semiannual terms described recurring seasonal variation. Together, these time-varying predictors represented concurrent and delayed associations with monthly compaction.
+
+The sediment balances added the time-independent lithological information needed to distinguish the six depth sections. Section indicators and selected interaction terms further allowed the relations between the time-varying predictors and compaction to vary with depth, season, and sediment composition. Data from all six sections were therefore combined in one station-specific calibration dataset. Before each six-month evaluation block, predictor centering and scaling were calculated only from the calibration observations available at that time and were then applied to the evaluation block. Previous MLCW compaction values were not used as predictors. \Cref{tab:predictor_summary} summarizes the information represented by each predictor group, while \Cref{app:predictors} records the final variable names, temporal transformations, and lag periods.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.15}
+  \caption{Predictor groups used to estimate monthly compaction at Tuku.}
+  \label{tab:predictor_summary}
+  \begin{tabularx}{\textwidth}{@{}p{0.21\textwidth}p{0.27\textwidth}X@{}}
+    \toprule
+    \textbf{Predictor group} & \textbf{Information represented} & \textbf{Role in the model} \\
+    \midrule
+    cGNSS displacement & Current and lagged vertical surface displacement increments & Described the integrated vertical response at Tuku \\
+    Target-section hydraulic head & Current and lagged hydraulic head changes & Described hydraulic conditions associated with the section being estimated \\
+    Other-section hydraulic head & Concurrent head changes in the remaining sections & Described hydraulic conditions elsewhere in the monitored profile \\
+    Seasonal terms & Annual and semiannual variation & Represented recurring seasonal patterns \\
+    Sediment composition & Three isometric logratio balances & Distinguished material composition among depth sections \\
+    Section and interaction terms & Relations that vary with depth, season, and composition & Allowed one station-specific model to represent different section responses \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Bayesian ridge regression}
+\label{subsec:bayesian_ridge}
+
+Bayesian ridge regression was selected because the single-station dataset contained several related hydraulic, seasonal, and section-dependent predictors. Ordinary least squares can produce unstable coefficients when predictors contain overlapping information. Bayesian ridge regression reduces this instability by shrinking weakly supported coefficients toward zero while retaining a linear relation that can be examined by predictor group.
+
+For $n$ monthly section observations and $p$ predictors, the model was
+\begin{equation}
+\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon},
+\qquad
+\boldsymbol{\varepsilon}\sim\mathcal{N}(\boldsymbol{0},\alpha^{-1}\boldsymbol{I}),
+\label{eq:brr_likelihood}
+\end{equation}
+where $\boldsymbol{y}$ contains monthly section compaction, $\boldsymbol{X}$ contains the standardized predictors, $\boldsymbol{\beta}$ contains their coefficients, and $\alpha$ denotes the error precision. A zero-centered Gaussian prior regularized the coefficients,
+\begin{equation}
+\boldsymbol{\beta}\sim\mathcal{N}(\boldsymbol{0},\lambda^{-1}\boldsymbol{I}),
+\label{eq:brr_prior}
+\end{equation}
+where $\lambda$ controls the amount of shrinkage. The posterior mean of the fitted response provided the monthly compaction estimate. The regression model described statistical associations in the monitoring record and was not interpreted as a substitute for a coupled groundwater flow and aquifer-system compaction model.
+
+\subsection{Model evaluation and uncertainty}
+\label{subsec:evaluation_framework}
+
+Three analyses evaluated the estimates when recent MLCW observations were unavailable. The first recreated temporary six-month gaps in MLCW data availability and evaluated the monthly estimates within each gap. The second used errors from earlier evaluation periods to construct prediction intervals. The third examined accumulated estimation error under hypothetical schedules with less frequent MLCW measurements.
+
+\subsubsection{Evaluation with delayed MLCW data availability}
+\label{subsec:delayed_evaluation}
+
+The primary analysis evaluated monthly estimates during six-month periods in which MLCW observations were treated as temporarily unavailable. GWL and cGNSS observations remained available during these periods. Observations from \placeholder{INITIAL CALIBRATION START} to \placeholder{INITIAL CALIBRATION END} formed the initial calibration dataset. The fitted model then estimated monthly compaction for the next six months, while the corresponding MLCW observations remained hidden until the block ended. The six-month interval provided a consistent evaluation period and did not represent a fixed data delivery schedule.
+
+At the end of each block, the six withheld MLCW observations were used to evaluate the estimates and were then added to the calibration dataset. The model was fitted again before the next block began. This sequence continued through \placeholder{FINAL EVALUATION MONTH} using nonoverlapping blocks. Consequently, each estimate depended only on observations that would have been available at the time. \Cref{fig:delayed_observation_design} illustrates one update cycle.
+
+The updated model was compared with three reference estimates. A frozen model retained the coefficients fitted during the initial calibration period. A last-observation baseline repeated the most recent available compaction value, and a seasonal baseline repeated the value observed in the corresponding month of the preceding year. Performance was calculated by depth section and for all sections combined using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE) in \placeholder{CONFIRM ERROR UNIT}. Errors were also grouped by their position within each block, from the first to the sixth month, to determine whether performance changed as the period without updated MLCW observations increased.
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tikzpicture}[
+    node distance=0.65cm,
+    box/.style={draw, rectangle, rounded corners=2pt, align=center, minimum width=3.35cm, minimum height=1.05cm, font=\small},
+    arrow/.style={-{Stealth[scale=0.9]}, line width=0.8pt}
+  ]
+    \node (train) [box, fill=blue!7] {Available history\\Fit the model};
+    \node (estimate) [box, fill=orange!8, right=of train] {Months 1--6\\Estimate with current GWL and cGNSS};
+    \node (release) [box, fill=green!8, right=of estimate] {End of month 6\\Reveal six withheld MLCW records};
+    \node (update) [box, fill=gray!10, below=of release] {Compare, append records,\\and update the model};
+    \draw [arrow] (train) -- (estimate);
+    \draw [arrow] (estimate) -- (release);
+    \draw [arrow] (release) -- (update);
+    \draw [arrow] (update.west) -| (train.south);
+  \end{tikzpicture}%
+  }
+  \caption{Evaluation of monthly compaction estimates during a six-month interval of temporary MLCW data unavailability. Each block was estimated from GWL and cGNSS observations available during its six target months. The corresponding MLCW observations remained hidden until the end of the block and were then used to evaluate and update the model.}
+  \label{fig:delayed_observation_design}
+\end{figure}
+
+\subsubsection{Prediction intervals}
+\label{subsec:uncertainty}
+
+A point estimate did not indicate how far the estimated monthly compaction might differ from the observation. Prediction intervals were therefore calibrated from absolute errors in completed evaluation blocks. Before block $b$, only errors from earlier blocks were used. These errors were grouped by depth section $s$ and by the number of months $h$ since the latest model update. Their finite-sample 90th percentile, denoted $q_{b,s,h}$, defined the interval around estimate $\widehat{y}_{b,s,h}$ \citep{angelopoulos_conformal_2023},
+\begin{equation}
+\left[
+\widehat{y}_{b,s,h}-q_{b,s,h},
+\widehat{y}_{b,s,h}+q_{b,s,h}
+\right].
+\label{eq:prediction_interval}
+\end{equation}
+Observations from the current or later blocks were excluded from the calculation of $q_{b,s,h}$. An interval was reported only after at least \placeholder{MINIMUM ELIGIBLE ERROR COUNT} earlier errors were available for the corresponding group. The complete eligibility and quantile rules are documented in \Cref{app:intervals}.
+
+Empirical coverage measured the proportion of observations enclosed by the intervals, whereas mean interval width described their precision. Both measures were examined because wider intervals can increase coverage without providing precise estimates \citep{singh_uncertainty_2024}. The nominal 90\% level was treated as a calibration target rather than a guarantee because the monitoring record contained temporal dependence and could change through time \citep{zaffran_adaptive_2022}.
+
+\subsubsection{Sensitivity to less frequent MLCW measurements}
+\label{subsec:no_update_sensitivity}
+
+A separate rolling-origin analysis examined a hypothetical schedule in which MLCW measurements were collected less frequently. At each origin, the Bayesian ridge regression model was fitted once using the available pre-origin MLCW responses and the predictors described in \Cref{subsec:predictor_preparation}. The fitted model then estimated compaction for the following twelve months. During this period, it received no additional MLCW observations and was not fitted again. The first six months of the same estimate series defined the six-month horizon, allowing the two horizons to be compared from a common origin.
+
+MLCW observations within each horizon were withheld during estimation and were used only afterward as reference values. For each depth section and for all sections combined, cumulative estimated compaction was compared with cumulative observed compaction over the six- and twelve-month horizons. MAE, RMSE, and mean signed error summarized the endpoint errors. A horizon-normalized MAE allowed the two intervals to be compared on a monthly basis. Ninety-five percent confidence intervals were calculated with a paired moving-block bootstrap that accounted for overlap between consecutive horizons. The rolling origins, endpoint-error definition, normalization, and bootstrap settings are documented in \Cref{app:no_update_settings}.
+
+\FloatBarrier

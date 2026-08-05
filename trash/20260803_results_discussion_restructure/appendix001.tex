@@ -1,0 +1,28 @@
+\section{Supplementary methodological details}
+\label{app:methods}
+
+\subsection{Final predictor inventory}
+\label{app:predictors}
+
+The final predictor inventory will document the exact variables used to reproduce the Tuku analysis. For each predictor, the inventory will state its source dataset, associated depth section, temporal transformation, lag or averaging period, and availability during the target month. \placeholder{INSERT THE FROZEN PREDICTOR TABLE FROM THE FINAL TUKU RUN}. Internal experiment labels will remain in the run documentation and will not be used in the manuscript.
+
+\subsection{Model fitting and update settings}
+\label{app:model_settings}
+
+The reproducibility record will report the initial calibration period, the six-month block boundaries, the predictor scaling procedure, the fitted regression settings, and the rules used when an input observation was unavailable. \placeholder{INSERT VERIFIED MODEL SETTINGS AND SOFTWARE ENVIRONMENT FROM THE FINAL RUN}. These details will reproduce the reported estimates without interrupting the main methodological narrative.
+
+\subsection{Prediction interval calibration}
+\label{app:intervals}
+
+The uncertainty record will specify how previous absolute errors were assigned to each depth section and update distance. It will also state the minimum number of eligible errors, the finite-sample quantile rule, and the treatment of early periods for which no interval could be calibrated. \placeholder{INSERT THE VERIFIED INTERVAL CALIBRATION RULES FROM THE FINAL RUN}. The same record will define the calculations of empirical coverage and mean interval width.
+
+\subsection{Reduced-observation sensitivity settings}
+\label{app:no_update_settings}
+
+Rolling origins coincided with the start of the existing six-month evaluation blocks, producing 22 origins spaced six months apart from May 2013 through November 2023. At each origin, the Bayesian ridge regression model was fitted once using MLCW responses available before that date. The fitted model estimated compaction for the following twelve months without receiving an additional MLCW observation and without being fitted again. The first six months of each twelve-month estimate series defined the six-month horizon from the same model fit. Consecutive twelve-month horizons therefore overlapped by six months.
+
+The endpoint error was defined as the cumulative estimate minus the cumulative MLCW observation over the corresponding horizon, $e=\hat{y}-y$. A positive endpoint error represented an estimate that was more positive than the observed cumulative value and therefore indicated underestimated compaction magnitude when the observed value was negative. MAE, RMSE, and mean signed error were reported in millimeters. The horizon-normalized MAE was calculated by dividing MAE by six or twelve months and was reported in millimeters per month. The coefficient of determination was excluded because the analysis compared cumulative endpoint errors rather than individual monthly estimates. The monthly prediction intervals described in \Cref{subsec:uncertainty} were not combined across either horizon.
+
+Ninety-five percent confidence intervals for each summary statistic and for the difference between the twelve- and six-month horizon-normalized MAE were calculated with a paired moving-block bootstrap. The ordered sequence of 22 origins was resampled 2,000 times with a block length of two origins. Each resample used the same origins for both horizons, which preserved their paired comparison and accounted for the six-month overlap between consecutive twelve-month horizons.
+
+\FloatBarrier

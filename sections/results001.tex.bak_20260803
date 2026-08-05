@@ -1,0 +1,92 @@
+The analysis first evaluated monthly compaction estimates during temporary delays in MLCW data availability. Two additional analyses then examined how the estimates changed when direct MLCW measurements were collected every six or twelve months. Results and their practical implications are presented together because each monitoring scenario provides a different amount of direct subsurface information.
+
+\subsection{Monthly compaction nowcasting during delayed MLCW data availability}
+\label{subsec:results_delayed_nowcast}
+
+The delayed-data analysis contained \placeholder{MAIN_EVALUATION_MONTH_COUNT} monthly estimates within \placeholder{MAIN_EVALUATION_BLOCK_COUNT} nonoverlapping six-month blocks. Observed monthly compaction increments ranged from \placeholder{MAIN_OBSERVED_MINIMUM_WITH_UNIT} to \placeholder{MAIN_OBSERVED_MAXIMUM_WITH_UNIT} across the six depth sections. \placeholder{MAIN_OBSERVED_DEPTH_PATTERN}. These observations defined the magnitude and temporal variation that the model was required to reproduce.
+
+Across all sections, the monthly estimates attained an $R^2$ of \placeholder{MAIN_POOLED_R2}, an RMSE of \placeholder{MAIN_POOLED_RMSE_WITH_UNIT}, and an MAE of \placeholder{MAIN_POOLED_MAE_WITH_UNIT}. The observed and estimated increments showed \placeholder{MAIN_TEMPORAL_AGREEMENT_PATTERN} (\Cref{fig:delayed_monthly_nowcast}). Performance differed with depth. \placeholder{MAIN_BEST_SECTION_RESULT}, whereas \placeholder{MAIN_WEAKEST_SECTION_RESULT}. The section-level results in \Cref{tab:delayed_performance} show whether the pooled performance represented all six sections or was dominated by a smaller part of the monitored profile.
+
+The 90\% prediction intervals were available for \placeholder{MAIN_INTERVAL_ELIGIBLE_COUNT_AND_PERCENT} of the monthly estimates after the required error archive had been established. Their pooled empirical coverage was \placeholder{MAIN_POOLED_COVERAGE}, and their mean width was \placeholder{MAIN_POOLED_INTERVAL_WIDTH_WITH_UNIT}. Coverage changed from \placeholder{MAIN_MONTH1_COVERAGE} during the first month after a model update to \placeholder{MAIN_MONTH6_COVERAGE} during the sixth month. Over the same period, mean interval width changed from \placeholder{MAIN_MONTH1_WIDTH_WITH_UNIT} to \placeholder{MAIN_MONTH6_WIDTH_WITH_UNIT}. These values indicate \placeholder{MAIN_INTERVAL_INTERPRETATION}, although the nominal coverage level does not guarantee the same performance under future monitoring conditions.
+
+The delayed-data analysis estimated compaction for months in which GWL and cGNSS observations were already available. It did not forecast future groundwater conditions. The results therefore describe the temporary completion of a delayed MLCW record rather than a replacement for direct subsurface measurements. Once the six monthly MLCW observations became available, they remained necessary for evaluating the estimates and updating the model before the next block.
+
+\subsection{Sensitivity to MLCW measurements collected every six months}
+\label{subsec:discussion_reduced_sampling}
+\label{subsec:results_sparse_h6}
+
+The six-month sensitivity analysis replaced the complete monthly MLCW record after the initial calibration period with one cumulative observation at the end of each six-month interval. The three scenarios began with 36, 60, or 96 consecutive monthly observations. Their first reduced-frequency measurements therefore occurred at months 42, 66, and 102, respectively. GWL and cGNSS observations remained available each month, while the endpoint MLCW observation constrained the accumulated compaction before the next interval was estimated.
+
+Monthly estimation accuracy under the three initial calibration periods is summarized in \Cref{tab:sparse_interval_performance}. The 36-month scenario attained an MAE of \placeholder{SPARSE_H6_TRAIN36_MONTHLY_MAE_WITH_UNIT}, compared with \placeholder{SPARSE_H6_TRAIN60_MONTHLY_MAE_WITH_UNIT} after 60 months and \placeholder{SPARSE_H6_TRAIN96_MONTHLY_MAE_WITH_UNIT} after 96 months. The corresponding cumulative endpoint MAEs were \placeholder{SPARSE_H6_TRAIN36_ENDPOINT_MAE_WITH_UNIT}, \placeholder{SPARSE_H6_TRAIN60_ENDPOINT_MAE_WITH_UNIT}, and \placeholder{SPARSE_H6_TRAIN96_ENDPOINT_MAE_WITH_UNIT}. The individual interval errors in \Cref{fig:sparse_interval_sensitivity} show \placeholder{SPARSE_H6_ERROR_DISTRIBUTION_PATTERN}.
+
+The six-month results indicate \placeholder{SPARSE_H6_PRACTICAL_INTERPRETATION}. Monthly MLCW observations retained for retrospective evaluation showed how well the model distributed the accumulated deformation among the intervening months, whereas each simulated field visit provided only the cumulative change since the preceding measurement. The endpoint constraint therefore corrected the information available to later model updates without revealing the six hidden monthly increments.
+
+\subsection{Sensitivity to MLCW measurements collected every twelve months}
+\label{subsec:results_sparse_h12}
+
+The twelve-month analysis followed the same sequence but provided one cumulative MLCW observation after every twelve estimated months. The first reduced-frequency measurements occurred at months 48, 72, and 108 for the 36-, 60-, and 96-month initial calibration periods. Each scenario then continued through complete twelve-month intervals ending no later than the final month shared by the MLCW, GWL, and cGNSS records.
+
+Monthly MAE was \placeholder{SPARSE_H12_TRAIN36_MONTHLY_MAE_WITH_UNIT}, \placeholder{SPARSE_H12_TRAIN60_MONTHLY_MAE_WITH_UNIT}, and \placeholder{SPARSE_H12_TRAIN96_MONTHLY_MAE_WITH_UNIT} for the three initial calibration periods. Their cumulative endpoint MAEs were \placeholder{SPARSE_H12_TRAIN36_ENDPOINT_MAE_WITH_UNIT}, \placeholder{SPARSE_H12_TRAIN60_ENDPOINT_MAE_WITH_UNIT}, and \placeholder{SPARSE_H12_TRAIN96_ENDPOINT_MAE_WITH_UNIT}, respectively. Comparison with the six-month scenarios showed \placeholder{SPARSE_H12_VERSUS_H6_RESULT}. The interval-level values in \Cref{fig:sparse_interval_sensitivity} further show \placeholder{SPARSE_H12_ERROR_DISTRIBUTION_PATTERN}.
+
+The twelve-month results indicate \placeholder{SPARSE_H12_PRACTICAL_INTERPRETATION}. Longer intervals provide fewer direct constraints on how compaction is distributed through time, even though monthly GWL and cGNSS observations remain available. The analysis was limited to one monitoring site, and the three initial calibration periods ended in different calendar years. Differences among the 36-, 60-, and 96-month scenarios therefore reflect both the amount of initial MLCW information and the hydrogeological conditions during their subsequent evaluation periods. They should not be interpreted as the isolated causal effect of calibration length or transferred directly to other MLCW stations.
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][9.0cm][c]{0.92\textwidth}{\centering
+  \placeholder{SIX-PANEL MONTHLY OBSERVED ESTIMATED AND 90 PERCENT INTERVAL FIGURE}}}
+  \caption{Observed and estimated monthly compaction increments for the six standardized depth sections during temporary MLCW data delays. Shaded bands represent 90\% prediction intervals where at least nine previous errors were available for the same depth section and month since the latest model update. Vertical lines mark the ends of the six-month evaluation blocks.}
+  \label{fig:delayed_monthly_nowcast}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][10.0cm][c]{0.92\textwidth}{\centering
+  \placeholder{FOUR-PANEL H6 H12 MONTHLY AND ENDPOINT ERROR FIGURE}}}
+  \caption{Sensitivity of monthly and cumulative endpoint errors to MLCW measurements collected every six or twelve months after initial calibration periods of 36, 60, or 96 months. Individual points represent complete measurement intervals, and summary markers represent \placeholder{CONFIRM FIGURE SUMMARY STATISTIC}.}
+  \label{fig:sparse_interval_sensitivity}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \scriptsize
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Performance of monthly compaction estimates during temporary MLCW data delays. RMSE, MAE, and interval width are reported in \placeholder{MAIN_ERROR_UNIT}.}
+  \label{tab:delayed_performance}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    \textbf{Section} & \textbf{$n$} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} & \textbf{Coverage} & \textbf{Width} \\
+    \midrule
+    S1 & \placeholder{MAIN_S1_N} & \placeholder{MAIN_S1_R2} & \placeholder{MAIN_S1_RMSE} & \placeholder{MAIN_S1_MAE} & \placeholder{MAIN_S1_COVERAGE} & \placeholder{MAIN_S1_WIDTH} \\
+    S2 & \placeholder{MAIN_S2_N} & \placeholder{MAIN_S2_R2} & \placeholder{MAIN_S2_RMSE} & \placeholder{MAIN_S2_MAE} & \placeholder{MAIN_S2_COVERAGE} & \placeholder{MAIN_S2_WIDTH} \\
+    S3 & \placeholder{MAIN_S3_N} & \placeholder{MAIN_S3_R2} & \placeholder{MAIN_S3_RMSE} & \placeholder{MAIN_S3_MAE} & \placeholder{MAIN_S3_COVERAGE} & \placeholder{MAIN_S3_WIDTH} \\
+    S4 & \placeholder{MAIN_S4_N} & \placeholder{MAIN_S4_R2} & \placeholder{MAIN_S4_RMSE} & \placeholder{MAIN_S4_MAE} & \placeholder{MAIN_S4_COVERAGE} & \placeholder{MAIN_S4_WIDTH} \\
+    S5 & \placeholder{MAIN_S5_N} & \placeholder{MAIN_S5_R2} & \placeholder{MAIN_S5_RMSE} & \placeholder{MAIN_S5_MAE} & \placeholder{MAIN_S5_COVERAGE} & \placeholder{MAIN_S5_WIDTH} \\
+    S6 & \placeholder{MAIN_S6_N} & \placeholder{MAIN_S6_R2} & \placeholder{MAIN_S6_RMSE} & \placeholder{MAIN_S6_MAE} & \placeholder{MAIN_S6_COVERAGE} & \placeholder{MAIN_S6_WIDTH} \\
+    All sections & \placeholder{MAIN_ALL_N} & \placeholder{MAIN_ALL_R2} & \placeholder{MAIN_ALL_RMSE} & \placeholder{MAIN_ALL_MAE} & \placeholder{MAIN_ALL_COVERAGE} & \placeholder{MAIN_ALL_WIDTH} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \scriptsize
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Sensitivity of monthly estimates and accumulated compaction to reduced MLCW measurement frequencies. Monthly and endpoint errors are reported in \placeholder{SPARSE_ERROR_UNITS}.}
+  \label{tab:sparse_interval_performance}
+  \begin{tabular}{rrrrrrrrr}
+    \toprule
+    \textbf{Interval} & \textbf{Initial} & \textbf{$n$} & \multicolumn{3}{c}{\textbf{Monthly error}} & \multicolumn{3}{c}{\textbf{Endpoint error}} \\
+    \cmidrule(lr){4-6}\cmidrule(lr){7-9}
+    \textbf{(months)} & \textbf{months} & \textbf{intervals} & \textbf{MAE} & \textbf{RMSE} & \textbf{Bias} & \textbf{MAE} & \textbf{RMSE} & \textbf{Bias} \\
+    \midrule
+    6 & 36 & \placeholder{SPARSE_H6_TRAIN36_N} & \placeholder{SPARSE_H6_TRAIN36_MONTHLY_MAE} & \placeholder{SPARSE_H6_TRAIN36_MONTHLY_RMSE} & \placeholder{SPARSE_H6_TRAIN36_MONTHLY_BIAS} & \placeholder{SPARSE_H6_TRAIN36_ENDPOINT_MAE} & \placeholder{SPARSE_H6_TRAIN36_ENDPOINT_RMSE} & \placeholder{SPARSE_H6_TRAIN36_ENDPOINT_BIAS} \\
+    6 & 60 & \placeholder{SPARSE_H6_TRAIN60_N} & \placeholder{SPARSE_H6_TRAIN60_MONTHLY_MAE} & \placeholder{SPARSE_H6_TRAIN60_MONTHLY_RMSE} & \placeholder{SPARSE_H6_TRAIN60_MONTHLY_BIAS} & \placeholder{SPARSE_H6_TRAIN60_ENDPOINT_MAE} & \placeholder{SPARSE_H6_TRAIN60_ENDPOINT_RMSE} & \placeholder{SPARSE_H6_TRAIN60_ENDPOINT_BIAS} \\
+    6 & 96 & \placeholder{SPARSE_H6_TRAIN96_N} & \placeholder{SPARSE_H6_TRAIN96_MONTHLY_MAE} & \placeholder{SPARSE_H6_TRAIN96_MONTHLY_RMSE} & \placeholder{SPARSE_H6_TRAIN96_MONTHLY_BIAS} & \placeholder{SPARSE_H6_TRAIN96_ENDPOINT_MAE} & \placeholder{SPARSE_H6_TRAIN96_ENDPOINT_RMSE} & \placeholder{SPARSE_H6_TRAIN96_ENDPOINT_BIAS} \\
+    12 & 36 & \placeholder{SPARSE_H12_TRAIN36_N} & \placeholder{SPARSE_H12_TRAIN36_MONTHLY_MAE} & \placeholder{SPARSE_H12_TRAIN36_MONTHLY_RMSE} & \placeholder{SPARSE_H12_TRAIN36_MONTHLY_BIAS} & \placeholder{SPARSE_H12_TRAIN36_ENDPOINT_MAE} & \placeholder{SPARSE_H12_TRAIN36_ENDPOINT_RMSE} & \placeholder{SPARSE_H12_TRAIN36_ENDPOINT_BIAS} \\
+    12 & 60 & \placeholder{SPARSE_H12_TRAIN60_N} & \placeholder{SPARSE_H12_TRAIN60_MONTHLY_MAE} & \placeholder{SPARSE_H12_TRAIN60_MONTHLY_RMSE} & \placeholder{SPARSE_H12_TRAIN60_MONTHLY_BIAS} & \placeholder{SPARSE_H12_TRAIN60_ENDPOINT_MAE} & \placeholder{SPARSE_H12_TRAIN60_ENDPOINT_RMSE} & \placeholder{SPARSE_H12_TRAIN60_ENDPOINT_BIAS} \\
+    12 & 96 & \placeholder{SPARSE_H12_TRAIN96_N} & \placeholder{SPARSE_H12_TRAIN96_MONTHLY_MAE} & \placeholder{SPARSE_H12_TRAIN96_MONTHLY_RMSE} & \placeholder{SPARSE_H12_TRAIN96_MONTHLY_BIAS} & \placeholder{SPARSE_H12_TRAIN96_ENDPOINT_MAE} & \placeholder{SPARSE_H12_TRAIN96_ENDPOINT_RMSE} & \placeholder{SPARSE_H12_TRAIN96_ENDPOINT_BIAS} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\FloatBarrier

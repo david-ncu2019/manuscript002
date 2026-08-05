@@ -1,0 +1,132 @@
+\documentclass[12pt,oneside]{article}
+
+\usepackage[a4paper,top=25mm,bottom=25mm,left=25mm,right=25mm,headheight=15pt]{geometry}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{titlesec}
+\usepackage[authoryear]{natbib}
+% Number bibliography entries while retaining author-year citations in the text.
+\makeatletter
+\renewcommand{\NAT@biblabel}[1]{\hfill[#1]}
+\renewcommand{\NAT@bibsetup}[1]{\NAT@bibsetnum{#1}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{lineno}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\onehalfspacing
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\section}{0pt}{1.25\baselineskip}{0.35\baselineskip}
+\titlespacing*{\subsection}{0pt}{0.55\baselineskip}{0.25\baselineskip}
+\titlespacing*{\subsubsection}{0pt}{0.45\baselineskip}{0.2\baselineskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\textit{Tuku manuscript draft}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\bibliographystyle{plainnat}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Monthly estimation of depth-resolved aquifer-system compaction at Tuku},
+  pdfauthor={Author names to be confirmed},
+  pdfkeywords={aquifer-system compaction, groundwater level, delayed observations, Bayesian ridge regression, Tuku},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  pdfstartview=FitH
+}
+
+\newcommand{\keywords}[1]{\vspace{2mm}\noindent\textbf{Keywords:} #1}
+\newcommand{\placeholder}[1]{\begingroup\sethlcolor{yellow}\hl{[#1]}\endgroup}
+
+\begin{document}
+
+\pagenumbering{roman}
+\title{\textbf{Monthly Estimation of Depth-Resolved Aquifer-System Compaction during Delayed Monitoring Data Delivery at Tuku, Taiwan}}
+\author{\placeholder{AUTHOR NAMES AND AFFILIATIONS}}
+\date{Draft compiled on \today}
+\maketitle
+
+\begin{abstract}
+%Land subsidence develops as groundwater withdrawal increases effective stress and compacts susceptible sediments within an aquifer system. Surface displacement measurements describe the total vertical response, but they do not show how the compaction is distributed with depth. Multilayer compaction monitoring wells provide this information directly, although their monthly observations may not be available when a current assessment is required. This study tested whether routinely available monitoring data could provide provisional estimates of monthly compaction during a six-month delay in the delivery of multilayer compaction observations at Tuku, central Taiwan. The analysis represented the monitored profile by six 50~m depth sections and related their monthly compaction to hydraulic head changes, vertical surface displacement from a continuous Global Navigation Satellite System station, and local sediment composition. Bayesian ridge regression was evaluated in temporal order. Six consecutive monthly compaction observations were withheld during each evaluation period, and the model was updated only after the withheld observations became available. The updated model achieved \placeholder{POOLED R2, RMSE, AND MAE} and \placeholder{MAIN DEPTH-DEPENDENT RESULT}. Its performance was \placeholder{COMPARISON WITH FROZEN AND PERSISTENCE BASELINES}. Error-calibrated 90\% prediction intervals attained \placeholder{EMPIRICAL COVERAGE} with a mean width of \placeholder{INTERVAL WIDTH}. These results \placeholder{CONCISE OPERATIONAL CONCLUSION SUPPORTED BY THE FINAL RUN}.
+\end{abstract}
+
+\keywords{aquifer-system compaction; groundwater level; delayed observations; Bayesian ridge regression; Tuku}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\linenumbers
+
+\section{Introduction}
+\label{sec:introduction}
+\input{sections/intro001}
+
+\section{Study Area and Datasets}
+\label{sec:study_data}
+\input{sections/studyarea001}
+\input{sections/dataset003}
+
+\section{Methodology}
+\label{sec:methodology}
+\input{sections/methods004}
+
+\section{Results}
+\label{sec:results}
+\input{sections/results001}
+
+\section{Discussion}
+\label{sec:discussion}
+\input{sections/discuss001}
+
+\section{Conclusions}
+\label{sec:conclusions}
+%\input{sections/conclusion001}
+
+\section*{Acknowledgements}
+\placeholder{FUNDING, DATA PROVIDERS, AND CONTRIBUTOR ACKNOWLEDGEMENTS}
+
+\section*{Author contributions}
+\placeholder{AUTHOR CONTRIBUTION STATEMENT}
+
+\section*{Data availability}
+\placeholder{DATA AND CODE AVAILABILITY STATEMENT}
+
+\section*{Conflict of interest}
+\placeholder{CONFLICT OF INTEREST STATEMENT}
+
+\clearpage
+\appendix
+\input{sections/appendix001}
+
+\bibliography{writing_manu2}
+
+\end{document}

@@ -1,0 +1,84 @@
+The results are presented in the same order as the evaluation questions. The first subsection describes the observed compaction that the model was required to reproduce. The second compares monthly estimates among the six depth sections. The third examines whether periodic updating improved the estimates and whether performance changed within a six-month delay. The final subsection evaluates the coverage and width of the prediction intervals. All yellow fields remain to be replaced by values from the frozen Tuku run.
+
+\subsection{Observed monthly compaction at Tuku}
+\label{subsec:results_observations}
+
+The evaluation period contained \placeholder{NUMBER OF MONTHS} monthly observations for each of the six depth sections. Observed monthly compaction ranged from \placeholder{MINIMUM OBSERVED INCREMENT WITH UNIT} to \placeholder{MAXIMUM OBSERVED INCREMENT WITH UNIT}, while \placeholder{NUMBER OR PERCENTAGE} of the observations represented expansion or rebound. The distribution varied with depth. \placeholder{SECTIONS WITH GREATEST OBSERVED COMPACTION} accounted for \placeholder{SHARE OF TOTAL OR OTHER DESCRIPTIVE VALUE}, whereas \placeholder{SECTIONS WITH SMALLEST OBSERVED COMPACTION} showed \placeholder{CONCISE OBSERVED PATTERN}. These observations establish the range and temporal variability against which the estimates were evaluated.
+
+\subsection{Estimation performance among depth sections}
+\label{subsec:results_sections}
+
+Across all evaluation blocks and depth sections, the updated model attained an $R^2$ of \placeholder{POOLED R2}, an RMSE of \placeholder{POOLED RMSE WITH UNIT}, and an MAE of \placeholder{POOLED MAE WITH UNIT}. The observed and estimated monthly increments followed \placeholder{MAIN TEMPORAL AGREEMENT OR DISAGREEMENT} (\Cref{fig:section_timeseries}). The largest individual error was \placeholder{MAXIMUM ABSOLUTE ERROR WITH UNIT} and occurred in \placeholder{SECTION AND MONTH}.
+
+Estimation performance differed among the six sections (\Cref{tab:performance_by_section}). \placeholder{BEST-PERFORMING SECTION OR SECTIONS} attained the smallest RMSE of \placeholder{VALUE WITH UNIT}, while \placeholder{WEAKEST SECTION OR SECTIONS} attained the largest RMSE of \placeholder{VALUE WITH UNIT}. Section-level $R^2$ values ranged from \placeholder{MINIMUM R2} to \placeholder{MAXIMUM R2}. The remaining sections showed \placeholder{CONCISE PATTERN NEEDED TO COMPLETE THE DEPTH COMPARISON}.
+
+\subsection{Effect of periodic model updating}
+\label{subsec:results_updates}
+
+Periodic updating was assessed by comparing the expanding model with a model fitted only once during the initial calibration period. The updated model \placeholder{IMPROVED OR DID NOT IMPROVE} the pooled RMSE by \placeholder{ABSOLUTE AND PERCENTAGE CHANGE} relative to the frozen model (\Cref{tab:model_comparison}). Its error was also \placeholder{COMPARISON WITH LAST-OBSERVATION BASELINE} and \placeholder{COMPARISON WITH SEASONAL BASELINE}. These comparisons show \placeholder{DIRECT RESULT ABOUT THE VALUE OF NEWLY RELEASED MLCW OBSERVATIONS}.
+
+Performance within the six-month blocks followed \placeholder{PATTERN FROM MONTH 1 TO MONTH 6} (\Cref{fig:update_distance_performance}). RMSE changed from \placeholder{MONTH-1 RMSE} in the first month after updating to \placeholder{MONTH-6 RMSE} in the sixth month. The corresponding change in MAE was \placeholder{MONTH-1 TO MONTH-6 MAE CHANGE}. Section \placeholder{SECTION} showed the clearest deterioration with time since updating, whereas Section \placeholder{SECTION} showed \placeholder{STABLE OR DIFFERENT PATTERN}.
+
+\subsection{Prediction interval performance}
+\label{subsec:results_intervals}
+
+Prediction intervals were available for \placeholder{NUMBER AND PERCENTAGE OF ELIGIBLE ESTIMATES} after the minimum calibration archive had been established. The nominal 90\% intervals achieved a pooled empirical coverage of \placeholder{POOLED COVERAGE} and a mean width of \placeholder{POOLED WIDTH WITH UNIT}. Coverage among sections ranged from \placeholder{MINIMUM COVERAGE AND SECTION} to \placeholder{MAXIMUM COVERAGE AND SECTION}. The section-level values are reported in \Cref{tab:performance_by_section}.
+
+Interval width \placeholder{PATTERN WITH DEPTH OR ERROR MAGNITUDE}. Across the six months after each update, coverage changed from \placeholder{MONTH-1 COVERAGE} to \placeholder{MONTH-6 COVERAGE}, while mean width changed from \placeholder{MONTH-1 WIDTH} to \placeholder{MONTH-6 WIDTH}. The combined coverage and width results show \placeholder{DIRECT CALIBRATION RESULT WITHOUT INTERPRETATION}.
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][8.0cm][c]{0.90\textwidth}{\centering
+  \placeholder{SIX-PANEL OBSERVED AND ESTIMATED COMPACTION FIGURE}}}
+  \caption{Observed and estimated monthly compaction increments for the six standardized depth sections at Tuku. Shaded bands show the 90\% prediction intervals where enough previous errors were available for calibration.}
+  \label{fig:section_timeseries}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][6.2cm][c]{0.90\textwidth}{\centering
+  \placeholder{PERFORMANCE BY SECTION AND MONTH SINCE UPDATE}}}
+  \caption{Estimation error by depth section and the number of months since the latest model update. Error bars or shaded ranges will show \placeholder{CONFIRM VARIABILITY SUMMARY}.}
+  \label{fig:update_distance_performance}
+\end{figure}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Performance of monthly compaction estimates by Tuku depth section. RMSE, MAE, and interval width are reported in \placeholder{CONFIRM UNIT}.}
+  \label{tab:performance_by_section}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    \textbf{Section} & \textbf{$n$} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} & \textbf{Coverage} & \textbf{Width} \\
+    \midrule
+    S1 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    S2 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    S3 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    S4 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    S5 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    S6 & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    All sections & \placeholder{N} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.12}
+  \caption{Pooled performance of the updated model and reference estimates. RMSE and MAE are reported in \placeholder{CONFIRM UNIT}.}
+  \label{tab:model_comparison}
+  \begin{tabular}{lrrr}
+    \toprule
+    \textbf{Estimate} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} \\
+    \midrule
+    Updated Bayesian ridge model & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    Frozen Bayesian ridge model & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    Last-observation baseline & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    Seasonal baseline & \placeholder{VALUE} & \placeholder{VALUE} & \placeholder{VALUE} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\FloatBarrier
