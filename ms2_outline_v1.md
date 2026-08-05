@@ -1,0 +1,30 @@
+# Manuscript Outline (v1)
+
+- **1 Introduction**
+- **2 Study Area and Datasets**
+  - 2.1 Study Area Background
+  - 2.2 Datasets
+    - 2.2.1 Multilayer aquifer-system compaction
+    - 2.2.2 Groundwater level observations
+    - 2.2.3 Vertical surface displacement
+    - 2.2.4 Borehole lithological profile
+- **3 Methodology**
+  - 3.1 Preparation of model inputs
+    - 3.1.1 Deformation time series model
+    - 3.1.2 Isometric logratio transformation of sediment composition
+    - 3.1.3 Assembly of monthly model inputs
+  - 3.2 Bayesian ridge regression
+  - 3.3 Model evaluation and uncertainty
+    - 3.3.1 Evaluation with delayed MLCW data availability
+    - 3.3.2 Prediction intervals
+    - 3.3.3 Sensitivity to less frequent MLCW measurements
+- **4 Results and discussion**
+  - 4.1 Monthly compaction nowcasting during delayed MLCW data availability
+  - 4.2 Sensitivity to MLCW measurements collected every six months
+  - 4.3 Sensitivity to MLCW measurements collected every twelve months
+- **5 Conclusions**
+- **A Supplementary methodological details**
+  - A.1 Final predictor inventory
+  - A.2 Model fitting and update settings
+  - A.3 Prediction interval calibration
+  - A.4 Reduced-frequency MLCW measurement settings
