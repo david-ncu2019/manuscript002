@@ -1,23 +1,25 @@
 \subsection{Datasets}
 \label{subsec:datasets}
 
-Deformation within individual subsurface depth intervals was measured monthly using specialized borehole extensometer systems known as multilayer compaction monitoring wells (MLCWs). Although the field measurements were collected monthly, the corresponding deformation records were not immediately available because the data provider processed and checked the measurements before providing the finalized records. Consequently, the finalized records became available periodically after a delay of several months. The analysis represented the resulting temporary information gap by treating the six most recent months of MLCW observations as unavailable. The Tuku MLCW station was selected because all required data were available. For this analysis, four data sources were integrated, comprising (1) MLCW observations, (2) groundwater level (GWL) records, (3) vertical surface displacement recorded by an adjacent continuous Global Navigation Satellite System (cGNSS) station, and (4) a corresponding borehole lithological profile. Within this dataset, the MLCW observations provided the reference section-level compaction increments. During the six-month interval, each monthly compaction increment was estimated from the corresponding monthly hydraulic head changes, vertical surface displacement increment, and sediment composition of the depth section. Once the finalized MLCW records became available, the monthly estimates were compared with the corresponding observations. No compaction value from an earlier month was used directly to estimate a later month. The six-month interval therefore provided a consistent experimental setting and did not represent a fixed data delivery schedule. The implications of less frequent future MLCW measurements are considered separately in \Cref{subsec:discussion_reduced_sampling}. The MLCW and cGNSS records covered January 2010 to December 2024, whereas the GWL record covered January 2008 to December 2024. A corresponding borehole lithological profile accompanied the MLCW observation records. The following subsections describe each dataset and the temporal alignment applied before analysis.
+Deformation within individual subsurface depth intervals was measured monthly using specialized borehole extensometer systems known as multilayer compaction monitoring wells (MLCWs). Although the field measurements were collected monthly, the data provider processed and checked the measurements before providing the finalized records. Once provided, however, the finalized records contained the complete sequence of monthly observations collected during the intervening period. The delay therefore affected data availability rather than measurement frequency. To represent this temporary information gap consistently, the analysis treated the six most recent months of MLCW observations as unavailable. The six-month interval defined the evaluation setting and did not represent a fixed data delivery schedule.
 
-\subsubsection{Multilayer aquifer-system compaction}
+The Tuku MLCW station was selected because all required observations were available. Three time-series data sources formed the monthly regression dataset: (1) MLCW observations, (2) groundwater level (GWL) records, and (3) vertical surface displacement recorded by an adjacent continuous Global Navigation Satellite System (cGNSS) station. A corresponding borehole lithological profile was examined separately to characterize material differences among the six depth sections. The MLCW observations provided monthly compaction increments for individual depth intervals. These increments were estimated from monthly hydraulic head changes and vertical surface displacement increments for the same months. The MLCW and cGNSS records covered January 2010 to December 2024, whereas the GWL record covered January 2008 to December 2024. The following subsections describe the observational basis and temporal alignment of each dataset.
 
-The MLCW measured compaction at multiple depths using magnetic anchor rings installed along the borehole to a depth of approximately 300~m. Relative displacement between adjacent rings resolved compaction within the corresponding depth intervals with a measurement precision of 1~mm \citep{hung_measuring_2021}. The monthly field measurements were not collected on a common calendar day, so successive observations covered intervals with different starting and ending dates. Each displacement series between adjacent magnetic rings was therefore fitted with a deformation time series model comprising linear, periodic, and step functions (\Cref{subsec:deformation_model}). After model fitting, the series were evaluated at common monthly epochs. Because the magnetic ring intervals did not coincide with uniform depth boundaries, the aligned deformation profiles were then partitioned into six standardized 50~m depth sections, designated S1 through S6. Finally, differences between consecutive monthly values were calculated to obtain the compaction increment for each depth section. The station code, monitored depth, sampling interval, and role of the resulting measurements are summarized in \Cref{tab:tuku_data_sources}.
+\subsubsection{Multilayer aquifer-system deformation}
+
+The MLCW recorded relative vertical displacement at multiple depths through magnetic anchor rings installed along the borehole to a depth of approximately 300~m. Relative displacement between adjacent rings represented compaction within the corresponding ring intervals, with a measurement precision of 1~mm \citep{hung_measuring_2021}. Because the field measurements were collected on different calendar days, successive observations did not cover common monthly intervals. The displacement series were therefore aligned to common monthly epochs using the deformation time series model described in \Cref{subsec:deformation_model}. Because the ring intervals did not coincide with uniform depth boundaries, the aligned deformation profiles were then represented by six standardized 50~m depth sections, designated S1 through S6. Differences between consecutive monthly values provided the monthly compaction increment within each depth section. The station code, monitored depth, and sampling interval are summarized in \Cref{tab:tuku_data_sources}.
 
 \subsubsection{Groundwater level observations}
 
-Groundwater level (GWL) observations recorded variations in hydraulic head associated with aquifer-system compaction and land subsidence in alluvial fan aquifer systems \citep{galloway_land_1999, gambolati_2015, herrera-garcia_mapping_2021, bagheri-gavkoshLandSubsidenceGlobal2021}. The regional GWL monitoring network operated by the Water Resources Agency (WRA) of Taiwan comprised nested observation wells screened at discrete depth intervals corresponding to Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004}. Daily piezometric head measurements, expressed as elevations relative to Mean Sea Level (m MSL), were used in the analysis. These observations captured seasonal agricultural pumping drawdowns, monsoon recharge during the wet season, and longer-term changes in hydraulic head \citep{chang2022_wetanddry, lu2020_crfp}. Station locations, screened intervals, and sampling intervals are summarized in \Cref{tab:tuku_data_sources}. The daily observations were averaged within each month to place hydraulic head on the same temporal support as the MLCW response. Differences between consecutive monthly means were then calculated to obtain monthly hydraulic head changes (\Cref{subsec:predictor_preparation}).
+GWL observations described variations in hydraulic head associated with aquifer-system compaction and land subsidence in alluvial fan settings \citep{galloway_land_1999, gambolati_2015, herrera-garcia_mapping_2021, bagheri-gavkoshLandSubsidenceGlobal2021}. The regional GWL monitoring network comprised over 90 groundwater level monitoring stations and was operated by the Water Resources Agency of Taiwan. These stations generally consisted of nested observation wells screened at discrete depths to monitor hydraulic head in Aquifers 1 through 4 \citep{survey_project_1999, liu_characterization_2004}. Within this network, the Tuku station contained three observation wells screened over depth intervals of 81--84, 176--179, and 257--263~m. Daily piezometric head measurements from these wells were reported as elevations relative to mean sea level (m MSL). These records captured seasonal drawdown associated with agricultural pumping, recovery during the wet season, and longer-term changes in hydraulic head \citep{chang2022_wetanddry, lu2020_crfp}. To place the GWL observations on the same monthly time scale as the MLCW measurements, daily hydraulic heads were averaged within each month. Differences between consecutive monthly means then provided the monthly hydraulic head changes used in the analysis (\Cref{subsec:predictor_preparation}). The monitoring configuration and sampling interval are summarized in \Cref{tab:tuku_data_sources}.
 
 \subsubsection{Vertical surface displacement}
 
-Vertical surface displacement represented vertical deformation integrated over the depth of the underlying aquifer system. Whereas the Tuku MLCW measured deformation only to its deepest magnetic ring, installed at a depth of approximately 300~m, surface displacement also included deformation below this monitored depth \citep{hung_measuring_2021}. This surface response was measured using daily 3D position time series from the nearby TKJS cGNSS station \citep{IESAS_TGM_2026}. The station code and sampling interval are summarized in \Cref{tab:tuku_data_sources}. Finally, the cGNSS time series was fitted with the deformation model comprising linear, periodic, and step functions and evaluated at common monthly epochs (\Cref{subsec:deformation_model}). Differences between consecutive monthly values were then calculated to obtain vertical surface displacement increments.
+Vertical surface displacement represented vertical deformation integrated over the depth of the underlying aquifer system. Whereas the Tuku MLCW recorded deformation only to its deepest magnetic ring, installed at a depth of approximately 300~m, surface displacement also included deformation below this monitored depth \citep{hung_measuring_2021}. Daily three-dimensional position time series from the adjacent TKJS cGNSS station provided the surface displacement observations used at Tuku \citep{IESAS_TGM_2026}. Like the MLCW records, the cGNSS series was aligned to common monthly epochs using the deformation time series model described in \Cref{subsec:deformation_model}. Differences between consecutive monthly values then provided the vertical surface displacement increment for each month. The station code and sampling interval are summarized in \Cref{tab:tuku_data_sources}.
 
 \subsubsection{Borehole lithological profile}
 
-The Tuku borehole lithological log documented changes in sediment composition with depth along the MLCW borehole. The source record specified the upper and lower boundaries of each logged interval and the corresponding sediment type. Because the original intervals did not coincide with the six standardized 50~m depth sections, sediment thicknesses were aggregated within each section. Within this standardized framework, sediment composition was represented by the proportions of gravel, coarse sand, fine sand, and fine-grained deposits comprising clay, silt, and mud. The resulting proportions described lithological differences among depth sections and remained constant through time. Before model development, these compositional data were transformed using the approach described in \Cref{subsec:ilr_transformation}.
+The borehole lithological profile provided with the Tuku MLCW records described variations in sediment composition with depth along the borehole. The source log identified the upper and lower boundaries of each logged interval and its corresponding sediment type. Because these intervals did not coincide with the six standardized 50~m depth sections, sediment thicknesses were aggregated within each section. Sediment composition within each standardized section was then expressed as the proportions of gravel, coarse sand, fine sand, and fine-grained deposits comprising clay, silt, and mud. These proportions characterized lithological differences among the six depth sections and provided geological context for interpreting differences in deformation and model performance among sections.
 
 \begin{figure}[p]
   \centering
@@ -52,7 +54,7 @@ The Tuku borehole lithological log documented changes in sediment composition wi
   \label{fig:tuku_observations}
 \end{figure}
 
-Together, the four datasets linked monthly compaction within each 50~m depth section to corresponding hydraulic head changes, vertical surface displacement, and sediment composition. The MLCW increments provided monthly section-level compaction, while hydraulic head changes and surface displacement described variation through time and the lithological profile described differences among depth sections. After temporal alignment, these records formed the integrated monthly dataset summarized in \Cref{fig:tuku_data_workflow}. The following section describes how the records were transformed, assembled for modeling, and used to estimate monthly section-level compaction with Bayesian ridge regression.
+Together, the three time-series datasets linked monthly compaction within each 50~m depth section to corresponding hydraulic head changes and vertical surface displacement. The MLCW increments provided the monthly response, while hydraulic head changes and surface displacement increments provided the time-varying information used for estimation. After temporal alignment, these records formed the monthly regression dataset summarized in \Cref{fig:tuku_data_workflow}. The lithological profile remained separate from the model inputs and provided geological context for interpreting differences among depth sections. The following section describes how the monthly variables were assembled and used to estimate compaction with Bayesian ridge regression.
 
 \begin{figure}[htbp]
   \centering
@@ -72,21 +74,22 @@ Together, the four datasets linked monthly compaction within each 50~m depth sec
     \node (response) [process, below=of mlcw] {Delayed response\\Calibration and evaluation};
     \node (hydraulic) [process, below=of gwl] {Time-varying\\hydraulic information};
     \node (surface) [process, below=of gnss] {Time-varying\\surface response};
-    \node (sediment) [process, below=of lith] {Static section\\information};
+    \node (context) [process, below=of lith] {Lithological context\\for each depth section};
 
     \node (modeldata) [result, below=1.0cm of $(hydraulic.south)!0.5!(surface.south)$] {Monthly Tuku dataset for six depth sections};
+    \node (interpretation) [process, below=1.0cm of context] {Interpretation of\\section differences};
 
     \draw [arrow] (mlcw) -- (response);
     \draw [arrow] (gwl) -- (hydraulic);
-    \draw [arrow] (lith) -- (sediment);
+    \draw [arrow] (lith) -- (context);
     \draw [arrow] (gnss) -- (surface);
     \draw [arrow] (response) -- (modeldata);
     \draw [arrow] (hydraulic) -- (modeldata);
-    \draw [arrow] (sediment) -- (modeldata);
     \draw [arrow] (surface) -- (modeldata);
+    \draw [arrow] (context) -- (interpretation);
   \end{tikzpicture}%
   }
-  \caption{Integration of multilayer compaction, hydraulic head, vertical surface displacement, and sediment composition data for monthly section-level compaction estimation at Tuku.}
+  \caption{Roles of multilayer deformation, hydraulic head, vertical surface displacement, and borehole lithology in the analysis at Tuku.}
   \label{fig:tuku_data_workflow}
 \end{figure}
 
@@ -94,16 +97,19 @@ Together, the four datasets linked monthly compaction within each 50~m depth sec
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption{Datasets used for monthly compaction estimation at Tuku. All stations and profiles were located at approximately 120.390$^\circ$E and 23.688$^\circ$N.}
+  \caption{Datasets used for monthly compaction estimation at Tuku. All stations and profiles were located at approximately 120.390$^\circ$E and 23.688$^\circ$N. Screen depths are reported below ground surface.}
   \label{tab:tuku_data_sources}
-  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}X@{}}
-    \toprule
-    \textbf{Dataset} & \textbf{Station or profile} & \textbf{Sampling interval} & \textbf{Observation period} \\
-    \midrule
-    MLCW compaction & Tuku MLCW, 0--300~m & Monthly & 01/2010--12/2024 \\
-    Groundwater level & Tuku wells, Aquifers 1--4 & Daily & 01/2008--12/2024 \\
-    cGNSS displacement & TKJS & Daily & 01/2010--12/2024 \\
-    Borehole lithology & Tuku borehole, 0--300~m & Static & -- \\
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule[1.2pt]
+    \textbf{Dataset} & \textbf{Station} & \textbf{Sampling interval} & \textbf{Observation period} & \textbf{Well code} & \textbf{Screen depth (m)} \\
+    \midrule[0.9pt]
+    MLCW deformation & Tuku & Monthly & 01/2010--12/2024 & -- & -- \\
+    \midrule[0.4pt]
+    Groundwater level & Tuku & Daily & 01/2008--12/2024 & \makecell[l]{09050321\\09050331\\09050341} & \makecell[l]{81--84\\176--179\\257--263} \\
+    \midrule[0.4pt]
+    cGNSS displacement & TKJS & Daily & 01/2010--12/2024 & -- & -- \\
+    \midrule[0.4pt]
+    Borehole lithology & Tuku & -- & -- & -- & -- \\
     \bottomrule
   \end{tabularx}
 \end{table}
