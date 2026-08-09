@@ -161,11 +161,11 @@ All three evaluation designs preserved the temporal order of the monitoring reco
 \subsubsection{Delayed data delivery}
 \label{subsec:delayed_evaluation}
 
-The primary evaluation examined a temporary gap in the availability of finalized monthly MLCW records. The model was initially calibrated using three years of continuous monthly observations. It then estimated monthly compaction from the GWL and cGNSS observations available during each of the following six months, while the corresponding MLCW observations remained unavailable. The six-month interval was selected to provide a consistent basis for evaluation. It did not imply that finalized MLCW records were always provided at six-month intervals.
+The primary evaluation represented a temporary gap in the availability of finalized monthly MLCW records. The model was first calibrated using three years of continuous monthly observations. During each subsequent six-month period, the available GWL and cGNSS observations were used to estimate monthly deformation increments while the corresponding MLCW observations remained unavailable. The six-month interval provided a consistent basis for comparison and did not represent a fixed schedule for data provision.
 
-Under this evaluation design, the six corresponding MLCW observations became available at the end of each six-month period and were compared with the monthly estimates. These observations were then added to the calibration record, and the model was recalibrated before estimating the next six-month period. Repeating this sequence gradually expanded the calibration record while preventing MLCW observations from a later period from influencing earlier estimates. One complete evaluation cycle is illustrated in \Cref{fig:delayed_observation_design}.
+At the end of each estimation period, the corresponding monthly MLCW observations became available and were compared with the estimates. These observations were then added to the calibration record, after which the model was recalibrated for the next cycle. Repeating this sequence gradually expanded the calibration record while preserving temporal order because observations from a later period could not influence earlier estimates. One complete cycle is illustrated in \Cref{fig:delayed_observation_design}.
 
-Performance was evaluated separately for each depth section and for all sections combined using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). The posterior predictive intervals were evaluated using empirical coverage and mean interval width, as described in \Cref{subsec:predictive_uncertainty}. These measures were also grouped by month within each six-month period to examine whether estimation performance changed as the interval without updated MLCW observations increased.
+Point estimates were evaluated separately for each depth section and for all sections combined using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). Posterior predictive intervals were evaluated using empirical coverage and mean interval width, as described in \Cref{subsec:predictive_uncertainty}. Performance was also compared across successive months within each update cycle to determine whether estimation quality changed as the MLCW observation gap lengthened.
 
 \begin{figure}[htbp]
   \centering
@@ -234,7 +234,7 @@ Performance was evaluated separately for each depth section and for all sections
       {Expanded historical records\\Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Evaluation cycle used during temporary MLCW data unavailability. Filled blue markers represent observations available to the analysis, whereas open markers represent monthly deformation observations not yet available during the estimation period. The connected orange markers represent the monthly records provided at the end of that period and subsequently used for evaluation and model recalibration. Ellipses indicate additional historical observations not displayed. The number and spacing of markers are schematic.}
+  \caption{Evaluation cycle during temporary MLCW data unavailability. Filled blue markers indicate available observations, whereas open markers indicate monthly deformation observations not yet available during estimation. Newly available deformation records (orange) were then used to evaluate the estimates, recalibrate the model, and begin the next cycle. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
   \label{fig:delayed_observation_design}
 \end{figure}
 
