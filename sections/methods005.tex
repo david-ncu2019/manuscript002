@@ -184,53 +184,57 @@ Performance was evaluated separately for each depth section and for all sections
     flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
     action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.15cm,font=\small\bfseries}
   ]
-    \node[phase] at (1.75,3.55) {Initial historical records};
-    \node[phase] at (7.00,3.55) {Evaluation period};
-    \node[updatephase] at (11.35,3.55) {Newly available observations};
+    \node[phase] at (1.625,3.55) {Initial historical records};
+    \node[phase] at (5.775,3.55) {Estimation period};
+    \node[updatephase] at (9.925,3.55) {Newly available observations};
 
     \node[dataset] at (-0.55,2.55) {Deformation by\\depth interval};
     \node[dataset] at (-0.55,1.55) {Hydraulic head};
     \node[dataset] at (-0.55,0.55) {Vertical surface\\displacement};
 
     \foreach \y in {2.55,1.55,0.55} {
-      \draw[historyline] (0,\y) -- (3.5,\y);
-      \foreach \x in {0,0.7,1.4,2.1,2.8,3.5} {
+      \draw[historyline] (0,\y) -- (3.25,\y);
+      \foreach \x in {0,0.65,1.30,2.60,3.25} {
         \node[available] at (\x,\y) {};
       }
+      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (1.95,\y) {$\cdots$};
     }
 
-    \draw[pendingline] (4.5,2.55) -- (9.5,2.55);
-    \foreach \x in {4.5,5.5,6.5,7.5,8.5,9.5} {
+    \draw[pendingline] (4.15,2.55) -- (7.40,2.55);
+    \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
       \node[pending] at (\x,2.55) {};
     }
 
     \foreach \y in {1.55,0.55} {
-      \draw[historyline] (4.5,\y) -- (9.5,\y);
-      \foreach \x in {4.5,5.5,6.5,7.5,8.5,9.5} {
+      \draw[historyline] (4.15,\y) -- (7.40,\y);
+      \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
         \node[available] at (\x,\y) {};
       }
     }
 
-    \foreach \i in {0,...,5} {
-      \pgfmathsetmacro{\xx}{10.85 + 0.20*\i}
+    \draw[draw=orange!80!black,line width=1.1pt] (8.30,2.55) -- (11.55,2.55);
+    \foreach \xx in {8.30,8.95,9.60,10.25,10.90,11.55} {
       \node[providerupdate] at (\xx,2.55) {};
     }
-    \draw[-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt] (9.72,2.55) -- (10.63,2.55);
+    \draw[-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt] (7.62,2.55) -- (8.08,2.55);
 
-    \draw[divider] (4.0,-1.15) -- (4.0,3.20);
-    \draw[divider] (10.15,-1.15) -- (10.15,3.20);
+    \draw[divider] (3.70,-1.15) -- (3.70,3.20);
+    \draw[divider] (7.85,-1.15) -- (7.85,3.20);
 
-    \node[action] (calibrate) at (1.75,-0.75) {Model calibration};
-    \node[action] (estimate) at (7.00,-0.75) {Monthly\\deformation increment\\estimation};
-    \node[action] (update) at (11.35,-0.75) {Evaluation +\\recalibration};
+    \node[action] (calibrate) at (1.625,-0.75) {Model calibration};
+    \node[action] (estimate) at (5.775,-0.75) {Monthly\\deformation increment\\estimation};
+    \node[action] (update) at (9.925,-0.75) {Evaluation + recalibration};
     \draw[flow] (calibrate.east) -- (estimate.west);
     \draw[flow] (estimate.east) -- (update.west);
+    \draw[-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt]
+      (9.925,2.35) -- (update.north);
     \draw[flow,rounded corners=5pt]
       (update.south) -- ++(0,-0.60) -| (calibrate.south)
-      node[pos=0.48,below,font=\small,text=black] {Next cycle};
+      node[pos=0.48,below,align=center,font=\small,text=black]
+      {Expanded historical records\\Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Evaluation cycle used during temporary MLCW data unavailability. Filled blue markers represent observations available to the analysis, whereas open markers represent monthly depth-resolved deformation observations not yet available during the evaluation period. The orange markers represent the records provided at the end of that period and subsequently used for evaluation and model recalibration. The number and spacing of markers are schematic.}
+  \caption{Evaluation cycle used during temporary MLCW data unavailability. Filled blue markers represent observations available to the analysis, whereas open markers represent monthly deformation observations not yet available during the estimation period. The connected orange markers represent the monthly records provided at the end of that period and subsequently used for evaluation and model recalibration. Ellipses indicate additional historical observations not displayed. The number and spacing of markers are schematic.}
   \label{fig:delayed_observation_design}
 \end{figure}
 
