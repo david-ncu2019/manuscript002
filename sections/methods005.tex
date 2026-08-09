@@ -156,36 +156,81 @@ Interval performance was evaluated using empirical coverage and mean interval wi
 \subsection{Experimental design}
 \label{subsec:experimental_design}
 
-Two evaluation designs were used to test the model under different monitoring conditions. Both designs relied on walk-forward validation, in which the model was fitted only on observations that preceded the period being estimated. A single random train/test split was not used because it would allow later MLCW observations to inform the fit used to estimate an earlier month, a form of information leakage that does not occur under the sequential delivery of field measurements. Walk-forward validation instead advances the calibration window forward in time, refitting the model only when new observations become genuinely available, so that every reported estimate uses strictly the information a field operator would have had at that time.
+All three evaluation designs preserved the temporal order of the monitoring records. For each period being estimated, the model used only MLCW observations that would have been available before that period, while monthly GWL and cGNSS observations remained available during the estimation period. This design prevented later MLCW observations from influencing earlier estimates. The three evaluations differed in when, or whether, new MLCW observations became available for updating the model.
 
 \subsubsection{Delayed data delivery}
 \label{subsec:delayed_evaluation}
 
-The primary evaluation design recreated temporary six-month gaps during which complete monthly MLCW records were treated as unavailable. GWL and cGNSS observations remained available throughout. Observations from \placeholder{INITIAL CALIBRATION START} to \placeholder{INITIAL CALIBRATION END} formed the initial calibration dataset. The fitted model then estimated monthly compaction for the next six months, while the corresponding MLCW observations remained hidden until the block ended. The six-month interval provided a consistent evaluation period and did not represent a fixed data delivery schedule.
+The primary evaluation examined a temporary gap in the availability of finalized monthly MLCW records. The model was initially calibrated using three years of continuous monthly observations. It then estimated monthly compaction from the GWL and cGNSS observations available during each of the following six months, while the corresponding MLCW observations remained unavailable. The six-month interval was selected to provide a consistent basis for evaluation. It did not imply that finalized MLCW records were always provided at six-month intervals.
 
-At the end of each block, the six withheld MLCW observations were used to evaluate the estimates and were then added to the calibration dataset. The model was fitted again before the next block began. This sequence continued through \placeholder{FINAL EVALUATION MONTH} using nonoverlapping blocks. Consequently, each estimate depended only on observations that would have been available at the time. \Cref{fig:delayed_observation_design} illustrates one update cycle.
+Under this evaluation design, the six corresponding MLCW observations became available at the end of each six-month period and were compared with the monthly estimates. These observations were then added to the calibration record, and the model was recalibrated before estimating the next six-month period. Repeating this sequence gradually expanded the calibration record while preventing MLCW observations from a later period from influencing earlier estimates. One complete evaluation cycle is illustrated in \Cref{fig:delayed_observation_design}.
 
-Performance was calculated by depth section and for all sections combined using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE) in mm/month. Errors were also grouped by their position within each block, from the first to the sixth month, to determine whether performance changed as the period without updated MLCW observations increased.
+Performance was evaluated separately for each depth section and for all sections combined using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). The posterior predictive intervals were evaluated using empirical coverage and mean interval width, as described in \Cref{subsec:predictive_uncertainty}. These measures were also grouped by month within each six-month period to examine whether estimation performance changed as the interval without updated MLCW observations increased.
 
 \begin{figure}[htbp]
   \centering
   \resizebox{\linewidth}{!}{%
   \begin{tikzpicture}[
-    node distance=0.65cm,
-    box/.style={draw, rectangle, rounded corners=2pt, align=center, minimum width=3.35cm, minimum height=1.05cm, font=\small},
-    arrow/.style={-{Stealth[scale=0.9]}, line width=0.8pt}
+    font=\small,
+    dataset/.style={anchor=east,align=right,font=\small\bfseries,text=black!75},
+    phase/.style={font=\small\bfseries,text=black!75,align=center},
+    updatephase/.style={font=\small\bfseries,text=orange!75!black,align=center},
+    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=4.3pt,inner sep=0pt},
+    pending/.style={circle,draw=blue!60!black,fill=white,line width=0.9pt,minimum size=5.2pt,inner sep=0pt},
+    providerupdate/.style={circle,draw=orange!80!black,fill=orange!80!black,minimum size=4.6pt,inner sep=0pt},
+    historyline/.style={draw=blue!55!black,line width=1.1pt},
+    pendingline/.style={draw=blue!55!black,densely dashed,line width=0.8pt},
+    divider/.style={draw=black!35,densely dashed,line width=0.7pt},
+    flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
+    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.15cm,font=\small\bfseries}
   ]
-    \node (train) [box, fill=blue!7] {Available history\\Fit the model};
-    \node (estimate) [box, fill=orange!8, right=of train] {Months 1--6\\Estimate with current GWL and cGNSS};
-    \node (release) [box, fill=green!8, right=of estimate] {End of month 6\\Reveal six withheld MLCW records};
-    \node (update) [box, fill=gray!10, below=of release] {Compare, append records,\\and update the model};
-    \draw [arrow] (train) -- (estimate);
-    \draw [arrow] (estimate) -- (release);
-    \draw [arrow] (release) -- (update);
-    \draw [arrow] (update.west) -| (train.south);
+    \node[phase] at (1.75,3.55) {Initial historical records};
+    \node[phase] at (7.00,3.55) {Evaluation period};
+    \node[updatephase] at (11.35,3.55) {Provider data update};
+
+    \node[dataset] at (-0.55,2.55) {Depth-resolved\\deformation};
+    \node[dataset] at (-0.55,1.55) {Hydraulic head};
+    \node[dataset] at (-0.55,0.55) {Vertical surface\\displacement};
+
+    \foreach \y in {2.55,1.55,0.55} {
+      \draw[historyline] (0,\y) -- (3.5,\y);
+      \foreach \x in {0,0.7,1.4,2.1,2.8,3.5} {
+        \node[available] at (\x,\y) {};
+      }
+    }
+
+    \draw[pendingline] (4.5,2.55) -- (9.5,2.55);
+    \foreach \x in {4.5,5.5,6.5,7.5,8.5,9.5} {
+      \node[pending] at (\x,2.55) {};
+    }
+
+    \foreach \y in {1.55,0.55} {
+      \draw[historyline] (4.5,\y) -- (9.5,\y);
+      \foreach \x in {4.5,5.5,6.5,7.5,8.5,9.5} {
+        \node[available] at (\x,\y) {};
+      }
+    }
+
+    \foreach \i in {0,...,5} {
+      \pgfmathsetmacro{\xx}{10.85 + 0.20*\i}
+      \node[providerupdate] at (\xx,2.55) {};
+    }
+    \draw[-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt] (9.72,2.55) -- (10.63,2.55);
+
+    \draw[divider] (4.0,-1.15) -- (4.0,3.20);
+    \draw[divider] (10.15,-1.15) -- (10.15,3.20);
+
+    \node[action] (calibrate) at (1.75,-0.75) {Model calibration};
+    \node[action] (estimate) at (7.00,-0.75) {Monthly compaction\\estimation};
+    \node[action] (update) at (11.35,-0.75) {Evaluation +\\recalibration};
+    \draw[flow] (calibrate.east) -- (estimate.west);
+    \draw[flow] (estimate.east) -- (update.west);
+    \draw[flow,rounded corners=5pt]
+      (update.south) -- ++(0,-0.60) -| (calibrate.south)
+      node[pos=0.48,below,font=\small,text=black] {Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Evaluation of monthly compaction estimates during a six-month interval of temporary MLCW data unavailability. Each block was estimated from GWL and cGNSS observations available during its six target months. The corresponding MLCW observations remained hidden until the end of the block and were then used to evaluate and update the model.}
+  \caption{Evaluation cycle used during temporary MLCW data unavailability. Filled blue markers represent observations available to the analysis, whereas open markers represent monthly depth-resolved deformation observations not yet available during the evaluation period. The orange markers represent the records provided at the end of that period and subsequently used for evaluation and model recalibration. The number and spacing of markers are schematic.}
   \label{fig:delayed_observation_design}
 \end{figure}
 
