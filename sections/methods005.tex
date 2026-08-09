@@ -186,9 +186,9 @@ Performance was evaluated separately for each depth section and for all sections
   ]
     \node[phase] at (1.75,3.55) {Initial historical records};
     \node[phase] at (7.00,3.55) {Evaluation period};
-    \node[updatephase] at (11.35,3.55) {Provider data update};
+    \node[updatephase] at (11.35,3.55) {Newly available observations};
 
-    \node[dataset] at (-0.55,2.55) {Depth-resolved\\deformation};
+    \node[dataset] at (-0.55,2.55) {Deformation by\\depth interval};
     \node[dataset] at (-0.55,1.55) {Hydraulic head};
     \node[dataset] at (-0.55,0.55) {Vertical surface\\displacement};
 
@@ -221,7 +221,7 @@ Performance was evaluated separately for each depth section and for all sections
     \draw[divider] (10.15,-1.15) -- (10.15,3.20);
 
     \node[action] (calibrate) at (1.75,-0.75) {Model calibration};
-    \node[action] (estimate) at (7.00,-0.75) {Monthly compaction\\estimation};
+    \node[action] (estimate) at (7.00,-0.75) {Monthly\\deformation increment\\estimation};
     \node[action] (update) at (11.35,-0.75) {Evaluation +\\recalibration};
     \draw[flow] (calibrate.east) -- (estimate.west);
     \draw[flow] (estimate.east) -- (update.west);
