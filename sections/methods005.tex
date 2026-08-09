@@ -1,9 +1,9 @@
-Monitoring records were converted into monthly response and predictor variables for each depth section and used in Bayesian ridge regression to estimate monthly compaction. The evaluation considered both the periodic provision of complete monthly records and hypothetical schedules in which one cumulative MLCW observation was collected every six or twelve months.
+The analysis first converted the MLCW, cGNSS, and groundwater records into monthly variables for estimating deformation within individual depth sections. A separate Bayesian ridge regression model then related monthly deformation within individual depth sections to hydraulic head changes, vertical surface displacement, and seasonal variation. The resulting estimates were evaluated under three monitoring conditions. The first represented temporary delays in the availability of complete monthly MLCW records. The second represented reduced measurement schedules in which one cumulative MLCW observation was available every six or twelve months. The third assumed that no further MLCW measurements became available after an initial calibration period.
 
 \subsection{Preparation of model inputs}
 \label{subsec:predictor_preparation}
 
-To prepare the model inputs, the observations described in \Cref{subsec:datasets} were converted to a common monthly scale. A deformation time series model aligned the MLCW and cGNSS displacement records collected on different dates and produced monthly increments. The MLCW increments formed the response, while cGNSS increments, section-specific hydraulic head changes, and seasonal terms formed the predictors.
+Model-input preparation began by aligning the MLCW and cGNSS displacement records, which were collected on different dates. A deformation time series model evaluated these records at common monthly dates and produced monthly increments. The MLCW increments formed the response, while cGNSS increments, section-specific hydraulic head changes, and seasonal terms formed the predictors.
 
 \subsubsection{Deformation time series model}
 \label{subsec:deformation_model}
