@@ -241,11 +241,179 @@ Point estimates were evaluated separately for each depth section and for all sec
 \subsubsection{Reduced measurement frequency}
 \label{subsec:sparse_measurement_sensitivity}
 
-A second evaluation design tested an operational question distinct from delayed delivery: whether the model remained useful if the Water Resources Agency reduced the frequency of MLCW field visits itself, rather than merely receiving existing monthly readings later. This design simulated MLCW measurements collected only once every six or twelve months, with monthly GWL and cGNSS observations remaining available throughout. At each field visit, the model received one cumulative compaction observation covering the entire interval since the previous visit, used that observation to update the fit, and then estimated monthly compaction continuously through the next interval with no further MLCW input and no intermediate refit.
+A second evaluation represented a hypothetical monitoring schedule in which MLCW measurements were collected less frequently. Monthly GWL and cGNSS observations remained available throughout each measurement interval and were used to estimate monthly deformation increments. However, the monthly MLCW values within that interval were not used for estimation or model updating. Instead, one cumulative MLCW deformation observation became available at the end of the interval.
 
-Six scenarios were evaluated, combining two measurement intervals (6 months and 12 months) with three initial calibration periods (36, 60, and 96 months of continuous monthly MLCW data before the reduced schedule began). At each field visit, the single cumulative compaction observation covering the elapsed interval was combined with the existing calibration record through an interval-constrained update: the accumulated observations were treated as the sum of the corresponding monthly increments, with the update variance scaled by the inverse square root of the number of elapsed months, so that a twelve-month cumulative observation constrained the fit less tightly, per unit compaction, than a six-month one. Errors were reported at two scopes: the monthly scope compared each month's estimate against its hidden monthly increment, while the endpoint scope compared the accumulated estimate against the single cumulative observation collected at each field visit.
+This design was examined through six scenarios that combined measurement intervals of 6 or 12 months with initial calibration periods containing 36, 60, or 96 consecutive monthly MLCW observations. These durations defined the scenarios examined in this study rather than a requirement of the method. Regardless of the selected duration, each measurement interval produced one cumulative deformation observation.
 
-For the thinnest schedule evaluated, a twelve-month measurement interval following 96 months of initial monthly calibration, six complete endpoints were available per depth section within the common record length.
+To represent this cumulative observation mathematically, let $s$ denote a depth section, $I$ denote a measurement interval, and $H_I$ denote the number of months in that interval. The monthly MLCW deformation increment in month $t$ is denoted by $y_{s,t}$. The cumulative deformation observation available at the end of the interval was
+
+\begin{equation}
+Y_{s,I}
+=
+\sum_{t\in I}y_{s,t}.
+\label{eq:cumulative_deformation_observation}
+\end{equation}
+
+The individual monthly values within $I$ remained hidden from model fitting and updating and were retained only for retrospective evaluation. Consequently, only the cumulative observation $Y_{s,I}$ entered the next model update. Representing this observation within the monthly regression required the relation in \Cref{eq:brr_regression,eq:brr_likelihood} to be accumulated over the same interval. This summation gave
+
+\begin{equation}
+Y_{s,I}
+=
+H_I\beta_{0,s}
++
+\left(
+\sum_{t\in I}\boldsymbol{x}_{s,t}
+\right)^{\mathsf{T}}
+\boldsymbol{\beta}_{s}
++
+\varepsilon_{s,I},
+\label{eq:cumulative_deformation_model}
+\end{equation}
+
+where $\boldsymbol{x}_{s,t}$ contains the standardized predictors for section $s$ in month $t$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also retained the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
+
+\begin{equation}
+\varepsilon_{s,I}
+\sim
+\mathcal{N}
+\left(
+0,
+H_I\alpha_s^{-1}
+\right).
+\label{eq:cumulative_residual_distribution}
+\end{equation}
+
+The resulting variance increased in proportion to $H_I$. To fit the cumulative observation together with the original monthly observations, both observation types were placed on the same residual variance scale. The monthly predictors were first centered and scaled using only the initial monthly calibration record. The cumulative regression equation was then divided by $\sqrt{H_I}$,
+
+\begin{equation}
+\frac{Y_{s,I}}{\sqrt{H_I}}
+=
+\sqrt{H_I}\,\beta_{0,s}
++
+\left(
+\frac{1}{\sqrt{H_I}}
+\sum_{t\in I}\boldsymbol{x}_{s,t}
+\right)^{\mathsf{T}}
+\boldsymbol{\beta}_{s}
++
+\widetilde{\varepsilon}_{s,I},
+\label{eq:scaled_cumulative_deformation_model}
+\end{equation}
+
+with
+
+\begin{equation}
+\widetilde{\varepsilon}_{s,I}
+=
+\frac{\varepsilon_{s,I}}{\sqrt{H_I}}
+\sim
+\mathcal{N}
+\left(
+0,
+\alpha_s^{-1}
+\right).
+\label{eq:scaled_cumulative_residual}
+\end{equation}
+
+This scaling did not divide the cumulative observation into separate monthly measurements. Instead, it allowed the monthly and cumulative observations to constrain the same regression coefficients while retaining their different temporal support. The scaled cumulative equation could therefore enter the calibration record as one interval constraint.
+
+The model was first calibrated from the initial monthly MLCW record and used to estimate deformation throughout the first measurement interval. At the end of that interval, the cumulative observation in \Cref{eq:cumulative_deformation_observation} was added to the calibration record as one interval constraint. The expanded record, consisting of the initial monthly observations and cumulative observations from completed intervals, was then used to recalibrate the model before the next interval. Hidden monthly MLCW values from the reduced measurement intervals never entered this recalibration. This sequence is illustrated in \Cref{fig:reduced_measurement_design}.
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tikzpicture}[
+    font=\small,
+    dataset/.style={anchor=east,align=right,font=\small\bfseries,text=black!75},
+    phase/.style={font=\small\bfseries,text=black!75,align=center},
+    updatephase/.style={font=\small\bfseries,text=orange!75!black,align=center},
+    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=4.3pt,inner sep=0pt},
+    hidden/.style={circle,draw=blue!60!black,fill=white,line width=0.9pt,minimum size=5.2pt,inner sep=0pt},
+    endpointobs/.style={rectangle,draw=orange!80!black,fill=orange!80!black,minimum size=7pt,inner sep=0pt},
+    historyline/.style={draw=blue!55!black,line width=1.1pt},
+    hiddenline/.style={draw=blue!55!black,densely dashed,line width=0.8pt},
+    divider/.style={draw=black!35,densely dashed,line width=0.7pt},
+    flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
+    orangeflow/.style={-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt},
+    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.15cm,font=\small\bfseries}
+  ]
+    \node[phase] at (1.625,3.65) {Initial historical\\records};
+    \node[phase] at (5.775,3.65) {Reduced measurement\\interval};
+    \node[updatephase] at (9.925,3.65) {Cumulative deformation\\observation};
+
+    \node[dataset] at (-0.55,2.55) {Deformation by\\depth interval};
+    \node[dataset] at (-0.55,1.55) {Hydraulic head};
+    \node[dataset] at (-0.55,0.55) {Vertical surface\\displacement};
+
+    \foreach \y in {2.55,1.55,0.55} {
+      \draw[historyline] (0,\y) -- (3.25,\y);
+      \foreach \x in {0,0.65,1.30,2.60,3.25} {
+        \node[available] at (\x,\y) {};
+      }
+      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (1.95,\y) {$\cdots$};
+    }
+
+    \draw[hiddenline] (4.15,2.55) -- (7.40,2.55);
+    \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
+      \node[hidden] at (\x,2.55) {};
+    }
+
+    \foreach \y in {1.55,0.55} {
+      \draw[historyline] (4.15,\y) -- (7.40,\y);
+      \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
+        \node[available] at (\x,\y) {};
+      }
+    }
+
+    \draw[draw=orange!75!black,line width=0.8pt] (4.15,2.90) -- (7.40,2.90);
+    \draw[draw=orange!75!black,line width=0.8pt] (4.15,2.90) -- (4.15,2.78);
+    \draw[draw=orange!75!black,line width=0.8pt] (7.40,2.90) -- (7.40,2.78);
+    \node[font=\scriptsize,text=orange!75!black] at (5.775,3.08) {Accumulated over interval};
+    \node[endpointobs] (endpoint) at (9.925,2.55) {};
+    \draw[orangeflow] (7.40,2.90) -- (endpoint.north west);
+
+    \draw[divider] (3.70,-1.40) -- (3.70,3.30);
+    \draw[divider] (7.85,-1.40) -- (7.85,3.30);
+
+    \node[action] (calibrate) at (1.625,-0.75) {Model calibration};
+    \node[action] (estimate) at (5.775,-0.75) {Monthly\\deformation increment\\estimation};
+    \node[action] (update) at (9.925,-0.75) {Model\\recalibration};
+    \draw[flow] (calibrate.east) -- (estimate.west);
+    \draw[flow] (estimate.east) -- (update.west);
+    \draw[orangeflow] (endpoint.south) -- (update.north);
+    \draw[flow,rounded corners=5pt]
+      (update.south) -- ++(0,-0.78) -| (calibrate.south)
+      node[pos=0.48,below,align=center,font=\small,text=black]
+      {Historical monthly records + cumulative observations\\Next cycle};
+  \end{tikzpicture}%
+  }
+  \caption{Reduced-frequency measurement cycle. Filled blue markers indicate monthly observations available to the analysis, whereas open markers indicate monthly MLCW deformation values hidden from model fitting and retained only for retrospective evaluation. The orange square represents the cumulative deformation observation used to recalibrate the model before the next interval. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
+  \label{fig:reduced_measurement_design}
+\end{figure}
+
+The resulting estimates were evaluated at monthly and interval scales. At the monthly scale, the error compared each estimated increment with its hidden monthly MLCW value,
+
+\begin{equation}
+e_{s,t}
+=
+\widehat{y}_{s,t}
+-
+y_{s,t}.
+\label{eq:sparse_monthly_error}
+\end{equation}
+
+At the interval scale, the endpoint error compared the accumulated monthly estimates with the cumulative observation,
+
+\begin{equation}
+e_{s,I}
+=
+\sum_{t\in I}\widehat{y}_{s,t}
+-
+Y_{s,I}.
+\label{eq:sparse_endpoint_error}
+\end{equation}
+
+Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE, RMSE, and mean signed error for each depth section and for all sections combined. The coefficient of determination was not calculated for the endpoint observations because each scenario contained relatively few cumulative measurements.
 
 \subsubsection{Sensitivity to permanent monitoring stoppage}
 \label{subsec:permanent_stoppage_sensitivity}
