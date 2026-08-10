@@ -11,16 +11,25 @@ Model-input preparation began by aligning the MLCW and cGNSS displacement record
 For each MLCW and cGNSS displacement series, the deformation time series model represented displacement as the sum of a reference value, a linear component, annual and semiannual components, and offsets at documented discontinuities. For observation time $t$, the fitted displacement was
 \begin{equation}
 d(t)=d_0+v(t-t_0)
-+\sum_{k\in\{1,2\}}
-\left[a_k\sin(2\pi k t)+b_k\cos(2\pi k t)\right]
++\sum_{h\in\{1,2\}}
+\left[a_h\sin(2\pi h t)+b_h\cos(2\pi h t)\right]
 +\sum_{j=1}^{J}c_j H(t-t_j),
 \label{eq:deformation_model}
 \end{equation}
-where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_k$ and $b_k$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002}. The fitted series were evaluated at common monthly dates to produce aligned cumulative displacement records. Differences between consecutive values yielded monthly MLCW compaction and cGNSS vertical displacement increments.
+where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_h$ and $b_h$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002}. The fitted series were evaluated at common monthly epochs to produce aligned cumulative displacement records. For depth section $s$, the deformation increment over the month ending at epoch $k$ was
+
+\begin{equation}
+\Delta d_{s,k}
+=
+d_s(t_k)-d_s(t_{k-1}),
+\label{eq:monthly_deformation_increment}
+\end{equation}
+
+where $t_k$ and $t_{k-1}$ denote consecutive monthly epochs. Corresponding differences in the cGNSS series yielded monthly vertical surface displacement increments.
 
 \subsubsection{Assembly of monthly model inputs}
 
-Each observation in the regression dataset represented one depth section during one month, with the monthly MLCW compaction increment serving as the response. The predictors described hydraulic conditions, vertical surface displacement, and seasonal variation.
+Each observation in the regression dataset represented one depth section during one month, with the observed deformation increment $\Delta d_{s,k}$ serving as the response. The predictors described hydraulic conditions, vertical surface displacement, and seasonal variation.
 
 Hydraulic head observations from the Tuku wells were used directly for the depth sections represented by local records. For the remaining sections, hydraulic head at Tuku was estimated from the regional monitoring network using ordinary kriging. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual and semiannual terms represented recurring seasonal variation.
 
@@ -52,39 +61,45 @@ Bayesian ridge regression was used as a probabilistic linear regression model to
 The Bayesian formulation applies the same coefficient shrinkage but also represents the remaining uncertainty in the fitted relation. For $n$ calibration observations and $p$ standardized predictors, the regression model was
 
 \begin{equation}
-\boldsymbol{y}
+\Delta\boldsymbol{d}_s
 =
-\beta_0\boldsymbol{1}
+\beta_{0,s}\boldsymbol{1}
 +
-\boldsymbol{X}\boldsymbol{\beta}
+\boldsymbol{X}_s\boldsymbol{\beta}_s
 +
-\boldsymbol{\varepsilon},
+\boldsymbol{\varepsilon}_s,
 \label{eq:brr_regression}
 \end{equation}
 
 with residual errors described by
 
 \begin{equation}
-\boldsymbol{\varepsilon}\sim\mathcal{N}(\boldsymbol{0},\alpha^{-1}\boldsymbol{I}),
-\label{eq:brr_likelihood}
-\end{equation}
-
-Here, $\boldsymbol{y}$ contains the observed monthly compaction increments, $\beta_0$ is the intercept, $\boldsymbol{X}$ contains the standardized predictors, and $\boldsymbol{\beta}$ contains their regression coefficients. The residual term $\boldsymbol{\varepsilon}$ represents variation in monthly compaction that was not explained by the predictors. The parameter $\alpha$ describes the precision of this residual variation. A larger value of $\alpha$ corresponds to less unexplained variation around the fitted relation.
-
-Coefficient shrinkage was introduced by assigning a zero-centered Gaussian distribution to the regression coefficients,
-
-\begin{equation}
-\boldsymbol{\beta}
+\boldsymbol{\varepsilon}_s
 \sim
 \mathcal{N}
 \left(
 \boldsymbol{0},
-\lambda^{-1}\boldsymbol{I}
+\alpha_s^{-1}\boldsymbol{I}
+\right),
+\label{eq:brr_likelihood}
+\end{equation}
+
+Here, $\Delta\boldsymbol{d}_s$ contains the observed monthly deformation increments for section $s$, $\beta_{0,s}$ is the intercept, $\boldsymbol{X}_s$ contains the standardized predictors, and $\boldsymbol{\beta}_s$ contains their regression coefficients. The residual term $\boldsymbol{\varepsilon}_s$ represents variation in monthly deformation that was not explained by the predictors. The parameter $\alpha_s$ describes the precision of this residual variation. A larger value of $\alpha_s$ corresponds to less unexplained variation around the fitted relation.
+
+Coefficient shrinkage was introduced by assigning a zero-centered Gaussian distribution to the regression coefficients,
+
+\begin{equation}
+\boldsymbol{\beta}_s
+\sim
+\mathcal{N}
+\left(
+\boldsymbol{0},
+\lambda_s^{-1}\boldsymbol{I}
 \right),
 \label{eq:brr_prior}
 \end{equation}
 
-where $\lambda$ controls the strength of the shrinkage. A larger value of $\lambda$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly compaction retain larger coefficients. The values of $\alpha$ and $\lambda$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
+where $\lambda_s$ controls the strength of the shrinkage for section $s$. A larger value of $\lambda_s$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly deformation retain larger coefficients. The values of $\alpha_s$ and $\lambda_s$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
 
 Conventional ridge regression also reduces unstable coefficients, but it generally provides one fitted set of coefficients for a selected penalty. Bayesian ridge regression additionally describes a range of plausible coefficient values after the calibration data have been considered. This posterior distribution provides the information needed to quantify uncertainty in subsequent monthly estimates.
 
@@ -93,21 +108,21 @@ A separate model was fitted for each depth section. Thus, the regression coeffic
 \subsection{Predictive uncertainty quantification}
 \label{subsec:predictive_uncertainty}
 
-The Bayesian formulation provided both a monthly compaction estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients. For a new observation with standardized predictors $\boldsymbol{x}_{*}$ and calibration data $\mathcal{D}$, the posterior predictive distribution was
+The Bayesian formulation provided both a monthly deformation estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients. For a new monthly epoch with standardized predictors $\boldsymbol{x}_{s,*}$ and calibration data $\mathcal{D}_s$, the posterior predictive distribution for section $s$ was
 
 \begin{equation}
 p
 \left(
-y_{*}
+\Delta d_{s,*}
 \mid
-\boldsymbol{x}_{*},
-\mathcal{D}
+\boldsymbol{x}_{s,*},
+\mathcal{D}_s
 \right)
 =
 \mathcal{N}
 \left(
-\mu_{*},
-\sigma_{*}^{2}
+\mu_{s,*},
+\sigma_{s,*}^{2}
 \right).
 \label{eq:posterior_predictive}
 \end{equation}
@@ -115,41 +130,50 @@ y_{*}
 Its predictive mean was
 
 \begin{equation}
-\mu_{*}
+\mu_{s,*}
 =
-\widehat{\beta}_0
+\widehat{\beta}_{0,s}
 +
-\boldsymbol{x}_{*}^{\mathsf{T}}
-\overline{\boldsymbol{\beta}},
+\boldsymbol{x}_{s,*}^{\mathsf{T}}
+\overline{\boldsymbol{\beta}}_s,
 \label{eq:predictive_mean}
 \end{equation}
 
-and its predictive variance was
+The corresponding point estimate was
 
 \begin{equation}
-\sigma_{*}^{2}
+\widehat{\Delta d}_{s,*}
 =
-\alpha^{-1}
+\mu_{s,*}.
+\label{eq:monthly_deformation_estimate}
+\end{equation}
+
+The predictive variance was
+
+\begin{equation}
+\sigma_{s,*}^{2}
+=
+\alpha_s^{-1}
 +
-\boldsymbol{x}_{*}^{\mathsf{T}}
-\boldsymbol{\Sigma}_{\beta}
-\boldsymbol{x}_{*}.
+\boldsymbol{x}_{s,*}^{\mathsf{T}}
+\boldsymbol{\Sigma}_{\beta,s}
+\boldsymbol{x}_{s,*}.
 \label{eq:predictive_variance}
 \end{equation}
 
-Here, $\widehat{\beta}_0$ is the fitted intercept, $\overline{\boldsymbol{\beta}}$ is the posterior mean of the regression coefficients, and $\boldsymbol{\Sigma}_{\beta}$ is their posterior covariance matrix. The first term in the predictive variance represents residual variation that was not explained by the model. The second term represents uncertainty in the fitted coefficients for the supplied predictor values. The predictive interval therefore became wider when the residual variation was larger or when the coefficients were less strongly constrained by the calibration data.
+Here, $\widehat{\beta}_{0,s}$ is the fitted intercept, $\overline{\boldsymbol{\beta}}_s$ is the posterior mean of the regression coefficients, and $\boldsymbol{\Sigma}_{\beta,s}$ is their posterior covariance matrix. The first term in the predictive variance represents residual variation that was not explained by the model. The second term represents uncertainty in the fitted coefficients for the supplied predictor values. The predictive interval therefore became wider when the residual variation was larger or when the coefficients were less strongly constrained by the calibration data.
 
 The nominal 90\% posterior predictive interval was calculated as
 
 \begin{equation}
 \left[
-\mu_{*}-1.645\sigma_{*},
-\mu_{*}+1.645\sigma_{*}
+\mu_{s,*}-1.645\sigma_{s,*},
+\mu_{s,*}+1.645\sigma_{s,*}
 \right],
 \label{eq:prediction_interval}
 \end{equation}
 
-This interval described the range of monthly compaction increments considered plausible under the fitted model. Because it was calculated directly from the posterior predictive distribution, an interval was available for every monthly estimate without requiring an archive of previous prediction errors.
+This interval described the range of monthly deformation increments considered plausible under the fitted model. Because it was calculated directly from the posterior predictive distribution, an interval was available for every monthly estimate without requiring an archive of previous prediction errors.
 
 Interval performance was evaluated using empirical coverage and mean interval width. Empirical coverage measured the proportion of observed monthly increments enclosed by the intervals. Mean interval width described how broadly the plausible values were distributed around the monthly estimates. Both measures were examined because a wider interval may enclose more observations while providing less precise information \citep{singh_uncertainty_2024}. The nominal 90\% level provided a reference for this evaluation, but it did not guarantee that exactly 90\% of the observations would be enclosed. Temporal dependence and relations not represented by the regression model could cause the empirical coverage to differ from the nominal level.
 
@@ -175,66 +199,85 @@ Point estimates were evaluated separately for each depth section and for all sec
     dataset/.style={anchor=east,align=right,font=\small\bfseries,text=black!75},
     phase/.style={font=\small\bfseries,text=black!75,align=center},
     updatephase/.style={font=\small\bfseries,text=orange!75!black,align=center},
-    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=4.3pt,inner sep=0pt},
-    pending/.style={circle,draw=blue!60!black,fill=white,line width=0.9pt,minimum size=5.2pt,inner sep=0pt},
-    providerupdate/.style={circle,draw=orange!80!black,fill=orange!80!black,minimum size=4.6pt,inner sep=0pt},
+    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=6.3pt,inner sep=0pt},
+    pending/.style={circle,draw=blue!60!black,fill=white,line width=0.9pt,minimum size=7.2pt,inner sep=0pt},
+    newrecord/.style={circle,draw=orange!80!black,fill=orange!80!black,minimum size=6.6pt,inner sep=0pt},
     historyline/.style={draw=blue!55!black,line width=1.1pt},
-    pendingline/.style={draw=blue!55!black,densely dashed,line width=0.8pt},
+    pendingline/.style={draw=blue!55!black,densely dashed,line width=0.9pt},
     divider/.style={draw=black!35,densely dashed,line width=0.7pt},
     flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
-    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.15cm,font=\small\bfseries}
+    orangeflow/.style={-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt},
+    orangeline/.style={draw=orange!80!black,densely dashed,line width=1.1pt},
+    curvedflow/.style={-{Stealth[length=2.8mm]},draw=orange!80!black,line width=0.75pt},
+    fadedarrow/.style={
+      single arrow,
+      draw=none,
+      fill={rgb,255:red,34;green,139;blue,34},
+      fill opacity=0.2,
+      shape border rotate=90,
+      minimum height=1.5cm,
+      minimum width=1.0cm,
+      single arrow head extend=0.8mm,
+      inner sep=1pt
+    },
+    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.05cm,font=\small\bfseries}
   ]
-    \node[phase] at (1.625,3.55) {Initial historical records};
-    \node[phase] at (5.775,3.55) {Estimation period};
-    \node[updatephase] at (9.925,3.55) {Newly available observations};
+    \node[phase] at (2.00,3.70) {Initial historical records};
+    \node[phase] at (6.00,3.70) {Estimation period};
+    \node[updatephase] at (10.00,3.70) {New records};
 
-    \node[dataset] at (-0.55,2.55) {Deformation by\\depth interval};
-    \node[dataset] at (-0.55,1.55) {Hydraulic head};
-    \node[dataset] at (-0.55,0.55) {Vertical surface\\displacement};
+    \node[dataset] at (-0.45,2.55) {Deformation by\\depth interval};
+    \node[dataset] at (-0.45,1.55) {Hydraulic head};
+    \node[dataset] at (-0.45,0.55) {Vertical surface\\displacement};
+
+    \node[fadedarrow] at (6.00,1.55) {};
+
+    \foreach \y in {1.55,0.55} {
+      \draw[historyline] (0.40,\y) -- (7.40,\y);
+    }
+    \draw[historyline] (0.40,2.55) -- (4.25,2.55);
+    \draw[pendingline] (4.25,2.55) -- (7.40,2.55);
 
     \foreach \y in {2.55,1.55,0.55} {
-      \draw[historyline] (0,\y) -- (3.25,\y);
-      \foreach \x in {0,0.65,1.30,2.60,3.25} {
+      \foreach \x in {0.40,1.10,1.80,3.20,3.90} {
         \node[available] at (\x,\y) {};
       }
-      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (1.95,\y) {$\cdots$};
-    }
-
-    \draw[pendingline] (4.15,2.55) -- (7.40,2.55);
-    \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
-      \node[pending] at (\x,2.55) {};
+      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (2.50,\y) {$\cdots$};
     }
 
     \foreach \y in {1.55,0.55} {
-      \draw[historyline] (4.15,\y) -- (7.40,\y);
-      \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
+      \foreach \x in {4.60,5.30,6.00,6.70,7.40} {
         \node[available] at (\x,\y) {};
       }
     }
 
-    \draw[draw=orange!80!black,line width=1.1pt] (8.30,2.55) -- (11.55,2.55);
-    \foreach \xx in {8.30,8.95,9.60,10.25,10.90,11.55} {
-      \node[providerupdate] at (\xx,2.55) {};
+    \foreach \x in {4.60,5.30,6.00,6.70,7.40} {
+      \node[pending] at (\x,2.55) {};
     }
-    \draw[-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt] (7.62,2.55) -- (8.08,2.55);
 
-    \draw[divider] (3.70,-1.15) -- (3.70,3.20);
-    \draw[divider] (7.85,-1.15) -- (7.85,3.20);
+    \draw[orangeline] (8.60,2.55) -- (11.40,2.55);
+    \foreach \x in {8.60,9.30,10.00,10.70,11.40} {
+      \node[newrecord] at (\x,2.55) {};
+    }
 
-    \node[action] (calibrate) at (1.625,-0.75) {Model calibration};
-    \node[action] (estimate) at (5.775,-0.75) {Monthly\\deformation increment\\estimation};
-    \node[action] (update) at (9.925,-0.75) {Evaluation + recalibration};
+    \draw[curvedflow] (10.00,2.75) to[out=120,in=30,looseness=0.7] (6.00,2.75);
+
+    \draw[divider] (4.25,-0.2) -- (4.25,4.15);
+    \draw[divider] (7.85,-0.2) -- (7.85,4.15);
+
+    \node[action] (calibrate) at (2.00,-0.75) {Calibrate\\model};
+    \node[action] (estimate) at (6.00,-0.75) {Estimate\\$\widehat{\Delta d}_{s,k}$};
+    \node[action] (update) at (10.00,-0.75) {Evaluate +\\recalibrate};
     \draw[flow] (calibrate.east) -- (estimate.west);
     \draw[flow] (estimate.east) -- (update.west);
-    \draw[-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt]
-      (9.925,2.35) -- (update.north);
+    \draw[orangeflow] (7.4,2.3) to[out=-60,in=90] (update.north);
     \draw[flow,rounded corners=5pt]
-      (update.south) -- ++(0,-0.60) -| (calibrate.south)
-      node[pos=0.48,below,align=center,font=\small,text=black]
+      (update.south) -- ++(0,-0.68) -| (calibrate.south)
+      node[pos=0.48,below,align=center,font=\small]
       {Expanded historical records\\Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Evaluation cycle during temporary MLCW data unavailability. Filled blue markers indicate available observations, whereas open markers indicate monthly deformation observations not yet available during estimation. Newly available deformation records (orange) were then used to evaluate the estimates, recalibrate the model, and begin the next cycle. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
+  \caption{Evaluation cycle during temporary MLCW data unavailability. The symbol $\widehat{\Delta d}_{s,k}$ denotes the estimated deformation increment for depth section $s$ over the month ending at epoch $k$. Filled blue markers indicate available observations, whereas open markers indicate monthly deformation observations not yet available during estimation. Newly available deformation records (orange) were then used to evaluate the estimates, recalibrate the model, and begin the next cycle. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
   \label{fig:delayed_observation_design}
 \end{figure}
 
@@ -245,24 +288,24 @@ A second evaluation represented a hypothetical monitoring schedule in which MLCW
 
 This design was examined through six scenarios that combined measurement intervals of 6 or 12 months with initial calibration periods containing 36, 60, or 96 consecutive monthly MLCW observations. These durations defined the scenarios examined in this study rather than a requirement of the method. Regardless of the selected duration, each measurement interval produced one cumulative deformation observation.
 
-To represent this cumulative observation mathematically, let $s$ denote a depth section, $I$ denote a measurement interval, and $H_I$ denote the number of months in that interval. The monthly MLCW deformation increment in month $t$ is denoted by $y_{s,t}$. The cumulative deformation observation available at the end of the interval was
+To represent this cumulative observation mathematically, let $s$ denote a depth section, $k$ denote a monthly epoch, $I$ denote a measurement interval, and $H_I$ denote the number of months in that interval. The observed monthly MLCW deformation increment is denoted by $\Delta d_{s,k}$, as defined in \Cref{eq:monthly_deformation_increment}. The cumulative deformation observed over interval $I$ was
 
 \begin{equation}
-Y_{s,I}
+\Delta d_{s,I}
 =
-\sum_{t\in I}y_{s,t}.
+\sum_{k\in I}\Delta d_{s,k}.
 \label{eq:cumulative_deformation_observation}
 \end{equation}
 
-The individual monthly values within $I$ remained hidden from model fitting and updating and were retained only for retrospective evaluation. Consequently, only the cumulative observation $Y_{s,I}$ entered the next model update. Representing this observation within the monthly regression required the relation in \Cref{eq:brr_regression,eq:brr_likelihood} to be accumulated over the same interval. This summation gave
+The individual monthly values within $I$ remained hidden from model fitting and updating and were retained only for retrospective evaluation. Consequently, only the cumulative observation $\Delta d_{s,I}$ entered the next model update. Representing this observation within the monthly regression required the relation in \Cref{eq:brr_regression,eq:brr_likelihood} to be accumulated over the same interval. This summation gave
 
 \begin{equation}
-Y_{s,I}
+\Delta d_{s,I}
 =
 H_I\beta_{0,s}
 +
 \left(
-\sum_{t\in I}\boldsymbol{x}_{s,t}
+\sum_{k\in I}\boldsymbol{x}_{s,k}
 \right)^{\mathsf{T}}
 \boldsymbol{\beta}_{s}
 +
@@ -270,7 +313,7 @@ H_I\beta_{0,s}
 \label{eq:cumulative_deformation_model}
 \end{equation}
 
-where $\boldsymbol{x}_{s,t}$ contains the standardized predictors for section $s$ in month $t$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also retained the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
+where $\boldsymbol{x}_{s,k}$ contains the standardized predictors for section $s$ at monthly epoch $k$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also retained the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
 
 \begin{equation}
 \varepsilon_{s,I}
@@ -286,13 +329,13 @@ H_I\alpha_s^{-1}
 The resulting variance increased in proportion to $H_I$. To fit the cumulative observation together with the original monthly observations, both observation types were placed on the same residual variance scale. The monthly predictors were first centered and scaled using only the initial monthly calibration record. The cumulative regression equation was then divided by $\sqrt{H_I}$,
 
 \begin{equation}
-\frac{Y_{s,I}}{\sqrt{H_I}}
+\frac{\Delta d_{s,I}}{\sqrt{H_I}}
 =
 \sqrt{H_I}\,\beta_{0,s}
 +
 \left(
 \frac{1}{\sqrt{H_I}}
-\sum_{t\in I}\boldsymbol{x}_{s,t}
+\sum_{k\in I}\boldsymbol{x}_{s,k}
 \right)^{\mathsf{T}}
 \boldsymbol{\beta}_{s}
 +
@@ -323,82 +366,106 @@ The model was first calibrated from the initial monthly MLCW record and used to 
   \centering
   \resizebox{\linewidth}{!}{%
   \begin{tikzpicture}[
+    x=1.12cm,
+    y=1cm,
     font=\small,
     dataset/.style={anchor=east,align=right,font=\small\bfseries,text=black!75},
     phase/.style={font=\small\bfseries,text=black!75,align=center},
-    updatephase/.style={font=\small\bfseries,text=orange!75!black,align=center},
-    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=4.3pt,inner sep=0pt},
-    hidden/.style={circle,draw=blue!60!black,fill=white,line width=0.9pt,minimum size=5.2pt,inner sep=0pt},
-    endpointobs/.style={rectangle,draw=orange!80!black,fill=orange!80!black,minimum size=7pt,inner sep=0pt},
+    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=6.3pt,inner sep=0pt},
+    estimate/.style={circle,draw=black!55,fill=white,line width=1.0pt,minimum size=7.2pt,inner sep=0pt},
+    startrecord/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=8.5pt,inner sep=0pt},
+    latestrecord/.style={circle,draw=orange!80!black,fill=orange!80!black,minimum size=9pt,inner sep=0pt},
     historyline/.style={draw=blue!55!black,line width=1.1pt},
-    hiddenline/.style={draw=blue!55!black,densely dashed,line width=0.8pt},
+    estimateline/.style={draw=black!50,densely dashed,line width=0.9pt},
     divider/.style={draw=black!35,densely dashed,line width=0.7pt},
     flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
+    predictorflow/.style={-{Stealth[length=2.7mm]},draw=green!45!black,line width=1.15pt},
     orangeflow/.style={-{Stealth[length=2.5mm]},draw=orange!75!black,line width=0.9pt},
-    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.15cm,font=\small\bfseries}
+    toparrow/.style={{Stealth[length=3mm]}-{Stealth[length=3mm]},draw=black,line width=1.4pt},
+    fadedarrow/.style={
+      single arrow,
+      draw=none,
+      fill={rgb,255:red,34;green,139;blue,34},
+      fill opacity=0.2,
+      shape border rotate=90,
+      minimum height=1.5cm,
+      minimum width=1.0cm,
+      single arrow head extend=0.8mm,
+      inner sep=1pt
+    },
+    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.05cm,font=\small\bfseries}
   ]
-    \node[phase] at (1.625,3.65) {Initial historical\\records};
-    \node[phase] at (5.775,3.65) {Reduced measurement\\interval};
-    \node[updatephase] at (9.925,3.65) {Cumulative deformation\\observation};
+    \node[phase] at (2.00,4.5) {Initial historical records};
+    \node[phase] at (6.00,4.5) {Estimation period};
 
-    \node[dataset] at (-0.55,2.55) {Deformation by\\depth interval};
-    \node[dataset] at (-0.55,1.55) {Hydraulic head};
-    \node[dataset] at (-0.55,0.55) {Vertical surface\\displacement};
+    \node[dataset] at (-0.45,2.55) {Deformation by\\depth interval};
+    \node[dataset] at (-0.45,1.55) {Hydraulic head};
+    \node[dataset] at (-0.45,0.55) {Vertical surface\\displacement};
 
-    \foreach \y in {2.55,1.55,0.55} {
-      \draw[historyline] (0,\y) -- (3.25,\y);
-      \foreach \x in {0,0.65,1.30,2.60,3.25} {
-        \node[available] at (\x,\y) {};
-      }
-      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (1.95,\y) {$\cdots$};
-    }
-
-    \draw[hiddenline] (4.15,2.55) -- (7.40,2.55);
-    \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
-      \node[hidden] at (\x,2.55) {};
-    }
+    \node[fadedarrow] at (6.00,1.55) {};
 
     \foreach \y in {1.55,0.55} {
-      \draw[historyline] (4.15,\y) -- (7.40,\y);
-      \foreach \x in {4.15,4.80,5.45,6.10,6.75,7.40} {
+      \draw[historyline] (0.40,\y) -- (7.40,\y);
+    }
+    \draw[historyline] (0.40,2.55) -- (3.90,2.55);
+    \draw[estimateline] (3.90,2.55) -- (7.40,2.55);
+
+    \foreach \y in {1.55,0.55} {
+      \foreach \x in {0.40,1.10,1.80,3.20,3.90} {
+        \node[available] at (\x,\y) {};
+      }
+      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (2.50,\y) {$\cdots$};
+    }
+    \foreach \x in {0.40,1.10,1.80,3.20} {
+      \node[available] at (\x,2.55) {};
+    }
+    \node[fill=white,inner xsep=2pt,text=blue!60!black] at (2.50,2.55) {$\cdots$};
+    \node[startrecord] (start) at (3.90,2.55) {};
+
+    \foreach \y in {1.55,0.55} {
+      \foreach \x in {4.60,5.30,6.00,6.70,7.40} {
         \node[available] at (\x,\y) {};
       }
     }
+    \foreach \x in {4.60,5.30,6.00,6.70} {
+      \node[estimate] at (\x,2.55) {};
+    }
 
-    \draw[draw=orange!75!black,line width=0.8pt] (4.15,2.90) -- (7.40,2.90);
-    \draw[draw=orange!75!black,line width=0.8pt] (4.15,2.90) -- (4.15,2.78);
-    \draw[draw=orange!75!black,line width=0.8pt] (7.40,2.90) -- (7.40,2.78);
-    \node[font=\scriptsize,text=orange!75!black] at (5.775,3.08) {Accumulated over interval};
-    \node[endpointobs] (endpoint) at (9.925,2.55) {};
-    \draw[orangeflow] (7.40,2.90) -- (endpoint.north west);
+    \node[latestrecord] (finish) at (7.40,2.55) {};
 
-    \draw[divider] (3.70,-1.40) -- (3.70,3.30);
-    \draw[divider] (7.85,-1.40) -- (7.85,3.30);
+    \draw[toparrow]
+      (start.north) -- ++(0,0.85) -| (finish.north)
+      node[pos=0.25,above=-1.5pt,font=\small,text=black] (intervaldeformation)
+      {$\Delta d_{s,I}$};
 
-    \node[action] (calibrate) at (1.625,-0.75) {Model calibration};
-    \node[action] (estimate) at (5.775,-0.75) {Monthly\\deformation increment\\estimation};
-    \node[action] (update) at (9.925,-0.75) {Model\\recalibration};
-    \draw[flow] (calibrate.east) -- (estimate.west);
-    \draw[flow] (estimate.east) -- (update.west);
-    \draw[orangeflow] (endpoint.south) -- (update.north);
+    \draw[divider] (4.25,-0.2) -- (4.25,4.35);
+    \draw[divider] (7.85,-0.2) -- (7.85,4.35);
+
+    \node[action] (calibrate) at (2.00,-0.75) {Calibrate\\model};
+    \node[action] (estimatebox) at (6.00,-0.75) {Estimate\\$\widehat{\Delta d}_{s,k}$};
+    \node[action] (update) at (10.00,-0.75) {Evaluate +\\recalibrate};
+    \draw[flow] (calibrate.east) -- (estimatebox.west);
+    \draw[flow] (estimatebox.east) -- (update.west);
+    \draw[orangeflow] (intervaldeformation.east) -| (update.north);
+
     \draw[flow,rounded corners=5pt]
-      (update.south) -- ++(0,-0.78) -| (calibrate.south)
-      node[pos=0.48,below,align=center,font=\small,text=black]
-      {Historical monthly records + cumulative observations\\Next cycle};
+      (update.south) -- ++(0,-0.68) -| (calibrate.south)
+      node[pos=0.48,below,align=center,font=\small]
+      {Expanded historical records\\Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Reduced-frequency measurement cycle. Filled blue markers indicate monthly observations available to the analysis, whereas open markers indicate monthly MLCW deformation values hidden from model fitting and retained only for retrospective evaluation. The orange square represents the cumulative deformation observation used to recalibrate the model before the next interval. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
+  \caption{Reduced-frequency measurement cycle. The symbol $\widehat{\Delta d}_{s,k}$ denotes the estimated deformation increment for depth section $s$ over the month ending at epoch $k$. Filled blue markers indicate available observations, whereas open gray markers indicate these monthly estimates. The blue and orange endpoint markers define the observed interval deformation $\Delta d_{s,I}$. This interval observation was used for evaluation and model recalibration before the next cycle. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
   \label{fig:reduced_measurement_design}
 \end{figure}
 
 The resulting estimates were evaluated at monthly and interval scales. At the monthly scale, the error compared each estimated increment with its hidden monthly MLCW value,
 
 \begin{equation}
-e_{s,t}
+e_{s,k}
 =
-\widehat{y}_{s,t}
+\widehat{\Delta d}_{s,k}
 -
-y_{s,t}.
+\Delta d_{s,k}.
 \label{eq:sparse_monthly_error}
 \end{equation}
 
@@ -407,19 +474,153 @@ At the interval scale, the endpoint error compared the accumulated monthly estim
 \begin{equation}
 e_{s,I}
 =
-\sum_{t\in I}\widehat{y}_{s,t}
+\sum_{k\in I}\widehat{\Delta d}_{s,k}
 -
-Y_{s,I}.
+\Delta d_{s,I}.
 \label{eq:sparse_endpoint_error}
 \end{equation}
 
 Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE, RMSE, and mean signed error for each depth section and for all sections combined. The coefficient of determination was not calculated for the endpoint observations because each scenario contained relatively few cumulative measurements.
 
-\subsubsection{Sensitivity to permanent monitoring stoppage}
+\subsubsection{Sensitivity to the absence of subsequent MLCW measurements}
 \label{subsec:permanent_stoppage_sensitivity}
 
-A third evaluation design tested a station that stopped reporting MLCW measurements permanently rather than on a fixed reduced schedule, distinct from the periodic reduced-frequency schedule of \Cref{subsec:sparse_measurement_sensitivity}. The model was fitted once, using either 3, 5, or 8 years of initial monthly calibration data, and then generated monthly compaction estimates continuously for the remainder of the monitoring record with no further refitting and no further MLCW input of any kind. This scenario used the same posterior predictive interval described in \Cref{subsec:predictive_uncertainty}; split-conformal calibration was not applied here either.
+A third evaluation examined how the monthly estimates changed when no MLCW measurements became available after an initial calibration record. Separate models were calibrated from the first 3, 5, or 8 years of monthly MLCW observations. After each calibration record ended, monthly GWL and cGNSS observations continued to supply predictor values, but the fitted model and predictor scaling remained fixed. No later MLCW observation was used to update the model.
 
-Performance was reported as cumulative absolute error and cumulative root mean square error in mm, accumulated month by month since the training window ended, together with the horizon-normalized error rate in mm/month reported alongside, never in place of, the cumulative absolute error, because a falling normalized rate can still coincide with a growing absolute error through partial cancellation of signed monthly errors. To compare the three training-window lengths fairly despite their different remaining record lengths, results were also reported at a common horizon of 80 months after the training window ended, the longest horizon shared by all three scenarios.
+The remaining historical MLCW observations allowed this hypothetical condition to be evaluated retrospectively. These observations were withheld from model fitting and were used only to compare the observed monthly deformation increments with the estimates generated after the calibration record. The monthly error $e_{s,k}$ was calculated as defined in \Cref{eq:sparse_monthly_error}.
+
+The accumulation of monthly errors was evaluated over the first $K$ months after calibration. The cumulative signed error for section $s$ was
+
+\begin{equation}
+E_{s,K}
+=
+\sum_{k=1}^{K} e_{s,k},
+\label{eq:stoppage_cumulative_signed_error}
+\end{equation}
+
+and its absolute magnitude was
+
+\begin{equation}
+A_{s,K}
+=
+\left|E_{s,K}\right|.
+\label{eq:stoppage_absolute_cumulative_error}
+\end{equation}
+
+The signed value $E_{s,K}$ indicated whether the accumulated estimates were above or below the observed cumulative deformation, whereas $A_{s,K}$ described the magnitude of this difference without regard to direction.
+
+Monthly estimation performance through horizon $K$ was summarized separately using
+
+\begin{equation}
+\operatorname{MAE}_{s,K}
+=
+\frac{1}{K}
+\sum_{k=1}^{K}
+\left|e_{s,k}\right|,
+\label{eq:stoppage_running_mae}
+\end{equation}
+
+and
+
+\begin{equation}
+\operatorname{RMSE}_{s,K}
+=
+\sqrt{
+\frac{1}{K}
+\sum_{k=1}^{K}
+e_{s,k}^{2}
+}.
+\label{eq:stoppage_running_rmse}
+\end{equation}
+
+These measures described the typical magnitude of the monthly errors accumulated from the end of calibration to horizon $K$. They therefore complemented $A_{s,K}$, which described the difference between the estimated and observed cumulative deformation at that horizon.
+
+To account for the increasing duration of the estimation period, the absolute cumulative error was also expressed per elapsed month as
+
+\begin{equation}
+R_{s,K}
+=
+\frac{A_{s,K}}{K}.
+\label{eq:stoppage_horizon_normalized_error}
+\end{equation}
+
+The normalized value $R_{s,K}$ was interpreted together with $A_{s,K}$. Because positive and negative monthly errors could partly cancel within $E_{s,K}$, a decrease in $R_{s,K}$ did not necessarily indicate that the absolute cumulative error had stopped growing.
+
+The frozen Bayesian ridge model also provided the posterior predictive interval defined in \Cref{subsec:predictive_uncertainty} for each monthly estimate. These intervals described uncertainty in individual monthly deformation increments throughout the estimation period. They were not accumulated into uncertainty bands for $E_{s,K}$ or $A_{s,K}$ because the dependence among prediction errors from successive months was not represented in the cumulative calculation.
+
+The 3-, 5-, and 8-year calibration records left 140, 116, and 80 months for retrospective evaluation, respectively. All three scenarios were compared over their shared 80-month horizon. The additional months available after the shorter calibration records were retained as scenario-specific extensions rather than direct comparisons with the 8-year scenario. The complete fit-once evaluation is illustrated in \Cref{fig:no_subsequent_mlcw_design}.
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tikzpicture}[
+    x=1.12cm,
+    y=1cm,
+    font=\small,
+    dataset/.style={anchor=east,align=right,font=\small\bfseries,text=black!75},
+    phase/.style={font=\small\bfseries,text=black!75,align=center},
+    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=6.3pt,inner sep=0pt},
+    estimate/.style={circle,draw=black!55,fill=white,line width=1.0pt,minimum size=7.2pt,inner sep=0pt},
+    historyline/.style={draw=blue!55!black,line width=1.1pt},
+    estimateline/.style={draw=black!50,densely dashed,line width=0.9pt},
+    divider/.style={draw=black!35,densely dashed,line width=0.7pt},
+    flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
+    fadedarrow/.style={
+      single arrow,
+      draw=none,
+      fill={rgb,255:red,34;green,139;blue,34},
+      fill opacity=0.2,
+      shape border rotate=90,
+      minimum height=1.5cm,
+      minimum width=1.0cm,
+      single arrow head extend=0.8mm,
+      inner sep=1pt
+    },
+    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.05cm,font=\small\bfseries}
+  ]
+    \node[phase] at (2.00,3.70) {Initial historical records};
+    \node[phase] at (6.20,3.70) {Estimation period};
+
+    \node[dataset] at (-0.45,2.55) {Deformation by\\depth interval};
+    \node[dataset] at (-0.45,1.55) {Hydraulic head};
+    \node[dataset] at (-0.45,0.55) {Vertical surface\\displacement};
+
+    \node[fadedarrow] at (6.20,1.55) {};
+
+    \foreach \y in {1.55,0.55} {
+      \draw[historyline] (0.40,\y) -- (8.00,\y);
+    }
+    \draw[historyline] (0.40,2.55) -- (3.90,2.55);
+    \draw[estimateline] (3.90,2.55) -- (8.00,2.55);
+
+    \foreach \y in {2.55,1.55,0.55} {
+      \foreach \x in {0.40,1.10,1.80,3.20,3.90} {
+        \node[available] at (\x,\y) {};
+      }
+      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (2.50,\y) {$\cdots$};
+    }
+
+    \foreach \y in {1.55,0.55} {
+      \foreach \x in {4.60,5.30,7.30,8.00} {
+        \node[available] at (\x,\y) {};
+      }
+      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (6.30,\y) {$\cdots$};
+    }
+    \foreach \x in {4.60,5.30,7.30,8.00} {
+      \node[estimate] at (\x,2.55) {};
+    }
+    \node[fill=white,inner xsep=2pt,text=black!55] at (6.30,2.55) {$\cdots$};
+
+    \draw[divider] (4.25,-0.2) -- (4.25,4.15);
+
+    \node[action] (calibrate) at (2.00,-0.75) {Calibrate\\model};
+    \node[action] (estimatebox) at (6.20,-0.75) {Estimate\\$\widehat{\Delta d}_{s,k}$};
+    \draw[flow] (calibrate.east) -- (estimatebox.west);
+    \node[font=\small,text=black!70] at (6.20,-1.55) {No recalibration};
+  \end{tikzpicture}%
+  }
+  \caption{Monthly deformation estimation without subsequent MLCW measurements. Filled blue markers indicate observations available during the initial calibration period. Hydraulic head and vertical surface displacement remained available during the subsequent estimation period, whereas open gray markers indicate monthly deformation estimates. The fitted model and predictor scaling remained unchanged throughout this period. Marker counts and spacing are illustrative rather than exact.}
+  \label{fig:no_subsequent_mlcw_design}
+\end{figure}
 
 \FloatBarrier
