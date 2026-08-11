@@ -1,0 +1,79 @@
+{
+  "generated_utc": "2026-08-11T13:15:33+00:00",
+  "purpose": "Provenance record for the manuscript section 4 figures. Maps each generated source file in the analysis repository to its destination in this manuscript worktree, pinned by the commit that produced it. Drives the rename to Figure N at final submission.",
+  "analysis_repository": "20260427_InSAR_MLCW_v3",
+  "analysis_repository_branch": "run048-tuku-no-update-sensitivity",
+  "path_convention": "All paths are repository-relative. No \\graphicspath is declared in the manuscript, so LaTeX resolves figures/<name> from the worktree root.",
+  "old_to_new_subsection_map": {
+    "sec4_1_*": "4.1 delayed MLCW data delivery (Figure 7)",
+    "sec4_3_*": "4.2 reduced MLCW measurement frequency (Figure 8, not yet built)",
+    "sec4_4_*": "4.3 absence of subsequent MLCW measurements (Figure 9, not yet built)",
+    "sec4_2_*": "4.4 coefficients of driving factors (Figure 10, not yet built)",
+    "note": "Source filenames follow an earlier outline ordering. The manuscript subsection order changed; this map is authoritative."
+  },
+  "hard_constraints": [
+    "The interval in Figure 7 is a Bayesian posterior predictive interval, y_pred +/- 1.645*y_std. It is not split-conformal and must never be labelled as one.",
+    "No reader-visible element in any figure contains an internal profile or level identifier. Verified with pdftotext.",
+    "Figures are generated from frozen checkpoints. No model is refit.",
+    "Every decimal shown in the manuscript prose, tables, and captions carries exactly three decimal places, while source files and in-code assertions retain full precision."
+  ],
+  "figures": [
+    {
+      "figure_number": 7,
+      "latex_label": "fig:results_delayed_monthly_estimates",
+      "destination": "figures/fig_results_delayed_performance.pdf",
+      "subsection": "4.1 Monthly estimation during delayed MLCW data delivery",
+      "subsection_label": "subsec:results_delayed_delivery",
+      "mirrors_methods_subsection": "subsec:delayed_evaluation",
+      "legacy_source_prefix": "sec4_1_",
+      "source_stem": "fig7_delayed_monthly_estimates",
+      "generator": "007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/build_fig7_delayed_monthly_estimates.py",
+      "generator_commit": "7ed7bc9fc37e2902d7373e18385da048168ae8db",
+      "data_source": "007_tests/014_ml_nowcast/experiments/section_pooled/run_048/checkpoints/P0/level1a/predictions.parquet",
+      "data_filter": "station TUKU, sections S1-S6, predictor bayesian_ridge, protocol rolling_blocked, model_mode local, then only fold groups carrying six distinct months; 828 rows, 138 per section, 23 complete blocks",
+      "snapshot_pin": "20260718_run048_v1",
+      "evaluation_span": "2013-05-01 to 2024-10-01",
+      "interval_method": "Bayesian posterior predictive, y_pred +/- 1.645*y_std from BayesianRidge.predict(..., return_std=True); NOT split-conformal",
+      "verified_against": "007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/sec4_1_combined_performance_interval_table.csv; the generator asserts pooled coverage 0.7801932367149759 and mean interval width 0.9043360111248384 at full precision",
+      "model_refit": false,
+      "source_pdf": "007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/fig7_delayed_monthly_estimates.pdf",
+      "source_png": "007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/fig7_delayed_monthly_estimates.png",
+      "source_png_dpi": 300,
+      "destination_file": {
+        "size_bytes": 56318,
+        "mtime_utc": "2026-08-11T13:14:51+00:00"
+      },
+      "tracked_in_git": "force-added; .gitignore excludes every image extension"
+    }
+  ],
+  "supplementary_material_not_in_main_text": {
+    "location": "007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002",
+    "reason": "Excluded from the main text by author decision. Retained in the analysis repository with this record describing provenance, and not force-added to the manuscript repository.",
+    "files": [
+      "sec4_2_driving_features_S1_page1.png",
+      "sec4_2_driving_features_S1_page2.png",
+      "sec4_2_driving_features_S1_page3.png",
+      "sec4_2_driving_features_S2_page1.png",
+      "sec4_2_driving_features_S2_page2.png",
+      "sec4_2_driving_features_S2_page3.png",
+      "sec4_2_driving_features_S3_page1.png",
+      "sec4_2_driving_features_S3_page2.png",
+      "sec4_2_driving_features_S3_page3.png",
+      "sec4_2_driving_features_S4_page1.png",
+      "sec4_2_driving_features_S4_page2.png",
+      "sec4_2_driving_features_S4_page3.png",
+      "sec4_2_driving_features_S5_page1.png",
+      "sec4_2_driving_features_S5_page2.png",
+      "sec4_2_driving_features_S5_page3.png",
+      "sec4_2_driving_features_S6_page1.png",
+      "sec4_2_driving_features_S6_page2.png",
+      "sec4_2_driving_features_S6_page3.png",
+      "sec4_2_fitting_parameters_S1.png",
+      "sec4_2_fitting_parameters_S2.png",
+      "sec4_2_fitting_parameters_S3.png",
+      "sec4_2_fitting_parameters_S4.png",
+      "sec4_2_fitting_parameters_S5.png",
+      "sec4_2_fitting_parameters_S6.png"
+    ]
+  }
+}
