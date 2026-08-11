@@ -19,38 +19,22 @@ Two features of these results carry operational meaning. The weak accuracy at S5
 \subsection{Estimation under reduced MLCW measurement frequency}
 \label{subsec:results_reduced_frequency}
 
-The reduced-frequency schedules defined in \Cref{subsec:sparse_measurement_sensitivity} lowered MLCW field visits from monthly to once every six or twelve months, which increased endpoint error at every section and every initial calibration length tested (\Cref{tab:reduced_frequency}). Pooled across all sections, endpoint MAE rose from approximately 1.4--1.5~mm under the six-month schedule to approximately 2.4--2.7~mm under the twelve-month schedule, roughly a 70--80\% increase, depending on the initial calibration length. The increase was not uniform across sections. At S5, endpoint MAE rose from 2.65~mm (six-month schedule, 36-month initial history) to 4.75~mm (twelve-month schedule, same initial history), while at S1 the corresponding increase was from 0.94~mm to 1.06~mm, a much smaller absolute change. For the thinnest schedule evaluated, a twelve-month interval following 96 months of initial monthly calibration, six complete endpoints were available per section within the common record length.
-
-This trade-off frames a direct operational choice for a monitoring agency. Halving the field-visit frequency, from every six months to every twelve, roughly doubles the endpoint error at the sections that already estimate compaction least reliably, while sections with a well-constrained hydraulic-head record absorb the same reduction with a comparatively small increase in error. A schedule decision made without regard to depth section would apply the same visit frequency to sections with very different sensitivity to that reduction.
+\placeholder{RESULTS AND INTERPRETATION FOR THE SIX REDUCED-FREQUENCY SCENARIOS OF METHODS SUBSECTION 3.4.2. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ENDPOINT SAMPLE COUNT, MAE, RMSE, AND MEAN SIGNED ERROR PER DEPTH SECTION AND POOLED, THEN ONE INTERPRETATION PARAGRAPH ON THE FIELD-VISIT FREQUENCY TRADE-OFF. TABLE FROM THE THREE-FILE JOIN, PLUS FIGURE 8.}
 
 \subsection{Estimation without subsequent MLCW measurements}
 \label{subsec:results_no_subsequent_mlcw}
 
-The fit-once design defined in \Cref{subsec:permanent_stoppage_sensitivity} calibrated the model on 3, 5, or 8 years of initial data and then estimated continuously thereafter with no refit and no further MLCW input. The resulting absolute cumulative deformation error grew with an oscillating, not strictly monotonic, trajectory. For the 3-year training window at S1, 81 of 139 month-to-month changes in that quantity were increases and 58 were decreases, consistent with partial cancellation of signed monthly errors superimposed on a slowly rising envelope rather than steady monotonic drift.
-
-At a common horizon of 80 months after the training window ended, the shared endpoint across all three training-window lengths, absolute cumulative deformation error averaged across the six sections was 17.0~mm for the 3-year window, 8.3~mm for the 5-year window, and 4.3~mm for the 8-year window (\Cref{tab:permanent_stoppage}). The worst individual cell was the 3-year window at S5 (53.5~mm at the 80-month horizon), the same section whose observability gap is described in \Cref{subsec:results_delayed_delivery}. The best individual cell was the 8-year window at S3 (0.1~mm at the 80-month horizon).
-
-These three training-window lengths cover different calendar periods of the monitoring record as well as different amounts of initial data. The 3-year window began estimating earlier in the record than the 8-year window, so the improvement from 3 to 8 years reflects both the additional calibration data and the different hydrogeological conditions encountered during each window's subsequent estimation period. The pattern is reported here as three distinct operational scenarios, not as isolated evidence that a longer training window causes better long-term extrapolation.
+\placeholder{RESULTS AND INTERPRETATION FOR THE THREE FIT-ONCE SCENARIOS OF METHODS SUBSECTION 3.4.3, WITH INITIAL CALIBRATION RECORDS OF 3, 5, AND 8 YEARS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ABSOLUTE CUMULATIVE DEFORMATION ERROR AT THE SHARED 80-MONTH HORIZON PER DEPTH SECTION, THEN ONE INTERPRETATION PARAGRAPH. TABLE PLUS FIGURE 9.}
 
 \subsection{Coefficients of driving factors at each depth section}
 \label{subsec:results_driving_factors}
 
-The predictors that dominated the fit differed by depth section, identified as the single feature with the largest-magnitude median standardized coefficient across folds at each section (\Cref{tab:driving_factors}). A seasonal term was the dominant predictor at five of the six sections. These were \texttt{month\_sin} at S1 (median $-0.212$) and S2 (median $-0.542$), \texttt{month2\_cos} at S3 (median $-1.256$), \texttt{month\_sin} at S5 (median $-0.072$), and \texttt{month\_cos} at S6 (median $+0.310$). The single exception was S4, where the dominant predictor was the cGNSS surface displacement term (median $+0.236$), not a seasonal or hydraulic-head term.
-
-This single-feature ranking rule structurally favours seasonal terms over hydraulic-head terms because of how each predictor group is constructed. Only five seasonal features were available to any section, against 25 hydraulic-head features per section, of which ten describe the target section's own screened interval and fifteen describe the other five monitored depth intervals as candidate system-wide predictors. A single dominant seasonal feature can therefore carry more concentrated weight than a hydraulic-head signal that is instead spread across many correlated head-change terms. The five-of-six seasonal dominance pattern reported here reflects this rule and would not necessarily hold under a rule that summed coefficient magnitude within each predictor group rather than selecting the single largest feature.
-
-The cross-section hydraulic-head terms, included as candidate predictors representing system-wide hydraulic conditions at Tuku, did not dominate at any of the six sections, indicating that each section's own local head record, when it existed, carried more concentrated predictive weight than head changes observed at the other five depth intervals.
+\placeholder{RESULTS AND INTERPRETATION FOR THE FITTED STANDARDIZED COEFFICIENTS ACROSS ALL SIX DEPTH SECTIONS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING THE DOMINANT PREDICTOR PER SECTION AND THE GROUP SIZES THAT SHAPE THAT RANKING, THEN ONE INTERPRETATION PARAGRAPH. TABLE PLUS FIGURE 10.}
 
 \subsection{Limitations and practical scope}
 \label{subsec:results_limitations}
 
-The fitted model is strictly local to Tuku's monitoring configuration and stress history recorded during the evaluation period. The methodology, comprising the per-section walk-forward regression, the posterior predictive interval, and the reduced-frequency and fit-once sensitivity designs, is transferable to another monitoring station, but the specific fitted coefficients reported here are not, because they depend on the particular hydraulic-head wells and cGNSS record available at Tuku.
-
-The posterior predictive interval reported throughout \Cref{subsec:results_delayed_delivery,subsec:results_no_subsequent_mlcw} is a Bayesian posterior interval calculated directly from the fitted model, not a split-conformal interval calibrated from an archive of past prediction errors. Split-conformal calibration was implemented for a related, pooled formulation of the model but was not executed for the depth-section-independent formulation reported here. The pooled shortfall below nominal coverage reported in \Cref{subsec:results_delayed_delivery} therefore describes this posterior interval alone, and is not evidence about how a genuinely calibrated conformal interval would have performed had one been computed for this formulation.
-
-The reduced-frequency and fit-once sensitivity analyses in \Cref{subsec:results_reduced_frequency,subsec:results_no_subsequent_mlcw} share one snapshot of the fitted model and are directly comparable with each other, but neither is directly comparable, number for number, with the delayed-data results in \Cref{subsec:results_delayed_delivery}, because the two groups of analyses were built and frozen from different underlying model snapshots. Any comparison across this boundary should be stated as a qualitative contrast between monitoring conditions, not as a numeric difference between two runs of the same fitted model.
-
-Surface displacement from cGNSS integrates deformation above and below the deepest MLCW ring rather than resolving it by depth, and each groundwater well observes hydraulic head only within its own screened interval. The lithological log provided geological context for comparing the depth sections but did not directly measure material properties such as compressibility or preconsolidation stress. Physical attribution of the mechanism behind any single month's compaction, beyond the statistical association reported here, would require geotechnical measurements or a coupled groundwater flow and aquifer-system compaction model \citep{galloway_land_1999, hung2012_mlcw}.
+\placeholder{INTERPRETATION ONLY, NO NEW EVIDENCE. FOUR PARAGRAPHS COVERING TRANSFERABILITY OF THE METHOD AGAINST THE FITTED COEFFICIENTS, THE POSTERIOR PREDICTIVE INTERVAL IDENTITY AND ITS COVERAGE SHORTFALL, THE SNAPSHOT BOUNDARY THAT PREVENTS COMPARING SUBSECTION 4.1 NUMBERS AGAINST THE OTHER TWO MONITORING CONDITIONS, AND THE MEASUREMENT-SCOPE LIMITS OF THE CGNSS, HYDRAULIC HEAD, AND LITHOLOGICAL RECORDS. THE S5 MECHANISM MUST NOT BE RESTATED HERE.}
 
 \begin{figure}[htbp]
   \centering
@@ -81,62 +65,9 @@ Surface displacement from cGNSS integrates deformation above and below the deepe
   \end{tabular}
 \end{table}
 
-\begin{table}[htbp]
-  \centering
-  \scriptsize
-  \renewcommand{\arraystretch}{1.12}
-  \caption{Endpoint mean absolute error (mm) under six- and twelve-month reduced MLCW measurement schedules, by depth section and initial calibration length.}
-  \label{tab:reduced_frequency}
-  \begin{tabular}{lrrr}
-    \toprule
-    \textbf{Section} & \textbf{Initial history (months)} & \textbf{MAE, 6-month schedule} & \textbf{MAE, 12-month schedule} \\
-    \midrule
-    S1 & 36 & 0.94 & 1.06 \\
-    S1 & 96 & 1.02 & 1.33 \\
-    S5 & 36 & 2.65 & 4.75 \\
-    S5 & 96 & 2.55 & 4.76 \\
-    \midrule
-    All & 36 & 1.47 & 2.46 \\
-    All & 96 & 1.52 & 2.74 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[htbp]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption{Absolute cumulative deformation error (mm) at a common 80-month horizon after the training window ended, averaged across the six depth sections, for three fit-once training-window lengths.}
-  \label{tab:permanent_stoppage}
-  \begin{tabular}{lr}
-    \toprule
-    \textbf{Training window} & \textbf{Mean absolute cumulative deformation error at 80 months (mm)} \\
-    \midrule
-    3 years & 17.0 \\
-    5 years & 8.3 \\
-    8 years & 4.3 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[htbp]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption{Dominant predictor group at each depth section, identified as the single feature with the largest-magnitude median standardized coefficient across folds.}
-  \label{tab:driving_factors}
-  \begin{tabular}{lllr}
-    \toprule
-    \textbf{Section} & \textbf{Dominant group} & \textbf{Feature} & \textbf{Median coefficient} \\
-    \midrule
-    S1 & Seasonality & \texttt{month\_sin} & $-0.212$ \\
-    S2 & Seasonality & \texttt{month\_sin} & $-0.542$ \\
-    S3 & Seasonality & \texttt{month2\_cos} & $-1.256$ \\
-    S4 & Deformation (cGNSS) & \texttt{dS\_total} & $+0.236$ \\
-    S5 & Seasonality & \texttt{month\_sin} & $-0.072$ \\
-    S6 & Seasonality & \texttt{month\_cos} & $+0.310$ \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+% Floats for subsections 4.2 through 4.5 arrive with their prose. The tables
+% previously sitting here carried numbers rounded under an older convention,
+% and tab:reduced_frequency listed only S1 and S5 rather than all six sections,
+% so none of them is a usable reference while those subsections are rewritten.
 
 \FloatBarrier

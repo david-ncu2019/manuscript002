@@ -40,34 +40,32 @@ INTERNAL_LABELS = re.compile(r"\bP0\b|Level\s*1a|level1[abc]\b", re.IGNORECASE)
 # A decimal that shows one, two, four or more places instead of exactly three.
 WRONG_PRECISION = re.compile(r"\b\d+\.(?:\d{1,2}|\d{4,})\b")
 
-# Values that legitimately carry other precision: design constants and ratios
-# quoted from the methods section or from a cited source.
+# Section and subsection numbers such as 3.4.2 or 4.1 are cross-reference
+# targets written out in prose, not measured quantities, so the precision rule
+# does not apply to them. Stripped before the precision test runs.
+SECTION_NUMBER = re.compile(r"\b\d+\.\d+(?:\.\d+)*\b(?=[\s,.)]|$)")
+
+# Values that legitimately carry other precision. Keep this list short; every
+# entry is a place where the three-decimal rule is deliberately not applied.
 PRECISION_ALLOWLIST = {
-    "1.4",   # approximate pooled range in the old 4.2 prose
-    "1.5",
-    "2.4",
-    "2.7",
-    "2.65",  # endpoint MAE quoted at source precision in the old 4.2 prose
-    "4.75",
-    "0.94",
-    "1.06",
-    "2.55",
-    "4.76",
-    "1.02",
-    "1.33",
-    "1.47",
-    "2.46",
-    "1.52",
-    "2.74",
-    "17.0",  # fit-once means quoted at source precision in the old 4.3 prose
-    "8.3",
-    "4.3",
-    "53.5",
-    "0.1",
-    "1.12",  # LaTeX arraystretch values
-    "1.15",
+    "1.12",  # LaTeX arraystretch argument
+    "1.15",  # LaTeX arraystretch argument
     "0.98",  # includegraphics width fraction
 }
+
+
+def looks_like_section_number(text: str, match: re.Match) -> bool:
+    """Return True when a decimal is part of a section number, not a measurement."""
+    for candidate in SECTION_NUMBER.finditer(text):
+        if candidate.start() <= match.start() and match.end() <= candidate.end():
+            # A bare "4.1" is ambiguous, so require a section cue nearby.
+            window = text[max(0, candidate.start() - 40) : candidate.start()]
+            if re.search(r"(?i)\b(?:section|subsection|methods|figure|table)\b", window):
+                return True
+            # Three-part numbers such as 3.4.2 are never measurements here.
+            if candidate.group(0).count(".") >= 2:
+                return True
+    return False
 
 
 def prose_lines() -> list[tuple[int, str]]:
@@ -135,8 +133,11 @@ def main() -> None:
     precision_hits = []
     for number, text in lines:
         for match in WRONG_PRECISION.finditer(text):
-            if match.group(0) not in PRECISION_ALLOWLIST:
-                precision_hits.append((number, match.group(0)))
+            if match.group(0) in PRECISION_ALLOWLIST:
+                continue
+            if looks_like_section_number(text, match):
+                continue
+            precision_hits.append((number, match.group(0)))
     passed.append(
         report("every decimal at three places or allowlisted", precision_hits)
     )
