@@ -3,7 +3,7 @@
 
 Deformation within individual subsurface depth intervals was measured monthly using specialized borehole extensometer systems known as multilayer compaction monitoring wells (MLCWs). Although the field measurements were collected monthly, the data provider processed and checked the measurements before providing the finalized records. Once provided, however, the finalized records contained the complete sequence of monthly observations collected during the intervening period. The delay therefore affected data availability rather than measurement frequency. To represent this temporary information gap consistently, the analysis treated the six most recent months of MLCW observations as unavailable. The six-month interval defined the evaluation setting and did not represent a fixed data delivery schedule.
 
-The Tuku MLCW station was selected because all required observations were available. Three time-series data sources formed the monthly regression dataset: (1) MLCW observations, (2) groundwater level (GWL) records, and (3) vertical surface displacement recorded by an adjacent continuous Global Navigation Satellite System (cGNSS) station. A corresponding borehole lithological profile was examined separately to characterize material differences among the six depth sections. The MLCW observations provided monthly compaction increments for individual depth intervals. These increments were estimated from monthly hydraulic head changes and vertical surface displacement increments for the same months. The MLCW and cGNSS records covered January 2010 to December 2024, whereas the GWL record covered January 2008 to December 2024. The following subsections describe the observational basis and temporal alignment of each dataset.
+The Tuku MLCW station was selected for its location within an actively subsiding agricultural area and for the availability of the required observations. Tuku Township lies in the agricultural region of Yunlin County and within a major inland subsidence zone of the CRAF \citep{chang2022_wetanddry, hung_measuring_2021, hung_exploring_2024}. The station provided the complete set of observations needed to evaluate the monitoring scenarios considered in this study. Three time-series data sources formed the monthly regression dataset: (1) MLCW observations, (2) groundwater level (GWL) records, and (3) vertical surface displacement recorded by an adjacent continuous Global Navigation Satellite System (cGNSS) station. A corresponding borehole lithological profile was examined separately to characterize material differences among the six depth sections. The MLCW observations provided monthly compaction increments for individual depth intervals. These increments were estimated from monthly hydraulic head changes and vertical surface displacement increments for the same months. The MLCW and cGNSS records covered January 2010 to December 2024, whereas the GWL record covered January 2008 to December 2024. The following subsections describe the observational basis and temporal alignment of each dataset.
 
 \subsubsection{Multilayer aquifer-system deformation}
 
@@ -59,37 +59,79 @@ Together, the three time-series datasets linked monthly compaction within each 5
 \begin{figure}[htbp]
   \centering
   \resizebox{\linewidth}{!}{%
-  \begin{tikzpicture}[
-    node distance=0.65cm and 0.45cm,
-    source/.style={draw, rectangle, rounded corners=2pt, align=center, fill=blue!6, minimum width=3.1cm, minimum height=1.0cm, font=\footnotesize},
-    process/.style={draw, rectangle, rounded corners=2pt, align=center, fill=orange!7, minimum width=3.1cm, minimum height=1.0cm, font=\footnotesize},
-    result/.style={draw, rectangle, rounded corners=2pt, align=center, fill=green!7, minimum width=6.8cm, minimum height=1.0cm, font=\footnotesize},
-    arrow/.style={-{Stealth[scale=0.9]}, line width=0.7pt}
-  ]
-    \node (mlcw) [source] {MLCW observations\\Monthly section compaction};
-    \node (gwl) [source, right=of mlcw] {Groundwater levels\\Monthly head changes};
-    \node (gnss) [source, right=of gwl] {TKJS cGNSS\\Monthly surface displacement};
-    \node (lith) [source, right=of gnss] {Tuku borehole log\\Section composition};
-
-    \node (response) [process, below=of mlcw] {Delayed response\\Calibration and evaluation};
-    \node (hydraulic) [process, below=of gwl] {Time-varying\\hydraulic information};
-    \node (surface) [process, below=of gnss] {Time-varying\\surface response};
-    \node (context) [process, below=of lith] {Lithological context\\for each depth section};
-
-    \node (modeldata) [result, below=1.0cm of $(hydraulic.south)!0.5!(surface.south)$] {Monthly Tuku dataset for six depth sections};
-    \node (interpretation) [process, below=1.0cm of context] {Interpretation of\\section differences};
-
-    \draw [arrow] (mlcw) -- (response);
-    \draw [arrow] (gwl) -- (hydraulic);
-    \draw [arrow] (lith) -- (context);
-    \draw [arrow] (gnss) -- (surface);
-    \draw [arrow] (response) -- (modeldata);
-    \draw [arrow] (hydraulic) -- (modeldata);
-    \draw [arrow] (surface) -- (modeldata);
-    \draw [arrow] (context) -- (interpretation);
-  \end{tikzpicture}%
+	\begin{tikzpicture}[
+		font=\small,
+		box/.style={
+			draw=black,
+			rounded corners=2pt,
+			align=center,
+			minimum width=3.95cm,
+			text width=3.60cm
+		},
+		boxtop/.style={
+			box,
+			minimum height=0.75cm,
+			font=\small\bfseries
+		},
+		box_response/.style={
+			box,
+			minimum height=0.75cm,
+			draw=orange!65!black,
+			fill=orange!16,
+			font=\small
+		},
+		box_predictor/.style={
+			box,
+			minimum height=0.75cm,
+			draw=blue!60!black,
+			fill=blue!10,
+			font=\small
+		},
+		result/.style={
+			draw=green!55!black,
+			rounded corners=2pt,
+			align=center,
+			fill=green!11,
+			minimum width=5.25cm,
+			minimum height=1.15cm,
+			text width=4.80cm
+		},
+		arrow/.style={-{Stealth[length=2.2mm]}, line width=0.8pt, draw=black!65},
+		line/.style={line width=1.2pt, draw=black!65}, % Đường nối dọc đẹp mắt
+		legend/.style={font=\footnotesize, align=left}
+		]
+		% --- CỘT 1: DEFORMATION (HÀNG 1: Y=2.20 | HÀNG 2: Y=0.80) ---
+		\node[boxtop] (def_top) at (0.00, 2.20) {Deformation by depth interval};
+		\node[box_response] (def_bot) at (0.00, 0.80) {Monthly deformation increments};
+		\draw[line] (def_top) -- (def_bot);
+		
+		% --- CỘT 2: HYDRAULIC HEAD (HÀNG 1: Y=2.20 | HÀNG 2: Y=0.80) ---
+		\node[boxtop] (head_top) at (4.60, 2.20) {Hydraulic head};
+		\node[box_predictor] (head_bot) at (4.60, 0.80) {Monthly hydraulic head changes};
+		\draw[line] (head_top) -- (head_bot);
+		
+		% --- CỘT 3: SURFACE DISPLACEMENT (HÀNG 1: Y=2.20 | HÀNG 2: Y=0.80) ---
+		\node[boxtop] (surf_top) at (9.20, 2.20) {Vertical surface displacement};
+		\node[box_predictor] (surf_bot) at (9.20, 0.80) {Monthly displacement increments};
+		\draw[line] (surf_top) -- (surf_bot);
+		
+		% --- KHUNG KẾT QUẢ (HÀNG 3: Y=-0.90) ---
+		\node[result] (dataset) at (4.60, -0.90) {Monthly regression datasets\\by depth interval};
+		
+		% --- MŨI TÊN NỐI XUỐNG KHUNG KẾT QUẢ ---
+		\draw[arrow] (def_bot.south) -- ([xshift=-1.45cm]dataset.north);
+		\draw[arrow] (head_bot.south) -- (dataset.north);
+		\draw[arrow] (surf_bot.south) -- ([xshift=1.45cm]dataset.north);
+		
+		% --- CHÚ THÍCH (CĂN THEO HÀNG 3) ---
+		\node[legend, anchor=west] (responseLegend) at (7.50, -0.65) {\tikz\filldraw[draw=orange!65!black,fill=orange!16] (0,0) rectangle (0.24,0.24);\quad Response variable};
+		\node[legend, anchor=west] (predictorLegend) at (7.50, -1.15) {\tikz\filldraw[draw=blue!60!black,fill=blue!10] (0,0) rectangle (0.24,0.24);\quad Predictor variables};
+		
+		% --- CHÚ THÍCH BÊN DƯỚI ---
+%		\node[font=\footnotesize, text width=12.80cm, align=center] at (4.60, -2.35) {Monthly time-series variables used to construct regression datasets for estimating deformation by depth interval. Orange denotes the response variable, blue denotes predictor variables, and green denotes the assembled regression datasets.};
+	\end{tikzpicture}
   }
-  \caption{Roles of multilayer deformation, hydraulic head, vertical surface displacement, and borehole lithology in the analysis at Tuku.}
+  \caption[Monthly time-series variables for depth-specific regression.]{Monthly time-series variables used to construct depth-specific regression datasets. Orange indicates the response, blue the predictors, and green the assembled datasets.}
   \label{fig:tuku_data_workflow}
 \end{figure}
 
