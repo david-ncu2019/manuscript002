@@ -22,16 +22,33 @@ Because the independent section models were fitted using Bayesian ridge regressi
 
 The reduced-frequency analysis contained six scenarios defined by measurement intervals of six or twelve months and initial calibration periods of 36, 60, or 96 consecutive months. Each scenario began at the first complete monthly record and continued through the last complete measurement interval ending within the common MLCW, GWL, and cGNSS observation period. Incomplete intervals at the end of the record were excluded.
 
-For depth section $s$ and measurement interval $I$, the endpoint observation was the accumulated MLCW compaction,
+For depth section $s$ and measurement interval $I$, the endpoint observation was the accumulated MLCW deformation,
 \begin{equation}
-Y_{s,I}=\sum_{t\in I}y_{s,t},
+\Delta d_{s,I}
+=
+\sum_{k\in I}\Delta d_{s,k},
 \label{eq:interval_compaction}
 \end{equation}
-where $y_{s,t}$ denotes the hidden monthly compaction increment retained for retrospective evaluation. The endpoint observation constrained the update before the next interval, whereas the individual values of $y_{s,t}$ within $I$ remained unavailable to the model. \placeholder{INSERT THE VERIFIED NUMERICAL FORMULATION AND WEIGHTING OF THE ENDPOINT CONSTRAINT FROM THE FROZEN IMPLEMENTATION}.
+where $k$ denotes a monthly epoch and $\Delta d_{s,k}$ denotes the observed monthly deformation increment retained for retrospective evaluation. The endpoint observation constrained the update before the next interval, whereas the individual values of $\Delta d_{s,k}$ within $I$ remained unavailable to the model. \placeholder{INSERT THE VERIFIED NUMERICAL FORMULATION AND WEIGHTING OF THE ENDPOINT CONSTRAINT FROM THE FROZEN IMPLEMENTATION}.
 
-Monthly errors were calculated as $\widehat{y}_{s,t}-y_{s,t}$. Endpoint error was defined as accumulated estimated compaction minus accumulated observed compaction,
+The monthly error was
+
 \begin{equation}
-e_{s,I}=\sum_{t\in I}\widehat{y}_{s,t}-Y_{s,I}.
+e_{s,k}
+=
+\widehat{\Delta d}_{s,k}
+-
+\Delta d_{s,k}.
+\label{eq:appendix_monthly_error}
+\end{equation}
+
+The endpoint error was defined as accumulated estimated deformation minus accumulated observed deformation,
+\begin{equation}
+e_{s,I}
+=
+\sum_{k\in I}\widehat{\Delta d}_{s,k}
+-
+\Delta d_{s,I}.
 \label{eq:endpoint_error}
 \end{equation}
 Positive errors represented estimates that were more positive than the observed values. Monthly and endpoint MAE, RMSE, and mean signed error were reported by measurement interval, initial calibration period, and depth section, with pooled values calculated across all six sections. Endpoint totals were not evaluated with the coefficient of determination. The monthly prediction intervals described in \Cref{subsec:predictive_uncertainty} applied only to the primary delayed-data analysis and were not combined across the reduced-frequency intervals.
