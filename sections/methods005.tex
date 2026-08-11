@@ -16,7 +16,7 @@ d(t)=d_0+v(t-t_0)
 +\sum_{j=1}^{J}c_j H(t-t_j),
 \label{eq:deformation_model}
 \end{equation}
-where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_h$ and $b_h$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002}. The fitted series were evaluated at common monthly epochs to produce aligned cumulative displacement records. For depth section $s$, the deformation increment over the month ending at epoch $k$ was
+where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_h$ and $b_h$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002, bevis_2014}. The fitted series were evaluated at common monthly epochs to produce aligned cumulative displacement records. For depth section $s$, the deformation increment over the month ending at epoch $k$ was
 
 \begin{equation}
 \Delta d_{s,k}
@@ -31,7 +31,7 @@ where $t_k$ and $t_{k-1}$ denote consecutive monthly epochs. Corresponding diffe
 
 Each observation in the regression dataset represented one depth section during one month, with the observed deformation increment $\Delta d_{s,k}$ serving as the response. The predictors described hydraulic conditions, vertical surface displacement, and seasonal variation.
 
-Hydraulic head observations from the Tuku wells were used directly for the depth sections represented by local records. For the remaining sections, hydraulic head at Tuku was estimated from the regional monitoring network using ordinary kriging. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual and semiannual terms represented recurring seasonal variation.
+Hydraulic head observations from the Tuku wells were used directly for the depth sections represented by local records. For the remaining sections, hydraulic head at Tuku was estimated from the regional monitoring network using ordinary kriging \citep{theodossiou2006}. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual and semiannual terms represented recurring seasonal variation.
 
 A separate calibration dataset was prepared for each depth section, and an independent regression model was fitted to each dataset. Before each six-month evaluation block, predictor centering and scaling were calculated only from the observations available for calibration and were subsequently applied to the evaluation block. Previous MLCW deformation increments were not used as predictors. \Cref{tab:predictor_summary} summarizes the information represented by each predictor group, whereas \Cref{app:predictors} provides the complete predictor definitions, data sources, temporal transformations, and lag periods.
 
@@ -56,9 +56,9 @@ A separate calibration dataset was prepared for each depth section, and an indep
 \subsection{Bayesian ridge regression}
 \label{subsec:bayesian_ridge}
 
-Bayesian ridge regression was used as a probabilistic linear regression model to estimate monthly deformation increments independently for each depth section. The predictors included current and lagged changes in hydraulic head and vertical surface displacement, together with seasonal terms. Several of these predictors described related temporal variations and therefore contained overlapping information. Under these conditions, ordinary least squares may produce regression coefficients that change markedly in response to small changes in the calibration data. Ridge regression limits this sensitivity by reducing the magnitude of coefficients that are weakly supported by the observations.
+Bayesian ridge regression was used as a probabilistic linear regression model to estimate monthly deformation increments independently for each depth section. The predictors included current and lagged changes in hydraulic head and vertical surface displacement, together with seasonal terms. Several of these predictors described related temporal variations and therefore contained overlapping information. Under these conditions, ordinary least squares may produce regression coefficients that change markedly in response to small changes in the calibration data. Ridge regression limits this sensitivity by reducing the magnitude of coefficients that are weakly supported by the observations \citep{hoerl_1970_ridge}.
 
-The Bayesian formulation applies the same coefficient shrinkage but also represents the remaining uncertainty in the fitted relation. For $n$ calibration observations and $p$ standardized predictors, the regression model was
+The Bayesian formulation applies the same coefficient shrinkage but also represents the remaining uncertainty in the fitted relation \citep{mackay_bayesian_1992}. For $n$ calibration observations and $p$ standardized predictors, the regression model was
 
 \begin{equation}
 \Delta\boldsymbol{d}_s
@@ -108,7 +108,7 @@ A separate model was fitted for each depth section. Thus, the regression coeffic
 \subsection{Predictive uncertainty quantification}
 \label{subsec:predictive_uncertainty}
 
-The Bayesian formulation provided both a monthly deformation estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients. For a new monthly epoch with standardized predictors $\boldsymbol{x}_{s,*}$ and calibration data $\mathcal{D}_s$, the posterior predictive distribution for section $s$ was
+The Bayesian formulation provided both a monthly deformation estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients \citep{mackay_bayesian_1992}. For a new monthly epoch with standardized predictors $\boldsymbol{x}_{s,*}$ and calibration data $\mathcal{D}_s$, the posterior predictive distribution for section $s$ was
 
 \begin{equation}
 p
@@ -182,7 +182,7 @@ Interval performance was evaluated using empirical coverage and mean interval wi
 
 All three evaluation designs preserved the temporal order of the monitoring records. For each period being estimated, the model used only MLCW observations that would have been available before that period, while monthly GWL and cGNSS observations remained available during the estimation period. This design prevented later MLCW observations from influencing earlier estimates. The three evaluations differed in when, or whether, new MLCW observations became available for updating the model.
 
-\subsubsection{Delayed data delivery}
+\subsubsection{Monthly estimation with delayed MLCW records}
 \label{subsec:delayed_evaluation}
 
 Temporary gaps in the availability of finalized monthly MLCW records were examined using a recurring estimation and update cycle. The model was first calibrated using three years of continuous monthly observations. During each subsequent six-month period, the available GWL and cGNSS observations were used to estimate monthly deformation increments while the corresponding MLCW observations remained unavailable. The six-month interval provided a consistent basis for comparison and did not represent a fixed schedule for data provision.
@@ -277,11 +277,11 @@ Point estimates were evaluated separately for each depth section and for all sec
       {Expanded historical records\\Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Evaluation cycle during temporary MLCW data unavailability. The symbol $\widehat{\Delta d}_{s,k}$ denotes the estimated deformation increment for depth section $s$ over the month ending at epoch $k$. Filled blue markers indicate available observations, whereas open markers indicate monthly deformation observations not yet available during estimation. Newly available deformation records (orange) were then used to evaluate the estimates, recalibrate the model, and begin the next cycle. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
+  \caption{Estimation and model updating during the temporary unavailability of finalized monthly depth-interval deformation records. Hydraulic head and vertical surface displacement remained available during this period. Filled blue markers denote available observations, open blue markers denote deformation records not yet available, and orange markers denote the records subsequently provided. The symbol $\widehat{\Delta d}_{s,k}$ denotes the estimated monthly deformation increment for section $s$. Dots indicate omitted records; marker counts and spacing are illustrative.}
   \label{fig:delayed_observation_design}
 \end{figure}
 
-\subsubsection{Reduced measurement frequency}
+\subsubsection{Sensitivity to less frequent MLCW field measurements}
 \label{subsec:sparse_measurement_sensitivity}
 
 Reduced MLCW measurement frequency was examined under hypothetical schedules in which MLCW observations became available only at the end of each measurement interval. Monthly GWL and cGNSS observations remained available throughout the interval and were used to estimate monthly deformation increments. The intervening monthly MLCW values were excluded from estimation and model updating, and one cumulative MLCW deformation observation became available at the interval endpoint.
@@ -454,7 +454,7 @@ The model was first calibrated from the initial monthly MLCW record and used to 
       {Expanded historical records\\Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Reduced-frequency measurement cycle. The symbol $\widehat{\Delta d}_{s,k}$ denotes the estimated deformation increment for depth section $s$ over the month ending at epoch $k$. Filled blue markers indicate available observations, whereas open gray markers indicate these monthly estimates. The blue and orange endpoint markers define the observed interval deformation $\Delta d_{s,I}$. This interval observation was used for evaluation and model recalibration before the next cycle. Three dots indicate additional historical observations not shown. Marker counts and spacing are illustrative rather than exact.}
+  \caption{Monthly deformation estimation under reduced measurement frequency. Filled blue markers denote available observations, while hydraulic head and vertical surface displacement remained available monthly. Open gray markers denote monthly estimates $\widehat{\Delta d}_{s,k}$, and the blue and orange endpoints define the observed cumulative deformation $\Delta d_{s,I}$ over interval $I$. Dots indicate omitted records; marker counts and spacing are illustrative.}
   \label{fig:reduced_measurement_design}
 \end{figure}
 
@@ -482,7 +482,7 @@ e_{s,I}
 
 Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE, RMSE, and mean signed error for each depth section and for all sections combined. The coefficient of determination was not calculated for the endpoint observations because each scenario contained relatively few cumulative measurements.
 
-\subsubsection{Sensitivity to the absence of subsequent MLCW measurements}
+\subsubsection{Sensitivity without subsequent MLCW field measurements}
 \label{subsec:permanent_stoppage_sensitivity}
 
 The absence of subsequent MLCW measurements was examined using models calibrated once from initial records spanning 3, 5, or 8 years. After each calibration record ended, monthly GWL and cGNSS observations continued to provide predictor values, but no later MLCW observations were added. The model coefficients and predictor scaling therefore remained fixed throughout the subsequent estimation period.
@@ -554,72 +554,76 @@ The 3-, 5-, and 8-year calibration records left 140, 116, and 80 months for retr
   \centering
   \resizebox{\linewidth}{!}{%
   \begin{tikzpicture}[
-    x=1.12cm,
-    y=1cm,
-    font=\small,
-    dataset/.style={anchor=east,align=right,font=\small\bfseries,text=black!75},
-    phase/.style={font=\small\bfseries,text=black!75,align=center},
-    available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=6.3pt,inner sep=0pt},
-    estimate/.style={circle,draw=black!55,fill=white,line width=1.0pt,minimum size=7.2pt,inner sep=0pt},
-    historyline/.style={draw=blue!55!black,line width=1.1pt},
-    estimateline/.style={draw=black!50,densely dashed,line width=0.9pt},
-    divider/.style={draw=black!35,densely dashed,line width=0.7pt},
-    flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
-    fadedarrow/.style={
-      single arrow,
-      draw=none,
-      fill={rgb,255:red,34;green,139;blue,34},
-      fill opacity=0.2,
-      shape border rotate=90,
-      minimum height=1.5cm,
-      minimum width=1.0cm,
-      single arrow head extend=0.8mm,
-      inner sep=1pt
-    },
-    action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.05cm,font=\small\bfseries}
-  ]
-    \node[phase] at (2.00,3.70) {Initial historical records};
-    \node[phase] at (6.20,3.70) {Estimation period};
-
-    \node[dataset] at (-0.45,2.55) {Deformation by\\depth interval};
-    \node[dataset] at (-0.45,1.55) {Hydraulic head};
-    \node[dataset] at (-0.45,0.55) {Vertical surface\\displacement};
-
-    \node[fadedarrow] at (6.20,1.55) {};
-
-    \foreach \y in {1.55,0.55} {
-      \draw[historyline] (0.40,\y) -- (8.00,\y);
-    }
-    \draw[historyline] (0.40,2.55) -- (3.90,2.55);
-    \draw[estimateline] (3.90,2.55) -- (8.00,2.55);
-
-    \foreach \y in {2.55,1.55,0.55} {
-      \foreach \x in {0.40,1.10,1.80,3.20,3.90} {
-        \node[available] at (\x,\y) {};
-      }
-      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (2.50,\y) {$\cdots$};
-    }
-
-    \foreach \y in {1.55,0.55} {
-      \foreach \x in {4.60,5.30,7.30,8.00} {
-        \node[available] at (\x,\y) {};
-      }
-      \node[fill=white,inner xsep=2pt,text=blue!60!black] at (6.30,\y) {$\cdots$};
-    }
-    \foreach \x in {4.60,5.30,7.30,8.00} {
-      \node[estimate] at (\x,2.55) {};
-    }
-    \node[fill=white,inner xsep=2pt,text=black!55] at (6.30,2.55) {$\cdots$};
-
-    \draw[divider] (4.25,-0.2) -- (4.25,4.15);
-
-    \node[action] (calibrate) at (2.00,-0.75) {Calibrate\\model};
-    \node[action] (estimatebox) at (6.20,-0.75) {Estimate\\$\widehat{\Delta d}_{s,k}$};
-    \draw[flow] (calibrate.east) -- (estimatebox.west);
-    \node[font=\small,text=black!70] at (6.20,-1.55) {No recalibration};
-  \end{tikzpicture}%
+  	x=1.12cm,
+  	y=1cm,
+  	font=\small,
+  	dataset/.style={anchor=east,align=right,font=\small\bfseries,text=black!75},
+  	phase/.style={font=\small\bfseries,text=black!75,align=center},
+  	available/.style={circle,draw=blue!60!black,fill=blue!60!black,minimum size=6.3pt,inner sep=0pt},
+  	estimate/.style={circle,draw=black!55,fill=white,line width=1.0pt,minimum size=7.2pt,inner sep=0pt},
+  	historyline/.style={draw=blue!55!black,line width=1.1pt},
+  	estimateline/.style={draw=black!50,densely dashed,line width=0.9pt},
+  	divider/.style={draw=black!35,densely dashed,line width=0.7pt},
+  	flow/.style={-{Stealth[length=2.5mm]},draw=black!65,line width=0.8pt},
+  	fadedarrow/.style={
+  		single arrow,
+  		draw=none,
+  		fill={rgb,255:red,34;green,139;blue,34},
+  		fill opacity=0.2,
+  		shape border rotate=90,
+  		minimum height=1.5cm,
+  		minimum width=1.0cm,
+  		single arrow head extend=0.8mm,
+  		inner sep=1pt
+  	},
+  	action/.style={draw=black!65,fill=green!8,rounded corners=2pt,align=center,minimum height=0.85cm,text width=3.05cm,font=\small\bfseries}
+  	]
+  	\node[phase] at (2.00,3.70) {Initial historical records};
+  	\node[phase] at (6.20,3.70) {Estimation period};
+  	
+  	\node[dataset] at (-0.45,2.55) {Deformation by\\depth interval};
+  	\node[dataset] at (-0.45,1.55) {Hydraulic head};
+  	\node[dataset] at (-0.45,0.55) {Vertical surface\\displacement};
+  	
+  	% Continuous timelines
+  	\foreach \y in {1.55,0.55} {
+  		\draw[historyline] (0.40,\y) -- (8.00,\y);
+  	}
+  	\draw[historyline] (0.40,2.55) -- (3.90,2.55);
+  	\draw[estimateline] (3.90,2.55) -- (8.00,2.55);
+  	
+  	% Panel 1 observations
+  	\foreach \y in {2.55,1.55,0.55} {
+  		\foreach \x in {0.40,1.10,1.80,3.20,3.90} {
+  			\node[available] at (\x,\y) {};
+  		}
+  		\node[fill=white,inner xsep=2pt,text=blue!60!black] at (2.50,\y) {$\cdots$};
+  	}
+  	
+  	% Panel 2 observations & dots
+  	\foreach \y in {1.55,0.55} {
+  		\foreach \x in {4.60,5.30,7.30,8.00} {
+  			\node[available] at (\x,\y) {};
+  		}
+  		\node[fill=white,inner xsep=2pt,text=blue!60!black] at (6.30,\y) {$\cdots$};
+  	}
+  	\foreach \x in {4.60,5.30,7.30,8.00} {
+  		\node[estimate] at (\x,2.55) {};
+  	}
+  	\node[fill=white,inner xsep=2pt,text=black!55] at (6.30,2.55) {$\cdots$};
+  	
+  	% CHUYỂN MŨI TÊN XANH XUỐNG ĐÂY VÀ ĐỔI SANG X=5.30
+  	\node[fadedarrow] at (6.30,1.55) {};
+  	
+  	\draw[divider] (4.25,-0.2) -- (4.25,4.15);
+  	
+  	\node[action] (calibrate) at (2.00,-0.75) {Calibrate\\model};
+  	\node[action] (estimatebox) at (6.20,-0.75) {Estimate\\$\widehat{\Delta d}_{s,k}$};
+  	\draw[flow] (calibrate.east) -- (estimatebox.west);
+  	\node[font=\small,text=black!70] at (6.20,-1.55) {No recalibration};
+  \end{tikzpicture}
   }
-  \caption{Monthly deformation estimation without subsequent MLCW measurements. Filled blue markers indicate observations available during the initial calibration period. Hydraulic head and vertical surface displacement remained available during the subsequent estimation period, whereas open gray markers indicate monthly deformation estimates. The fitted model and predictor scaling remained unchanged throughout this period. Marker counts and spacing are illustrative rather than exact.}
+  \caption{Fit-once monthly deformation estimation under the hypothetical absence of subsequent depth-interval deformation measurements. Filled blue markers denote observations used for model calibration. Hydraulic head and vertical surface displacement remained available, while open gray markers denote monthly estimates $\widehat{\Delta d}_{s,k}$. Model coefficients and predictor scaling remained fixed throughout the estimation period. Dots indicate omitted records; marker counts and spacing are illustrative.}
   \label{fig:no_subsequent_mlcw_design}
 \end{figure}
 
