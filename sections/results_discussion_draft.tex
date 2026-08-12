@@ -3,51 +3,56 @@
 % Subsection order mirrors methods005.tex subsec:delayed_evaluation ->
 % subsec:sparse_measurement_sensitivity -> subsec:permanent_stoppage_sensitivity,
 % followed by the cross-cutting coefficient results and the limitations.
-% All floats are collected in one cluster at the end of the section.
+% Each float is placed within the subsection that interprets it.
 
-Monthly compaction estimates were evaluated under the three monitoring conditions defined in \Cref{subsec:experimental_design}. The first condition delays complete monthly MLCW records temporarily, the second reduces MLCW measurement frequency to once every six or twelve months, and the third stops MLCW reporting permanently after 3, 5, or 8 years. Each condition removes a different amount of direct subsurface information, and the three conditions are reported separately because they draw on different frozen model snapshots and answer different operational questions. The fitted coefficients are examined afterwards, followed by the limitations that bound every result reported here.
+Monthly deformation increments were estimated under the three monitoring conditions defined in \Cref{subsec:experimental_design}. These conditions represented temporary delays in finalized monthly MLCW records, less frequent MLCW field measurements, and the absence of subsequent MLCW measurements. Each condition removed a different amount of direct subsurface information and therefore addressed a separate monitoring question. The results are presented in the same order as the experimental designs, followed by the fitted coefficients and the limitations of the analysis.
 
 \subsection{Monthly estimation during delayed MLCW data delivery}
 \label{subsec:results_delayed_delivery}
 
-The recurring estimation and update cycle defined in \Cref{subsec:delayed_evaluation} produced 138 monthly estimates for each depth section across 23 complete six-month estimation periods, for a pooled total of 828 estimates (\Cref{tab:delayed_performance_interval}). Pooled across the six sections, the estimates reached $R^2=0.778$, RMSE~$=0.423$~mm/month, and MAE~$=0.279$~mm/month. Section-level $R^2$ ranged from 0.076 at the 200--250~m section (S5) to 0.976 at the 50--100~m section (S2). Three sections fell between these values, with $R^2=0.888$ at S1, 0.870 at S3, and 0.798 at S4, and the 250--300~m section (S6) reached $R^2=0.337$. The error magnitudes followed the same ordering, with RMSE ranging from 0.212~mm/month at S1 to 0.661~mm/month at S5, and MAE from 0.153~mm/month at S3 to 0.504~mm/month at S5. \Cref{fig:results_delayed_monthly_estimates} shows the observed and estimated increments for each section across the full evaluation period.
-
-Every estimate carried a 90\% Bayesian posterior predictive interval obtained from the fitted posterior as defined in \Cref{subsec:predictive_uncertainty}, so an interval accompanied the first eligible estimate without requiring an archive of previous errors. Pooled empirical coverage reached 78.019\%, approximately twelve percentage points below the nominal 90\% level, with a mean interval width of 0.904~mm/month. Coverage varied among sections from 65.942\% at S6 to 88.406\% at S2, and only S2 and S4 (84.058\%) approached the nominal level. Coverage did not follow the ordering of $R^2$. S5 combined the weakest point accuracy with 81.159\% coverage and the widest mean interval of the six sections at 1.848~mm/month, exceeding the 0.985~mm/month at S4 by a factor of 1.877.
-
-Two features of these results carry operational meaning. The weak accuracy at S5 is consistent with a physical observability gap rather than a limitation of the fitted relation. The deepest groundwater well at Tuku is screened at 257--263~m and serves as the hydraulic head predictor for both S5 and S6 (\Cref{tab:tuku_data_sources}), so no piezometer observes head within the 200--250~m interval that S5 represents, and the predictor available there describes pore-pressure conditions in a deeper interval than the one undergoing compaction. Where a monitoring network no longer observes hydraulic head within an actively compacting layer, neither surface displacement nor head data recorded elsewhere in the profile restores the ability to estimate compaction in that layer. The second feature concerns timing. Because each estimate used only hydraulic head and cGNSS observations recorded in the same target month, the capability demonstrated here is same-month estimation rather than forecasting, and its operational value lies in bridging the interval between a target month and the delayed delivery of the corresponding MLCW record. \Cref{subsec:results_limitations} returns to the coverage shortfall.
-
-\subsection{Estimation under reduced MLCW measurement frequency}
-\label{subsec:results_reduced_frequency}
-
-\placeholder{RESULTS AND INTERPRETATION FOR THE SIX REDUCED-FREQUENCY SCENARIOS OF METHODS SUBSECTION 3.4.2. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ENDPOINT SAMPLE COUNT, MAE, RMSE, AND MEAN SIGNED ERROR PER DEPTH SECTION AND POOLED, THEN ONE INTERPRETATION PARAGRAPH ON THE FIELD-VISIT FREQUENCY TRADE-OFF. TABLE FROM THE THREE-FILE JOIN, PLUS FIGURE 8.}
-
-\subsection{Estimation without subsequent MLCW measurements}
-\label{subsec:results_no_subsequent_mlcw}
-
-\placeholder{RESULTS AND INTERPRETATION FOR THE THREE FIT-ONCE SCENARIOS OF METHODS SUBSECTION 3.4.3, WITH INITIAL CALIBRATION RECORDS OF 3, 5, AND 8 YEARS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ABSOLUTE CUMULATIVE DEFORMATION ERROR AT THE SHARED 80-MONTH HORIZON PER DEPTH SECTION, THEN ONE INTERPRETATION PARAGRAPH. TABLE PLUS FIGURE 9.}
-
-\subsection{Coefficients of driving factors at each depth section}
-\label{subsec:results_driving_factors}
-
-\placeholder{RESULTS AND INTERPRETATION FOR THE FITTED STANDARDIZED COEFFICIENTS ACROSS ALL SIX DEPTH SECTIONS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING THE DOMINANT PREDICTOR PER SECTION AND THE GROUP SIZES THAT SHAPE THAT RANKING, THEN ONE INTERPRETATION PARAGRAPH. TABLE PLUS FIGURE 10.}
-
-\subsection{Limitations and practical scope}
-\label{subsec:results_limitations}
-
-\placeholder{INTERPRETATION ONLY, NO NEW EVIDENCE. FOUR PARAGRAPHS COVERING TRANSFERABILITY OF THE METHOD AGAINST THE FITTED COEFFICIENTS, THE POSTERIOR PREDICTIVE INTERVAL IDENTITY AND ITS COVERAGE SHORTFALL, THE SNAPSHOT BOUNDARY THAT PREVENTS COMPARING SUBSECTION 4.1 NUMBERS AGAINST THE OTHER TWO MONITORING CONDITIONS, AND THE MEASUREMENT-SCOPE LIMITS OF THE CGNSS, HYDRAULIC HEAD, AND LITHOLOGICAL RECORDS. THE S5 MECHANISM MUST NOT BE RESTATED HERE.}
+The recurring estimation and update design produced 23 complete six-month cycles from 05/2013 to 10/2024. As shown in \Cref{fig:results_delayed_cycles}, the calibration record expanded after the finalized MLCW observations from each cycle became available. Each cycle contributed six monthly estimates for each of the six depth sections, resulting in 138 estimates per section and 828 estimates across the monitored profile.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_performance.pdf}
-  \caption[Observed and estimated monthly deformation increments by depth section.]{Observed and estimated monthly deformation increments for each 50~m depth section. The solid black line shows the observed increment and the dashed red line shows the estimate. The shaded band spans the 90\% Bayesian posterior predictive interval. Panels are ordered by increasing depth from S1 to S6 and share a common vertical scale.}
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_cycle_timeline.pdf}
+  \caption[Calibration and estimation periods during delayed MLCW data delivery.]{Successive calibration and estimation periods used to evaluate monthly deformation increments while finalized MLCW records were unavailable. The five colors repeat to distinguish adjacent estimation periods and do not represent different experimental conditions.}
+  \label{fig:results_delayed_cycles}
+\end{figure}
+
+The observed and estimated monthly increments followed similar temporal patterns in the upper four sections, whereas larger differences occurred in S5 and S6 (\Cref{fig:results_delayed_monthly_estimates}). The same contrast appears in \Cref{fig:results_delayed_scatter}, where estimates for S1--S4 remained closer to the 1:1 line than those for the two deepest sections. The colored segments in the time series distinguish successive estimation periods, while their shaded bands show the corresponding 90\% Bayesian posterior predictive intervals.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_monthly_estimates_s1_s3.pdf}
+  \caption[Observed and estimated monthly deformation increments by depth section.]{Observed and estimated monthly deformation increments for S1--S3. The black lines show observations, colored dotted lines show estimates, and shaded bands show the 90\% Bayesian posterior predictive intervals. The five colors repeat across successive estimation periods.}
   \label{fig:results_delayed_monthly_estimates}
 \end{figure}
+
+\begin{figure}[p]
+  \ContinuedFloat
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_monthly_estimates_s4_s6.pdf}
+  \caption[]{Observed and estimated monthly deformation increments for S4--S6, continued from the preceding page.}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_prediction_vs_observed.pdf}
+  \caption[Estimated versus observed monthly deformation increments.]{Estimated versus observed monthly deformation increments for the six depth sections. The dashed line represents exact agreement. RMSE and MAE are reported in mm/month.}
+  \label{fig:results_delayed_scatter}
+\end{figure}
+
+\FloatBarrier
+
+Performance differed substantially with depth (\Cref{tab:delayed_performance_interval}). The pooled estimates reached $R^2=0.778$, RMSE~$=0.423$~mm/month, and MAE~$=0.279$~mm/month. Section-level $R^2$ ranged from 0.076 at S5 to 0.976 at S2. RMSE ranged from 0.212~mm/month at S1 to 0.661~mm/month at S5, whereas MAE ranged from 0.153~mm/month at S3 to 0.504~mm/month at S5. Thus, $R^2$ and the error magnitudes described complementary aspects of performance rather than a common ranking among sections.
+
+Every estimate carried a 90\% Bayesian posterior predictive interval obtained from the fitted posterior as defined in \Cref{subsec:predictive_uncertainty}. Pooled empirical coverage was 78.019\%, which was 11.981 percentage points below the nominal level, and the mean interval width was 0.904~mm/month. Coverage ranged from 65.942\% at S6 to 88.406\% at S2 and did not follow the section-level ordering of $R^2$. S5 had the largest point errors and the widest mean interval at 1.848~mm/month, indicating that its estimates were both less accurate and more uncertain than those of the other sections.
 
 \begin{table}[htbp]
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption[Performance and posterior predictive interval statistics during delayed MLCW delivery.]{Point accuracy and 90\% Bayesian posterior predictive interval statistics of monthly deformation estimates obtained while finalized monthly MLCW records were unavailable. RMSE, MAE, and mean interval width are given in mm/month. Coverage is the percentage of observations falling inside the nominal 90\% interval. The row labelled All pools the 828 estimates from the six sections.}
+  \caption[Performance and posterior predictive interval statistics during delayed MLCW delivery.]{Point accuracy and 90\% Bayesian posterior predictive interval statistics for monthly deformation estimates. RMSE, MAE, and mean interval width are reported in mm/month. Coverage is the percentage of observations within the nominal 90\% interval. The row labelled All pools the 828 estimates from the six sections.}
   \label{tab:delayed_performance_interval}
   \begin{tabular}{lrrrrrr}
     \toprule
@@ -64,6 +69,54 @@ Two features of these results carry operational meaning. The weak accuracy at S5
     \bottomrule
   \end{tabular}
 \end{table}
+
+Performance was also grouped by position within each estimation cycle to determine whether the estimates changed as additional months passed without finalized MLCW records (\Cref{tab:delayed_performance_by_month}). MAE varied from 0.252 to 0.336~mm/month, while RMSE varied from 0.352 to 0.593~mm/month. The largest errors occurred in the second month rather than at the end of the cycle. Mean error remained between $-0.013$ and 0.048~mm/month, and empirical coverage varied between 73.188\% and 82.609\%. These results show no monotonic loss of performance across the six monthly positions.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.15}
+  \caption[Performance by month position within each estimation cycle.]{Performance grouped by month position within each six-month estimation cycle. Mean error follows $e=\hat{y}-y$. MAE, RMSE, mean error, and mean interval width are reported in mm/month. Coverage is the percentage of observations within the nominal 90\% Bayesian posterior predictive interval.}
+  \label{tab:delayed_performance_by_month}
+  \begin{tabular}{lrrrrrr}
+    \toprule
+    \textbf{Month} & \textbf{$n$} & \textbf{MAE} & \textbf{RMSE} & \textbf{Mean error} & \textbf{Coverage (\%)} & \textbf{Width} \\
+    \midrule
+    1 & 138 & 0.252 & 0.354 & $-0.013$ & 80.435 & 0.910 \\
+    2 & 138 & 0.336 & 0.593 & $-0.001$ & 73.188 & 0.911 \\
+    3 & 138 & 0.273 & 0.391 & $-0.001$ & 78.986 & 0.906 \\
+    4 & 138 & 0.275 & 0.376 & 0.048 & 73.913 & 0.904 \\
+    5 & 138 & 0.257 & 0.352 & 0.043 & 82.609 & 0.897 \\
+    6 & 138 & 0.280 & 0.423 & 0.006 & 78.986 & 0.898 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\FloatBarrier
+
+The lower performance at S5 is consistent with limited section-specific hydraulic information. Hydraulic head was measured directly at only three depths at Tuku, while values for the remaining standardized sections were obtained by kriging from the regional network (\Cref{subsec:predictor_preparation}). This interpretation remains conditional because the present analysis did not isolate the contribution of groundwater monitoring depth from the other predictors. More generally, each monthly estimate used hydraulic head and cGNSS information available through the target month, including the specified lagged changes. The evaluation therefore represents monthly estimation during delayed MLCW data delivery rather than forecasting conditions that had not yet been observed. The coverage shortfall and its implications are considered further in \Cref{subsec:results_limitations}.
+
+\FloatBarrier
+
+\subsection{Estimation under reduced MLCW measurement frequency}
+\label{subsec:results_reduced_frequency}
+
+\placeholder{RESULTS AND INTERPRETATION FOR THE SIX REDUCED-FREQUENCY SCENARIOS OF METHODS SUBSECTION 3.4.2. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ENDPOINT SAMPLE COUNT, MAE, RMSE, AND MEAN SIGNED ERROR PER DEPTH SECTION AND POOLED, THEN ONE INTERPRETATION PARAGRAPH ON THE FIELD-VISIT FREQUENCY TRADE-OFF. TABLE FROM THE THREE-FILE JOIN, PLUS FIGURE 10.}
+
+\subsection{Estimation without subsequent MLCW measurements}
+\label{subsec:results_no_subsequent_mlcw}
+
+\placeholder{RESULTS AND INTERPRETATION FOR THE THREE FIT-ONCE SCENARIOS OF METHODS SUBSECTION 3.4.3, WITH INITIAL CALIBRATION RECORDS OF 3, 5, AND 8 YEARS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ABSOLUTE CUMULATIVE DEFORMATION ERROR AT THE SHARED 80-MONTH HORIZON PER DEPTH SECTION, THEN ONE INTERPRETATION PARAGRAPH. TABLE PLUS FIGURE 11.}
+
+\subsection{Coefficients of driving factors at each depth section}
+\label{subsec:results_driving_factors}
+
+\placeholder{RESULTS AND INTERPRETATION FOR THE FITTED STANDARDIZED COEFFICIENTS ACROSS ALL SIX DEPTH SECTIONS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING THE DOMINANT PREDICTOR PER SECTION AND THE GROUP SIZES THAT SHAPE THAT RANKING, THEN ONE INTERPRETATION PARAGRAPH. TABLE PLUS FIGURE 12.}
+
+\subsection{Limitations and practical scope}
+\label{subsec:results_limitations}
+
+\placeholder{INTERPRETATION ONLY, NO NEW EVIDENCE. FOUR PARAGRAPHS COVERING TRANSFERABILITY OF THE METHOD AGAINST THE FITTED COEFFICIENTS, THE POSTERIOR PREDICTIVE INTERVAL IDENTITY AND ITS COVERAGE SHORTFALL, THE SNAPSHOT BOUNDARY THAT PREVENTS COMPARING SUBSECTION 4.1 NUMBERS AGAINST THE OTHER TWO MONITORING CONDITIONS, AND THE MEASUREMENT-SCOPE LIMITS OF THE CGNSS, HYDRAULIC HEAD, AND LITHOLOGICAL RECORDS. THE S5 MECHANISM MUST NOT BE RESTATED HERE.}
 
 % Floats for subsections 4.2 through 4.5 arrive with their prose. The tables
 % previously sitting here carried numbers rounded under an older convention,
