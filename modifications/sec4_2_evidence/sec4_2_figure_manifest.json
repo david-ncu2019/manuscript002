@@ -1,0 +1,422 @@
+{
+  "source": "D:\\1000_SCRIPTS\\004_Project003\\20260427_InSAR_MLCW_v3\\007_tests\\014_ml_nowcast\\experiments\\section_pooled\\run_048\\supplements\\manuscript_results002\\sec4_2_reduced_frequency_monthly_predictions.parquet",
+  "source_sha256": "b6b784dbe7af378841f7695554048a3bbdaa54bfd858e8c5d8e226655fc060eb",
+  "style_source": "D:\\1000_SCRIPTS\\004_Project003\\20260427_InSAR_MLCW_v3\\007_tests\\014_ml_nowcast\\experiments\\section_pooled\\run_048\\supplements\\manuscript_results002\\build_sec4_1_visual_package.py",
+  "style_source_sha256": "cfc27ad8c4d71f9d2f9307d804596584665c1940e04315e34a3fbcbb6f9627c6",
+  "evaluation_rows": 3852,
+  "initial_rows": 2304,
+  "figure_stems": 20,
+  "files": [
+    "main_text\\fig_reduced_frequency_6month_3year_s1_s3.pdf",
+    "main_text\\fig_reduced_frequency_6month_3year_s1_s3.png",
+    "main_text\\fig_reduced_frequency_6month_3year_s4_s6.pdf",
+    "main_text\\fig_reduced_frequency_6month_3year_s4_s6.png",
+    "main_text\\fig_reduced_frequency_12month_3year_s1_s3.pdf",
+    "main_text\\fig_reduced_frequency_12month_3year_s1_s3.png",
+    "main_text\\fig_reduced_frequency_12month_3year_s4_s6.pdf",
+    "main_text\\fig_reduced_frequency_12month_3year_s4_s6.png",
+    "supplementary\\figS_reduced_frequency_6month_timeline.pdf",
+    "supplementary\\figS_reduced_frequency_6month_timeline.png",
+    "supplementary\\figS_reduced_frequency_12month_timeline.pdf",
+    "supplementary\\figS_reduced_frequency_12month_timeline.png",
+    "supplementary\\figS_reduced_frequency_6month_5year_s1_s3.pdf",
+    "supplementary\\figS_reduced_frequency_6month_5year_s1_s3.png",
+    "supplementary\\figS_reduced_frequency_6month_5year_s4_s6.pdf",
+    "supplementary\\figS_reduced_frequency_6month_5year_s4_s6.png",
+    "supplementary\\figS_reduced_frequency_6month_8year_s1_s3.pdf",
+    "supplementary\\figS_reduced_frequency_6month_8year_s1_s3.png",
+    "supplementary\\figS_reduced_frequency_6month_8year_s4_s6.pdf",
+    "supplementary\\figS_reduced_frequency_6month_8year_s4_s6.png",
+    "supplementary\\figS_reduced_frequency_12month_5year_s1_s3.pdf",
+    "supplementary\\figS_reduced_frequency_12month_5year_s1_s3.png",
+    "supplementary\\figS_reduced_frequency_12month_5year_s4_s6.pdf",
+    "supplementary\\figS_reduced_frequency_12month_5year_s4_s6.png",
+    "supplementary\\figS_reduced_frequency_12month_8year_s1_s3.pdf",
+    "supplementary\\figS_reduced_frequency_12month_8year_s1_s3.png",
+    "supplementary\\figS_reduced_frequency_12month_8year_s4_s6.pdf",
+    "supplementary\\figS_reduced_frequency_12month_8year_s4_s6.png",
+    "supplementary\\figS_reduced_frequency_6month_3year_scatter.pdf",
+    "supplementary\\figS_reduced_frequency_6month_3year_scatter.png",
+    "supplementary\\figS_reduced_frequency_6month_5year_scatter.pdf",
+    "supplementary\\figS_reduced_frequency_6month_5year_scatter.png",
+    "supplementary\\figS_reduced_frequency_6month_8year_scatter.pdf",
+    "supplementary\\figS_reduced_frequency_6month_8year_scatter.png",
+    "supplementary\\figS_reduced_frequency_12month_3year_scatter.pdf",
+    "supplementary\\figS_reduced_frequency_12month_3year_scatter.png",
+    "supplementary\\figS_reduced_frequency_12month_5year_scatter.pdf",
+    "supplementary\\figS_reduced_frequency_12month_5year_scatter.png",
+    "supplementary\\figS_reduced_frequency_12month_8year_scatter.pdf",
+    "supplementary\\figS_reduced_frequency_12month_8year_scatter.png"
+  ],
+  "file_sha256": {
+    "main_text\\fig_reduced_frequency_6month_3year_s1_s3.pdf": "e47bb7a34bdf0bb7cf3fd6ed48ef8b7448888f7edb0eb03dc9ab9ec056864b55",
+    "main_text\\fig_reduced_frequency_6month_3year_s1_s3.png": "a21e07caa1b51bb863e9e1be62cd3b1d40b91920d541c7379f816df17488ccef",
+    "main_text\\fig_reduced_frequency_6month_3year_s4_s6.pdf": "4ac6441a37db4c0533c82efd0dba376734cfa3f0056904be39a7fdee892760a2",
+    "main_text\\fig_reduced_frequency_6month_3year_s4_s6.png": "5260cf7fee005d88eb269272e166cb027558d555f6ff0da561743b455f107829",
+    "main_text\\fig_reduced_frequency_12month_3year_s1_s3.pdf": "568c60fd7768241f1060765ccbddb7a709c1c5db0700d6c64a93c1d9582c19ff",
+    "main_text\\fig_reduced_frequency_12month_3year_s1_s3.png": "9544c56a46a03b46bdb8d49a1f47c2b89be887e48acc1ba6fe6e428e2ea7314a",
+    "main_text\\fig_reduced_frequency_12month_3year_s4_s6.pdf": "95bf96b0023f575646fd7242cb510295021ad76c965e6ebf2048ef45151ab521",
+    "main_text\\fig_reduced_frequency_12month_3year_s4_s6.png": "239b0e351feb70d9fd8fd381742dda35d38f890b2eb785cb356c2f766c6171e6",
+    "supplementary\\figS_reduced_frequency_6month_timeline.pdf": "04327ab9c34542063c3cec0a5d777b1abd4a44ab5d566337ec42dd21f25a1e91",
+    "supplementary\\figS_reduced_frequency_6month_timeline.png": "078bcdcf1686b46472832e598be2a608c17c4c0c12781425c0e147d836b25654",
+    "supplementary\\figS_reduced_frequency_12month_timeline.pdf": "302d31cdcde7f0b912de8b7fcb9668b80e080b8610df809ead19557fba14acdc",
+    "supplementary\\figS_reduced_frequency_12month_timeline.png": "68b72cfdfd461b542a5614c8dea0bb7f45b8728ac7787d9fd1b59f98ad1f78b2",
+    "supplementary\\figS_reduced_frequency_6month_5year_s1_s3.pdf": "7c0b51ce99a2716586954358df9eb799a2580df071d8693f3950ffac75361758",
+    "supplementary\\figS_reduced_frequency_6month_5year_s1_s3.png": "40ddb5c9c42612fd3d0dad3d2ca5db740ce394b200b85653398a54dd878fc907",
+    "supplementary\\figS_reduced_frequency_6month_5year_s4_s6.pdf": "88b193b8ff88defee32b645bbedfbb9e5374ee7d7f63db65aeebe261c9799e2c",
+    "supplementary\\figS_reduced_frequency_6month_5year_s4_s6.png": "39ad7115b108919412a4a14256427ae374062a2231ff54828a330840db7b5853",
+    "supplementary\\figS_reduced_frequency_6month_8year_s1_s3.pdf": "f3f5afc9854ce61337e21a4a6a5705c19332a92fa15f8dc5f37562dd5f033fff",
+    "supplementary\\figS_reduced_frequency_6month_8year_s1_s3.png": "69dca73227e130c8fbfc0ac246542ddab340c81a21a08c76caa864dabf23c8f0",
+    "supplementary\\figS_reduced_frequency_6month_8year_s4_s6.pdf": "1ede2d530ba5455ac6ea97ef667792a08b0e45a84346d6ac64d3c21c6229b2eb",
+    "supplementary\\figS_reduced_frequency_6month_8year_s4_s6.png": "da345324cf06a2c448c4fe00d5153f288d7f5834bdde8ec9e8d68e2cf5d7ee89",
+    "supplementary\\figS_reduced_frequency_12month_5year_s1_s3.pdf": "dfee8e9aacad15735ede1debe607fafd3c398213dfde9578beb098c57de5c8aa",
+    "supplementary\\figS_reduced_frequency_12month_5year_s1_s3.png": "882db6e91c15cd339aa8cf7accc0b46c0bd867666fece5e165677324930b9e5f",
+    "supplementary\\figS_reduced_frequency_12month_5year_s4_s6.pdf": "4538e4c440408b7fe72cd60a5811440c3432bfb9af5720b27ccb08c6fcb9b987",
+    "supplementary\\figS_reduced_frequency_12month_5year_s4_s6.png": "42d0906af8168a6fa55bf49279226e9ef720d58842a6552beb27eb79e1d460a6",
+    "supplementary\\figS_reduced_frequency_12month_8year_s1_s3.pdf": "deea9f5d71c0cfba540dace449269032567cc12866c0a5cd1d737a10d454a6e4",
+    "supplementary\\figS_reduced_frequency_12month_8year_s1_s3.png": "17946507045bd111e8bc46da5560f68172c3989313d581ac1172cbe3f4afac46",
+    "supplementary\\figS_reduced_frequency_12month_8year_s4_s6.pdf": "72aa7d331e38f9b4852d70dc1a9fac2ea331c9613bc2fb89822b8e9a9626ec71",
+    "supplementary\\figS_reduced_frequency_12month_8year_s4_s6.png": "d4a7fed36afc34bdea370a786b06bec97cf0d72c7b4e2b9bd0ad52ddc0fdb8ab",
+    "supplementary\\figS_reduced_frequency_6month_3year_scatter.pdf": "1c7cccd20c1da83156ed97964796407e4484b9d9621fb6f1dbb85c26c3ebbd37",
+    "supplementary\\figS_reduced_frequency_6month_3year_scatter.png": "12b8ea5112f391217a2aae86ec8a294bc43632049f7a890b1c9c354ff88cb4b0",
+    "supplementary\\figS_reduced_frequency_6month_5year_scatter.pdf": "295adb162fbc98ccbc1668ed77ce0e0e4145bebaa8960a6b609bc9f2a7dcbc48",
+    "supplementary\\figS_reduced_frequency_6month_5year_scatter.png": "0bda310e00cd4e545ad4c48d797216c412fa95b8ea16d7994056f73c85bb9495",
+    "supplementary\\figS_reduced_frequency_6month_8year_scatter.pdf": "4e7a476266388618f47c2b94835d4f50fbcdddc250afb11864f10d9d3a74a6bb",
+    "supplementary\\figS_reduced_frequency_6month_8year_scatter.png": "2832ce54f7a9c8720f77ede7e80d387052669546cec51d0b34d48ede54179014",
+    "supplementary\\figS_reduced_frequency_12month_3year_scatter.pdf": "697d72835b76fff9b6820a13f9fff552a12f0d253566abf66384c28f84876478",
+    "supplementary\\figS_reduced_frequency_12month_3year_scatter.png": "93adb40f3b7b778bed3bfd4364f97691017caee8193c37cf0d615afd19df5e02",
+    "supplementary\\figS_reduced_frequency_12month_5year_scatter.pdf": "4c98f9db51b29ddaeea447d726a0db711d6f2b1bcc0a9180f9eafa64649284aa",
+    "supplementary\\figS_reduced_frequency_12month_5year_scatter.png": "5cbe3f36f263ddd877b95b72ef5094c86a1a06592b4651f66c71fb3afec161cd",
+    "supplementary\\figS_reduced_frequency_12month_8year_scatter.pdf": "7fa3770c8eb68ed6d010bebfe0d742740fe25bcd9e23a9a43ecbe1f477f05d48",
+    "supplementary\\figS_reduced_frequency_12month_8year_scatter.png": "6346b579c00cfa6f9455c9814874b39223c6ac412327e178e2db7731aa0c1856"
+  },
+  "scatter_annotation_metrics": {
+    "note": "Monthly R^2, RMSE, and MAE, computed independently per depth-section panel from ONLY the monthly evaluation rows (record_role == 'evaluation') shown in that panel of the figS_reduced_frequency_*month_*year_scatter figures. This is NOT endpoint-scope (accumulated-interval) R^2 -- endpoint R^2 is not computed anywhere in this analysis. R^2 is 'n/a' (null) when the observed-value denominator is zero, never forced to a numeric value. Recomputed a second time, independently, by verify_scatter_metrics_against_frozen_parquet() and confirmed to match the values embedded in each figure panel before this manifest was written.",
+    "records": [
+      {
+        "section": "S1",
+        "n": 138,
+        "r2": 0.8829053954244579,
+        "rmse": 0.21710114875636102,
+        "mae": 0.18203531366541228,
+        "measurement_interval": 6,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S2",
+        "n": 138,
+        "r2": 0.964245868323639,
+        "rmse": 0.29186427470015536,
+        "mae": 0.22815441627732605,
+        "measurement_interval": 6,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S3",
+        "n": 138,
+        "r2": 0.8458089945796969,
+        "rmse": 0.2493223474667586,
+        "mae": 0.16567318543492116,
+        "measurement_interval": 6,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S4",
+        "n": 138,
+        "r2": 0.4859970005866546,
+        "rmse": 0.4955110035943961,
+        "mae": 0.40847235687055217,
+        "measurement_interval": 6,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S5",
+        "n": 138,
+        "r2": -0.021344341415092005,
+        "rmse": 0.695171960456939,
+        "mae": 0.5157054563618365,
+        "measurement_interval": 6,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S6",
+        "n": 138,
+        "r2": 0.26779356054080883,
+        "rmse": 0.6526666230707141,
+        "mae": 0.44821958083403385,
+        "measurement_interval": 6,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S1",
+        "n": 114,
+        "r2": 0.8785627900133725,
+        "rmse": 0.2250055559379752,
+        "mae": 0.18827330436190562,
+        "measurement_interval": 6,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S2",
+        "n": 114,
+        "r2": 0.970547726070458,
+        "rmse": 0.2650604440953705,
+        "mae": 0.22295721862331105,
+        "measurement_interval": 6,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S3",
+        "n": 114,
+        "r2": 0.8475921689388171,
+        "rmse": 0.25060585299649163,
+        "mae": 0.14706588997056483,
+        "measurement_interval": 6,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S4",
+        "n": 114,
+        "r2": 0.6905092605978265,
+        "rmse": 0.38064705021072054,
+        "mae": 0.32313676157179466,
+        "measurement_interval": 6,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S5",
+        "n": 114,
+        "r2": 0.24733449118750772,
+        "rmse": 0.5380718604338175,
+        "mae": 0.42712032250339926,
+        "measurement_interval": 6,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S6",
+        "n": 114,
+        "r2": 0.22148758295855675,
+        "rmse": 0.6816894642541185,
+        "mae": 0.4736526463824339,
+        "measurement_interval": 6,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S1",
+        "n": 78,
+        "r2": 0.8838097776970312,
+        "rmse": 0.22157759342300473,
+        "mae": 0.1843955275369568,
+        "measurement_interval": 6,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S2",
+        "n": 78,
+        "r2": 0.9744168000457051,
+        "rmse": 0.24668181017257212,
+        "mae": 0.20741406056060038,
+        "measurement_interval": 6,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S3",
+        "n": 78,
+        "r2": 0.8169569647194665,
+        "rmse": 0.28333600773785217,
+        "mae": 0.17332984604338486,
+        "measurement_interval": 6,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S4",
+        "n": 78,
+        "r2": 0.7856022475179423,
+        "rmse": 0.32230519232954885,
+        "mae": 0.27662644026323224,
+        "measurement_interval": 6,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S5",
+        "n": 78,
+        "r2": 0.2784176858497984,
+        "rmse": 0.5744682377390041,
+        "mae": 0.4644949467857947,
+        "measurement_interval": 6,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S6",
+        "n": 78,
+        "r2": 0.2809661418263879,
+        "rmse": 0.7239385890795161,
+        "mae": 0.4553898819894336,
+        "measurement_interval": 6,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S1",
+        "n": 132,
+        "r2": 0.8890430132489372,
+        "rmse": 0.21116720565556063,
+        "mae": 0.1780823737772237,
+        "measurement_interval": 12,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S2",
+        "n": 132,
+        "r2": 0.952068139683442,
+        "rmse": 0.3403693869924082,
+        "mae": 0.26434672291196293,
+        "measurement_interval": 12,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S3",
+        "n": 132,
+        "r2": 0.8357131353752718,
+        "rmse": 0.2588375512080192,
+        "mae": 0.16889060738588083,
+        "measurement_interval": 12,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S4",
+        "n": 132,
+        "r2": 0.4422130611506244,
+        "rmse": 0.5254182981908098,
+        "mae": 0.43241701161103546,
+        "measurement_interval": 12,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S5",
+        "n": 132,
+        "r2": 0.02805815195378203,
+        "rmse": 0.6907671989821779,
+        "mae": 0.5177081851518189,
+        "measurement_interval": 12,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S6",
+        "n": 132,
+        "r2": 0.3890821688027626,
+        "rmse": 0.6075072515833292,
+        "mae": 0.3722902413320937,
+        "measurement_interval": 12,
+        "initial_history_months": 36
+      },
+      {
+        "section": "S1",
+        "n": 108,
+        "r2": 0.8686554926029789,
+        "rmse": 0.23409354925272682,
+        "mae": 0.20303660806934343,
+        "measurement_interval": 12,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S2",
+        "n": 108,
+        "r2": 0.9576890702427074,
+        "rmse": 0.32058424928630525,
+        "mae": 0.2695604857580492,
+        "measurement_interval": 12,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S3",
+        "n": 108,
+        "r2": 0.8184502791258498,
+        "rmse": 0.2760126792217924,
+        "mae": 0.16735493293846082,
+        "measurement_interval": 12,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S4",
+        "n": 108,
+        "r2": 0.6553894707194985,
+        "rmse": 0.4102893128439706,
+        "mae": 0.3405655944193641,
+        "measurement_interval": 12,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S5",
+        "n": 108,
+        "r2": 0.2255937506184592,
+        "rmse": 0.5563426371563829,
+        "mae": 0.43242921144782676,
+        "measurement_interval": 12,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S6",
+        "n": 108,
+        "r2": 0.24901606008282096,
+        "rmse": 0.6851417564076135,
+        "mae": 0.466470603321946,
+        "measurement_interval": 12,
+        "initial_history_months": 60
+      },
+      {
+        "section": "S1",
+        "n": 72,
+        "r2": 0.8739063995604974,
+        "rmse": 0.23078573231006624,
+        "mae": 0.19538290872035616,
+        "measurement_interval": 12,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S2",
+        "n": 72,
+        "r2": 0.9712995093513405,
+        "rmse": 0.2647585082337195,
+        "mae": 0.223712650742606,
+        "measurement_interval": 12,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S3",
+        "n": 72,
+        "r2": 0.7997276522953555,
+        "rmse": 0.30085703968648486,
+        "mae": 0.19651017539870613,
+        "measurement_interval": 12,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S4",
+        "n": 72,
+        "r2": 0.7909334486080236,
+        "rmse": 0.3288292978010316,
+        "mae": 0.2769335204002388,
+        "measurement_interval": 12,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S5",
+        "n": 72,
+        "r2": 0.24794774695554123,
+        "rmse": 0.6047294756223116,
+        "mae": 0.48014890105556873,
+        "measurement_interval": 12,
+        "initial_history_months": 96
+      },
+      {
+        "section": "S6",
+        "n": 72,
+        "r2": 0.29556924159022224,
+        "rmse": 0.743031856830137,
+        "mae": 0.47805620577072183,
+        "measurement_interval": 12,
+        "initial_history_months": 96
+      }
+    ]
+  }
+}
