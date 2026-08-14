@@ -1,4 +1,4 @@
-"""Check the Results and Discussion section against the manuscript's style rules.
+"""Check the Results section against the manuscript's style rules.
 
 Written because an earlier shell check was unreliable. Filtering out any LINE
 containing "tab:" or "subsec:" also filtered out real prose violations that
@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 
 WORKTREE = Path(__file__).resolve().parent.parent
-TARGET = WORKTREE / "sections" / "results_discussion_draft.tex"
+TARGET = WORKTREE / "sections" / "results003.tex"
 
 # Macros whose arguments legitimately contain colons or internal-looking tokens.
 MACRO_WITH_ARGUMENT = re.compile(
@@ -50,7 +50,9 @@ SECTION_NUMBER = re.compile(r"\b\d+\.\d+(?:\.\d+)*\b(?=[\s,.)]|$)")
 PRECISION_ALLOWLIST = {
     "1.12",  # LaTeX arraystretch argument
     "1.15",  # LaTeX arraystretch argument
+    "1.25",  # LaTeX arraystretch argument in the landscape coefficient table
     "0.98",  # includegraphics width fraction
+    "0.29",  # first-column width fraction in the landscape coefficient table
 }
 
 

@@ -31,7 +31,7 @@ where $t_k$ and $t_{k-1}$ denote consecutive monthly epochs. Corresponding diffe
 
 Each observation in the regression dataset represented one depth section during one month, with the observed deformation increment $\Delta d_{s,k}$ serving as the response. The predictors described hydraulic conditions, vertical surface displacement, and seasonal variation.
 
-Hydraulic head observations from the Tuku wells were used directly for the depth sections represented by local records. For the remaining sections, hydraulic head at Tuku was estimated from the regional monitoring network using ordinary kriging \citep{theodossiou2006}. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual and semiannual terms represented recurring seasonal variation.
+Hydraulic head observations from the Tuku wells were used directly for the depth sections represented by local records. For the remaining sections, hydraulic head at Tuku was estimated from the regional monitoring network using ordinary kriging \citep{theodossiou2006}. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual and semiannual terms represented recurring seasonal variation. Each section model used 35 input variables derived from hydraulic head, vertical surface displacement, and seasonal variation.
 
 A separate calibration dataset was prepared for each depth section, and an independent regression model was fitted to each dataset. Before each six-month evaluation block, predictor centering and scaling were calculated only from the observations available for calibration and were subsequently applied to the evaluation block. Previous MLCW deformation increments were not used as predictors. \Cref{tab:predictor_summary} summarizes the information represented by each predictor group, whereas \Cref{app:predictors} provides the complete predictor definitions, data sources, temporal transformations, and lag periods.
 
@@ -99,7 +99,7 @@ Coefficient shrinkage was introduced by assigning a zero-centered Gaussian distr
 \label{eq:brr_prior}
 \end{equation}
 
-where $\lambda_s$ controls the strength of the shrinkage for section $s$. A larger value of $\lambda_s$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly deformation retain larger coefficients. The values of $\alpha_s$ and $\lambda_s$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
+where $\lambda_s$ controls the strength of the shrinkage for section $s$. A larger value of $\lambda_s$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly deformation have larger coefficients. The values of $\alpha_s$ and $\lambda_s$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
 
 Conventional ridge regression also reduces unstable coefficients, but it generally provides one fitted set of coefficients for a selected penalty. Bayesian ridge regression additionally describes a range of plausible coefficient values after the calibration data have been considered. This posterior distribution provides the information needed to quantify uncertainty in subsequent monthly estimates.
 
@@ -297,7 +297,7 @@ To represent this cumulative observation mathematically, let $s$ denote a depth 
 \label{eq:cumulative_deformation_observation}
 \end{equation}
 
-The individual monthly values within $I$ remained hidden from model fitting and updating and were retained only for retrospective evaluation. Consequently, only the cumulative observation $\Delta d_{s,I}$ entered the next model update. Representing this observation within the monthly regression required the relation in \Cref{eq:brr_regression,eq:brr_likelihood} to be accumulated over the same interval. This summation gave
+The individual monthly values within $I$ remained hidden from model fitting and updating and were used only for retrospective evaluation. Consequently, only the cumulative observation $\Delta d_{s,I}$ entered the next model update. Representing this observation within the monthly regression required the relation in \Cref{eq:brr_regression,eq:brr_likelihood} to be accumulated over the same interval. This summation gave
 
 \begin{equation}
 \Delta d_{s,I}
@@ -313,7 +313,7 @@ H_I\beta_{0,s}
 \label{eq:cumulative_deformation_model}
 \end{equation}
 
-where $\boldsymbol{x}_{s,k}$ contains the standardized predictors for section $s$ at monthly epoch $k$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also retained the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
+where $\boldsymbol{x}_{s,k}$ contains the standardized predictors for section $s$ at monthly epoch $k$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also preserved the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
 
 \begin{equation}
 \varepsilon_{s,I}
@@ -358,7 +358,7 @@ with
 \label{eq:scaled_cumulative_residual}
 \end{equation}
 
-This scaling did not divide the cumulative observation into separate monthly measurements. Instead, it allowed the monthly and cumulative observations to constrain the same regression coefficients while retaining their different temporal support. The scaled cumulative equation could therefore enter the calibration record as one interval constraint.
+This scaling did not divide the cumulative observation into separate monthly measurements. Instead, it allowed the monthly and cumulative observations to constrain the same regression coefficients while preserving their different temporal support. The scaled cumulative equation could therefore enter the calibration record as one interval constraint.
 
 The model was first calibrated from the initial monthly MLCW record and used to estimate deformation throughout the first measurement interval. At the end of that interval, the cumulative observation in \Cref{eq:cumulative_deformation_observation} was added to the calibration record as one interval constraint. The expanded record, consisting of the initial monthly observations and cumulative observations from completed intervals, was then used to recalibrate the model before the next interval. Hidden monthly MLCW values from the reduced measurement intervals never entered this recalibration. This sequence is illustrated in \Cref{fig:reduced_measurement_design}.
 
@@ -548,7 +548,7 @@ The normalized value $R_{s,K}$ was interpreted together with $A_{s,K}$. Because 
 
 The frozen Bayesian ridge model also provided the posterior predictive interval defined in \Cref{subsec:predictive_uncertainty} for each monthly estimate. These intervals described uncertainty in individual monthly deformation increments throughout the estimation period. They were not accumulated into uncertainty bands for $E_{s,K}$ or $A_{s,K}$ because the dependence among prediction errors from successive months was not represented in the cumulative calculation.
 
-The 3-, 5-, and 8-year calibration records left 140, 116, and 80 months for retrospective evaluation, respectively. All three scenarios were compared over their shared 80-month horizon. The additional months available after the shorter calibration records were retained as scenario-specific extensions rather than direct comparisons with the 8-year scenario. The complete fit-once evaluation is illustrated in \Cref{fig:no_subsequent_mlcw_design}.
+The 3-, 5-, and 8-year calibration records left 140, 116, and 80 months for retrospective evaluation, respectively. All three scenarios were compared over their shared 80-month horizon. The additional months available after the shorter calibration records were treated as scenario-specific extensions rather than direct comparisons with the 8-year scenario. The complete fit-once evaluation is illustrated in \Cref{fig:no_subsequent_mlcw_design}.
 
 \begin{figure}[htbp]
   \centering

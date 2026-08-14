@@ -1,6 +1,6 @@
 """Emit the LaTeX body rows for the section 4.1 performance and interval table.
 
-Destination: sections/results_discussion_draft.tex, table label
+Destination: sections/results003.tex, table label
 tab:delayed_performance_interval.
 
 Source: the frozen run_048 result table for the delayed-data walk-forward
