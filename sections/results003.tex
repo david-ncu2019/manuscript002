@@ -90,7 +90,7 @@ Estimation performance did not deteriorate monotonically with position within th
 
 \FloatBarrier
 
-The depth-dependent estimation performance was accompanied by differences in the fitted standardized coefficients. Each section model used 35 input variables, but presenting every coefficient would make comparisons among the depth sections difficult. \Cref{tab:selected_coefficients} therefore presents 14 variables whose displayed coefficient range remained entirely positive or negative in at least one section. This rule only limited what was shown in the table. It did not change model fitting or indicate statistical significance or variable importance.
+The depth-dependent estimation performance was accompanied by differences in the fitted standardized coefficients. The section models included multiple input variables, but presenting every coefficient would make comparisons among the depth sections difficult. \Cref{tab:selected_coefficients} therefore presents 14 variables whose displayed coefficient range remained entirely positive or negative in at least one section. This rule only limited what was shown in the table. It did not change model fitting or indicate statistical significance or variable importance.
 
 \begin{sidewaystable}[p]
   \centering
@@ -141,9 +141,62 @@ Together, these results characterize model performance and fitted associations d
 \subsection{Estimation under reduced MLCW measurement frequency}
 \label{subsec:results_reduced_frequency}
 
-\placeholder{RESULTS FOR THE SIX REDUCED-FREQUENCY SCENARIOS OF METHODS SUBSECTION 3.4.2. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ENDPOINT SAMPLE COUNT, MAE, RMSE, AND MEAN SIGNED ERROR PER DEPTH SECTION AND POOLED, FOLLOWED BY THE THREE-FILE-JOIN TABLE AND FIGURE 10. INTERPRETATION OF THE FIELD-VISIT FREQUENCY TRADE-OFF BELONGS IN THE DISCUSSION.}
+\Cref{subsec:results_delayed_delivery} examined a temporary delay after which the complete monthly MLCW records became available. The reduced-frequency scenarios were more restrictive because MLCW monitoring provided only one cumulative measurement every 6 or 12 months. Monthly hydraulic-head and cGNSS observations remained available between these measurements and were used to estimate the intervening monthly deformation increments. The hidden monthly MLCW observations were used only to evaluate those estimates.
+
+The 3-year initial record provided the visual example for both measurement intervals (\Cref{fig:results_reduced_frequency_6month_3year,fig:results_reduced_frequency_12month_3year}). Under both intervals, the estimates followed the broad month-to-month changes in the observations, although agreement varied among the depth intervals.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{figures/sec4_2/fig_results_reduced_frequency_6month_3year_s1_s3.pdf}
+
+  \includegraphics[width=0.72\textwidth]{figures/sec4_2/fig_results_reduced_frequency_6month_3year_s4_s6.pdf}
+  \caption[Monthly deformation estimates with MLCW measurements every 6 months.]{Observed and estimated monthly deformation increments after a 3-year initial record, with cumulative MLCW measurements collected every 6 months. Black lines show the monthly observations, colored lines show the estimates, and shaded areas show the 90\% ranges around the estimates. Monthly MLCW observations between field measurements were withheld from model updating and used only for evaluation.}
+  \label{fig:results_reduced_frequency_6month_3year}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.72\textwidth]{figures/sec4_2/fig_results_reduced_frequency_12month_3year_s1_s3.pdf}
+
+  \includegraphics[width=0.72\textwidth]{figures/sec4_2/fig_results_reduced_frequency_12month_3year_s4_s6.pdf}
+  \caption[Monthly deformation estimates with MLCW measurements every 12 months.]{Observed and estimated monthly deformation increments after a 3-year initial record, with cumulative MLCW measurements collected every 12 months. Black lines show the monthly observations, colored lines show the estimates, and shaded areas show the 90\% ranges around the estimates. Monthly MLCW observations between field measurements were withheld from model updating and used only for evaluation.}
+  \label{fig:results_reduced_frequency_12month_3year}
+\end{figure}
+
+Because the 3-, 5-, and 8-year initial records ended at different times, each left a different number of later observations for evaluation. The comparison therefore used only the final calendar period available to all three scenarios within each measurement interval. In this way, each initial record was evaluated over the same months (\Cref{tab:results_reduced_frequency}).
+
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{5pt}
+  \renewcommand{\arraystretch}{1.2}
+  \caption[Monthly and accumulated errors under reduced MLCW measurement frequency.]{Monthly and accumulated errors across the six depth sections at Tuku, evaluated over the same final calendar period. Monthly MAE describes errors in individual monthly increments. Accumulated MAE describes the difference between the accumulated estimates and the next cumulative MLCW measurement. Coverage is the percentage of monthly observations contained within the 90\% ranges around the estimates.}
+  \label{tab:results_reduced_frequency}
+  \begin{tabular}{ccrrr}
+    \toprule
+    \shortstack{\textbf{MLCW interval}\\\textbf{(months)}} & \shortstack{\textbf{Initial record}\\\textbf{(years)}} & \shortstack{\textbf{Monthly MAE}\\\textbf{(mm/month)}} & \shortstack{\textbf{Accumulated MAE}\\\textbf{(mm)}} & \shortstack{\textbf{Coverage}\\\textbf{(\%)}} \\
+    \midrule
+    6  & 3 & 0.332 & 1.525 & 97.009 \\
+    6  & 5 & 0.315 & 1.542 & 95.085 \\
+    6  & 8 & 0.294 & 1.525 & 88.248 \\
+    12 & 3 & 0.336 & 2.571 & 91.898 \\
+    12 & 5 & 0.339 & 2.781 & 88.657 \\
+    12 & 8 & 0.308 & 2.738 & 81.944 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Across the six scenarios, monthly MAE ranged from 0.294 to 0.339~mm/month. Accumulated MAE ranged from 1.525 to 1.542~mm when MLCW measurements were 6 months apart and from 2.571 to 2.781~mm when they were 12 months apart. Monthly errors therefore changed within a narrow range, whereas the accumulated difference was larger over the longer measurement interval.
+
+Changing the length of the initial record did not produce the same pattern under the two measurement intervals. When MLCW measurements were 6 months apart, monthly MAE decreased as the initial record increased from 3 to 5 and 8 years. When measurements were 12 months apart, monthly MAE increased slightly from 3 to 5 years and then decreased at 8 years. Accumulated MAE did not decrease consistently as the initial record lengthened under either interval.
+
+The 90\% ranges around the monthly estimates contained between 81.944 and 97.009\% of the observations across the six scenarios. Coverage was below 90\% in three scenarios. The average width of these ranges varied from 1.317 to 1.859~mm/month. The narrowest ranges occurred when MLCW measurements were 12 months apart after an 8-year initial record, which was also the scenario with the lowest coverage.
+
+At Tuku, monthly deformation could still be estimated when MLCW measurements were collected every 6 or 12 months. Monthly errors changed little among the tested scenarios, but accumulated errors were larger when measurements were farther apart. Longer initial records did not improve every reported result, and the ranges around the estimates did not always contain the intended proportion of observations. The implications of these findings are considered in \Cref{sec:discussion}.
+
+\FloatBarrier
 
 \subsection{Estimation without subsequent MLCW measurements}
 \label{subsec:results_no_subsequent_mlcw}
 
-\placeholder{RESULTS FOR THE THREE FIT-ONCE SCENARIOS OF METHODS SUBSECTION 3.4.3, WITH INITIAL CALIBRATION RECORDS OF 3, 5, AND 8 YEARS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ABSOLUTE CUMULATIVE DEFORMATION ERROR AT THE SHARED 80-MONTH HORIZON PER DEPTH SECTION, FOLLOWED BY THE TABLE AND FIGURE 11. INTERPRETATION BELONGS IN THE DISCUSSION.}
+\placeholder{RESULTS FOR THE THREE FIT-ONCE SCENARIOS OF METHODS SUBSECTION 3.4.3, WITH INITIAL CALIBRATION RECORDS OF 3, 5, AND 8 YEARS. TWO NEUTRAL QUANTIFIED PARAGRAPHS REPORTING ABSOLUTE CUMULATIVE DEFORMATION ERROR AT THE SHARED 80-MONTH HORIZON PER DEPTH SECTION, FOLLOWED BY THE TABLE AND FIGURE 12. INTERPRETATION BELONGS IN THE DISCUSSION.}
