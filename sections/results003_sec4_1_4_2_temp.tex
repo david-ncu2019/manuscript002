@@ -195,34 +195,3 @@ The 90\% ranges around the monthly estimates contained between 81.944 and 97.009
 At Tuku, monthly deformation could still be estimated when MLCW measurements were collected every 6 or 12 months. Monthly errors changed little among the tested scenarios, but accumulated errors were larger when measurements were farther apart. Longer initial records did not improve every reported result, and the ranges around the estimates did not always contain the intended proportion of observations. The implications of these findings are considered in \Cref{sec:discussion}.
 
 \FloatBarrier
-
-\subsection{Estimation without subsequent MLCW measurements}
-\label{subsec:results_no_subsequent_mlcw}
-
-The final monitoring condition considered a hypothetical case in which no subsequent MLCW field measurements were available after calibration. Following the design in \Cref{subsec:permanent_stoppage_sensitivity}, models were calibrated from initial MLCW records spanning 3, 5, or 8 years and were evaluated during the first 80 months after calibration. Because the three calibration records ended at different calendar dates, the common 80-month duration did not represent the same calendar period in all scenarios.
-
-Monthly estimates remained available because hydraulic-head and cGNSS observations continued during each evaluation period, whereas no new MLCW observations were used for model updating. Across the six depth sections, monthly MAE and RMSE were 0.351 and 0.520~mm/month after a 3-year initial record, 0.304 and 0.447~mm/month after a 5-year initial record, and 0.293 and 0.432~mm/month after an 8-year initial record. These monthly errors provide context for the section-specific absolute cumulative deformation errors at the 80-month horizon in \Cref{tab:results_no_subsequent_mlcw_h80}.
-
-\begin{table}[htbp]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption[Absolute cumulative deformation error after MLCW measurements cease.]{Absolute cumulative deformation error after 80 months without subsequent MLCW measurements. Values give $A_{s,80}$ in mm for each depth section. Models used the stated initial MLCW record and were not updated thereafter. All scenarios span the same 80-month duration but different calendar periods.}
-  \label{tab:results_no_subsequent_mlcw_h80}
-  \begin{tabular}{lrrr}
-    \toprule
-    \textbf{Section} & \textbf{3-year initial record} & \textbf{5-year initial record} & \textbf{8-year initial record} \\
-    \midrule
-    S1 & 9.859 & 3.252 & 5.699 \\
-    S2 & 3.679 & 2.553 & 2.429 \\
-    S3 & 5.794 & 6.616 & 0.138 \\
-    S4 & 2.773 & 4.600 & 8.729 \\
-    S5 & 53.494 & 11.259 & 4.429 \\
-    S6 & 26.444 & 21.734 & 4.171 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-At the 80-month horizon, the absolute cumulative errors ranged from 2.773 to 53.494~mm after the 3-year initial record, from 2.553 to 21.734~mm after the 5-year initial record, and from 0.138 to 8.729~mm after the 8-year initial record. The section-specific values therefore differed within every scenario. These results describe the tested conditions at Tuku and do not isolate the effect of initial-record length from differences in the subsequent calendar periods.
-
-\FloatBarrier
