@@ -1,0 +1,56 @@
+\section{Supplementary methodological details}
+\label{app:methods}
+
+\subsection{Final predictor inventory}
+\label{app:predictors}
+
+Each section model used 38 predictor variables, grouped below by the physical information they represent. Vertical surface displacement was represented by the current cGNSS increment, its second difference, and its one- and three-month lags. Hydraulic head was represented by the current head change, its second difference, its one-, three-, six-, twelve-, and twenty-four-month lags, three- and six-month rolling means of head change, and the absolute value of head change. Seasonal variation was represented by annual and semiannual sine and cosine terms, a dry-season indicator, and the interaction of head change with the dry-season indicator. Cross-section hydraulic conditions were represented by the current head change and its three- and six-month rolling means, computed separately for each of the six depth sections. Every predictor was available for the target month at the time each estimate was produced. The exact variable names, source columns, and lag definitions used to reproduce the analysis are recorded in the analysis repository's frozen feature manifest (internal identifier \texttt{feature\_manifest.json}, run \texttt{run\_048}); that manifest is the reproducibility record and is not reproduced verbatim here.
+
+\subsection{Model fitting and update settings}
+\label{app:model_settings}
+
+The reproducibility record will report the initial calibration period, the six-month block boundaries, the predictor scaling procedure, the fitted regression settings, and the rules used when an input observation was unavailable. \placeholder{INSERT VERIFIED MODEL SETTINGS AND SOFTWARE ENVIRONMENT FROM THE FINAL RUN}. These details will reproduce the reported estimates without interrupting the main methodological narrative.
+
+\subsection{Prediction interval calibration}
+\label{app:intervals}
+
+Because the independent section models were fitted using Bayesian ridge regression, the prediction intervals were derived analytically from the posterior predictive distribution. Unlike empirical quantile methods that require an accumulated error archive, the Bayesian formulation provided a theoretically justified interval for every point estimate beginning with the first evaluation block. The prior distribution and noise precision parameters were estimated directly from the available calibration data during each model update. The resulting posterior covariance matrix of the coefficients, combined with the estimated noise precision, defined the uncertainty for each subsequent prediction.
+
+\subsection{Reduced-frequency MLCW measurement settings}
+\label{app:sparse_measurement_settings}
+\label{app:no_update_settings}
+
+The reduced-frequency analysis contained six scenarios defined by measurement intervals of six or twelve months and initial calibration periods of 36, 60, or 96 consecutive months. The three calibration periods shared a common endpoint rather than a common start, so the 36- and 60-month periods began later than the 96-month period. Each scenario's subsequent evaluation continued through a shared field-measurement endpoint common to both measurement schedules, so the three initial-history lengths within one schedule underwent the same number of model updates at the same calendar dates; the six-month and twelve-month schedules were not required to share the same update count with each other, since sampling frequency was itself the quantity under comparison. Incomplete intervals at the end of the shared evaluation period were excluded.
+
+For depth section $s$ and measurement interval $I$, the endpoint observation was the accumulated MLCW deformation,
+\begin{equation}
+\Delta d_{s,I}
+=
+\sum_{k\in I}\Delta d_{s,k},
+\label{eq:interval_compaction}
+\end{equation}
+where $k$ denotes a monthly epoch and $\Delta d_{s,k}$ denotes the observed monthly deformation increment retained for retrospective evaluation. The endpoint observation constrained the update before the next interval, whereas the individual values of $\Delta d_{s,k}$ within $I$ remained unavailable to the model. \placeholder{INSERT THE VERIFIED NUMERICAL FORMULATION AND WEIGHTING OF THE ENDPOINT CONSTRAINT FROM THE FROZEN IMPLEMENTATION}.
+
+The monthly error was
+
+\begin{equation}
+e_{s,k}
+=
+\widehat{\Delta d}_{s,k}
+-
+\Delta d_{s,k}.
+\label{eq:appendix_monthly_error}
+\end{equation}
+
+The endpoint error was defined as accumulated estimated deformation minus accumulated observed deformation,
+\begin{equation}
+e_{s,I}
+=
+\sum_{k\in I}\widehat{\Delta d}_{s,k}
+-
+\Delta d_{s,I}.
+\label{eq:endpoint_error}
+\end{equation}
+Positive errors represented estimates that were more positive than the observed values. Monthly and endpoint MAE, RMSE, and mean signed error were reported by measurement interval, initial calibration period, and depth section, with pooled values calculated across all six sections. Endpoint totals were not evaluated with the coefficient of determination. The monthly prediction intervals described in \Cref{subsec:predictive_uncertainty} were calculated for the delayed-data analysis, the reduced-frequency analysis, and the analysis without subsequent MLCW measurements. Each interval came from the Bayesian ridge model fitted for that specific scenario; intervals were never combined across scenarios or across measurement schedules.
+
+\FloatBarrier

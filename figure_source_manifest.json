@@ -1,0 +1,54 @@
+{
+  "description": "Provenance record for figures copied from the analysis repository into this manuscript worktree's figures/ folder. One entry per figure. Source data, filters, and generating scripts referenced here are read-only from the manuscript's perspective.",
+  "figures": [
+    {
+      "figure_id": "fig_results_reduced_frequency_3yr_panel_a",
+      "destination_path": "figures/fig_results_reduced_frequency_3yr_panel_a.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_3yr}, panel (a)",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_2/results/sec4_2_monthly_predictions.parquet",
+      "filters": {
+        "measurement_interval": 6,
+        "initial_history_months": 36,
+        "record_role": "evaluation"
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
+      "generated_at": "2026-08-17T10:35:51+08:00",
+      "sha256": "51065DD4E5D793CF7DCB713A2087B2E025DF02D495AF6DEE006A2EE20799FD8D"
+    },
+    {
+      "figure_id": "fig_results_reduced_frequency_3yr_panel_b",
+      "destination_path": "figures/fig_results_reduced_frequency_3yr_panel_b.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_3yr}, panel (b)",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_2/results/sec4_2_monthly_predictions.parquet",
+      "filters": {
+        "measurement_interval": 12,
+        "initial_history_months": 36,
+        "record_role": "evaluation"
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
+      "generated_at": "2026-08-17T10:35:54+08:00",
+      "sha256": "9BB0009256460C38FD45A3A338B66377A674DBA2FCAA36EE4EBBF658338429B1"
+    },
+    {
+      "figure_id": "fig_results_no_subsequent_mlcw_cumulative_error",
+      "destination_path": "figures/fig_results_no_subsequent_mlcw_cumulative_error.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_cumulative_error}",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": [3, 5, 8],
+        "value_column": "cum_abs_error_mm",
+        "x_axis_column": "months_since_common_end"
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_preview_figures.py",
+      "generated_at": "2026-08-17T13:47:14+08:00",
+      "sha256": "EB48F1E8ACB5FD0B0D535E82F8269BC1F0AA7DEEA68E12068A17E9B300465CC3",
+      "revision_note": "Plot title changed from 'after MLCW measurements cease' to 'without subsequent MLCW measurements' to avoid implying measurements actually ceased at Tuku. Only the suptitle string changed; source table, filters, and data are unchanged from the prior generation."
+    }
+  ],
+  "common_provenance": {
+    "dataset_id": "20260718_run048_v1",
+    "feature_manifest": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/feature_manifest.json",
+    "common_calibration_end": "2018-05-01",
+    "station": "TUKU"
+  }
+}

@@ -1,0 +1,77 @@
+\documentclass[12pt,oneside]{article}
+
+\usepackage[a4paper,top=25mm,bottom=25mm,left=25mm,right=25mm,headheight=15pt]{geometry}
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{titlesec}
+\usepackage[authoryear]{natbib}
+\makeatletter
+\renewcommand{\NAT@biblabel}[1]{\hfill[#1]}
+\renewcommand{\NAT@bibsetup}[1]{\NAT@bibsetnum{#1}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Independent Supplementary numbering, per plan: fig:supp_.../tab:supp_...
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thesection}{S\arabic{section}}
+
+\onehalfspacing
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0pt}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\textit{Tuku manuscript draft -- Supplementary Materials}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\bibliographystyle{plainnat}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Supplementary Materials: Monthly estimation of depth-resolved aquifer-system compaction at Tuku},
+  pdfauthor={Author names to be confirmed},
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  pdfstartview=FitH
+}
+
+\newcommand{\placeholder}[1]{\begingroup\sethlcolor{yellow}\hl{[#1]}\endgroup}
+
+\begin{document}
+
+\pagenumbering{arabic}
+\title{\textbf{Supplementary Materials: Monthly Estimation of Depth-Resolved Aquifer-System Compaction during Delayed Monitoring Data Delivery at Tuku, Taiwan}}
+\author{\placeholder{AUTHOR NAMES AND AFFILIATIONS}}
+\date{Draft compiled on \today}
+\maketitle
+
+This document accompanies the main manuscript and contains supplementary figures and tables referenced from the main text as ``see Supplementary Figure SX'' or ``see Supplementary Table SX.'' Figure and table numbers in this document (S1, S2, \ldots) are independent of the main manuscript's numbering.
+
+\input{sections/supplement001}
+
+\bibliography{writing_manu2}
+
+\end{document}
