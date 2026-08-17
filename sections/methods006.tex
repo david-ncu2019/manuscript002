@@ -16,7 +16,7 @@ d(t)=d_0+v(t-t_0)
 +\sum_{j=1}^{J}c_j H(t-t_j),
 \label{eq:deformation_model}
 \end{equation}
-where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_h$ and $b_h$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002, bevis_2014}. The fitted series were evaluated at common monthly epochs to produce aligned cumulative displacement records. For depth section $s$, the deformation increment over the month ending at epoch $k$ was
+\noindent where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_h$ and $b_h$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002, bevis_2014}. The fitted series were evaluated at common monthly epochs to produce aligned cumulative displacement records. For depth section $s$, the deformation increment over the month ending at epoch $k$ was
 
 \begin{equation}
 \Delta d_{s,k}
@@ -25,7 +25,7 @@ d_s(t_k)-d_s(t_{k-1}),
 \label{eq:monthly_deformation_increment}
 \end{equation}
 
-where $t_k$ and $t_{k-1}$ denote consecutive monthly epochs. Corresponding differences in the cGNSS series yielded monthly vertical surface displacement increments.
+\noindent where $t_k$ and $t_{k-1}$ denote consecutive monthly epochs. Corresponding differences in the cGNSS series yielded monthly vertical surface displacement increments.
 
 \subsubsection{Assembly of monthly model inputs}
 
@@ -71,7 +71,7 @@ The Bayesian formulation applies the same coefficient shrinkage but also represe
 \label{eq:brr_regression}
 \end{equation}
 
-with residual errors described by
+\noindent with residual errors described by
 
 \begin{equation}
 \boldsymbol{\varepsilon}_s
@@ -84,7 +84,7 @@ with residual errors described by
 \label{eq:brr_likelihood}
 \end{equation}
 
-Here, $\Delta\boldsymbol{d}_s$ contains the observed monthly deformation increments for section $s$, $\beta_{0,s}$ is the intercept, $\boldsymbol{X}_s$ contains the standardized predictors, and $\boldsymbol{\beta}_s$ contains their regression coefficients. The residual term $\boldsymbol{\varepsilon}_s$ represents variation in monthly deformation that was not explained by the predictors. The parameter $\alpha_s$ describes the precision of this residual variation. A larger value of $\alpha_s$ corresponds to less unexplained variation around the fitted relation.
+\noindent Here, $\Delta\boldsymbol{d}_s$ contains the observed monthly deformation increments for section $s$, $\beta_{0,s}$ is the intercept, $\boldsymbol{X}_s$ contains the standardized predictors, and $\boldsymbol{\beta}_s$ contains their regression coefficients. The residual term $\boldsymbol{\varepsilon}_s$ represents variation in monthly deformation that was not explained by the predictors. The parameter $\alpha_s$ describes the precision of this residual variation. A larger value of $\alpha_s$ corresponds to less unexplained variation around the fitted relation.
 
 Coefficient shrinkage was introduced by assigning a zero-centered Gaussian distribution to the regression coefficients,
 
@@ -99,7 +99,7 @@ Coefficient shrinkage was introduced by assigning a zero-centered Gaussian distr
 \label{eq:brr_prior}
 \end{equation}
 
-where $\lambda_s$ controls the strength of the shrinkage for section $s$. A larger value of $\lambda_s$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly deformation have larger coefficients. The values of $\alpha_s$ and $\lambda_s$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
+\noindent where $\lambda_s$ controls the strength of the shrinkage for section $s$. A larger value of $\lambda_s$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly deformation have larger coefficients. The values of $\alpha_s$ and $\lambda_s$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
 
 Conventional ridge regression also reduces unstable coefficients, but it generally provides one fitted set of coefficients for a selected penalty. Bayesian ridge regression additionally describes a range of plausible coefficient values after the calibration data have been considered. This posterior distribution provides the information needed to quantify uncertainty in subsequent monthly estimates.
 
@@ -161,7 +161,7 @@ The predictive variance was
 \label{eq:predictive_variance}
 \end{equation}
 
-Here, $\widehat{\beta}_{0,s}$ is the fitted intercept, $\overline{\boldsymbol{\beta}}_s$ is the posterior mean of the regression coefficients, and $\boldsymbol{\Sigma}_{\beta,s}$ is their posterior covariance matrix. The first term in the predictive variance represents residual variation that was not explained by the model. The second term represents uncertainty in the fitted coefficients for the corresponding predictor values. The predictive interval therefore became wider when the residual variation was larger or when the coefficients were less strongly constrained by the calibration data.
+\noindent Here, $\widehat{\beta}_{0,s}$ is the fitted intercept, $\overline{\boldsymbol{\beta}}_s$ is the posterior mean of the regression coefficients, and $\boldsymbol{\Sigma}_{\beta,s}$ is their posterior covariance matrix. The first term in the predictive variance represents residual variation that was not explained by the model. The second term represents uncertainty in the fitted coefficients for the corresponding predictor values. The predictive interval therefore became wider when the residual variation was larger or when the coefficients were less strongly constrained by the calibration data.
 
 The nominal 90\% posterior predictive interval was calculated as
 
@@ -313,7 +313,7 @@ H_I\beta_{0,s}
 \label{eq:cumulative_deformation_model}
 \end{equation}
 
-where $\boldsymbol{x}_{s,k}$ contains the standardized predictors for section $s$ at monthly epoch $k$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also preserved the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
+\noindent where $\boldsymbol{x}_{s,k}$ contains the standardized predictors for section $s$ at monthly epoch $k$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also preserved the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
 
 \begin{equation}
 \varepsilon_{s,I}
@@ -343,7 +343,7 @@ The resulting variance increased in proportion to $H_I$. To fit the cumulative o
 \label{eq:scaled_cumulative_deformation_model}
 \end{equation}
 
-with
+\noindent with
 
 \begin{equation}
 \widetilde{\varepsilon}_{s,I}
