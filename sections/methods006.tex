@@ -1,4 +1,4 @@
-The analysis converted MLCW deformation, cGNSS displacement, and hydraulic head records into monthly variables. Separate Bayesian ridge regression models then related each section's monthly deformation increments to hydraulic head changes, vertical surface displacement, and seasonal variation. The estimates were evaluated under three monitoring conditions that differed in when, or whether, new MLCW observations became available. These conditions included temporary delays in finalized monthly records, reduced measurement schedules with one cumulative observation every six or twelve months, and the absence of subsequent MLCW measurements after an initial calibration period.
+The analysis converted MLCW deformation, cGNSS displacement, and hydraulic head records into monthly variables. The analysis estimated monthly compaction within each depth section using a statistical model that relates measured changes in hydraulic head and vertical surface displacement to the observed compaction. For each depth section, a Bayesian ridge regression model, a form of linear regression that also shrinks weakly supported coefficients toward zero, related monthly deformation increments to hydraulic head changes, vertical surface displacement, and seasonal variation. The estimates were evaluated under three monitoring conditions that differed in when, or whether, new MLCW observations became available. These conditions included temporary delays in finalized monthly records, reduced measurement schedules with one cumulative observation every six or twelve months, and the absence of subsequent MLCW measurements after an initial calibration period.
 
 \subsection{Preparation of model inputs}
 \label{subsec:predictor_preparation}
@@ -16,7 +16,7 @@ d(t)=d_0+v(t-t_0)
 +\sum_{j=1}^{J}c_j H(t-t_j),
 \label{eq:deformation_model}
 \end{equation}
-\noindent where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_h$ and $b_h$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002, bevis_2014}. The fitted series were evaluated at common monthly epochs to produce aligned cumulative displacement records. For depth section $s$, the deformation increment over the month ending at epoch $k$ was
+\noindent where $d_0$ denotes displacement at reference time $t_0$, $v$ denotes linear velocity, $a_h$ and $b_h$ describe the periodic components, and $H(t-t_j)$ represents a step at discontinuity time $t_j$ \citep{nikolaidis_observation_2002, bevis_2014}. The fitted series were evaluated at common monthly dates to produce aligned cumulative displacement records. For depth section $s$, the deformation increment over the month ending at date $t_k$ was
 
 \begin{equation}
 \Delta d_{s,k}
@@ -25,15 +25,15 @@ d_s(t_k)-d_s(t_{k-1}),
 \label{eq:monthly_deformation_increment}
 \end{equation}
 
-\noindent where $t_k$ and $t_{k-1}$ denote consecutive monthly epochs. Corresponding differences in the cGNSS series yielded monthly vertical surface displacement increments.
+\noindent where $t_k$ and $t_{k-1}$ denote consecutive monthly dates. Corresponding differences in the cGNSS series yielded monthly vertical surface displacement increments.
 
 \subsubsection{Assembly of monthly model inputs}
 
-Each observation in the regression dataset represented one depth section during one month, with the observed deformation increment $\Delta d_{s,k}$ serving as the response. The predictors described hydraulic conditions, vertical surface displacement, and seasonal variation.
+Each row in the regression dataset represented one depth section during one month, one observation. The observed deformation increment $\Delta d_{s,k}$ for that section-month served as the response, the quantity the model was trained to estimate. The predictors, the input variables used to estimate that response, described hydraulic conditions, vertical surface displacement, and seasonal variation.
 
-Hydraulic head observations from the Tuku wells were used directly for the depth sections represented by local records. For the remaining sections, hydraulic head at Tuku was estimated from the regional monitoring network using ordinary kriging \citep{theodossiou2006}. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual, semiannual, and dry-season indicator terms represented recurring seasonal variation, including a dry-season interaction with hydraulic head change. Each section model used 38 input variables derived from hydraulic head, vertical surface displacement, and seasonal variation.
+Hydraulic head observations from the Tuku wells were used directly for the depth sections whose boundaries coincided with a monitored screen depth. Because the three Tuku wells were screened at 81--84~m, 176--179~m, and 257--263~m (\Cref{tab:tuku_data_sources}), these depths corresponded directly to only some of the six standardized 50~m sections. For the remaining sections, hydraulic head at Tuku was instead estimated from the regional monitoring network using ordinary kriging \citep{theodossiou2006}, so that every section had a corresponding hydraulic head record. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual, semiannual, and dry-season indicator terms represented recurring seasonal variation, including a dry-season interaction with hydraulic head change. Each section model used 38 input variables derived from hydraulic head, vertical surface displacement, and seasonal variation.
 
-A separate calibration dataset was prepared for each depth section, and an independent regression model was fitted to each dataset. Before each six-month evaluation block, predictor centering and scaling were calculated only from the observations available for calibration and were subsequently applied to the evaluation block. Previous MLCW deformation increments were not used as predictors. \Cref{tab:predictor_summary} summarizes the information represented by each predictor group, whereas \Cref{app:predictors} provides the complete predictor definitions, data sources, temporal transformations, and lag periods.
+Each depth section was calibrated and evaluated independently. Predictor centering and scaling were calculated only from the observations available before each six-month evaluation block and were then applied to that block, so no information from the evaluation period entered the calibration step. Previous MLCW deformation increments were not used as predictors, keeping every section's estimate independent of its own past compaction record. \Cref{tab:predictor_summary} summarizes the information represented by each predictor group, and \Cref{app:predictors} provides the complete predictor definitions, data sources, temporal transformations, and lag periods.
 
 \begin{table}[htbp]
   \centering
@@ -45,10 +45,10 @@ A separate calibration dataset was prepared for each depth section, and an indep
     \toprule
     \textbf{Predictor group} & \textbf{Information represented} & \textbf{Role in the model} \\
     \midrule
-    cGNSS displacement & Current and lagged vertical surface displacement increments & Described the integrated vertical response at Tuku \\
-    Target-section hydraulic head & Current and lagged hydraulic head changes for the target section & Described hydraulic conditions associated with the section being estimated \\
-    Other-section hydraulic head & Current and lagged hydraulic head changes for the other five depth sections & Included as candidate predictors representing system-wide hydraulic conditions \\
-    Seasonal terms & Annual and semiannual variation & Represented recurring seasonal patterns \\
+    cGNSS displacement & Current and lagged vertical surface displacement & Deformation of the whole depth profile \\
+    Target-section hydraulic head & Current and lagged hydraulic head changes, target section & Hydraulic conditions in the section being estimated \\
+    Other-section hydraulic head & Current and lagged hydraulic head changes, other five sections & Hydraulic conditions in the other monitored depths \\
+    Seasonal terms & Annual and semiannual variation & Yearly cycle in deformation \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -108,7 +108,7 @@ A separate model was fitted for each depth section. Thus, the regression coeffic
 \subsection{Predictive uncertainty quantification}
 \label{subsec:predictive_uncertainty}
 
-The Bayesian formulation provided both a monthly deformation estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients \citep{mackay_bayesian_1992}. For a new monthly epoch with standardized predictors $\boldsymbol{x}_{s,*}$ and calibration data $\mathcal{D}_s$, the posterior predictive distribution for section $s$ was
+The Bayesian formulation provided both a monthly deformation estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients \citep{mackay_bayesian_1992}. For a new month with standardized predictors $\boldsymbol{x}_{s,*}$ and calibration data $\mathcal{D}_s$, the posterior predictive distribution for section $s$ was
 
 \begin{equation}
 p
@@ -288,7 +288,7 @@ Reduced MLCW measurement frequency was examined under hypothetical schedules in 
 
 The evaluated scenarios combined measurement intervals of 6 or 12 months with initial calibration periods containing 36, 60, or 96 consecutive monthly MLCW observations. All three calibration periods ended on the same calendar date, so the 36- and 60-month periods began later than the 96-month period rather than starting from the same date and ending earlier. This shared calibration endpoint let the three initial-history lengths be compared over an identical subsequent record rather than over three different sets of calendar months. Each measurement schedule was then evaluated over an identical subsequent period, ending at a shared field-measurement date, so that the three initial-history lengths underwent the same number of model updates at the same calendar dates within a given measurement schedule. Because a 6-month schedule and a 12-month schedule complete different numbers of measurement intervals over the same period, the two schedules were compared using their own respective update counts rather than a common count; only the initial-history-length comparison required matching update counts and dates. These durations defined the scenarios examined in this study rather than a requirement of the method. Regardless of the selected duration, each measurement interval produced one cumulative deformation observation.
 
-To represent this cumulative observation mathematically, let $s$ denote a depth section, $k$ denote a monthly epoch, $I$ denote a measurement interval, and $H_I$ denote the number of months in that interval. The observed monthly MLCW deformation increment is denoted by $\Delta d_{s,k}$, as defined in \Cref{eq:monthly_deformation_increment}. The cumulative deformation observed over interval $I$ was
+To represent this cumulative observation mathematically, let $s$ denote a depth section, $k$ denote a monthly date, $I$ denote a measurement interval, and $H_I$ denote the number of months in that interval. The observed monthly MLCW deformation increment is denoted by $\Delta d_{s,k}$, as defined in \Cref{eq:monthly_deformation_increment}. The cumulative deformation observed over interval $I$ was
 
 \begin{equation}
 \Delta d_{s,I}
@@ -313,7 +313,7 @@ H_I\beta_{0,s}
 \label{eq:cumulative_deformation_model}
 \end{equation}
 
-\noindent where $\boldsymbol{x}_{s,k}$ contains the standardized predictors for section $s$ at monthly epoch $k$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also preserved the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
+\noindent where $\boldsymbol{x}_{s,k}$ contains the standardized predictors for section $s$ at monthly date $k$, and $\varepsilon_{s,I}$ is the sum of the monthly residuals within the interval. This cumulative equation assumed that the monthly relation between the predictors and deformation remained unchanged between successive model updates. It also preserved the residual model in \Cref{eq:brr_likelihood}, under which the monthly residuals were independent, normally distributed around zero, and described by a constant variance within each depth section. Their variances therefore accumulated over the measurement interval, and the cumulative residual followed
 
 \begin{equation}
 \varepsilon_{s,I}
