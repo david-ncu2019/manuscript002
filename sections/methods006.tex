@@ -3,7 +3,7 @@ The analysis converted MLCW deformation, cGNSS displacement, and hydraulic head 
 \subsection{Preparation of model inputs}
 \label{subsec:predictor_preparation}
 
-Model-input preparation began by aligning the MLCW and cGNSS displacement records, which were collected on different dates. A deformation time series model evaluated these records at common monthly dates and produced monthly increments. The MLCW increments formed the response, while cGNSS increments, section-specific hydraulic head changes, and seasonal terms formed the predictors.
+Preparation of the model inputs began by aligning the MLCW and cGNSS displacement records, which were collected on different dates. A deformation time series model evaluated these records at common monthly dates and produced monthly increments. The MLCW increments formed the response, while cGNSS increments, section-specific hydraulic head changes, and seasonal terms formed the predictors.
 
 \subsubsection{Deformation time series model}
 \label{subsec:deformation_model}
@@ -29,7 +29,7 @@ d_s(t_k)-d_s(t_{k-1}),
 
 \subsubsection{Assembly of monthly model inputs}
 
-Each row in the regression dataset represented one depth section during one month, one observation. The observed deformation increment $\Delta d_{s,k}$ for that section-month served as the response, the quantity the model was trained to estimate. The predictors, the input variables used to estimate that response, described hydraulic conditions, vertical surface displacement, and seasonal variation.
+Each row in the regression dataset corresponded to one depth section in one month. The response was the observed deformation increment $\Delta d_{s,k}$ for the corresponding depth section and month, and the predictors represented hydraulic conditions, vertical surface displacement, and seasonal variation, each defined to match the section and month of that response.
 
 Hydraulic head observations from the Tuku wells were used directly for the depth sections whose boundaries coincided with a monitored screen depth. Because the three Tuku wells were screened at 81--84~m, 176--179~m, and 257--263~m (\Cref{tab:tuku_data_sources}), these depths corresponded directly to only some of the six standardized 50~m sections. For the remaining sections, hydraulic head at Tuku was instead estimated from the regional monitoring network using ordinary kriging \citep{theodossiou2006}, so that every section had a corresponding hydraulic head record. Current and lagged hydraulic head changes from the target section and the other five sections were then included as candidate predictors to represent hydraulic conditions throughout the monitored profile. Concurrent and lagged cGNSS increments described vertical surface displacement, while annual, semiannual, and dry-season indicator terms represented recurring seasonal variation, including a dry-season interaction with hydraulic head change. Each section model used 38 input variables derived from hydraulic head, vertical surface displacement, and seasonal variation.
 
@@ -56,9 +56,9 @@ Each depth section was calibrated and evaluated independently. Predictor centeri
 \subsection{Bayesian ridge regression}
 \label{subsec:bayesian_ridge}
 
-Bayesian ridge regression was used as a probabilistic linear regression model to estimate monthly deformation increments independently for each depth section. The predictors included current and lagged changes in hydraulic head and vertical surface displacement, together with seasonal terms. Several of these predictors described related temporal variations and therefore contained overlapping information. Under these conditions, ordinary least squares may produce regression coefficients that change markedly in response to small changes in the calibration data. Ridge regression limits this sensitivity by reducing the magnitude of coefficients that are weakly supported by the observations \citep{hoerl_1970_ridge}.
+Bayesian ridge regression was used as a probabilistic linear regression model to estimate monthly deformation increments independently for each depth section. The predictors included current and lagged changes in hydraulic head and vertical surface displacement, together with seasonal terms. Several of these predictors described related temporal variations and therefore contained overlapping information. Under these conditions, ordinary least squares may produce regression coefficients that change markedly in response to small changes in the calibration data \citep{dormann_collinearity_2013, hastie_elements_2009}. Ridge regression limits this sensitivity by reducing the magnitude of coefficients that are weakly supported by the observations \citep{hoerl_1970_ridge, hastie_elements_2009}.
 
-The Bayesian formulation applies the same coefficient shrinkage but also represents the remaining uncertainty in the fitted relation \citep{mackay_bayesian_1992}. For $n$ calibration observations and $p$ standardized predictors, the regression model was
+The Bayesian formulation applies the same coefficient shrinkage but also represents the remaining uncertainty in the fitted relation \citep{mackay_bayesian_1992, bishop_pattern_2006}. For $n$ calibration observations and $p$ standardized predictors, the regression model was
 
 \begin{equation}
 \Delta\boldsymbol{d}_s
@@ -99,30 +99,30 @@ Coefficient shrinkage was introduced by assigning a zero-centered Gaussian distr
 \label{eq:brr_prior}
 \end{equation}
 
-\noindent where $\lambda_s$ controls the strength of the shrinkage for section $s$. A larger value of $\lambda_s$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly deformation have larger coefficients. The values of $\alpha_s$ and $\lambda_s$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
+\noindent where $\lambda_s$ controls the strength of the shrinkage for section $s$. A larger value of $\lambda_s$ pulls weakly supported coefficients more strongly toward zero, whereas predictors that are consistently related to monthly deformation have larger coefficients. The values of $\alpha_s$ and $\lambda_s$ were estimated from the calibration data by maximizing the marginal likelihood \citep{mackay_bayesian_1992, bishop_pattern_2006}. In practical terms, this procedure allowed the observed record to determine both the unexplained variation and the degree of coefficient shrinkage.
 
-Conventional ridge regression also reduces unstable coefficients, but it generally provides one fitted set of coefficients for a selected penalty. Bayesian ridge regression additionally describes a range of plausible coefficient values after the calibration data have been considered. This posterior distribution provides the information needed to quantify uncertainty in subsequent monthly estimates.
+Conventional ridge regression also reduces unstable coefficients, but it generally provides one fitted set of coefficients for a selected penalty. Bayesian ridge regression additionally describes a range of plausible coefficient values after the calibration data have been considered. This posterior distribution provides the information needed to quantify uncertainty in subsequent monthly estimates \citep{bishop_pattern_2006, gelman_bayesian_2013, tarantola_inverse_2005}.
 
-A separate model was fitted for each depth section. Thus, the regression coefficients for a section were estimated only from its own MLCW deformation record, although its predictors could include hydraulic head changes from other sections of the monitored profile. The fitted relations were interpreted as statistical associations within the Tuku monitoring record and not as a substitute for a coupled groundwater flow and aquifer-system compaction model.
+A separate model was fitted for each depth section. Thus, the regression coefficients for a section were estimated only from its own MLCW deformation record, although its predictors could include hydraulic head changes from other sections of the monitored profile. The fitted relations were interpreted as statistical associations within the Tuku monitoring record and not as a substitute for a coupled groundwater flow and aquifer-system compaction model \citep{galloway_review_2011, burbey_extensometer_2020}.
 
 \subsection{Predictive uncertainty quantification}
 \label{subsec:predictive_uncertainty}
 
-The Bayesian formulation provided both a monthly deformation estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients \citep{mackay_bayesian_1992}. For a new month with standardized predictors $\boldsymbol{x}_{s,*}$ and calibration data $\mathcal{D}_s$, the posterior predictive distribution for section $s$ was
+The Bayesian formulation provided both a monthly deformation estimate and a measure of uncertainty around that estimate. This uncertainty was represented by the posterior predictive distribution, which combines variation not explained by the regression model with uncertainty in the fitted regression coefficients \citep{mackay_bayesian_1992, bishop_pattern_2006, gelman_bayesian_2013}. Here, $t_q$ denotes a query month, any month being estimated and not necessarily the month immediately following the calibration record. For a query month with standardized predictors $\boldsymbol{x}_{s,q}$ and calibration data $\mathcal{D}_s$, the posterior predictive distribution for section $s$ was
 
 \begin{equation}
 p
 \left(
-\Delta d_{s,*}
+\Delta d_{s,q}
 \mid
-\boldsymbol{x}_{s,*},
+\boldsymbol{x}_{s,q},
 \mathcal{D}_s
 \right)
 =
 \mathcal{N}
 \left(
-\mu_{s,*},
-\sigma_{s,*}^{2}
+\mu_{s,q},
+\sigma_{s,q}^{2}
 \right).
 \label{eq:posterior_predictive}
 \end{equation}
@@ -130,11 +130,11 @@ p
 Its predictive mean was
 
 \begin{equation}
-\mu_{s,*}
+\mu_{s,q}
 =
 \widehat{\beta}_{0,s}
 +
-\boldsymbol{x}_{s,*}^{\mathsf{T}}
+\boldsymbol{x}_{s,q}^{\mathsf{T}}
 \overline{\boldsymbol{\beta}}_s,
 \label{eq:predictive_mean}
 \end{equation}
@@ -142,22 +142,22 @@ Its predictive mean was
 The corresponding point estimate was
 
 \begin{equation}
-\widehat{\Delta d}_{s,*}
+\widehat{\Delta d}_{s,q}
 =
-\mu_{s,*}.
+\mu_{s,q}.
 \label{eq:monthly_deformation_estimate}
 \end{equation}
 
 The predictive variance was
 
 \begin{equation}
-\sigma_{s,*}^{2}
+\sigma_{s,q}^{2}
 =
 \alpha_s^{-1}
 +
-\boldsymbol{x}_{s,*}^{\mathsf{T}}
+\boldsymbol{x}_{s,q}^{\mathsf{T}}
 \boldsymbol{\Sigma}_{\beta,s}
-\boldsymbol{x}_{s,*}.
+\boldsymbol{x}_{s,q}.
 \label{eq:predictive_variance}
 \end{equation}
 
@@ -167,20 +167,20 @@ The nominal 90\% posterior predictive interval was calculated as
 
 \begin{equation}
 \left[
-\mu_{s,*}-1.645\sigma_{s,*},
-\mu_{s,*}+1.645\sigma_{s,*}
+\mu_{s,q}-1.645\sigma_{s,q},
+\mu_{s,q}+1.645\sigma_{s,q}
 \right],
 \label{eq:prediction_interval}
 \end{equation}
 
 This interval described the range of monthly deformation increments considered plausible under the fitted model. Because it was calculated directly from the posterior predictive distribution, an interval was available for every monthly estimate without requiring an archive of previous prediction errors.
 
-Interval performance was evaluated using empirical coverage and mean interval width. Empirical coverage measured the proportion of observed monthly increments enclosed by the intervals. Mean interval width described how broadly the plausible values were distributed around the monthly estimates. Both measures were examined because a wider interval may enclose more observations while providing less precise information \citep{singh_uncertainty_2024}. The nominal 90\% level provided a reference for this evaluation, but it did not guarantee that exactly 90\% of the observations would be enclosed. Temporal dependence and relations not represented by the regression model could cause the empirical coverage to differ from the nominal level.
+Interval performance was evaluated using empirical coverage and mean interval width. Empirical coverage measured the proportion of observed monthly increments enclosed by the intervals. Mean interval width described how broadly the plausible values were distributed around the monthly estimates. Both measures were examined because a wider interval may enclose more observations while providing less precise information \citep{gneiting_probabilistic_2007, singh_uncertainty_2024}. The nominal 90\% level provided a reference for this evaluation, but it did not guarantee that exactly 90\% of the observations would be enclosed. Temporal dependence and relations not represented by the regression model could cause the empirical coverage to differ from the nominal level \citep{gelman_bayesian_2013}.
 
 \subsection{Experimental design}
 \label{subsec:experimental_design}
 
-All three evaluation designs preserved the temporal order of the monitoring records. For each period being estimated, the model used only MLCW observations that would have been available before that period, while monthly GWL and cGNSS observations remained available during the estimation period. This design prevented later MLCW observations from influencing earlier estimates. The three evaluations differed in when, or whether, new MLCW observations became available for updating the model.
+All three evaluation designs preserved the temporal order of the monitoring records \citep{bergmeir_2012_crossvalidation}. For each period being estimated, the model used only MLCW observations that would have been available before that period, while monthly GWL and cGNSS observations remained available during the estimation period. This design prevented later MLCW observations from influencing earlier estimates. The three evaluations differed in when, or whether, new MLCW observations became available for updating the model.
 
 \subsubsection{Monthly estimation with delayed MLCW records}
 \label{subsec:delayed_evaluation}
@@ -284,9 +284,7 @@ Point estimates were evaluated separately for each depth section and for all sec
 \subsubsection{Sensitivity to less frequent MLCW field measurements}
 \label{subsec:sparse_measurement_sensitivity}
 
-Reduced MLCW measurement frequency was examined under hypothetical schedules in which MLCW observations became available only at the end of each measurement interval. Monthly GWL and cGNSS observations remained available throughout the interval and were used to estimate monthly deformation increments. The intervening monthly MLCW values were excluded from estimation and model updating, and one cumulative MLCW deformation observation became available at the interval endpoint.
-
-The evaluated scenarios combined measurement intervals of 6 or 12 months with initial calibration periods containing 36, 60, or 96 consecutive monthly MLCW observations. All three calibration periods ended on the same calendar date, so the 36- and 60-month periods began later than the 96-month period rather than starting from the same date and ending earlier. This shared calibration endpoint let the three initial-history lengths be compared over an identical subsequent record rather than over three different sets of calendar months. Each measurement schedule was then evaluated over an identical subsequent period, ending at a shared field-measurement date, so that the three initial-history lengths underwent the same number of model updates at the same calendar dates within a given measurement schedule. Because a 6-month schedule and a 12-month schedule complete different numbers of measurement intervals over the same period, the two schedules were compared using their own respective update counts rather than a common count; only the initial-history-length comparison required matching update counts and dates. These durations defined the scenarios examined in this study rather than a requirement of the method. Regardless of the selected duration, each measurement interval produced one cumulative deformation observation.
+Reduced MLCW measurement frequency was examined under hypothetical schedules in which MLCW observations became available only at the end of each measurement interval, while monthly GWL and cGNSS observations remained available throughout to estimate monthly deformation increments. Intervening monthly MLCW values were excluded from estimation and model updating, with each interval instead contributing one cumulative MLCW deformation observation at its endpoint. The evaluated scenarios combined measurement intervals of 6 or 12 months with initial calibration periods containing 3, 5, or 8 years of consecutive monthly MLCW observations, all ending on the same calendar date, so the 3- and 5-year periods began later than the 8-year period rather than starting from the same date and ending earlier. This shared calibration endpoint let the three initial-history lengths be compared over an identical subsequent period, undergoing the same number of model updates at the same calendar dates within a given measurement schedule. Because a 6-month schedule and a 12-month schedule complete different numbers of measurement intervals over the same period, the two schedules were compared using their own respective update counts, with matching update counts and dates required only for the initial-history-length comparison. These durations defined the scenarios examined in this study rather than a requirement of the method.
 
 To represent this cumulative observation mathematically, let $s$ denote a depth section, $k$ denote a monthly date, $I$ denote a measurement interval, and $H_I$ denote the number of months in that interval. The observed monthly MLCW deformation increment is denoted by $\Delta d_{s,k}$, as defined in \Cref{eq:monthly_deformation_increment}. The cumulative deformation observed over interval $I$ was
 
@@ -485,7 +483,7 @@ Monthly errors described how well the model distributed deformation within each 
 \subsubsection{Sensitivity without subsequent MLCW field measurements}
 \label{subsec:permanent_stoppage_sensitivity}
 
-The absence of subsequent MLCW measurements was examined using models calibrated once from initial records spanning 3, 5, or 8 years. All three calibration records ended on the same calendar date, so the 3- and 5-year records began later than the 8-year record rather than starting from the same date and ending earlier. This shared calibration endpoint let the three initial-history lengths be compared over an identical subsequent record rather than over three different sets of calendar months. After each calibration record ended, monthly GWL and cGNSS observations continued to provide predictor values, but no later MLCW observations were added. The model coefficients and predictor scaling therefore remained fixed throughout the subsequent estimation period.
+The absence of subsequent MLCW measurements was examined using models calibrated once from initial records spanning 3, 5, or 8 years. All three calibration records ended on the same calendar date, so the 3- and 5-year records began later than the 8-year record, following the shared-endpoint design described in \Cref{subsec:sparse_measurement_sensitivity}. After each calibration record ended, monthly GWL and cGNSS observations continued to provide predictor values, but no later MLCW observations were added. The model coefficients and predictor scaling therefore remained fixed throughout the subsequent estimation period.
 
 The remaining historical MLCW observations allowed this hypothetical condition to be evaluated retrospectively. These observations were withheld from model fitting and were used only to compare the observed monthly deformation increments with the estimates generated after the calibration record. The monthly error $e_{s,k}$ was calculated as defined in \Cref{eq:sparse_monthly_error}.
 
