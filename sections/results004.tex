@@ -8,6 +8,8 @@ The three monitoring conditions differed in the availability of new MLCW informa
 
 During delayed MLCW data delivery, estimated monthly increments followed the observed temporal patterns more closely in S1--S4 than in S5--S6. This comparison covered 23 complete six-month cycles from 05/2013 to 10/2024 and yielded 138 estimates for each depth section. After each cycle, the newly finalized monthly observations expanded the calibration record used for the next cycle (\Cref{fig:results_delayed_cycles}).
 
+The monthly time series in \Cref{fig:results_delayed_monthly_estimates} show this contrast, and in \Cref{fig:results_delayed_scatter} the estimates for S1--S4 remained closer to the line of exact agreement than those for the two deepest sections.
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_cycle_timeline.pdf}
@@ -15,23 +17,21 @@ During delayed MLCW data delivery, estimated monthly increments followed the obs
   \label{fig:results_delayed_cycles}
 \end{figure}
 
-This depth-dependent pattern is shown in \Cref{fig:results_delayed_monthly_estimates}, where the estimated and observed monthly increments track more closely in S1--S4 than in S5--S6, and in \Cref{fig:results_delayed_scatter}, where the estimates for S1--S4 remained closer to the line of exact agreement than those for the two deepest sections.
-
-\begin{figure}[p]
+\begin{figure}[tp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_monthly_estimates_s1_s3.pdf}
   \caption[Observed and estimated monthly deformation increments by depth section.]{Observed and estimated monthly deformation increments for S1--S3. The black lines show observations, colored dotted lines show estimates, and shaded bands show the 90\% Bayesian posterior predictive intervals. The five colors repeat across successive estimation periods.}
   \label{fig:results_delayed_monthly_estimates}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[tp]
   \ContinuedFloat
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_monthly_estimates_s4_s6.pdf}
-  \caption[]{Observed and estimated monthly deformation increments for S4--S6, continued from the preceding page.}
+  \caption[]{Observed and estimated monthly deformation increments for S4--S6.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[tp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_prediction_vs_observed.pdf}
   \caption[Estimated versus observed monthly deformation increments.]{Estimated versus observed monthly deformation increments for the six depth sections. The dashed line represents exact agreement. RMSE and MAE are reported in mm/month.}
@@ -42,7 +42,7 @@ This depth-dependent pattern is shown in \Cref{fig:results_delayed_monthly_estim
 
 The depth contrast visible in the time series and scatter plots was also present in the error statistics (\Cref{tab:delayed_performance_interval}). Across all six depth sections, RMSE was 0.423~mm/month and MAE was 0.279~mm/month. Errors were smaller in S1--S4 than in S5 and S6, with S5 showing the largest RMSE and MAE.
 
-The 90\% Bayesian posterior predictive intervals contained 78.140\% of the observations across all sections, below the nominal level. Coverage varied among sections and reached its lowest value in S6, while S5 had the widest intervals. The depth sections therefore differed in both point-estimate error and interval performance.
+The 90\% Bayesian posterior predictive intervals contained 78.1\% of the observations, below the nominal 90\% level, indicating the intervals were narrower than required. Possible sources of this gap are considered in \Cref{subsec:discussion_limitations}. Point-estimate error was worst in S5 and S6. Coverage, at 81.2\% in S5 and 65.9\% in S6, was not worst in both of those same sections. It reached its lowest value in S6, while S1 (74.6\%) and S3 (73.9\%) also fell below S5. Reliability therefore did not follow the same depth pattern as point-estimate error.
 
 \begin{table}[htbp]
   \centering
@@ -54,19 +54,19 @@ The 90\% Bayesian posterior predictive intervals contained 78.140\% of the obser
     \toprule
     \textbf{Section} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} & \textbf{Coverage (\%)} & \textbf{Width} \\
     \midrule
-    S1 & 0.888 & 0.212 & 0.178 & 74.638 & 0.541 \\
-    S2 & 0.976 & 0.239 & 0.182 & 88.406 & 0.637 \\
-    S3 & 0.870 & 0.229 & 0.153 & 73.913 & 0.442 \\
-    S4 & 0.798 & 0.311 & 0.259 & 84.783 & 0.984 \\
-    S5 & 0.077 & 0.661 & 0.503 & 81.159 & 1.847 \\
-    S6 & 0.338 & 0.621 & 0.396 & 65.942 & 0.971 \\
+    S1 & 0.888 & 0.212 & 0.178 & 74.6 & 0.541 \\
+    S2 & 0.976 & 0.239 & 0.182 & 88.4 & 0.637 \\
+    S3 & 0.870 & 0.229 & 0.153 & 73.9 & 0.442 \\
+    S4 & 0.798 & 0.311 & 0.259 & 84.8 & 0.984 \\
+    S5 & 0.077 & 0.661 & 0.503 & 81.2 & 1.847 \\
+    S6 & 0.338 & 0.621 & 0.396 & 65.9 & 0.971 \\
     \midrule
-    All & 0.778 & 0.423 & 0.279 & 78.140 & 0.904 \\
+    All & 0.778 & 0.423 & 0.279 & 78.1 & 0.904 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Monthly estimation errors did not increase steadily with time since the preceding MLCW update (\Cref{tab:delayed_performance_by_month}). MAE ranged from 0.251 to 0.336~mm/month across the six positions, and the largest error occurred in month 2 rather than month 6. The additional time without finalized records was therefore not accompanied by a monotonic decline in monthly performance.
+Monthly estimation errors did not increase steadily with time since the preceding MLCW update (\Cref{tab:delayed_performance_by_month}). MAE ranged from 0.251 to 0.336~mm/month across the six positions, with the highest value in month 2 rather than month 6.
 
 \begin{table}[htbp]
   \centering
@@ -78,19 +78,19 @@ Monthly estimation errors did not increase steadily with time since the precedin
     \toprule
     \textbf{Month} & \textbf{MAE} & \textbf{RMSE} & \textbf{Mean error} & \textbf{Coverage (\%)} & \textbf{Width} \\
     \midrule
-    1 & 0.251 & 0.353 & $-0.013$ & 80.435 & 0.909 \\
-    2 & 0.336 & 0.592 & $-0.001$ & 73.188 & 0.910 \\
-    3 & 0.273 & 0.391 & $-0.001$ & 78.986 & 0.905 \\
-    4 & 0.275 & 0.376 & 0.048 & 74.638 & 0.904 \\
-    5 & 0.257 & 0.352 & 0.043 & 82.609 & 0.896 \\
-    6 & 0.280 & 0.423 & 0.007 & 78.986 & 0.897 \\
+    1 & 0.251 & 0.353 & $-0.013$ & 80.4 & 0.909 \\
+    2 & 0.336 & 0.592 & $-0.001$ & 73.2 & 0.910 \\
+    3 & 0.273 & 0.391 & $-0.001$ & 79.0 & 0.905 \\
+    4 & 0.275 & 0.376 & 0.048 & 74.6 & 0.904 \\
+    5 & 0.257 & 0.352 & 0.043 & 82.6 & 0.896 \\
+    6 & 0.280 & 0.423 & 0.007 & 79.0 & 0.897 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \FloatBarrier
 
-The fitted coefficients also varied among depth sections. To summarize these differences without reproducing all model coefficients, \Cref{tab:selected_coefficients} presents 14 variables whose 10th--90th percentile range remained entirely positive or negative in at least one section. This display rule did not affect model fitting and does not establish statistical significance, causal influence, or variable importance.
+The fitted coefficients also varied among depth sections. To summarize these differences without reproducing all model coefficients, \Cref{tab:selected_coefficients} presents 14 variables whose 10th--90th percentile range remained entirely positive or negative in at least one section.
 
 \begin{sidewaystable}[p]
   \centering
@@ -130,7 +130,7 @@ The fitted coefficients also varied among depth sections. To summarize these dif
 
 Surface-displacement terms showed the clearest repeated directional patterns across the depth sections. The current increment had a positive coefficient range in S1--S4 and S6, whereas the hydraulic-head terms showed fewer common patterns among sections. Seasonal coefficients also varied with depth, with the dry-season indicator and annual sine component having opposite directions in S6 and the five shallower sections. These results describe fitted associations and are interpreted separately in \Cref{sec:discussion}.
 
-Each monthly estimate used hydraulic-head and cGNSS observations available through the corresponding month, including the specified lagged changes, so the evaluation did not represent forecasts made before those observations became available. Point-estimate errors were larger in S5 and S6 than in S1--S4, whereas posterior predictive coverage followed a different depth pattern and remained below the nominal level across all sections.
+Each monthly estimate used hydraulic-head and cGNSS observations available through the corresponding month, including the specified lagged changes, so the evaluation did not represent forecasts made before those observations became available. Point-estimate errors were larger in S5 and S6 than in S1--S4. Posterior predictive coverage did not follow this same depth pattern. It fell below the nominal 90\% level in every section and reached its lowest value in S6.
 
 \FloatBarrier
 
@@ -152,7 +152,7 @@ The 3-year initial record provided the visual example for both measurement inter
   \ContinuedFloat
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_3yr_panel_b.pdf}
-  \caption[]{(b) 12-month measurement schedule, continued from the preceding page.}
+  \caption[]{(b) 12-month measurement schedule.}
 \end{figure}
 
 \begin{table}[H]
@@ -166,19 +166,19 @@ The 3-year initial record provided the visual example for both measurement inter
     \toprule
     \shortstack{\textbf{MLCW interval}\\\textbf{(months)}} & \shortstack{\textbf{Initial record}\\\textbf{(years)}} & \shortstack{\textbf{Monthly MAE}\\\textbf{(mm/month)}} & \shortstack{\textbf{Monthly RMSE}\\\textbf{(mm/month)}} & \shortstack{\textbf{Coverage}\\\textbf{(\%)}} & \shortstack{\textbf{Width}\\\textbf{(mm/month)}} & \shortstack{\textbf{Endpoint MAE}\\\textbf{(mm)}} \\
     \midrule
-    6  & 3 & 0.278 & 0.433 & 82.870 & 0.943 & 1.405 \\
-    6  & 5 & 0.269 & 0.443 & 89.352 & 1.109 & 1.426 \\
-    6  & 8 & 0.299 & 0.448 & 87.269 & 1.352 & 1.542 \\
-    12 & 3 & 0.287 & 0.441 & 77.778 & 0.872 & 2.470 \\
-    12 & 5 & 0.273 & 0.446 & 86.574 & 1.072 & 2.474 \\
-    12 & 8 & 0.308 & 0.454 & 81.944 & 1.317 & 2.738 \\
+    6  & 3 & 0.278 & 0.433 & 82.9 & 0.943 & 1.405 \\
+    6  & 5 & 0.269 & 0.443 & 89.4 & 1.109 & 1.426 \\
+    6  & 8 & 0.299 & 0.448 & 87.3 & 1.352 & 1.542 \\
+    12 & 3 & 0.287 & 0.441 & 77.8 & 0.872 & 2.470 \\
+    12 & 5 & 0.273 & 0.446 & 86.6 & 1.072 & 2.474 \\
+    12 & 8 & 0.308 & 0.454 & 81.9 & 1.317 & 2.738 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 Monthly MAE remained between 0.269 and 0.308~mm/month across the six scenarios (\Cref{tab:results_reduced_frequency}). By contrast, endpoint MAE ranged from 1.405 to 1.542~mm for the 6-month schedule and from 2.470 to 2.738~mm for the 12-month schedule. The longer measurement interval therefore produced larger differences between accumulated monthly estimates and the next cumulative MLCW observation.
 
-Extending the initial record from 3 to 8 years did not reduce error consistently. The 5-year record produced the lowest monthly MAE under both schedules, whereas the 8-year record produced the highest monthly and endpoint MAE. Coverage of the nominal 90\% intervals ranged from 77.778 to 89.352\%, remaining below the nominal level in all six scenarios.
+Extending the initial record from 3 to 8 years did not reduce error consistently. The 5-year record produced the lowest monthly MAE under both schedules, whereas the 8-year record produced the highest monthly and endpoint MAE. Coverage of the nominal 90\% intervals ranged from 77.8 to 89.4\%, remaining below the nominal level in all six scenarios.
 
 Monthly errors therefore remained similar across the tested scenarios, whereas endpoint errors increased when MLCW measurements were farther apart; extending the initial record did not consistently reduce either error.
 
