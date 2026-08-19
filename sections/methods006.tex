@@ -175,7 +175,28 @@ The nominal 90\% posterior predictive interval was calculated as
 
 This interval described the range of monthly deformation increments considered plausible under the fitted model. Because it was calculated directly from the posterior predictive distribution, an interval was available for every monthly estimate without requiring an archive of previous prediction errors.
 
-Interval performance was evaluated using empirical coverage and mean interval width. Empirical coverage measured the proportion of observed monthly increments enclosed by the intervals. Mean interval width described how broadly the plausible values were distributed around the monthly estimates. Both measures were examined because a wider interval may enclose more observations while providing less precise information \citep{gneiting_probabilistic_2007, singh_uncertainty_2024}. The nominal 90\% level provided a reference for this evaluation, but it did not guarantee that exactly 90\% of the observations would be enclosed. Temporal dependence and relations not represented by the regression model could cause the empirical coverage to differ from the nominal level \citep{gelman_bayesian_2013}.
+Interval performance was evaluated using empirical coverage and mean interval width, with \Cref{tab:evaluation_metrics} giving the notation, definition, and unit for every point-estimate and interval metric reported in \Cref{sec:results}. Empirical coverage measured the proportion of observed monthly increments enclosed by the intervals. Mean interval width described how broadly the plausible values were distributed around the monthly estimates. Both measures were examined because a wider interval may enclose more observations while providing less precise information \citep{gneiting_probabilistic_2007, singh_uncertainty_2024}.
+
+\begin{table}[!ht]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.3}
+  \caption[Evaluation metrics.]{Evaluation metrics used to summarize monthly and endpoint estimation performance. The monthly residual was $e_{s,k}=\widehat{\Delta d}_{s,k}-\Delta d_{s,k}$, the estimated minus the observed monthly deformation increment for section $s$ and month $k$, and $\overline{\Delta d_{s}}$ is the mean observed monthly increment for section $s$; this same residual convention is used again in \Cref{eq:sparse_monthly_error}. Each metric was calculated over the set of section-month (or section-endpoint) estimates stated in the corresponding table.}
+  \label{tab:evaluation_metrics}
+  \begin{tabular}{lp{0.24\textwidth}p{0.4\textwidth}l}
+    \toprule
+    \textbf{Abbreviation} & \textbf{Full name} & \textbf{Definition} & \textbf{Unit} \\
+    \midrule
+    $R^2$ & Coefficient of determination & $R^{2}=1-\dfrac{\sum e_{s,k}^{2}}{\sum\left(\Delta d_{s,k}-\overline{\Delta d_{s}}\right)^{2}}$ & dimensionless \\
+    MAE & Mean absolute error & $\mathrm{MAE}=\dfrac{1}{n}\sum\left\lvert e_{s,k}\right\rvert$ & mm/month \\
+    RMSE & Root mean square error & $\mathrm{RMSE}=\sqrt{\dfrac{1}{n}\sum e_{s,k}^{2}}$ & mm/month \\
+    Mean error & Mean signed error & $\overline{e}=\dfrac{1}{n}\sum e_{s,k}$ & mm/month \\
+    Coverage & Prediction interval coverage probability (PICP) & Percentage of observations enclosed by the nominal 90\% posterior predictive interval & \% \\
+    Width & Mean prediction interval width (MPIW) & $\overline{W}=\dfrac{1}{n}\sum 2\left(1.645\,\sigma_{s,k}\right)$ & mm/month \\
+    Endpoint MAE & Endpoint mean absolute error & MAE between the cumulative estimate and the next cumulative MLCW field measurement & mm \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \subsection{Experimental design}
 \label{subsec:experimental_design}
