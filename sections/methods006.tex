@@ -507,7 +507,7 @@ A_{s,K}
 
 The signed value $E_{s,K}$ indicated whether the accumulated estimates were above or below the observed cumulative deformation, whereas $A_{s,K}$ described the magnitude of this difference without regard to direction.
 
-Monthly estimation performance through horizon $K$ was summarized separately using
+Monthly estimation performance through month $K$ was summarized separately using
 
 \begin{equation}
 \operatorname{MAE}_{s,K}
@@ -531,9 +531,9 @@ e_{s,k}^{2}
 \label{eq:stoppage_running_rmse}
 \end{equation}
 
-These measures described the typical magnitude of the monthly errors from the end of calibration through horizon $K$. They therefore complemented $A_{s,K}$, which described the difference between the estimated and observed cumulative deformation at that horizon.
+These measures described the typical magnitude of the monthly errors from the end of calibration through month $K$. They therefore complemented $A_{s,K}$, which described the difference between the estimated and observed cumulative deformation at that point.
 
-To account for the increasing duration of the estimation period, the absolute cumulative error was also expressed per elapsed month as
+To account for the increasing duration of the estimation period, the absolute cumulative error was also expressed per month as
 
 \begin{equation}
 R_{s,K}
@@ -542,7 +542,7 @@ R_{s,K}
 \label{eq:stoppage_horizon_normalized_error}
 \end{equation}
 
-The normalized value $R_{s,K}$ was interpreted together with $A_{s,K}$. Because positive and negative monthly errors could partly cancel within $E_{s,K}$, a decrease in $R_{s,K}$ did not necessarily indicate that the absolute cumulative error had stopped growing.
+The normalized value $R_{s,K}$ was interpreted together with $A_{s,K}$. Because $R_{s,K}$ expressed the absolute cumulative error relative to this growing number of months, a decrease in $R_{s,K}$ did not necessarily indicate that the absolute cumulative error had stopped growing.
 
 The frozen Bayesian ridge model also provided the posterior predictive interval defined in \Cref{subsec:predictive_uncertainty} for each monthly estimate. These intervals described uncertainty in individual monthly deformation increments throughout the estimation period. They were not accumulated into uncertainty bands for $E_{s,K}$ or $A_{s,K}$ because the dependence among prediction errors from successive months was not represented in the cumulative calculation.
 
