@@ -387,6 +387,30 @@ This scaling did not divide the cumulative observation into separate monthly mea
 
 The model was first calibrated from the initial monthly MLCW record and used to estimate deformation throughout the first measurement interval. At the end of that interval, the cumulative observation in \Cref{eq:cumulative_deformation_observation} was added to the calibration record as one interval constraint. The expanded record, consisting of the initial monthly observations and cumulative observations from completed intervals, was then used to recalibrate the model before the next interval. Hidden monthly MLCW values from the reduced measurement intervals never entered this recalibration. This sequence is illustrated in \Cref{fig:reduced_measurement_design}.
 
+The resulting estimates were evaluated at monthly and interval scales. At the monthly scale, the error compared each estimated increment with its hidden monthly MLCW value,
+
+\begin{equation}
+e_{s,k}
+=
+\widehat{\Delta d}_{s,k}
+-
+\Delta d_{s,k}.
+\label{eq:sparse_monthly_error}
+\end{equation}
+
+At the interval scale, the endpoint error compared the accumulated monthly estimates with the cumulative observation,
+
+\begin{equation}
+e_{s,I}
+=
+\sum_{k\in I}\widehat{\Delta d}_{s,k}
+-
+\Delta d_{s,I}.
+\label{eq:sparse_endpoint_error}
+\end{equation}
+
+Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE and RMSE for each depth section. The coefficient of determination was calculated for the monthly estimates but not for the endpoint observations, because each scenario contained relatively few cumulative measurements.
+
 \begin{figure}[htbp]
   \centering
   \resizebox{\linewidth}{!}{%
@@ -483,29 +507,7 @@ The model was first calibrated from the initial monthly MLCW record and used to 
   \label{fig:reduced_measurement_design}
 \end{figure}
 
-The resulting estimates were evaluated at monthly and interval scales. At the monthly scale, the error compared each estimated increment with its hidden monthly MLCW value,
-
-\begin{equation}
-e_{s,k}
-=
-\widehat{\Delta d}_{s,k}
--
-\Delta d_{s,k}.
-\label{eq:sparse_monthly_error}
-\end{equation}
-
-At the interval scale, the endpoint error compared the accumulated monthly estimates with the cumulative observation,
-
-\begin{equation}
-e_{s,I}
-=
-\sum_{k\in I}\widehat{\Delta d}_{s,k}
--
-\Delta d_{s,I}.
-\label{eq:sparse_endpoint_error}
-\end{equation}
-
-Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE and RMSE for each depth section. The coefficient of determination was calculated for the monthly estimates but not for the endpoint observations, because each scenario contained relatively few cumulative measurements.
+\FloatBarrier
 
 \subsubsection{Sensitivity without subsequent MLCW field measurements}
 \label{subsec:permanent_stoppage_sensitivity}

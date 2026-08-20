@@ -64,25 +64,25 @@ The 90\% Bayesian posterior predictive intervals contained 65.9\% to 88.4\% of t
   \end{tabular}
 \end{table}
 
-Monthly estimation errors did not increase steadily as each six-month estimation period progressed (\Cref{tab:delayed_performance_by_month}). Mean MAE ranged from 0.25 to 0.34~mm/month, and mean RMSE ranged from 0.31 to 0.50~mm/month. Both reached their highest values in month 2 rather than month 6, while mean coverage varied from 73.2\% to 82.6\% without a consistent temporal pattern. The later months of the estimation period therefore did not show a progressive loss of estimation performance.
+Monthly estimation errors did not increase steadily as each six-month estimation period progressed (\Cref{tab:delayed_performance_by_month}). Average MAE ranged from 0.25 to 0.34~mm/month, and average RMSE ranged from 0.31 to 0.50~mm/month. Both reached their highest values in month 2 rather than month 6, while average coverage varied from 73.2\% to 82.6\% without a consistent temporal pattern. The later months of the estimation period therefore did not show a progressive loss of estimation performance.
 
 % Source: diag_28_sec4_meansd_tables.py (sec4_1_by_month.csv; per-section-then-mean+-SD, n=6 sections per cell)
 \begin{table}[htbp]
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption[Performance by month position within each estimation cycle.]{Performance by position within each six-month estimation cycle (months 1--6, not calendar months). Mean $\pm$ SD across six depth sections; metrics per \Cref{tab:evaluation_metrics}.}
+  \caption[Performance by month position within each estimation cycle.]{Performance by position within each six-month estimation cycle (months 1--6, not calendar months). Values give the average across six depth sections; $R^2$ is reported as the average alone because it is bounded and can be negative, so average $\pm$ SD would misstate its range. Remaining metrics give average $\pm$ SD. Metrics per \Cref{tab:evaluation_metrics}.}
   \label{tab:delayed_performance_by_month}
   \begin{tabular}{l|r|r|r|r|r}
     \toprule
     \multicolumn{1}{c|}{\textbf{Month within cycle}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
-    1 & $0.34\pm0.2$ & $0.25\pm0.1$ & $0.31\pm0.2$ & $80.4\pm7.7$ & $0.91\pm0.5$ \\
-    2 & $0.43\pm0.4$ & $0.34\pm0.2$ & $0.50\pm0.4$ & $73.2\pm14.1$ & $0.91\pm0.5$ \\
-    3 & $0.57\pm0.5$ & $0.27\pm0.1$ & $0.36\pm0.2$ & $79.0\pm10.1$ & $0.91\pm0.5$ \\
-    4 & $0.61\pm0.5$ & $0.28\pm0.1$ & $0.34\pm0.2$ & $74.6\pm8.4$ & $0.90\pm0.5$ \\
-    5 & $0.58\pm0.5$ & $0.26\pm0.1$ & $0.32\pm0.2$ & $82.6\pm9.9$ & $0.90\pm0.5$ \\
-    6 & $0.49\pm0.5$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $79.0\pm11.8$ & $0.90\pm0.5$ \\
+    1 & $0.34$ & $0.25\pm0.1$ & $0.31\pm0.2$ & $80.4\pm7.7$ & $0.91\pm0.5$ \\
+    2 & $0.43$ & $0.34\pm0.2$ & $0.50\pm0.4$ & $73.2\pm14.1$ & $0.91\pm0.5$ \\
+    3 & $0.57$ & $0.27\pm0.1$ & $0.36\pm0.2$ & $79.0\pm10.1$ & $0.91\pm0.5$ \\
+    4 & $0.61$ & $0.28\pm0.1$ & $0.34\pm0.2$ & $74.6\pm8.4$ & $0.90\pm0.5$ \\
+    5 & $0.58$ & $0.26\pm0.1$ & $0.32\pm0.2$ & $82.6\pm9.9$ & $0.90\pm0.5$ \\
+    6 & $0.49$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $79.0\pm11.8$ & $0.90\pm0.5$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -96,31 +96,31 @@ The fitted coefficients also varied among depth sections. To summarize these dif
   \footnotesize
   \renewcommand{\arraystretch}{1.25}
   \setlength{\tabcolsep}{3.5pt}
-  \caption[Selected standardized coefficients across depth sections.]{Selected standardized coefficients across the six depth sections. Each cell gives the median and the range from the 10th to the 90th percentile after combining coefficient results from 24 model updates with equal weight, including the update from the final, partially scored six-month cycle. Bold marks ranges that were entirely positive or negative; a dash means that the variable was not used for that section.}
+  \caption[Selected standardized coefficients across depth sections.]{Selected standardized coefficients across the six depth sections. Each cell gives the median and the range from the 10th to the 90th percentile after combining coefficient results from 24 model updates with equal weight, including the update from the final, partially scored six-month cycle. Values are rounded to two decimal places, except that a bound rounding to $0.00$ is instead reported to three decimal places to keep its sign and nonzero magnitude visible. Bold marks ranges that were entirely positive or negative; a dash means that the variable was not used for that section.}
   \label{tab:selected_coefficients}
   \begin{tabular}{@{}p{0.29\textheight}|*{5}{c|}c@{}}
     \toprule
     \textbf{Driving feature} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \textbf{S5} & \textbf{S6} \\
     \midrule
     \multicolumn{7}{@{}l}{\textit{Surface displacement predictors}} \\
-    Current surface displacement increment & \makecell{$\mathbf{0.206}$\\$\mathbf{[0.140,\ 0.230]}$} & \makecell{$\mathbf{0.515}$\\$\mathbf{[0.437,\ 0.573]}$} & \makecell{$\mathbf{0.479}$\\$\mathbf{[0.069,\ 0.809]}$} & \makecell{$\mathbf{0.236}$\\$\mathbf{[0.189,\ 0.332]}$} & \makecell{$0.009$\\$[-0.065,\ 0.030]$} & \makecell{$\mathbf{0.183}$\\$\mathbf{[0.121,\ 0.230]}$} \\
-    Change in surface displacement increment & \makecell{$0.028$\\$[-0.011,\ 0.039]$} & \makecell{$\mathbf{0.325}$\\$\mathbf{[0.303,\ 0.377]}$} & \makecell{$\mathbf{0.340}$\\$\mathbf{[0.079,\ 0.458]}$} & \makecell{$\mathbf{0.192}$\\$\mathbf{[0.170,\ 0.229]}$} & \makecell{$\mathbf{0.045}$\\$\mathbf{[0.010,\ 0.058]}$} & \makecell{$\mathbf{-0.044}$\\$\mathbf{[-0.064,\ -0.021]}$} \\
-    Surface displacement increment, 1-month lag & \makecell{$\mathbf{0.181}$\\$\mathbf{[0.151,\ 0.197]}$} & \makecell{$\mathbf{0.210}$\\$\mathbf{[0.141,\ 0.233]}$} & \makecell{$\mathbf{0.167}$\\$\mathbf{[0.006,\ 0.404]}$} & \makecell{$0.058$\\$[0.034,\ 0.124]$} & \makecell{$\mathbf{-0.027}$\\$\mathbf{[-0.112,\ -0.012]}$} & \makecell{$\mathbf{0.226}$\\$\mathbf{[0.169,\ 0.259]}$} \\
-    Surface displacement increment, 3-month lag & \makecell{$\mathbf{0.026}$\\$\mathbf{[0.001,\ 0.045]}$} & \makecell{$\mathbf{-0.297}$\\$\mathbf{[-0.378,\ -0.252]}$} & \makecell{$\mathbf{-0.769}$\\$\mathbf{[-1.308,\ -0.221]}$} & \makecell{$0.016$\\$[-0.027,\ 0.133]$} & \makecell{$\mathbf{-0.014}$\\$\mathbf{[-0.140,\ -0.001]}$} & \makecell{$\mathbf{0.160}$\\$\mathbf{[0.074,\ 0.203]}$} \\
+    Current surface displacement increment & \makecell{$\mathbf{0.21}$\\$\mathbf{[0.14,\ 0.23]}$} & \makecell{$\mathbf{0.52}$\\$\mathbf{[0.44,\ 0.57]}$} & \makecell{$\mathbf{0.48}$\\$\mathbf{[0.07,\ 0.81]}$} & \makecell{$\mathbf{0.24}$\\$\mathbf{[0.19,\ 0.33]}$} & \makecell{$0.01$\\$[-0.07,\ 0.03]$} & \makecell{$\mathbf{0.18}$\\$\mathbf{[0.12,\ 0.23]}$} \\
+    Change in surface displacement increment & \makecell{$0.03$\\$[-0.01,\ 0.04]$} & \makecell{$\mathbf{0.33}$\\$\mathbf{[0.30,\ 0.38]}$} & \makecell{$\mathbf{0.34}$\\$\mathbf{[0.08,\ 0.46]}$} & \makecell{$\mathbf{0.19}$\\$\mathbf{[0.17,\ 0.23]}$} & \makecell{$\mathbf{0.05}$\\$\mathbf{[0.01,\ 0.06]}$} & \makecell{$\mathbf{-0.04}$\\$\mathbf{[-0.06,\ -0.02]}$} \\
+    Surface displacement increment, 1-month lag & \makecell{$\mathbf{0.18}$\\$\mathbf{[0.15,\ 0.20]}$} & \makecell{$\mathbf{0.21}$\\$\mathbf{[0.14,\ 0.23]}$} & \makecell{$\mathbf{0.17}$\\$\mathbf{[0.01,\ 0.40]}$} & \makecell{$0.06$\\$[0.03,\ 0.12]$} & \makecell{$\mathbf{-0.03}$\\$\mathbf{[-0.11,\ -0.01]}$} & \makecell{$\mathbf{0.23}$\\$\mathbf{[0.17,\ 0.26]}$} \\
+    Surface displacement increment, 3-month lag & \makecell{$\mathbf{0.03}$\\$\mathbf{[0.001,\ 0.05]}$} & \makecell{$\mathbf{-0.30}$\\$\mathbf{[-0.38,\ -0.25]}$} & \makecell{$\mathbf{-0.77}$\\$\mathbf{[-1.31,\ -0.22]}$} & \makecell{$0.02$\\$[-0.03,\ 0.13]$} & \makecell{$\mathbf{-0.01}$\\$\mathbf{[-0.14,\ -0.001]}$} & \makecell{$\mathbf{0.16}$\\$\mathbf{[0.07,\ 0.20]}$} \\
     \midrule
     \multicolumn{7}{@{}l}{\textit{Hydraulic head predictors}} \\
-    Magnitude of hydraulic head change & \makecell{$\mathbf{-0.046}$\\$\mathbf{[-0.064,\ -0.028]}$} & \makecell{$\mathbf{-0.037}$\\$\mathbf{[-0.046,\ -0.030]}$} & \makecell{$-0.003$\\$[-0.007,\ 0.007]$} & \makecell{$\mathbf{0.028}$\\$\mathbf{[0.015,\ 0.040]}$} & \makecell{$-0.025$\\$[-0.031,\ 0.012]$} & \makecell{$0.006$\\$[-0.031,\ 0.037]$} \\
-    Hydraulic head change, 12-month lag & \makecell{$\mathbf{0.039}$\\$\mathbf{[0.018,\ 0.061]}$} & \makecell{$\mathbf{0.052}$\\$\mathbf{[0.041,\ 0.113]}$} & \makecell{$0.015$\\$[-0.009,\ 0.032]$} & \makecell{$\mathbf{0.016}$\\$\mathbf{[0.001,\ 0.027]}$} & \makecell{$-0.003$\\$[-0.091,\ 0.010]$} & \makecell{$0.014$\\$[-0.030,\ 0.046]$} \\
-    Hydraulic head change, 24-month lag & \makecell{$\mathbf{0.032}$\\$\mathbf{[0.019,\ 0.045]}$} & \makecell{$0.008$\\$[-0.017,\ 0.032]$} & \makecell{$\mathbf{-0.026}$\\$\mathbf{[-0.040,\ -0.004]}$} & \makecell{$\mathbf{-0.035}$\\$\mathbf{[-0.067,\ -0.016]}$} & \makecell{$\mathbf{0.033}$\\$\mathbf{[0.014,\ 0.070]}$} & \makecell{$\mathbf{0.077}$\\$\mathbf{[0.026,\ 0.114]}$} \\
-    S1 hydraulic head change, 6-month trailing mean & -- & \makecell{$\mathbf{0.183}$\\$\mathbf{[0.122,\ 0.269]}$} & \makecell{$\mathbf{0.101}$\\$\mathbf{[0.010,\ 0.223]}$} & \makecell{$\mathbf{0.125}$\\$\mathbf{[0.105,\ 0.151]}$} & \makecell{$\mathbf{0.025}$\\$\mathbf{[0.014,\ 0.078]}$} & \makecell{$-0.056$\\$[-0.113,\ 0.111]$} \\
-    S6 hydraulic head change, 6-month trailing mean & \makecell{$\mathbf{-0.091}$\\$\mathbf{[-0.204,\ -0.050]}$} & \makecell{$\mathbf{0.074}$\\$\mathbf{[0.020,\ 0.150]}$} & \makecell{$0.015$\\$[-0.027,\ 0.063]$} & \makecell{$\mathbf{0.067}$\\$\mathbf{[0.038,\ 0.082]}$} & \makecell{$\mathbf{0.023}$\\$\mathbf{[0.011,\ 0.064]}$} & -- \\
+    Magnitude of hydraulic head change & \makecell{$\mathbf{-0.05}$\\$\mathbf{[-0.06,\ -0.03]}$} & \makecell{$\mathbf{-0.04}$\\$\mathbf{[-0.05,\ -0.03]}$} & \makecell{$-0.003$\\$[-0.01,\ 0.01]$} & \makecell{$\mathbf{0.03}$\\$\mathbf{[0.02,\ 0.04]}$} & \makecell{$-0.03$\\$[-0.03,\ 0.01]$} & \makecell{$0.01$\\$[-0.03,\ 0.04]$} \\
+    Hydraulic head change, 12-month lag & \makecell{$\mathbf{0.04}$\\$\mathbf{[0.02,\ 0.06]}$} & \makecell{$\mathbf{0.05}$\\$\mathbf{[0.04,\ 0.11]}$} & \makecell{$0.02$\\$[-0.01,\ 0.03]$} & \makecell{$\mathbf{0.02}$\\$\mathbf{[0.001,\ 0.03]}$} & \makecell{$-0.003$\\$[-0.09,\ 0.01]$} & \makecell{$0.01$\\$[-0.03,\ 0.05]$} \\
+    Hydraulic head change, 24-month lag & \makecell{$\mathbf{0.03}$\\$\mathbf{[0.02,\ 0.05]}$} & \makecell{$0.01$\\$[-0.02,\ 0.03]$} & \makecell{$\mathbf{-0.03}$\\$\mathbf{[-0.04,\ -0.004]}$} & \makecell{$\mathbf{-0.04}$\\$\mathbf{[-0.07,\ -0.02]}$} & \makecell{$\mathbf{0.03}$\\$\mathbf{[0.01,\ 0.07]}$} & \makecell{$\mathbf{0.08}$\\$\mathbf{[0.03,\ 0.11]}$} \\
+    S1 hydraulic head change, 6-month trailing mean & -- & \makecell{$\mathbf{0.18}$\\$\mathbf{[0.12,\ 0.27]}$} & \makecell{$\mathbf{0.10}$\\$\mathbf{[0.01,\ 0.22]}$} & \makecell{$\mathbf{0.13}$\\$\mathbf{[0.11,\ 0.15]}$} & \makecell{$\mathbf{0.03}$\\$\mathbf{[0.01,\ 0.08]}$} & \makecell{$-0.06$\\$[-0.11,\ 0.11]$} \\
+    S6 hydraulic head change, 6-month trailing mean & \makecell{$\mathbf{-0.09}$\\$\mathbf{[-0.20,\ -0.05]}$} & \makecell{$\mathbf{0.07}$\\$\mathbf{[0.02,\ 0.15]}$} & \makecell{$0.02$\\$[-0.03,\ 0.06]$} & \makecell{$\mathbf{0.07}$\\$\mathbf{[0.04,\ 0.08]}$} & \makecell{$\mathbf{0.02}$\\$\mathbf{[0.01,\ 0.06]}$} & -- \\
     \midrule
     \multicolumn{7}{@{}l}{\textit{Seasonal predictors}} \\
-    Dry-season indicator & \makecell{$\mathbf{-0.139}$\\$\mathbf{[-0.154,\ -0.130]}$} & \makecell{$\mathbf{-0.214}$\\$\mathbf{[-0.256,\ -0.184]}$} & \makecell{$\mathbf{-0.083}$\\$\mathbf{[-0.161,\ -0.045]}$} & \makecell{$\mathbf{-0.059}$\\$\mathbf{[-0.079,\ -0.046]}$} & \makecell{$\mathbf{-0.014}$\\$\mathbf{[-0.042,\ -0.000]}$} & \makecell{$\mathbf{0.111}$\\$\mathbf{[0.047,\ 0.165]}$} \\
-    Annual sine component & \makecell{$\mathbf{-0.212}$\\$\mathbf{[-0.257,\ -0.143]}$} & \makecell{$\mathbf{-0.542}$\\$\mathbf{[-0.591,\ -0.413]}$} & \makecell{$\mathbf{-0.108}$\\$\mathbf{[-0.263,\ -0.018]}$} & \makecell{$\mathbf{-0.054}$\\$\mathbf{[-0.078,\ -0.020]}$} & \makecell{$\mathbf{-0.072}$\\$\mathbf{[-0.133,\ -0.032]}$} & \makecell{$\mathbf{0.140}$\\$\mathbf{[0.085,\ 0.167]}$} \\
-    Annual cosine component & \makecell{$-0.030$\\$[-0.080,\ 0.012]$} & \makecell{$-0.034$\\$[-0.059,\ 0.007]$} & \makecell{$-0.011$\\$[-0.231,\ 0.253]$} & \makecell{$-0.028$\\$[-0.065,\ 0.024]$} & \makecell{$\mathbf{0.053}$\\$\mathbf{[0.021,\ 0.081]}$} & \makecell{$\mathbf{0.312}$\\$\mathbf{[0.249,\ 0.379]}$} \\
-    Semiannual sine component & \makecell{$\mathbf{0.033}$\\$\mathbf{[0.029,\ 0.048]}$} & \makecell{$\mathbf{-0.150}$\\$\mathbf{[-0.179,\ -0.118]}$} & \makecell{$-0.171$\\$[-0.540,\ 0.003]$} & \makecell{$\mathbf{-0.134}$\\$\mathbf{[-0.166,\ -0.103]}$} & \makecell{$\mathbf{-0.036}$\\$\mathbf{[-0.048,\ -0.012]}$} & \makecell{$\mathbf{0.072}$\\$\mathbf{[0.050,\ 0.104]}$} \\
-    Semiannual cosine component & \makecell{$\mathbf{0.046}$\\$\mathbf{[0.018,\ 0.071]}$} & \makecell{$0.113$\\$[-0.044,\ 0.141]$} & \makecell{$\mathbf{-1.257}$\\$\mathbf{[-2.167,\ -0.197]}$} & \makecell{$\mathbf{0.087}$\\$\mathbf{[0.054,\ 0.095]}$} & \makecell{$\mathbf{0.048}$\\$\mathbf{[0.018,\ 0.061]}$} & \makecell{$-0.011$\\$[-0.059,\ 0.012]$} \\
+    Dry-season indicator & \makecell{$\mathbf{-0.14}$\\$\mathbf{[-0.15,\ -0.13]}$} & \makecell{$\mathbf{-0.21}$\\$\mathbf{[-0.26,\ -0.18]}$} & \makecell{$\mathbf{-0.08}$\\$\mathbf{[-0.16,\ -0.05]}$} & \makecell{$\mathbf{-0.06}$\\$\mathbf{[-0.08,\ -0.05]}$} & \makecell{$\mathbf{-0.01}$\\$\mathbf{[-0.04,\ -0.000]}$} & \makecell{$\mathbf{0.11}$\\$\mathbf{[0.05,\ 0.17]}$} \\
+    Annual sine component & \makecell{$\mathbf{-0.21}$\\$\mathbf{[-0.26,\ -0.14]}$} & \makecell{$\mathbf{-0.54}$\\$\mathbf{[-0.59,\ -0.41]}$} & \makecell{$\mathbf{-0.11}$\\$\mathbf{[-0.26,\ -0.02]}$} & \makecell{$\mathbf{-0.05}$\\$\mathbf{[-0.08,\ -0.02]}$} & \makecell{$\mathbf{-0.07}$\\$\mathbf{[-0.13,\ -0.03]}$} & \makecell{$\mathbf{0.14}$\\$\mathbf{[0.09,\ 0.17]}$} \\
+    Annual cosine component & \makecell{$-0.03$\\$[-0.08,\ 0.01]$} & \makecell{$-0.03$\\$[-0.06,\ 0.01]$} & \makecell{$-0.01$\\$[-0.23,\ 0.25]$} & \makecell{$-0.03$\\$[-0.07,\ 0.02]$} & \makecell{$\mathbf{0.05}$\\$\mathbf{[0.02,\ 0.08]}$} & \makecell{$\mathbf{0.31}$\\$\mathbf{[0.25,\ 0.38]}$} \\
+    Semiannual sine component & \makecell{$\mathbf{0.03}$\\$\mathbf{[0.03,\ 0.05]}$} & \makecell{$\mathbf{-0.15}$\\$\mathbf{[-0.18,\ -0.12]}$} & \makecell{$-0.17$\\$[-0.54,\ 0.003]$} & \makecell{$\mathbf{-0.13}$\\$\mathbf{[-0.17,\ -0.10]}$} & \makecell{$\mathbf{-0.04}$\\$\mathbf{[-0.05,\ -0.01]}$} & \makecell{$\mathbf{0.07}$\\$\mathbf{[0.05,\ 0.10]}$} \\
+    Semiannual cosine component & \makecell{$\mathbf{0.05}$\\$\mathbf{[0.02,\ 0.07]}$} & \makecell{$0.11$\\$[-0.04,\ 0.14]$} & \makecell{$\mathbf{-1.26}$\\$\mathbf{[-2.17,\ -0.20]}$} & \makecell{$\mathbf{0.09}$\\$\mathbf{[0.05,\ 0.10]}$} & \makecell{$\mathbf{0.05}$\\$\mathbf{[0.02,\ 0.06]}$} & \makecell{$-0.01$\\$[-0.06,\ 0.01]$} \\
     \bottomrule
   \end{tabular}
 \end{sidewaystable}
@@ -134,9 +134,9 @@ Surface displacement terms showed the clearest repeated directional patterns acr
 \subsection{Estimation under reduced MLCW measurement frequency}
 \label{subsec:results_reduced_frequency}
 
-Less frequent MLCW field measurements changed the error at the next cumulative observation more clearly than the error in individual monthly estimates. Monthly hydraulic-head and cGNSS observations remained available between MLCW measurements, and the hidden monthly MLCW observations were used only for retrospective evaluation. The 3-, 5-, and 8-year initial records were evaluated over the same 72 months from 05/2018 to 04/2024, giving 72 endpoint comparisons under the 6-month schedule and 36 under the 12-month schedule.
+Lengthening the interval between MLCW field measurements from six to twelve months had little effect on individual monthly errors but increased the error accumulated by the next measurement. Across the six depth sections, average monthly MAE remained between 0.27 and 0.31~mm/month for all combinations of measurement interval and initial-record length (\Cref{tab:results_reduced_frequency}). In contrast, average endpoint MAE across sections ranged from 1.405 to 1.542~mm for measurements every six months and from 2.470 to 2.738~mm for measurements every twelve months (\Cref{supp-tab:supp_reduced_frequency_endpoint_full}).
 
-The 3-year initial record provided the visual example for both measurement intervals (\Cref{fig:results_reduced_frequency_3yr}).
+The 3-year examples illustrate how the monthly estimates followed the observed deformation under both measurement schedules (\Cref{fig:results_reduced_frequency_3yr}). Agreement was closer in S1--S4, whereas larger departures occurred in S5 and S6. The corresponding differences among depth sections are reported in \Cref{supp-tab:supp_reduced_frequency_monthly_full}.
 
 \begin{figure}[tp]
   \centering
@@ -160,40 +160,44 @@ The 3-year initial record provided the visual example for both measurement inter
   \footnotesize
   \setlength{\tabcolsep}{3pt}
   \renewcommand{\arraystretch}{1.2}
-  \caption[Monthly errors under reduced MLCW measurement frequency.]{Monthly errors at Tuku, evaluated over the identical 72-month period (05/2018--04/2024) in every scenario. Mean $\pm$ SD, $n=6$ sections; metrics per \Cref{tab:evaluation_metrics}. Full per-section values: \Cref{supp-tab:supp_reduced_frequency_monthly_full}.}
+  \caption[Monthly errors under reduced MLCW measurement frequency.]{Monthly errors at Tuku, evaluated over the identical 72-month period (05/2018--04/2024) in every scenario. Values give the average across $n=6$ sections; $R^2$ is reported as the average alone because it is bounded and can be negative, so average $\pm$ SD would misstate its range. Remaining metrics give average $\pm$ SD. Metrics per \Cref{tab:evaluation_metrics}. Full per-section values: \Cref{supp-tab:supp_reduced_frequency_monthly_full}.}
   \label{tab:results_reduced_frequency}
   \begin{tabular}{c|c|r|r|r|r|r}
     \toprule
     \multicolumn{1}{c|}{\shortstack{\textbf{Sampling}\\\textbf{interval}\\\textbf{(months)}}} & \multicolumn{1}{c|}{\shortstack{\textbf{Initial}\\\textbf{record}\\\textbf{(years)}}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
-    6  & 3 & $0.70\pm0.3$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $82.9\pm9.6$ & $0.94\pm0.5$ \\
-    6  & 5 & $0.68\pm0.4$ & $0.27\pm0.2$ & $0.38\pm0.3$ & $89.4\pm9.5$ & $1.11\pm0.8$ \\
-    6  & 8 & $0.67\pm0.3$ & $0.30\pm0.1$ & $0.40\pm0.2$ & $87.3\pm9.0$ & $1.35\pm0.8$ \\
+    6  & 3 & $0.70$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $82.9\pm9.6$ & $0.94\pm0.5$ \\
+    6  & 5 & $0.68$ & $0.27\pm0.2$ & $0.38\pm0.3$ & $89.4\pm9.5$ & $1.11\pm0.8$ \\
+    6  & 8 & $0.67$ & $0.30\pm0.1$ & $0.40\pm0.2$ & $87.3\pm9.0$ & $1.35\pm0.8$ \\
     \midrule
-    12 & 3 & $0.69\pm0.3$ & $0.29\pm0.2$ & $0.39\pm0.2$ & $77.8\pm9.5$ & $0.87\pm0.5$ \\
-    12 & 5 & $0.68\pm0.4$ & $0.27\pm0.2$ & $0.38\pm0.2$ & $86.6\pm12.7$ & $1.07\pm0.7$ \\
-    12 & 8 & $0.66\pm0.3$ & $0.31\pm0.1$ & $0.41\pm0.2$ & $81.9\pm12.0$ & $1.32\pm0.9$ \\
+    12 & 3 & $0.69$ & $0.29\pm0.2$ & $0.39\pm0.2$ & $77.8\pm9.5$ & $0.87\pm0.5$ \\
+    12 & 5 & $0.68$ & $0.27\pm0.2$ & $0.38\pm0.2$ & $86.6\pm12.7$ & $1.07\pm0.7$ \\
+    12 & 8 & $0.66$ & $0.31\pm0.1$ & $0.41\pm0.2$ & $81.9\pm12.0$ & $1.32\pm0.9$ \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Mean monthly MAE across the six depth sections remained between 0.27 and 0.31~mm/month across the six scenarios (\Cref{tab:results_reduced_frequency}). Mean $R^2$ ranged from 0.66 to 0.70 and did not differ consistently between the 6-month and 12-month schedules. In every scenario the standard deviation across sections was large relative to the mean --- for $R^2$, the standard deviation exceeded 0.3 in all six scenarios --- reflecting the same S1--S4 versus S5--S6 depth contrast already documented in \Cref{subsec:results_delayed_delivery}; full per-section values are given in \Cref{supp-tab:supp_reduced_frequency_monthly_full}.
+Average coverage of the posterior predictive intervals ranged from 77.8 to 89.4\% and remained below the nominal 90\% level in every scenario. Average interval width increased with initial-record length under both measurement schedules, but the wider intervals did not consistently correspond to higher coverage.
 
-Extending the initial record from 3 to 8 years did not reduce mean monthly MAE consistently. The 5-year record produced the lowest mean monthly MAE under both schedules, whereas the 8-year record produced the highest. Mean coverage of the nominal 90\% intervals ranged from 77.8 to 89.4\%, remaining below the nominal level in all six scenarios on average. As in \Cref{subsec:results_delayed_delivery}, this shortfall reflects the discrepancy between the observed coverage and the nominal interval level rather than a difference in interval width; possible mechanisms are discussed in \Cref{subsec:discussion_limitations}.
+Extending the initial monthly record from three to eight years did not progressively improve estimation. The 5-year record produced the lowest average monthly MAE under both schedules, whereas the 8-year record did not improve upon it. Average $R^2$ also remained within a narrow range of 0.66--0.70 across the six scenarios. At Tuku, the 3-year initial record therefore provided monthly accuracy similar to the longer records, although extending the measurement interval to twelve months increased the error accumulated by the next MLCW measurement.
 
 \FloatBarrier
 
 \subsection{Estimation without subsequent MLCW measurements}
 \label{subsec:results_no_subsequent_mlcw}
 
-Without subsequent MLCW measurements, monthly errors remained within a narrow range among the three initial-record lengths. Each model was calibrated once and evaluated over the same 80 months from 05/2018 to 12/2024 while monthly hydraulic-head and cGNSS observations remained available. Averaged across the six depth sections, mean monthly MAE ranged from 0.26 to 0.29~mm/month and mean RMSE ranged from 0.36 to 0.40~mm/month across the three initial-record lengths (\Cref{tab:results_no_subsequent_mlcw_interval}).
+In the absence of subsequent MLCW measurements, monthly estimation accuracy changed little among the three initial-record lengths. Each model remained fixed, while monthly hydraulic head and vertical surface displacement observations continued throughout the common 80-month evaluation period. Average monthly MAE across the six depth sections was 0.26~mm/month for both the 3- and 5-year initial records and 0.29~mm/month for the 8-year record. Average RMSE remained between 0.36 and 0.40~mm/month (\Cref{tab:results_no_subsequent_mlcw_interval}).
 
-Cumulative errors varied among depth sections and, by month 80, ended at different values (\Cref{fig:results_no_subsequent_mlcw_cumulative_error}). At the end of the 80-month evaluation period, S4 had the largest absolute cumulative error under all three initial-record lengths (\Cref{tab:results_no_subsequent_mlcw_h80}). The 8-year initial record reduced this error in S4--S6. It did not produce the smallest value in every section. The 5-year record performed better than the 8-year record in S1 and S2.
+These similar monthly errors did not imply equally close agreement in cumulative deformation. Absolute cumulative error increased or decreased as errors from later months reinforced or offset those accumulated earlier (\Cref{fig:results_no_subsequent_mlcw_cumulative_error}). By month 80, the average absolute cumulative error across the six sections decreased from 7.393~mm for the 3-year initial record to 6.686~mm for the 5-year record and 4.286~mm for the 8-year record (\Cref{tab:results_no_subsequent_mlcw_h80}). S4 nevertheless had the largest final error under all three initial-record lengths. The 8-year record reduced this error from 15.075 to 8.747~mm, but it did not produce the smallest final error in every section.
+
+Average coverage of the 90\% posterior predictive intervals was 65.6, 79.8, and 78.8\% for the 3-, 5-, and 8-year initial records, respectively. These values remained below the nominal level despite an increase in average interval width from 0.62 to 1.23~mm (\Cref{tab:results_no_subsequent_mlcw_interval}).
+
+At Tuku, a longer initial record therefore reduced the long-term cumulative discrepancy more clearly than the typical monthly error, but it did not prevent error accumulation in every depth section. Monthly accuracy and cumulative agreement consequently provided different assessments of model performance without subsequent MLCW measurements.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_no_subsequent_mlcw_cumulative_error.pdf}
-  \caption[Absolute cumulative deformation error without subsequent MLCW measurements.]{Absolute cumulative deformation error $A_{s,K}=|E_{s,K}|$ for each depth section against months since the shared calibration endpoint (05/2018), shown separately for the 3-, 5-, and 8-year initial records, evaluated over the shared 80-month period.}
+  \caption[Absolute cumulative deformation error without subsequent MLCW measurements.]{Absolute cumulative deformation error $A_{s,K}=|E_{s,K}|$ over 80 months after calibration for the 3-, 5-, and 8-year initial records. All records ended in 05/2018. Declining segments indicate that later signed errors offset errors accumulated earlier.}
   \label{fig:results_no_subsequent_mlcw_cumulative_error}
 \end{figure}
 
@@ -201,7 +205,7 @@ Cumulative errors varied among depth sections and, by month 80, ended at differe
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption[Absolute cumulative deformation error without subsequent MLCW measurements.]{Absolute cumulative deformation error after 80 months without subsequent MLCW measurements. Values give $A_{s,80}=|E_{s,80}|$ in mm for each depth section: the absolute value of the accumulated signed error, not the sum of monthly absolute errors. Models used the stated initial MLCW record, all ending calibration on the same calendar date, and were not updated thereafter. All scenarios span the identical 80-month period (05/2018--12/2024).}
+  \caption[Absolute cumulative deformation error without subsequent MLCW measurements.]{Absolute cumulative deformation error $A_{s,80}=|E_{s,80}|$ after 80 months without subsequent MLCW measurements. All initial records ended in 05/2018 and were evaluated through 12/2024. The final row reports the average across the six depth sections.}
   \label{tab:results_no_subsequent_mlcw_h80}
   \begin{tabular}{l|r|r|r}
     \toprule
@@ -213,26 +217,26 @@ Cumulative errors varied among depth sections and, by month 80, ended at differe
     S4 & 15.075 & 14.755 & 8.747 \\
     S5 & 7.317 & 6.226 & 4.421 \\
     S6 & 10.480 & 8.555 & 4.217 \\
+    \midrule
+    Average across sections & 7.393 & 6.686 & 4.286 \\
     \bottomrule
   \end{tabular}
 \end{table}
-
-Mean coverage of the nominal 90\% intervals, averaged across the six depth sections, ranged from 65.6 to 79.8\% across the three initial-record lengths, remaining below the nominal level on average in every scenario (\Cref{tab:results_no_subsequent_mlcw_interval}). As in \Cref{subsec:results_delayed_delivery}, this shortfall reflects the discrepancy between the observed coverage and the nominal interval level rather than a difference in interval width; possible mechanisms are discussed in \Cref{subsec:discussion_limitations}.
 
 % Source: diag_28_sec4_meansd_tables.py (sec4_3_meansd.csv; per-section-then-mean+-SD, n=6 sections per row)
 \begin{table}[htbp]
   \centering
   \small
   \renewcommand{\arraystretch}{1.2}
-  \caption[Monthly error and posterior predictive interval statistics without subsequent MLCW measurements.]{Monthly errors at Tuku, evaluated over the identical 80-month period (05/2018--12/2024) in every scenario. Mean $\pm$ SD, $n=6$ sections; metrics per \Cref{tab:evaluation_metrics}. Full per-section values: \Cref{supp-tab:supp_no_subsequent_mlcw_monthly_full}.}
+  \caption[Monthly error and posterior predictive interval statistics without subsequent MLCW measurements.]{Monthly errors at Tuku, evaluated over the identical 80-month period (05/2018--12/2024) in every scenario. Values give the average across $n=6$ sections; $R^2$ is reported as the average alone because it is bounded and can be negative, so average $\pm$ SD would misstate its range. Remaining metrics give average $\pm$ SD. Metrics per \Cref{tab:evaluation_metrics}. Full per-section values: \Cref{supp-tab:supp_no_subsequent_mlcw_monthly_full}.}
   \label{tab:results_no_subsequent_mlcw_interval}
   \begin{tabular}{l|r|r|r|r|r}
     \toprule
     \multicolumn{1}{c|}{\shortstack{\textbf{Initial}\\\textbf{record}\\\textbf{(years)}}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
-    3 & $0.71\pm0.3$ & $0.26\pm0.1$ & $0.36\pm0.2$ & $65.6\pm18.4$ & $0.62\pm0.3$ \\
-    5 & $0.70\pm0.3$ & $0.26\pm0.1$ & $0.37\pm0.2$ & $79.8\pm26.0$ & $0.97\pm0.7$ \\
-    8 & $0.67\pm0.3$ & $0.29\pm0.1$ & $0.40\pm0.2$ & $78.8\pm19.1$ & $1.23\pm0.9$ \\
+    3 & $0.71$ & $0.26\pm0.1$ & $0.36\pm0.2$ & $65.6\pm18.4$ & $0.62\pm0.3$ \\
+    5 & $0.70$ & $0.26\pm0.1$ & $0.37\pm0.2$ & $79.8\pm26.0$ & $0.97\pm0.7$ \\
+    8 & $0.67$ & $0.29\pm0.1$ & $0.40\pm0.2$ & $78.8\pm19.1$ & $1.23\pm0.9$ \\
     \bottomrule
   \end{tabular}
 \end{table}
