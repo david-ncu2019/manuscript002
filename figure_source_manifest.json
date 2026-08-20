@@ -26,8 +26,9 @@
         "record_role": "evaluation"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
-      "generated_at": "2026-08-17T10:35:54+08:00",
-      "sha256": "9BB0009256460C38FD45A3A338B66377A674DBA2FCAA36EE4EBBF658338429B1"
+      "generated_at": "2026-08-20T16:32:41+08:00",
+      "sha256": "EFFCD054A63BF5C28EC5406AEF15545FBBAEF25C964290BA4F2789C9F90561EE",
+      "revision_note": "Figure regenerated from the unchanged calendar-aligned source table to confirm complete depth-range labels for S4--S6. Data, filters, and plotting design are unchanged."
     },
     {
       "figure_id": "fig_results_no_subsequent_mlcw_cumulative_error",
@@ -40,9 +41,9 @@
         "x_axis_column": "months_since_common_end"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_preview_figures.py",
-      "generated_at": "2026-08-17T13:47:14+08:00",
-      "sha256": "EB48F1E8ACB5FD0B0D535E82F8269BC1F0AA7DEEA68E12068A17E9B300465CC3",
-      "revision_note": "Plot title changed from 'after MLCW measurements cease' to 'without subsequent MLCW measurements' to avoid implying measurements actually ceased at Tuku. Only the suptitle string changed; source table, filters, and data are unchanged from the prior generation."
+      "generated_at": "2026-08-20T16:43:23+08:00",
+      "sha256": "837B4673560950C6652A45D0F76D5664594519152D059E02CAE8B15DFB77BA4E",
+      "revision_note": "Plot title remains 'without subsequent MLCW measurements', and the x-axis label was shortened to 'Months after calibration'. Source table, filters, and data are unchanged from the prior generation."
     }
   ],
   "common_provenance": {
