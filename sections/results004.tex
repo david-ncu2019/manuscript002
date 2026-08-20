@@ -11,14 +11,14 @@ The monthly time series show that the estimates followed the observed variation 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_cycle_timeline.pdf}
-  \caption[Calibration and estimation periods during delayed MLCW data delivery.]{Successive calibration and estimation periods used to evaluate monthly deformation increments while finalized MLCW records were unavailable. The five colors repeat to distinguish adjacent estimation periods and do not represent different experimental conditions.}
+  \caption[Calibration and estimation periods during delayed MLCW data delivery.]{Successive calibration and estimation periods used to evaluate monthly deformation increments while finalized MLCW records were unavailable. Estimation periods are shown in a single color, which carries no experimental meaning.}
   \label{fig:results_delayed_cycles}
 \end{figure}
 
 \begin{figure}[tp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_delayed_monthly_estimates_s1_s3.pdf}
-  \caption[Observed and estimated monthly deformation increments by depth section.]{Observed and estimated monthly deformation increments for S1--S3. The black lines show observations, colored dotted lines show estimates, and shaded bands show the 90\% Bayesian posterior predictive intervals, using the same repeating five-color scheme as \Cref{fig:results_delayed_cycles}.}
+  \caption[Observed and estimated monthly deformation increments by depth section.]{Observed and estimated monthly deformation increments for S1--S3. The black lines show observations, the blue dotted lines show estimates, and the shaded bands show the 90\% Bayesian posterior predictive intervals. Dashed gray vertical lines mark the start of each calibration period shown in \Cref{fig:results_delayed_cycles}.}
   \label{fig:results_delayed_monthly_estimates}
 \end{figure}
 
@@ -38,58 +38,54 @@ The monthly time series show that the estimates followed the observed variation 
 
 \FloatBarrier
 
-This depth-dependent performance was also evident in the error statistics (\Cref{tab:delayed_performance_interval}). Across the six depth sections, RMSE ranged from 0.21 to 0.66~mm/month and MAE ranged from 0.15 to 0.50~mm/month. Errors were smaller in S1--S4 than in S5 and S6, with S5 showing the largest RMSE and MAE.
+This depth-dependent performance was also evident in the error statistics (\Cref{tab:delayed_performance_interval}). Across the six depth sections, RMSE ranged from 0.21 to 0.66~mm/month and MAE ranged from 0.15 to 0.50~mm/month. Errors were smaller in S1--S4 than in S5 and S6, with S5 showing the largest RMSE and MAE. The 90\% Bayesian posterior predictive intervals, however, showed a different depth pattern. They contained 65.9\% to 88.4\% of the observations and therefore did not attain nominal coverage in any section. Coverage was lowest in S6, whereas S5 reached 81.2\% despite having the largest RMSE and MAE. Possible sources of the coverage shortfall are considered in \Cref{subsec:discussion_limitations}.
 
-The 90\% Bayesian posterior predictive intervals contained 65.9\% to 88.4\% of the observations among the six sections and therefore did not attain nominal coverage in any section. Coverage did not follow the same depth pattern as point-estimate error. It was lowest in S6, whereas S5 reached 81.2\% despite having the largest RMSE and MAE. Possible sources of the coverage shortfall are considered in \Cref{subsec:discussion_limitations}.
+Estimation performance was also evaluated by position within each six-month cycle to determine whether it changed as the interval without updated MLCW records lengthened. For each depth section, the first-month estimates from all 23 cycles were evaluated together, and the same procedure was repeated for months 2 through 6 (\Cref{tab:delayed_performance_by_month}). The resulting errors did not increase steadily as the cycle progressed. Average MAE ranged from 0.25 to 0.34~mm/month, and average RMSE ranged from 0.31 to 0.50~mm/month. Both metrics reached their highest values in month 2 rather than month 6, while average coverage varied from 73.2\% to 82.6\% without a consistent temporal pattern. The later months of the estimation period therefore did not show a progressive loss of estimation performance.
+
+The fitted coefficients also varied among depth sections. To summarize these differences without reproducing all model coefficients, \Cref{tab:selected_coefficients} presents 14 variables whose 10th--90th percentile range remained entirely positive or negative in at least one section. Among these variables, surface displacement terms showed the clearest repeated directional patterns. The current surface displacement increment had a positive coefficient range in S1--S4 and S6, whereas hydraulic head terms showed fewer common patterns across sections. Seasonal coefficients also varied with depth. The dry-season indicator and annual sine component had opposite directions in S6 and the five shallower sections. These coefficients describe fitted associations and are interpreted separately in \Cref{sec:discussion}.
 
 % Source: diag_28_sec4_meansd_tables.py (sec4_1 window, station=TUKU, datetime<=2024-10-01;
 % reproduces performance_by_section.csv / interval_coverage_by_section.csv exactly)
 \begin{table}[htbp]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption[Performance and posterior predictive interval statistics during delayed MLCW delivery.]{Point-estimate errors, model fit, and 90\% posterior predictive interval statistics for monthly deformation estimates, one row per depth section ($n=138$ estimates each). Metrics defined in \Cref{tab:evaluation_metrics}.}
-  \label{tab:delayed_performance_interval}
-  \begin{tabular}{l|r|r|r|r|r}
-    \toprule
-    \multicolumn{1}{c|}{\textbf{Section}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
-    \midrule
-    S1 & 0.89 & 0.21 & 0.18 & 74.6 & 0.54 \\
-    S2 & 0.98 & 0.24 & 0.18 & 88.4 & 0.64 \\
-    S3 & 0.87 & 0.23 & 0.15 & 73.9 & 0.44 \\
-    S4 & 0.80 & 0.31 & 0.26 & 84.8 & 0.98 \\
-    S5 & 0.08 & 0.66 & 0.50 & 81.2 & 1.85 \\
-    S6 & 0.34 & 0.62 & 0.40 & 65.9 & 0.97 \\
-    \bottomrule
-  \end{tabular}
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.15}
+	\caption[Monthly estimation results during delayed MLCW delivery.]{Monthly estimation errors, model fit, and 90\% Bayesian posterior predictive interval statistics for the six depth sections. Each section was evaluated using 138 monthly estimates. RMSE, MAE, and interval width are reported in mm/month. Metrics are defined in \Cref{tab:evaluation_metrics}.}
+	\label{tab:delayed_performance_interval}
+	\begin{tabular}{l|r|r|r|r|r}
+		\toprule
+		\multicolumn{1}{c|}{\textbf{Section}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
+		\midrule
+		S1 & 0.89 & 0.21 & 0.18 & 74.6 & 0.54 \\
+		S2 & 0.98 & 0.24 & 0.18 & 88.4 & 0.64 \\
+		S3 & 0.87 & 0.23 & 0.15 & 73.9 & 0.44 \\
+		S4 & 0.80 & 0.31 & 0.26 & 84.8 & 0.98 \\
+		S5 & 0.08 & 0.66 & 0.50 & 81.2 & 1.85 \\
+		S6 & 0.34 & 0.62 & 0.40 & 65.9 & 0.97 \\
+		\bottomrule
+	\end{tabular}
 \end{table}
-
-Monthly estimation errors did not increase steadily as each six-month estimation period progressed (\Cref{tab:delayed_performance_by_month}). Average MAE ranged from 0.25 to 0.34~mm/month, and average RMSE ranged from 0.31 to 0.50~mm/month. Both reached their highest values in month 2 rather than month 6, while average coverage varied from 73.2\% to 82.6\% without a consistent temporal pattern. The later months of the estimation period therefore did not show a progressive loss of estimation performance.
 
 % Source: diag_28_sec4_meansd_tables.py (sec4_1_by_month.csv; per-section-then-mean+-SD, n=6 sections per cell)
 \begin{table}[htbp]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption[Performance by month position within each estimation cycle.]{Performance by position within each six-month estimation cycle (months 1--6, not calendar months). Values give the average across six depth sections; $R^2$ is reported as the average alone because it is bounded and can be negative, so average $\pm$ SD would misstate its range. Remaining metrics give average $\pm$ SD. Metrics per \Cref{tab:evaluation_metrics}.}
-  \label{tab:delayed_performance_by_month}
-  \begin{tabular}{l|r|r|r|r|r}
-    \toprule
-    \multicolumn{1}{c|}{\textbf{Month within cycle}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
-    \midrule
-    1 & $0.34$ & $0.25\pm0.1$ & $0.31\pm0.2$ & $80.4\pm7.7$ & $0.91\pm0.5$ \\
-    2 & $0.43$ & $0.34\pm0.2$ & $0.50\pm0.4$ & $73.2\pm14.1$ & $0.91\pm0.5$ \\
-    3 & $0.57$ & $0.27\pm0.1$ & $0.36\pm0.2$ & $79.0\pm10.1$ & $0.91\pm0.5$ \\
-    4 & $0.61$ & $0.28\pm0.1$ & $0.34\pm0.2$ & $74.6\pm8.4$ & $0.90\pm0.5$ \\
-    5 & $0.58$ & $0.26\pm0.1$ & $0.32\pm0.2$ & $82.6\pm9.9$ & $0.90\pm0.5$ \\
-    6 & $0.49$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $79.0\pm11.8$ & $0.90\pm0.5$ \\
-    \bottomrule
-  \end{tabular}
+	\centering
+	\small
+	\renewcommand{\arraystretch}{1.15}
+	\caption[Monthly estimation results by position within each cycle.]{Monthly estimation errors, model fit, and 90\% Bayesian posterior predictive interval statistics for months 1--6 of the estimation cycle. These positions indicate elapsed months rather than calendar months, and the values summarize results across the six depth sections. RMSE, MAE, and interval width are reported in mm/month. Metrics are defined in \Cref{tab:evaluation_metrics}.}
+	\label{tab:delayed_performance_by_month}
+	\begin{tabular}{l|r|r|r|r|r}
+		\toprule
+		\multicolumn{1}{c|}{\textbf{Month within cycle}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
+		\midrule
+		1 & $0.34$ & $0.25\pm0.1$ & $0.31\pm0.2$ & $80.4\pm7.7$ & $0.91\pm0.5$ \\
+		2 & $0.43$ & $0.34\pm0.2$ & $0.50\pm0.4$ & $73.2\pm14.1$ & $0.91\pm0.5$ \\
+		3 & $0.57$ & $0.27\pm0.1$ & $0.36\pm0.2$ & $79.0\pm10.1$ & $0.91\pm0.5$ \\
+		4 & $0.61$ & $0.28\pm0.1$ & $0.34\pm0.2$ & $74.6\pm8.4$ & $0.90\pm0.5$ \\
+		5 & $0.58$ & $0.26\pm0.1$ & $0.32\pm0.2$ & $82.6\pm9.9$ & $0.90\pm0.5$ \\
+		6 & $0.49$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $79.0\pm11.8$ & $0.90\pm0.5$ \\
+		\bottomrule
+	\end{tabular}
 \end{table}
-
-\FloatBarrier
-
-The fitted coefficients also varied among depth sections. To summarize these differences without reproducing all model coefficients, \Cref{tab:selected_coefficients} presents 14 variables whose 10th--90th percentile range remained entirely positive or negative in at least one section.
 
 \begin{sidewaystable}[p]
   \centering
@@ -127,29 +123,39 @@ The fitted coefficients also varied among depth sections. To summarize these dif
 
 \FloatBarrier
 
-Surface displacement terms showed the clearest repeated directional patterns across the depth sections. The current increment had a positive coefficient range in S1--S4 and S6, whereas the hydraulic head terms showed fewer common patterns among sections. Seasonal coefficients also varied with depth, with the dry-season indicator and annual sine component having opposite directions in S6 and the five shallower sections. These results describe fitted associations and are interpreted separately in \Cref{sec:discussion}.
-
-\FloatBarrier
-
 \subsection{Estimation under reduced MLCW measurement frequency}
 \label{subsec:results_reduced_frequency}
 
 Lengthening the interval between MLCW field measurements from six to twelve months had little effect on individual monthly errors but increased the error accumulated by the next measurement. Across the six depth sections, average monthly MAE remained between 0.27 and 0.31~mm/month for all combinations of measurement interval and initial-record length (\Cref{tab:results_reduced_frequency}). In contrast, average endpoint MAE across sections ranged from 1.405 to 1.542~mm for measurements every six months and from 2.470 to 2.738~mm for measurements every twelve months (\Cref{supp-tab:supp_reduced_frequency_endpoint_full}).
 
-The 3-year examples illustrate how the monthly estimates followed the observed deformation under both measurement schedules (\Cref{fig:results_reduced_frequency_3yr}). Agreement was closer in S1--S4, whereas larger departures occurred in S5 and S6. The corresponding differences among depth sections are reported in \Cref{supp-tab:supp_reduced_frequency_monthly_full}.
+The monthly estimates followed the observed deformation under the 6-month (\Cref{fig:results_reduced_frequency_6month}) and 12-month (\Cref{fig:results_reduced_frequency_12month}) measurement schedules. \placeholder{Comparative claim pending visual inspection of the regenerated figure.} The corresponding differences among depth sections are reported in \Cref{supp-tab:supp_reduced_frequency_monthly_full}.
 
 \begin{figure}[tp]
   \centering
-  \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_3yr_panel_a.pdf}
-  \caption[Observed and estimated monthly deformation increments under reduced MLCW measurement frequency.]{Observed and estimated monthly deformation increments for the 3-year initial record, all six depth sections, evaluated over the shared 05/2018--04/2024 period. (a) 6-month measurement schedule. Vertical lines mark the months when a new cumulative MLCW field measurement became available for the next update.}
-  \label{fig:results_reduced_frequency_3yr}
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_6month_s1_s3.pdf}
+  \caption[Monthly differences between estimated and observed deformation increments under a 6-month MLCW measurement schedule.]{Monthly differences between estimated and observed deformation increments (estimated minus observed, following the sign convention of \Cref{eq:sparse_monthly_error}) under a 6-month MLCW measurement schedule, evaluated over the shared 05/2018--04/2024 period, for S1--S3. Each panel shows three initial-record lengths together: 3-year (blue), 5-year (orange), and 8-year (green). Alternating white and light-blue background shading marks successive MLCW measurement cycles.}
+  \label{fig:results_reduced_frequency_6month}
 \end{figure}
 
 \begin{figure}[tp]
   \ContinuedFloat
   \centering
-  \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_3yr_panel_b.pdf}
-  \caption[]{(b) 12-month measurement schedule.}
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_6month_s4_s6.pdf}
+  \caption[]{Monthly differences between estimated and observed deformation increments under a 6-month MLCW measurement schedule, continued for S4--S6.}
+\end{figure}
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_12month_s1_s3.pdf}
+  \caption[Monthly differences between estimated and observed deformation increments under a 12-month MLCW measurement schedule.]{Monthly differences between estimated and observed deformation increments (estimated minus observed, following the sign convention of \Cref{eq:sparse_monthly_error}) under a 12-month MLCW measurement schedule, evaluated over the shared 05/2018--04/2024 period, for S1--S3. Each panel shows three initial-record lengths together: 3-year (blue), 5-year (orange), and 8-year (green). Alternating white and light-blue background shading marks successive MLCW measurement cycles.}
+  \label{fig:results_reduced_frequency_12month}
+\end{figure}
+
+\begin{figure}[tp]
+  \ContinuedFloat
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_12month_s4_s6.pdf}
+  \caption[]{Monthly differences between estimated and observed deformation increments under a 12-month MLCW measurement schedule, continued for S4--S6.}
 \end{figure}
 
 \FloatBarrier

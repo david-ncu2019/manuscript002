@@ -2,33 +2,64 @@
   "description": "Provenance record for figures copied from the analysis repository into this manuscript worktree's figures/ folder. One entry per figure. Source data, filters, and generating scripts referenced here are read-only from the manuscript's perspective.",
   "figures": [
     {
-      "figure_id": "fig_results_reduced_frequency_3yr_panel_a",
-      "destination_path": "figures/fig_results_reduced_frequency_3yr_panel_a.pdf",
-      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_3yr}, panel (a)",
+      "figure_id": "fig_results_reduced_frequency_6month_s1_s3",
+      "destination_path": "figures/fig_results_reduced_frequency_6month_s1_s3.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_6month}, S1--S3 page",
       "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_2/results/sec4_2_monthly_predictions.parquet",
       "filters": {
         "measurement_interval": 6,
-        "initial_history_months": 36,
+        "initial_history_months": [36, 60, 96],
         "record_role": "evaluation"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
-      "generated_at": "2026-08-17T10:35:51+08:00",
-      "sha256": "51065DD4E5D793CF7DCB713A2087B2E025DF02D495AF6DEE006A2EE20799FD8D"
+      "generated_at": "2026-08-20T21:49:29+08:00",
+      "sha256": "C828A4CD40A8C833F6E7D9B73D4EFDDFCB823E58396869716E8D124E789CC946",
+      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only; per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
     },
     {
-      "figure_id": "fig_results_reduced_frequency_3yr_panel_b",
-      "destination_path": "figures/fig_results_reduced_frequency_3yr_panel_b.pdf",
-      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_3yr}, panel (b)",
+      "figure_id": "fig_results_reduced_frequency_6month_s4_s6",
+      "destination_path": "figures/fig_results_reduced_frequency_6month_s4_s6.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_6month}, S4--S6 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_2/results/sec4_2_monthly_predictions.parquet",
+      "filters": {
+        "measurement_interval": 6,
+        "initial_history_months": [36, 60, 96],
+        "record_role": "evaluation"
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
+      "generated_at": "2026-08-20T21:49:29+08:00",
+      "sha256": "9C65715F463E6758C00034C992CB564F69A75E9338DFAE1CD0C8D0E79275FA17",
+      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only (not repeated on this S4-S6 continuation page); per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
+    },
+    {
+      "figure_id": "fig_results_reduced_frequency_12month_s1_s3",
+      "destination_path": "figures/fig_results_reduced_frequency_12month_s1_s3.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_12month}, S1--S3 page",
       "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_2/results/sec4_2_monthly_predictions.parquet",
       "filters": {
         "measurement_interval": 12,
-        "initial_history_months": 36,
+        "initial_history_months": [36, 60, 96],
         "record_role": "evaluation"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
-      "generated_at": "2026-08-20T16:32:41+08:00",
-      "sha256": "EFFCD054A63BF5C28EC5406AEF15545FBBAEF25C964290BA4F2789C9F90561EE",
-      "revision_note": "Figure regenerated from the unchanged calendar-aligned source table to confirm complete depth-range labels for S4--S6. Data, filters, and plotting design are unchanged."
+      "generated_at": "2026-08-20T21:49:29+08:00",
+      "sha256": "32A56B7AC4B4F690FC3CDD391C121E002A7A3DEC381762908DDB27696D64726F",
+      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only; per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
+    },
+    {
+      "figure_id": "fig_results_reduced_frequency_12month_s4_s6",
+      "destination_path": "figures/fig_results_reduced_frequency_12month_s4_s6.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_reduced_frequency_12month}, S4--S6 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_2/results/sec4_2_monthly_predictions.parquet",
+      "filters": {
+        "measurement_interval": 12,
+        "initial_history_months": [36, 60, 96],
+        "record_role": "evaluation"
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
+      "generated_at": "2026-08-20T21:49:29+08:00",
+      "sha256": "69D3B1B910157424EB5E9BCF050BA174C07A31CCB56B2EB09E2B45AEBADB8A6B",
+      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only (not repeated on this S4-S6 continuation page); per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
     },
     {
       "figure_id": "fig_results_no_subsequent_mlcw_cumulative_error",
@@ -44,6 +75,54 @@
       "generated_at": "2026-08-20T16:43:23+08:00",
       "sha256": "837B4673560950C6652A45D0F76D5664594519152D059E02CAE8B15DFB77BA4E",
       "revision_note": "Plot title remains 'without subsequent MLCW measurements', and the x-axis label was shortened to 'Months after calibration'. Source table, filters, and data are unchanged from the prior generation."
+    },
+    {
+      "figure_id": "fig_results_delayed_cycle_timeline",
+      "destination_path": "figures/fig_results_delayed_cycle_timeline.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_delayed_cycles}",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/checkpoints/P0/level1a/predictions.parquet",
+      "filters": null,
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/build_sec4_1_visual_package.py (build_timeline())",
+      "generated_at": "2026-08-20T21:57:16+08:00",
+      "sha256": "6AC3B9E8C51EA16147AD21101554D9D9AE313EEA4AA364072CA12C8D5B0D9281",
+      "revision_note": "Restyled (2026-08-20): the 'Estimation period' bars now use a single fixed color (CYCLE_COLORS[0]) for all 23 cycles, replacing the previous per-cycle cycle_color() 5-color rotation; the 'Calibration record' bars remain unchanged gray (TRAINING_COLOR). Also picks up the shared apply_panel_style() major/minor tick-length increase (applies to all figures using that function: 7, 8, 9, 10/11). No filter concept applies to this script -- load_rows() reads the full frozen predictions.parquet checkpoint and this figure plots all 23 complete six-month evaluation cycles unconditionally."
+    },
+    {
+      "figure_id": "fig_results_delayed_monthly_estimates_s1_s3",
+      "destination_path": "figures/fig_results_delayed_monthly_estimates_s1_s3.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_delayed_monthly_estimates}, S1--S3 page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/checkpoints/P0/level1a/predictions.parquet",
+      "filters": {
+        "sections": ["S1", "S2", "S3"]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/build_sec4_1_visual_package.py (build_time_series_page(), show_legend=True)",
+      "generated_at": "2026-08-20T22:02:40+08:00",
+      "sha256": "B6A7DBCEF63D3FDE2DCB21037556FAAE021F2F2960CB1DE63A5C877707A82AD2",
+      "revision_note": "Restyled (2026-08-20): band/line/marker color fixed to CYCLE_COLORS[0] for every cycle (was per-cycle cycle_color()); gray vertical axvline separators added at each cycle's block_start, drawn dashed (linestyle='--') with alpha=0.5 (was solid, fully opaque, at linewidth=1) to sit more quietly behind the data; major gridlines removed (axis.grid(False, which='both') after apply_panel_style(), y=0 reference line kept); legend now correctly restricted to this page's S1 panel only via 'if show_legend and section == sections[0]' -- fixes a pre-existing latent bug where the show_legend parameter was accepted but never read, so the legend previously rendered on all 3 sections of this page (and, incorrectly, on the S4-S6 continuation page too). Also picks up the shared apply_panel_style() major/minor tick-length increase."
+    },
+    {
+      "figure_id": "fig_results_delayed_monthly_estimates_s4_s6",
+      "destination_path": "figures/fig_results_delayed_monthly_estimates_s4_s6.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_delayed_monthly_estimates}, S4--S6 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/checkpoints/P0/level1a/predictions.parquet",
+      "filters": {
+        "sections": ["S4", "S5", "S6"]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/build_sec4_1_visual_package.py (build_time_series_page(), show_legend=False)",
+      "generated_at": "2026-08-20T22:02:40+08:00",
+      "sha256": "877F319BD33553F1A9EFB7FE89185B6E651A885E209A85A4AD678D8BC1968F7F",
+      "revision_note": "Same styling changes as fig_results_delayed_monthly_estimates_s1_s3 (fixed blue band/line/marker, dashed gray alpha=0.5 vertical separators, no gridlines, tick-length increase). The legend-fix described in that entry means this page's legend is now correctly suppressed (show_legend=False), whereas before the fix it incorrectly rendered on all 3 sections here as well."
+    },
+    {
+      "figure_id": "fig_results_delayed_prediction_vs_observed",
+      "destination_path": "figures/fig_results_delayed_prediction_vs_observed.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_delayed_scatter}",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/checkpoints/P0/level1a/predictions.parquet",
+      "filters": null,
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results002/build_sec4_1_visual_package.py (build_scatter())",
+      "generated_at": "2026-08-20T21:57:16+08:00",
+      "sha256": "13EDBF10B3F9FF34D8F9AAE8EF08080D19E6A62799FCB36D787067544DEFAF7F",
+      "revision_note": "Tick label fontsize increased by 2 (from TICK_FONT_SIZE - 1 to TICK_FONT_SIZE - 1 + 2, i.e. 11pt to 13pt) via this function's own axis.tick_params(labelsize=...) override, which sits after and overrides apply_panel_style()'s default y-tick styling for this figure only. Tick *length* (major/minor) still comes from the shared apply_panel_style() increase, since this figure's own override only sets labelsize, not length. R2/RMSE/MAE values and scatter content unchanged. No filter concept applies -- all 6 sections plotted from the full checkpoint with no subsetting beyond section membership."
     }
   ],
   "common_provenance": {
