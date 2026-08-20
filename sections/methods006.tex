@@ -210,7 +210,7 @@ Temporary gaps in the availability of finalized monthly MLCW records were examin
 
 At the end of each estimation period, the corresponding monthly MLCW observations became available and were compared with the estimates. These observations were then added to the calibration record, after which the model was recalibrated for the next cycle. Repeating this sequence gradually expanded the calibration record while preserving temporal order because observations from a later period could not influence earlier estimates. One complete cycle is illustrated in \Cref{fig:delayed_observation_design}.
 
-Point estimates were evaluated separately for each depth section and for all sections combined using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). Posterior predictive intervals were evaluated using empirical coverage and mean interval width, as described in \Cref{subsec:predictive_uncertainty}. Performance was also compared across successive months within each update cycle to determine whether estimation quality changed as the MLCW observation gap lengthened.
+Point estimates were evaluated separately for each depth section using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). Posterior predictive intervals were evaluated using empirical coverage and mean interval width, as described in \Cref{subsec:predictive_uncertainty}. Performance was also compared across successive months within each update cycle to determine whether estimation quality changed as the MLCW observation gap lengthened.
 
 \begin{figure}[htbp]
   \centering
@@ -409,7 +409,7 @@ e_{s,I}
 \label{eq:sparse_endpoint_error}
 \end{equation}
 
-Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE and RMSE for each depth section. The coefficient of determination was calculated for the monthly estimates but not for the endpoint observations, because each scenario contained relatively few cumulative measurements.
+Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE and RMSE for each depth section. The coefficient of determination was calculated for the monthly estimates but not for the endpoint observations, because each scenario contained relatively few cumulative measurements. Posterior predictive intervals for the monthly estimates were evaluated using empirical coverage and mean interval width.
 
 \begin{figure}[htbp]
   \centering

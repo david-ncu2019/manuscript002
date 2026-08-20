@@ -12,9 +12,9 @@
         "record_role": "evaluation"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
-      "generated_at": "2026-08-20T21:49:29+08:00",
-      "sha256": "C828A4CD40A8C833F6E7D9B73D4EFDDFCB823E58396869716E8D124E789CC946",
-      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only; per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
+      "generated_at": "2026-08-20T23:02:26+08:00",
+      "sha256": "EB5CE29EE46E22A6C8D210C85735F2155864DDCDF41431A18801B66C8E3E622E",
+      "revision_note": "Y-axis label changed from 'Residuals (mm)' to 'Monthly error (mm)' (2026-08-20), same underlying signed-difference (estimated - observed) quantity, wording only. Supersedes the prior styling-pass revision_note (residuals label, circle-marker dotted lines, fixed x-limits, titled 2-column legend, per-section y-axis spec, shared apply_panel_style() tick-length increase) which remains accurate for all non-label aspects of this figure."
     },
     {
       "figure_id": "fig_results_reduced_frequency_6month_s4_s6",
@@ -27,9 +27,9 @@
         "record_role": "evaluation"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
-      "generated_at": "2026-08-20T21:49:29+08:00",
-      "sha256": "9C65715F463E6758C00034C992CB564F69A75E9338DFAE1CD0C8D0E79275FA17",
-      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only (not repeated on this S4-S6 continuation page); per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
+      "generated_at": "2026-08-20T23:02:26+08:00",
+      "sha256": "FBDBC5976A0C1E21FF9370711282AB2B8E3C361D4C67814AB8959E1E88A71164",
+      "revision_note": "Y-axis label changed from 'Residuals (mm)' to 'Monthly error (mm)' (2026-08-20), same underlying signed-difference (estimated - observed) quantity, wording only. Supersedes the prior styling-pass revision_note (residuals label, circle-marker dotted lines, fixed x-limits, titled 2-column legend, per-section y-axis spec, shared apply_panel_style() tick-length increase) which remains accurate for all non-label aspects of this figure."
     },
     {
       "figure_id": "fig_results_reduced_frequency_12month_s1_s3",
@@ -42,9 +42,9 @@
         "record_role": "evaluation"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
-      "generated_at": "2026-08-20T21:49:29+08:00",
-      "sha256": "32A56B7AC4B4F690FC3CDD391C121E002A7A3DEC381762908DDB27696D64726F",
-      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only; per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
+      "generated_at": "2026-08-20T23:02:26+08:00",
+      "sha256": "8D4A5D8A2FCCF173A3B0220BA2E0AFDF239F4D936226B73F4DCBB05716E4DFB9",
+      "revision_note": "Y-axis label changed from 'Residuals (mm)' to 'Monthly error (mm)' (2026-08-20), same underlying signed-difference (estimated - observed) quantity, wording only. Supersedes the prior styling-pass revision_note (residuals label, circle-marker dotted lines, fixed x-limits, titled 2-column legend, per-section y-axis spec, shared apply_panel_style() tick-length increase) which remains accurate for all non-label aspects of this figure."
     },
     {
       "figure_id": "fig_results_reduced_frequency_12month_s4_s6",
@@ -57,9 +57,9 @@
         "record_role": "evaluation"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_2_preview_figures.py",
-      "generated_at": "2026-08-20T21:49:29+08:00",
-      "sha256": "69D3B1B910157424EB5E9BCF050BA174C07A31CCB56B2EB09E2B45AEBADB8A6B",
-      "revision_note": "Styling pass (2026-08-20) on the signed-difference redesign: y-label changed to 'Residuals (mm)'; solid line replaced by circle-marker dotted line (marker size matching Figure 8's ESTIMATE_MARKERSIZE); shared x-limits fixed to 2018-01-01 - 2024-07-01; legend retitled 'Initial Records' with short labels (3/5/8 years), 2-column layout, positioned above the S1 panel only (not repeated on this S4-S6 continuation page); per-section y-axis top/bottom and major/minor tick spacing fixed per author-specified SECTION_Y_AXIS_SPEC table (independent of each panel's own data range); apply_panel_style() now also draws minor tick marks (length MINOR_TICK_LENGTH+2) and major ticks lengthened by +2 (length MAJOR_TICK_LENGTH+2) on both axes -- applies to all figures sharing apply_panel_style() (7, 8, 9, 10/11) -- visually confirmed to not clutter these panels. Supersedes the initial redesign captured in the previous revision_note (monthly signed differences for 3/5/8-year initial-record scenarios, 3x1 layout, 3yr suffix dropped from identifiers) which remains accurate for the underlying data/filters."
+      "generated_at": "2026-08-20T23:02:26+08:00",
+      "sha256": "C0404021A75F183F21F1336AE50C9157E70081098E515C906297F84F35BF1D50",
+      "revision_note": "Y-axis label changed from 'Residuals (mm)' to 'Monthly error (mm)' (2026-08-20), same underlying signed-difference (estimated - observed) quantity, wording only. Supersedes the prior styling-pass revision_note (residuals label, circle-marker dotted lines, fixed x-limits, titled 2-column legend, per-section y-axis spec, shared apply_panel_style() tick-length increase) which remains accurate for all non-label aspects of this figure."
     },
     {
       "figure_id": "fig_results_no_subsequent_mlcw_cumulative_error",

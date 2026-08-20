@@ -92,7 +92,7 @@ The fitted coefficients also varied among depth sections. To summarize these dif
   \footnotesize
   \renewcommand{\arraystretch}{1.25}
   \setlength{\tabcolsep}{3.5pt}
-  \caption[Selected standardized coefficients across depth sections.]{Selected standardized coefficients across the six depth sections. Each cell gives the median and the range from the 10th to the 90th percentile after combining coefficient results from 24 model updates with equal weight, including the update from the final, partially scored six-month cycle. Values are rounded to two decimal places, except that a bound rounding to $0.00$ is instead reported to three decimal places to keep its sign and nonzero magnitude visible. Bold marks ranges that were entirely positive or negative; a dash means that the variable was not used for that section.}
+  \caption[Selected standardized coefficients across depth sections.]{Selected standardized coefficients for the six depth sections, summarized across 24 model updates. Each cell reports the median and 10th--90th percentile range. Variables were selected when this range remained entirely above or below zero in at least one section. Bold identifies the corresponding section-specific ranges, and a dash indicates that the variable was not included for that section.}
   \label{tab:selected_coefficients}
   \begin{tabular}{@{}p{0.29\textheight}|*{5}{c|}c@{}}
     \toprule
@@ -101,7 +101,7 @@ The fitted coefficients also varied among depth sections. To summarize these dif
     \multicolumn{7}{@{}l}{\textit{Surface displacement predictors}} \\
     Current surface displacement increment & \makecell{$\mathbf{0.21}$\\$\mathbf{[0.14,\ 0.23]}$} & \makecell{$\mathbf{0.52}$\\$\mathbf{[0.44,\ 0.57]}$} & \makecell{$\mathbf{0.48}$\\$\mathbf{[0.07,\ 0.81]}$} & \makecell{$\mathbf{0.24}$\\$\mathbf{[0.19,\ 0.33]}$} & \makecell{$0.01$\\$[-0.07,\ 0.03]$} & \makecell{$\mathbf{0.18}$\\$\mathbf{[0.12,\ 0.23]}$} \\
     Change in surface displacement increment & \makecell{$0.03$\\$[-0.01,\ 0.04]$} & \makecell{$\mathbf{0.33}$\\$\mathbf{[0.30,\ 0.38]}$} & \makecell{$\mathbf{0.34}$\\$\mathbf{[0.08,\ 0.46]}$} & \makecell{$\mathbf{0.19}$\\$\mathbf{[0.17,\ 0.23]}$} & \makecell{$\mathbf{0.05}$\\$\mathbf{[0.01,\ 0.06]}$} & \makecell{$\mathbf{-0.04}$\\$\mathbf{[-0.06,\ -0.02]}$} \\
-    Surface displacement increment, 1-month lag & \makecell{$\mathbf{0.18}$\\$\mathbf{[0.15,\ 0.20]}$} & \makecell{$\mathbf{0.21}$\\$\mathbf{[0.14,\ 0.23]}$} & \makecell{$\mathbf{0.17}$\\$\mathbf{[0.01,\ 0.40]}$} & \makecell{$0.06$\\$[0.03,\ 0.12]$} & \makecell{$\mathbf{-0.03}$\\$\mathbf{[-0.11,\ -0.01]}$} & \makecell{$\mathbf{0.23}$\\$\mathbf{[0.17,\ 0.26]}$} \\
+    Surface displacement increment, 1-month lag & \makecell{$\mathbf{0.18}$\\$\mathbf{[0.15,\ 0.20]}$} & \makecell{$\mathbf{0.21}$\\$\mathbf{[0.14,\ 0.23]}$} & \makecell{$\mathbf{0.17}$\\$\mathbf{[0.01,\ 0.40]}$} & \makecell{$\mathbf{0.06}$\\$\mathbf{[0.03,\ 0.12]}$} & \makecell{$\mathbf{-0.03}$\\$\mathbf{[-0.11,\ -0.01]}$} & \makecell{$\mathbf{0.23}$\\$\mathbf{[0.17,\ 0.26]}$} \\
     Surface displacement increment, 3-month lag & \makecell{$\mathbf{0.03}$\\$\mathbf{[0.001,\ 0.05]}$} & \makecell{$\mathbf{-0.30}$\\$\mathbf{[-0.38,\ -0.25]}$} & \makecell{$\mathbf{-0.77}$\\$\mathbf{[-1.31,\ -0.22]}$} & \makecell{$0.02$\\$[-0.03,\ 0.13]$} & \makecell{$\mathbf{-0.01}$\\$\mathbf{[-0.14,\ -0.001]}$} & \makecell{$\mathbf{0.16}$\\$\mathbf{[0.07,\ 0.20]}$} \\
     \midrule
     \multicolumn{7}{@{}l}{\textit{Hydraulic head predictors}} \\
@@ -126,14 +126,14 @@ The fitted coefficients also varied among depth sections. To summarize these dif
 \subsection{Estimation under reduced MLCW measurement frequency}
 \label{subsec:results_reduced_frequency}
 
-Lengthening the interval between MLCW field measurements from six to twelve months had little effect on individual monthly errors but increased the error accumulated by the next measurement. Across the six depth sections, average monthly MAE remained between 0.27 and 0.31~mm/month for all combinations of measurement interval and initial-record length (\Cref{tab:results_reduced_frequency}). In contrast, average endpoint MAE across sections ranged from 1.405 to 1.542~mm for measurements every six months and from 2.470 to 2.738~mm for measurements every twelve months (\Cref{supp-tab:supp_reduced_frequency_endpoint_full}).
+When only one cumulative MLCW observation was available at the end of each measurement interval, changing the interval from six to twelve months produced little change in monthly estimation accuracy at Tuku. Across the six combinations of measurement interval and initial-record length, average MAE ranged from 0.27 to 0.31~mm/month, average RMSE ranged from 0.37 to 0.41~mm/month, and average $R^2$ ranged from 0.66 to 0.70 (\Cref{tab:results_reduced_frequency}).
 
-The monthly estimates followed the observed deformation under the 6-month (\Cref{fig:results_reduced_frequency_6month}) and 12-month (\Cref{fig:results_reduced_frequency_12month}) measurement schedules. \placeholder{Comparative claim pending visual inspection of the regenerated figure.} The corresponding differences among depth sections are reported in \Cref{supp-tab:supp_reduced_frequency_monthly_full}.
+The monthly error series further showed that estimates based on 3, 5, and 8 years of initial observations generally changed in similar ways under both measurement schedules (\Cref{fig:results_reduced_frequency_6month,fig:results_reduced_frequency_12month}). Their frequent overlap indicated that increasing the initial record did not produce a persistent reduction in error. Consistent with this pattern, the 5-year record produced the lowest average MAE under both schedules, but the 8-year record did not improve upon either of the shorter records. At Tuku, extending the initial record beyond three years therefore did not consistently improve monthly estimation accuracy. The corresponding differences among depth sections are reported in \Cref{supp-tab:supp_reduced_frequency_monthly_full}.
 
 \begin{figure}[tp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_6month_s1_s3.pdf}
-  \caption[Monthly differences between estimated and observed deformation increments under a 6-month MLCW measurement schedule.]{Monthly differences between estimated and observed deformation increments (estimated minus observed, following the sign convention of \Cref{eq:sparse_monthly_error}) under a 6-month MLCW measurement schedule, evaluated over the shared 05/2018--04/2024 period, for S1--S3. Each panel shows three initial-record lengths together: 3-year (blue), 5-year (orange), and 8-year (green). Alternating white and light-blue background shading marks successive MLCW measurement cycles.}
+  \caption[Monthly estimation errors with MLCW measurements every six months.]{Monthly estimation errors for S1--S3 under a six-month MLCW measurement schedule. Positive values indicate estimates above the observations, whereas negative values indicate estimates below the observations. Blue, orange, and green represent initial records of 3, 5, and 8 years, respectively. Shaded bands mark successive measurement intervals during 05/2018--04/2024.}
   \label{fig:results_reduced_frequency_6month}
 \end{figure}
 
@@ -141,13 +141,13 @@ The monthly estimates followed the observed deformation under the 6-month (\Cref
   \ContinuedFloat
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_6month_s4_s6.pdf}
-  \caption[]{Monthly differences between estimated and observed deformation increments under a 6-month MLCW measurement schedule, continued for S4--S6.}
+  \caption[]{Monthly estimation errors under a six-month MLCW measurement schedule, continued for S4--S6.}
 \end{figure}
 
 \begin{figure}[tp]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_12month_s1_s3.pdf}
-  \caption[Monthly differences between estimated and observed deformation increments under a 12-month MLCW measurement schedule.]{Monthly differences between estimated and observed deformation increments (estimated minus observed, following the sign convention of \Cref{eq:sparse_monthly_error}) under a 12-month MLCW measurement schedule, evaluated over the shared 05/2018--04/2024 period, for S1--S3. Each panel shows three initial-record lengths together: 3-year (blue), 5-year (orange), and 8-year (green). Alternating white and light-blue background shading marks successive MLCW measurement cycles.}
+  \caption[Monthly estimation errors with MLCW measurements every twelve months.]{Monthly estimation errors for S1--S3 under a twelve-month MLCW measurement schedule. Error signs, colors, and shading follow \Cref{fig:results_reduced_frequency_6month}.}
   \label{fig:results_reduced_frequency_12month}
 \end{figure}
 
@@ -155,10 +155,14 @@ The monthly estimates followed the observed deformation under the 6-month (\Cref
   \ContinuedFloat
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_results_reduced_frequency_12month_s4_s6.pdf}
-  \caption[]{Monthly differences between estimated and observed deformation increments under a 12-month MLCW measurement schedule, continued for S4--S6.}
+  \caption[]{Monthly estimation errors under a twelve-month MLCW measurement schedule, continued for S4--S6.}
 \end{figure}
 
 \FloatBarrier
+
+The difference between the two measurement schedules became larger when the monthly estimates were accumulated until the next MLCW measurement. Average endpoint MAE across the six sections ranged from 1.405 to 1.542~mm for the 6-month schedule and from 2.470 to 2.738~mm for the 12-month schedule (\Cref{supp-tab:supp_reduced_frequency_endpoint_full}). This increase reflects the longer period over which monthly errors could accumulate before a new cumulative observation became available. Because the endpoints represented intervals of different lengths, these values do not establish that estimates during an equal portion of the two schedules differed in accuracy.
+
+The Bayesian posterior predictive intervals provided a separate assessment of uncertainty in the monthly estimates. A nominal 90\% interval would be expected to contain approximately 90\% of the observed monthly increments, whereas the average coverage in these scenarios ranged from 77.8\% to 89.4\%. The intervals therefore represented less uncertainty than the observed errors required. Their average width increased with initial-record length under both schedules, but this increase did not consistently bring coverage closer to 90\%. Thus, the initial-record length had little systematic effect on monthly errors, while the longer measurement interval allowed a larger difference to accumulate before the next MLCW observation.
 
 % Source: diag_28_sec4_meansd_tables.py (sec4_2_meansd.csv; per-section-then-mean+-SD, n=6 sections per row)
 \begin{table}[htbp]
@@ -170,7 +174,7 @@ The monthly estimates followed the observed deformation under the 6-month (\Cref
   \label{tab:results_reduced_frequency}
   \begin{tabular}{c|c|r|r|r|r|r}
     \toprule
-    \multicolumn{1}{c|}{\shortstack{\textbf{Sampling}\\\textbf{interval}\\\textbf{(months)}}} & \multicolumn{1}{c|}{\shortstack{\textbf{Initial}\\\textbf{record}\\\textbf{(years)}}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
+    \multicolumn{1}{c|}{\shortstack{\textbf{Measurement}\\\textbf{interval}\\\textbf{(months)}}} & \multicolumn{1}{c|}{\shortstack{\textbf{Initial}\\\textbf{record}\\\textbf{(years)}}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
     6  & 3 & $0.70$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $82.9\pm9.6$ & $0.94\pm0.5$ \\
     6  & 5 & $0.68$ & $0.27\pm0.2$ & $0.38\pm0.3$ & $89.4\pm9.5$ & $1.11\pm0.8$ \\
@@ -182,10 +186,6 @@ The monthly estimates followed the observed deformation under the 6-month (\Cref
     \bottomrule
   \end{tabular}
 \end{table}
-
-Average coverage of the posterior predictive intervals ranged from 77.8 to 89.4\% and remained below the nominal 90\% level in every scenario. Average interval width increased with initial-record length under both measurement schedules, but the wider intervals did not consistently correspond to higher coverage.
-
-Extending the initial monthly record from three to eight years did not progressively improve estimation. The 5-year record produced the lowest average monthly MAE under both schedules, whereas the 8-year record did not improve upon it. Average $R^2$ also remained within a narrow range of 0.66--0.70 across the six scenarios. At Tuku, the 3-year initial record therefore provided monthly accuracy similar to the longer records, although extending the measurement interval to twelve months increased the error accumulated by the next MLCW measurement.
 
 \FloatBarrier
 
