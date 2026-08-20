@@ -40,50 +40,51 @@ The monthly time series in \Cref{fig:results_delayed_monthly_estimates} show thi
 
 \FloatBarrier
 
-The depth contrast visible in the time series and scatter plots was also present in the error statistics (\Cref{tab:delayed_performance_interval}). Across all six depth sections, RMSE was 0.423~mm/month and MAE was 0.279~mm/month. Errors were smaller in S1--S4 than in S5 and S6, with S5 showing the largest RMSE and MAE.
+The depth contrast visible in the time series and scatter plots was also present in the error statistics (\Cref{tab:delayed_performance_interval}). Across the six depth sections, RMSE ranged from 0.21 to 0.66~mm/month and MAE ranged from 0.15 to 0.50~mm/month. Errors were smaller in S1--S4 than in S5 and S6, with S5 showing the largest RMSE and MAE.
 
-The 90\% Bayesian posterior predictive intervals contained 78.1\% of the observations, below the nominal 90\% level, indicating the intervals were narrower than required. Possible sources of this gap are considered in \Cref{subsec:discussion_limitations}. Point-estimate error was worst in S5 and S6. Coverage, at 81.2\% in S5 and 65.9\% in S6, was not worst in both of those same sections. It reached its lowest value in S6, while S1 (74.6\%) and S3 (73.9\%) also fell below S5. Reliability therefore did not follow the same depth pattern as point-estimate error.
+The 90\% Bayesian posterior predictive intervals contained between 65.9\% and 88.4\% of the observations across the six sections, below the nominal 90\% level in every section, indicating the intervals were narrower than required. Possible sources of this gap are considered in \Cref{subsec:discussion_limitations}. Point-estimate error was worst in S5 and S6. Coverage, at 81.2\% in S5 and 65.9\% in S6, was not worst in both of those same sections. It reached its lowest value in S6, while S1 (74.6\%) and S3 (73.9\%) also fell below S5. Reliability therefore did not follow the same depth pattern as point-estimate error.
 
+% Source: diag_28_sec4_meansd_tables.py (sec4_1 window, station=TUKU, datetime<=2024-10-01;
+% reproduces performance_by_section.csv / interval_coverage_by_section.csv exactly)
 \begin{table}[htbp]
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption[Performance and posterior predictive interval statistics during delayed MLCW delivery.]{Point-estimate errors, model fit, and 90\% Bayesian posterior predictive interval statistics for monthly deformation estimates. Each depth section contains 138 estimates. RMSE, MAE, and Width are reported in mm/month. The row labelled All combines estimates from the six sections.}
+  \caption[Performance and posterior predictive interval statistics during delayed MLCW delivery.]{Point-estimate errors, model fit, and 90\% posterior predictive interval statistics for monthly deformation estimates, one row per depth section ($n=138$ estimates each). Metrics defined in \Cref{tab:evaluation_metrics}.}
   \label{tab:delayed_performance_interval}
-  \begin{tabular}{lrrrrr}
+  \begin{tabular}{l|r|r|r|r|r}
     \toprule
-    \textbf{Section} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} & \textbf{Coverage (\%)} & \textbf{Width} \\
+    \multicolumn{1}{c|}{\textbf{Section}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
-    S1 & 0.888 & 0.212 & 0.178 & 74.6 & 0.541 \\
-    S2 & 0.976 & 0.239 & 0.182 & 88.4 & 0.637 \\
-    S3 & 0.870 & 0.229 & 0.153 & 73.9 & 0.442 \\
-    S4 & 0.798 & 0.311 & 0.259 & 84.8 & 0.984 \\
-    S5 & 0.077 & 0.661 & 0.503 & 81.2 & 1.847 \\
-    S6 & 0.338 & 0.621 & 0.396 & 65.9 & 0.971 \\
-    \midrule
-    All & 0.778 & 0.423 & 0.279 & 78.1 & 0.904 \\
+    S1 & 0.89 & 0.21 & 0.18 & 74.6 & 0.54 \\
+    S2 & 0.98 & 0.24 & 0.18 & 88.4 & 0.64 \\
+    S3 & 0.87 & 0.23 & 0.15 & 73.9 & 0.44 \\
+    S4 & 0.80 & 0.31 & 0.26 & 84.8 & 0.98 \\
+    S5 & 0.08 & 0.66 & 0.50 & 81.2 & 1.85 \\
+    S6 & 0.34 & 0.62 & 0.40 & 65.9 & 0.97 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Monthly estimation errors did not increase steadily with time since the preceding MLCW update (\Cref{tab:delayed_performance_by_month}). MAE ranged from 0.251 to 0.336~mm/month across the six positions, with the highest value in month 2 rather than month 6.
+Monthly estimation errors did not increase steadily with time since the preceding MLCW update (\Cref{tab:delayed_performance_by_month}). Mean MAE ranged from 0.25 to 0.34~mm/month across the six month positions, with the highest value at position 2 rather than position 6. $R^2$ varied more widely among positions than either error metric, from a mean of 0.34 at position 1 to a mean of 0.61 at position 4, with the standard deviation across sections at every position ($0.2$--$0.5$) reflecting the same S1--S4 versus S5--S6 depth contrast already visible in \Cref{tab:delayed_performance_interval}.
 
+% Source: diag_28_sec4_meansd_tables.py (sec4_1_by_month.csv; per-section-then-mean+-SD, n=6 sections per cell)
 \begin{table}[htbp]
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption[Performance by month position within each estimation cycle.]{Performance grouped by month position within each six-month estimation cycle. Each monthly position contains 138 estimates. Mean error follows $e=\hat{y}-y$. MAE, RMSE, Mean error, and Width are reported in mm/month.}
+  \caption[Performance by month position within each estimation cycle.]{Performance by months since the last cumulative MLCW update (month 1--6 of each six-month cycle, not calendar months). Mean $\pm$ SD, $n=6$ sections; metrics per \Cref{tab:evaluation_metrics}.}
   \label{tab:delayed_performance_by_month}
-  \begin{tabular}{lrrrrr}
+  \begin{tabular}{l|r|r|r|r|r}
     \toprule
-    \textbf{Month} & \textbf{MAE} & \textbf{RMSE} & \textbf{Mean error} & \textbf{Coverage (\%)} & \textbf{Width} \\
+    \multicolumn{1}{c|}{\textbf{Months since retrain}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
-    1 & 0.251 & 0.353 & $-0.013$ & 80.4 & 0.909 \\
-    2 & 0.336 & 0.592 & $-0.001$ & 73.2 & 0.910 \\
-    3 & 0.273 & 0.391 & $-0.001$ & 79.0 & 0.905 \\
-    4 & 0.275 & 0.376 & 0.048 & 74.6 & 0.904 \\
-    5 & 0.257 & 0.352 & 0.043 & 82.6 & 0.896 \\
-    6 & 0.280 & 0.423 & 0.007 & 79.0 & 0.897 \\
+    1 & $0.34\pm0.2$ & $0.25\pm0.1$ & $0.31\pm0.2$ & $80.4\pm7.7$ & $0.91\pm0.5$ \\
+    2 & $0.43\pm0.4$ & $0.34\pm0.2$ & $0.50\pm0.4$ & $73.2\pm14.1$ & $0.91\pm0.5$ \\
+    3 & $0.57\pm0.5$ & $0.27\pm0.1$ & $0.36\pm0.2$ & $79.0\pm10.1$ & $0.91\pm0.5$ \\
+    4 & $0.61\pm0.5$ & $0.28\pm0.1$ & $0.34\pm0.2$ & $74.6\pm8.4$ & $0.90\pm0.5$ \\
+    5 & $0.58\pm0.5$ & $0.26\pm0.1$ & $0.32\pm0.2$ & $82.6\pm9.9$ & $0.90\pm0.5$ \\
+    6 & $0.49\pm0.5$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $79.0\pm11.8$ & $0.90\pm0.5$ \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -99,7 +100,7 @@ The fitted coefficients also varied among depth sections. To summarize these dif
   \setlength{\tabcolsep}{3.5pt}
   \caption[Selected standardized coefficients across depth sections.]{Selected standardized coefficients across the six depth sections. Each cell gives the median and the range from the 10th to the 90th percentile after combining coefficient results from 24 model updates with equal weight, including the update from the final, partially scored six-month cycle. Bold marks ranges that were entirely positive or negative; a dash means that the variable was not used for that section.}
   \label{tab:selected_coefficients}
-  \begin{tabular}{@{}p{0.29\textheight}*{6}{c}@{}}
+  \begin{tabular}{@{}p{0.29\textheight}|*{5}{c|}c@{}}
     \toprule
     \textbf{Driving feature} & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \textbf{S5} & \textbf{S6} \\
     \midrule
@@ -137,7 +138,7 @@ Each monthly estimate used hydraulic-head and cGNSS observations available throu
 \subsection{Estimation under reduced MLCW measurement frequency}
 \label{subsec:results_reduced_frequency}
 
-Less frequent MLCW field measurements changed the error at the next cumulative observation more clearly than the error in individual monthly estimates. Monthly hydraulic-head and cGNSS observations remained available between MLCW measurements, and the hidden monthly MLCW observations were used only for retrospective evaluation. The 3-, 5-, and 8-year initial records were evaluated over the same 72 months from 05/2018 to 04/2024.
+Less frequent MLCW field measurements changed the error at the next cumulative observation more clearly than the error in individual monthly estimates. Monthly hydraulic-head and cGNSS observations remained available between MLCW measurements, and the hidden monthly MLCW observations were used only for retrospective evaluation. The 3-, 5-, and 8-year initial records were evaluated over the same 72 months from 05/2018 to 04/2024, giving 72 endpoint comparisons under the 6-month schedule and 36 under the 12-month schedule.
 
 The 3-year initial record provided the visual example for both measurement intervals (\Cref{fig:results_reduced_frequency_3yr}).
 
@@ -155,37 +156,41 @@ The 3-year initial record provided the visual example for both measurement inter
   \caption[]{(b) 12-month measurement schedule.}
 \end{figure}
 
+\FloatBarrier
+
+% Source: diag_28_sec4_meansd_tables.py (sec4_2_meansd.csv; per-section-then-mean+-SD, n=6 sections per row)
 \begin{table}[htbp]
   \centering
   \footnotesize
   \setlength{\tabcolsep}{3pt}
   \renewcommand{\arraystretch}{1.2}
-  \caption[Monthly and endpoint errors under reduced MLCW measurement frequency.]{Monthly and endpoint errors across the six depth sections at Tuku, evaluated over the identical 72-month period (05/2018--04/2024) in every scenario, with 432 monthly estimates per row. Endpoint MAE describes the difference between the accumulated monthly estimates and the next cumulative MLCW measurement (72 endpoints per row for the 6-month schedule, 36 for the 12-month schedule).}
+  \caption[Monthly errors under reduced MLCW measurement frequency.]{Monthly errors at Tuku, evaluated over the identical 72-month period (05/2018--04/2024) in every scenario. Mean $\pm$ SD, $n=6$ sections; metrics per \Cref{tab:evaluation_metrics}. Full per-section values: \Cref{supp-tab:supp_reduced_frequency_monthly_full}.}
   \label{tab:results_reduced_frequency}
-  \begin{tabular}{ccrrrrr}
+  \begin{tabular}{c|c|r|r|r|r|r}
     \toprule
-    \shortstack{\textbf{MLCW interval}\\\textbf{(months)}} & \shortstack{\textbf{Initial record}\\\textbf{(years)}} & \shortstack{\textbf{Monthly MAE}\\\textbf{(mm/month)}} & \shortstack{\textbf{Monthly RMSE}\\\textbf{(mm/month)}} & \shortstack{\textbf{Coverage}\\\textbf{(\%)}} & \shortstack{\textbf{Width}\\\textbf{(mm/month)}} & \shortstack{\textbf{Endpoint MAE}\\\textbf{(mm)}} \\
+    \multicolumn{1}{c|}{\shortstack{\textbf{Sampling}\\\textbf{interval}\\\textbf{(months)}}} & \multicolumn{1}{c|}{\shortstack{\textbf{Initial}\\\textbf{record}\\\textbf{(years)}}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
-    6  & 3 & 0.278 & 0.433 & 82.9 & 0.943 & 1.405 \\
-    6  & 5 & 0.269 & 0.443 & 89.4 & 1.109 & 1.426 \\
-    6  & 8 & 0.299 & 0.448 & 87.3 & 1.352 & 1.542 \\
-    12 & 3 & 0.287 & 0.441 & 77.8 & 0.872 & 2.470 \\
-    12 & 5 & 0.273 & 0.446 & 86.6 & 1.072 & 2.474 \\
-    12 & 8 & 0.308 & 0.454 & 81.9 & 1.317 & 2.738 \\
+    6  & 3 & $0.70\pm0.3$ & $0.28\pm0.2$ & $0.37\pm0.2$ & $82.9\pm9.6$ & $0.94\pm0.5$ \\
+    6  & 5 & $0.68\pm0.4$ & $0.27\pm0.2$ & $0.38\pm0.3$ & $89.4\pm9.5$ & $1.11\pm0.8$ \\
+    6  & 8 & $0.67\pm0.3$ & $0.30\pm0.1$ & $0.40\pm0.2$ & $87.3\pm9.0$ & $1.35\pm0.8$ \\
+    \midrule
+    12 & 3 & $0.69\pm0.3$ & $0.29\pm0.2$ & $0.39\pm0.2$ & $77.8\pm9.5$ & $0.87\pm0.5$ \\
+    12 & 5 & $0.68\pm0.4$ & $0.27\pm0.2$ & $0.38\pm0.2$ & $86.6\pm12.7$ & $1.07\pm0.7$ \\
+    12 & 8 & $0.66\pm0.3$ & $0.31\pm0.1$ & $0.41\pm0.2$ & $81.9\pm12.0$ & $1.32\pm0.9$ \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Monthly MAE remained between 0.269 and 0.308~mm/month across the six scenarios (\Cref{tab:results_reduced_frequency}). By contrast, endpoint MAE ranged from 1.405 to 1.542~mm for the 6-month schedule and from 2.470 to 2.738~mm for the 12-month schedule. The longer measurement interval therefore produced larger differences between accumulated monthly estimates and the next cumulative MLCW observation.
+Mean monthly MAE across the six depth sections remained between 0.27 and 0.31~mm/month across the six scenarios (\Cref{tab:results_reduced_frequency}). Mean $R^2$ ranged from 0.66 to 0.70 and did not differ consistently between the 6-month and 12-month schedules. In every scenario the standard deviation across sections was large relative to the mean --- for $R^2$, the standard deviation exceeded 0.3 in all six scenarios --- reflecting the same S1--S4 versus S5--S6 depth contrast already documented in \Cref{subsec:results_delayed_delivery}; full per-section values are given in \Cref{supp-tab:supp_reduced_frequency_monthly_full}.
 
-Extending the initial record from 3 to 8 years did not reduce error consistently. The 5-year record produced the lowest monthly MAE under both schedules, whereas the 8-year record produced the highest monthly and endpoint MAE. Coverage of the nominal 90\% intervals ranged from 77.8 to 89.4\%, remaining below the nominal level in all six scenarios. As in \Cref{subsec:results_delayed_delivery}, this shortfall reflects the discrepancy between the observed coverage and the nominal interval level rather than a difference in interval width; possible mechanisms are discussed in \Cref{subsec:discussion_limitations}.
+Extending the initial record from 3 to 8 years did not reduce mean monthly MAE consistently. The 5-year record produced the lowest mean monthly MAE under both schedules, whereas the 8-year record produced the highest. Mean coverage of the nominal 90\% intervals ranged from 77.8 to 89.4\%, remaining below the nominal level in all six scenarios on average. As in \Cref{subsec:results_delayed_delivery}, this shortfall reflects the discrepancy between the observed coverage and the nominal interval level rather than a difference in interval width; possible mechanisms are discussed in \Cref{subsec:discussion_limitations}.
 
 \FloatBarrier
 
 \subsection{Estimation without subsequent MLCW measurements}
 \label{subsec:results_no_subsequent_mlcw}
 
-Without subsequent MLCW measurements, monthly errors remained within a narrow range among the three initial-record lengths. Each model was calibrated once and evaluated over the same 80 months from 05/2018 to 12/2024 while monthly hydraulic-head and cGNSS observations remained available. Pooled across the three initial-record lengths, monthly MAE ranged from 0.218 to 0.256~mm/month and RMSE ranged from 0.406 to 0.432~mm/month.
+Without subsequent MLCW measurements, monthly errors remained within a narrow range among the three initial-record lengths. Each model was calibrated once and evaluated over the same 80 months from 05/2018 to 12/2024 while monthly hydraulic-head and cGNSS observations remained available. Averaged across the six depth sections, mean monthly MAE ranged from 0.26 to 0.29~mm/month and mean RMSE ranged from 0.36 to 0.40~mm/month across the three initial-record lengths (\Cref{tab:results_no_subsequent_mlcw_interval}).
 
 Cumulative errors varied among depth sections and, by month 80, ended at different values (\Cref{fig:results_no_subsequent_mlcw_cumulative_error}). At the end of the 80-month evaluation period, S4 had the largest absolute cumulative error under all three initial-record lengths (\Cref{tab:results_no_subsequent_mlcw_h80}). The 8-year initial record reduced this error in S4--S6. It did not produce the smallest value in every section. The 5-year record performed better than the 8-year record in S1 and S2.
 
@@ -202,9 +207,9 @@ Cumulative errors varied among depth sections and, by month 80, ended at differe
   \renewcommand{\arraystretch}{1.15}
   \caption[Absolute cumulative deformation error without subsequent MLCW measurements.]{Absolute cumulative deformation error after 80 months without subsequent MLCW measurements. Values give $A_{s,80}=|E_{s,80}|$ in mm for each depth section: the absolute value of the accumulated signed error, not the sum of monthly absolute errors. Models used the stated initial MLCW record, all ending calibration on the same calendar date, and were not updated thereafter. All scenarios span the identical 80-month period (05/2018--12/2024).}
   \label{tab:results_no_subsequent_mlcw_h80}
-  \begin{tabular}{lrrr}
+  \begin{tabular}{l|r|r|r}
     \toprule
-    \textbf{Section} & \textbf{3-year initial record} & \textbf{5-year initial record} & \textbf{8-year initial record} \\
+    \multicolumn{1}{c|}{\textbf{Section}} & \multicolumn{1}{c|}{\textbf{3-year initial record}} & \multicolumn{1}{c|}{\textbf{5-year initial record}} & \multicolumn{1}{c}{\textbf{8-year initial record}} \\
     \midrule
     S1 & 5.540 & 4.794 & 5.755 \\
     S2 & 5.262 & 2.254 & 2.437 \\
@@ -216,25 +221,22 @@ Cumulative errors varied among depth sections and, by month 80, ended at differe
   \end{tabular}
 \end{table}
 
-Coverage of the nominal 90\% intervals ranged from 59.2 to 85.0\% across depth sections, pooled over all three initial-record lengths, remaining below the nominal level in every section (\Cref{tab:results_no_subsequent_mlcw_interval}). As in \Cref{subsec:results_delayed_delivery}, this shortfall reflects the discrepancy between the observed coverage and the nominal interval level rather than a difference in interval width; possible mechanisms are discussed in \Cref{subsec:discussion_limitations}.
+Mean coverage of the nominal 90\% intervals, averaged across the six depth sections, ranged from 65.6 to 79.8\% across the three initial-record lengths, remaining below the nominal level on average in every scenario (\Cref{tab:results_no_subsequent_mlcw_interval}). As in \Cref{subsec:results_delayed_delivery}, this shortfall reflects the discrepancy between the observed coverage and the nominal interval level rather than a difference in interval width; possible mechanisms are discussed in \Cref{subsec:discussion_limitations}.
 
+% Source: diag_28_sec4_meansd_tables.py (sec4_3_meansd.csv; per-section-then-mean+-SD, n=6 sections per row)
 \begin{table}[htbp]
   \centering
   \small
   \renewcommand{\arraystretch}{1.2}
-  \caption[Monthly error and posterior predictive interval statistics without subsequent MLCW measurements.]{Monthly error and posterior predictive interval statistics without subsequent MLCW measurements, pooled across the three initial-record lengths for each depth section (240 estimates per row) and across all scenarios for the All row (1440 estimates).}
+  \caption[Monthly error and posterior predictive interval statistics without subsequent MLCW measurements.]{Monthly errors at Tuku, evaluated over the identical 80-month period (05/2018--12/2024) in every scenario. Mean $\pm$ SD, $n=6$ sections; metrics per \Cref{tab:evaluation_metrics}. Full per-section values: \Cref{supp-tab:supp_no_subsequent_mlcw_monthly_full}.}
   \label{tab:results_no_subsequent_mlcw_interval}
-  \begin{tabular}{lrrrr}
+  \begin{tabular}{l|r|r|r|r|r}
     \toprule
-    \textbf{Section} & \shortstack{\textbf{MAE}\\\textbf{(mm/month)}} & \shortstack{\textbf{RMSE}\\\textbf{(mm/month)}} & \shortstack{\textbf{Coverage}\\\textbf{(\%)}} & \shortstack{\textbf{Width}\\\textbf{(mm/month)}} \\
+    \multicolumn{1}{c|}{\shortstack{\textbf{Initial}\\\textbf{record}\\\textbf{(years)}}} & \multicolumn{1}{c|}{\textbf{$R^2$}} & \multicolumn{1}{c|}{\textbf{MAE}} & \multicolumn{1}{c|}{\textbf{RMSE}} & \multicolumn{1}{c|}{\textbf{Coverage (\%)}} & \multicolumn{1}{c}{\textbf{Width}} \\
     \midrule
-    S1  & 0.197 & 0.229 & 85.0 & 0.703 \\
-    S2  & 0.149 & 0.215 & 74.6 & 0.556 \\
-    S3  & 0.138 & 0.276 & 74.2 & 0.421 \\
-    S4  & 0.165 & 0.277 & 59.2 & 1.010 \\
-    S5  & 0.391 & 0.566 & 76.2 & 1.665 \\
-    S6  & 0.356 & 0.693 & 79.2 & 1.281 \\
-    All & 0.233 & 0.419 & 74.7 & 0.939 \\
+    3 & $0.71\pm0.3$ & $0.26\pm0.1$ & $0.36\pm0.2$ & $65.6\pm18.4$ & $0.62\pm0.3$ \\
+    5 & $0.70\pm0.3$ & $0.26\pm0.1$ & $0.37\pm0.2$ & $79.8\pm26.0$ & $0.97\pm0.7$ \\
+    8 & $0.67\pm0.3$ & $0.29\pm0.1$ & $0.40\pm0.2$ & $78.8\pm19.1$ & $1.23\pm0.9$ \\
     \bottomrule
   \end{tabular}
 \end{table}

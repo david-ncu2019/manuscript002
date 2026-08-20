@@ -11,7 +11,8 @@
 \usepackage{placeins}
 \usepackage{caption}
 \usepackage{subcaption}
-\DeclareCaptionLabelFormat{continued}{Continued #1~#2}
+\captionsetup{labelfont=bf}
+\DeclareCaptionLabelFormat{continued}{#1~#2 (cont.)}
 \captionsetup[ContinuedFloat]{labelformat=continued}
 \usepackage{makecell}
 \usepackage{tabularx}
@@ -32,6 +33,8 @@
 \usepackage{soul}
 \usepackage{lineno}
 \usepackage{hyperref}
+\usepackage{xr-hyper}
+\externaldocument[supp-]{supplement}
 \usepackage{cleveref}
 
 \onehalfspacing
