@@ -192,13 +192,27 @@ The Bayesian posterior predictive intervals provided a separate assessment of un
 \subsection{Estimation without subsequent MLCW measurements}
 \label{subsec:results_no_subsequent_mlcw}
 
-In the absence of subsequent MLCW measurements, monthly estimation accuracy changed little among the three initial-record lengths. Each model remained fixed, while monthly hydraulic head and vertical surface displacement observations continued throughout the common 80-month evaluation period. Average monthly MAE across the six depth sections was 0.26~mm/month for both the 3- and 5-year initial records and 0.29~mm/month for the 8-year record. Average RMSE remained between 0.36 and 0.40~mm/month (\Cref{tab:results_no_subsequent_mlcw_interval}).
+After the initial calibration period, monthly hydraulic head and vertical surface displacement observations continued to provide model inputs, while no subsequent MLCW measurements were incorporated. For the 3-year initial record, the correspondence between observed and estimated monthly deformation increments was clearest in S1--S4 (\Cref{fig:results_no_subsequent_mlcw_timeseries}). The corresponding time series for the 5- and 8-year initial records are provided in \Cref{supp-fig:supp_no_subsequent_mlcw_timeseries}.
 
-These similar monthly errors did not imply equally close agreement in cumulative deformation. Absolute cumulative error increased or decreased as errors from later months reinforced or offset those accumulated earlier (\Cref{fig:results_no_subsequent_mlcw_cumulative_error}). By month 80, the average absolute cumulative error across the six sections decreased from 7.393~mm for the 3-year initial record to 6.686~mm for the 5-year record and 4.286~mm for the 8-year record (\Cref{tab:results_no_subsequent_mlcw_h80}). S4 nevertheless had the largest final error under all three initial-record lengths. The 8-year record reduced this error from 15.075 to 8.747~mm, but it did not produce the smallest final error in every section.
+This correspondence was also reflected in the monthly error statistics. Average $R^2$ across the six depth sections ranged from 0.67 to 0.71, average MAE ranged from 0.26 to 0.29~mm/month, and average RMSE ranged from 0.36 to 0.40~mm/month (\Cref{tab:results_no_subsequent_mlcw_interval}). The running MAE and RMSE varied during the evaluation period without a common increase across the six depth sections (\Cref{supp-fig:supp_no_subsequent_mlcw_running_errors}). Extending the initial record from three to eight years therefore did not produce a consistent reduction in monthly estimation error.
 
-Average coverage of the 90\% posterior predictive intervals was 65.6, 79.8, and 78.8\% for the 3-, 5-, and 8-year initial records, respectively. These values remained below the nominal level despite an increase in average interval width from 0.62 to 1.23~mm (\Cref{tab:results_no_subsequent_mlcw_interval}).
+Although monthly errors remained similar, their cumulative effects developed differently among the depth sections and initial-record lengths. By month 80, the average absolute cumulative error across the six sections was 7.393, 6.686, and 4.286~mm for the 3-, 5-, and 8-year initial records, respectively (\Cref{fig:results_no_subsequent_mlcw_cumulative_error,tab:results_no_subsequent_mlcw_h80}). S4 had the largest final error under all three initial-record lengths. The 8-year record reduced this error from 15.075 to 8.747~mm, although it did not produce the smallest final error in every section.
 
-At Tuku, a longer initial record therefore reduced the long-term cumulative discrepancy more clearly than the typical monthly error, but it did not prevent error accumulation in every depth section. Monthly accuracy and cumulative agreement consequently provided different assessments of model performance without subsequent MLCW measurements.
+The posterior predictive intervals provided a separate description of the monthly estimates. Average coverage of the nominal 90\% intervals was 65.6, 79.8, and 78.8\% for the 3-, 5-, and 8-year initial records, respectively, while average interval width increased from 0.62 to 1.23~mm (\Cref{tab:results_no_subsequent_mlcw_interval}). The three initial records therefore produced similar monthly errors but different cumulative-error trajectories and posterior interval statistics over the common evaluation period.
+
+\begin{figure}[tp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_no_subsequent_mlcw_timeseries_3yr_s1_s3.pdf}
+  \caption[Observed and estimated monthly deformation without subsequent MLCW measurements.]{Observed and estimated monthly deformation increments for S1--S3 during the 80 months following the 3-year initial record. Shaded bands show the 90\% Bayesian posterior predictive intervals.}
+  \label{fig:results_no_subsequent_mlcw_timeseries}
+\end{figure}
+
+\begin{figure}[tp]
+  \ContinuedFloat
+  \centering
+  \includegraphics[width=0.98\textwidth]{figures/fig_results_no_subsequent_mlcw_timeseries_3yr_s4_s6.pdf}
+  \caption[]{Observed and estimated monthly deformation increments for S4--S6, continued.}
+\end{figure}
 
 \begin{figure}[htbp]
   \centering

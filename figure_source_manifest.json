@@ -123,6 +123,104 @@
       "generated_at": "2026-08-20T21:57:16+08:00",
       "sha256": "13EDBF10B3F9FF34D8F9AAE8EF08080D19E6A62799FCB36D787067544DEFAF7F",
       "revision_note": "Tick label fontsize increased by 2 (from TICK_FONT_SIZE - 1 to TICK_FONT_SIZE - 1 + 2, i.e. 11pt to 13pt) via this function's own axis.tick_params(labelsize=...) override, which sits after and overrides apply_panel_style()'s default y-tick styling for this figure only. Tick *length* (major/minor) still comes from the shared apply_panel_style() increase, since this figure's own override only sets labelsize, not length. R2/RMSE/MAE values and scatter content unchanged. No filter concept applies -- all 6 sections plotted from the full checkpoint with no subsetting beyond section membership."
+    },
+    {
+      "figure_id": "fig_results_no_subsequent_mlcw_timeseries_3yr_s1_s3",
+      "destination_path": "figures/fig_results_no_subsequent_mlcw_timeseries_3yr_s1_s3.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_timeseries}, S1--S3 page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": 3,
+        "sections": ["S1", "S2", "S3"],
+        "months_since_common_end": [1, 80]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-23T16:54:08+08:00",
+      "sha256": "A97CC90485C5D30167AC0A9C20721DA112D1D10A20D41FE5367E87D90A1FD60E"
+    },
+    {
+      "figure_id": "fig_results_no_subsequent_mlcw_timeseries_3yr_s4_s6",
+      "destination_path": "figures/fig_results_no_subsequent_mlcw_timeseries_3yr_s4_s6.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_timeseries}, S4--S6 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": 3,
+        "sections": ["S4", "S5", "S6"],
+        "months_since_common_end": [1, 80]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-23T16:54:08+08:00",
+      "sha256": "62E1D74BD52F89235EB3150E4807BC480E93CEB628EAA7E0F62CD82F6A185BBE"
+    },
+    {
+      "figure_id": "fig_supp_no_subsequent_mlcw_timeseries_5yr_s1_s3",
+      "destination_path": "figures/fig_supp_no_subsequent_mlcw_timeseries_5yr_s1_s3.pdf",
+      "manuscript_reference": "supplement001.tex, \\label{fig:supp_no_subsequent_mlcw_timeseries}, 5-year S1--S3 page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": 5,
+        "sections": ["S1", "S2", "S3"],
+        "months_since_common_end": [1, 80]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-23T16:54:08+08:00",
+      "sha256": "80065FE193BC07AFFDCB805190EE5BBC0E2E274B2856B57492DD600C0C16E21D"
+    },
+    {
+      "figure_id": "fig_supp_no_subsequent_mlcw_timeseries_5yr_s4_s6",
+      "destination_path": "figures/fig_supp_no_subsequent_mlcw_timeseries_5yr_s4_s6.pdf",
+      "manuscript_reference": "supplement001.tex, \\label{fig:supp_no_subsequent_mlcw_timeseries}, 5-year S4--S6 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": 5,
+        "sections": ["S4", "S5", "S6"],
+        "months_since_common_end": [1, 80]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-23T16:54:08+08:00",
+      "sha256": "F3864783B7C9606BE8098C25F9E79301E3E7AA99CAE225A20EADA493678C48EB"
+    },
+    {
+      "figure_id": "fig_supp_no_subsequent_mlcw_timeseries_8yr_s1_s3",
+      "destination_path": "figures/fig_supp_no_subsequent_mlcw_timeseries_8yr_s1_s3.pdf",
+      "manuscript_reference": "supplement001.tex, \\label{fig:supp_no_subsequent_mlcw_timeseries}, 8-year S1--S3 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": 8,
+        "sections": ["S1", "S2", "S3"],
+        "months_since_common_end": [1, 80]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-23T16:54:08+08:00",
+      "sha256": "D07DE3A0FA4177B1B52FE677E645BE891DA44154FDB3D3ABC7D1342FA363815C"
+    },
+    {
+      "figure_id": "fig_supp_no_subsequent_mlcw_timeseries_8yr_s4_s6",
+      "destination_path": "figures/fig_supp_no_subsequent_mlcw_timeseries_8yr_s4_s6.pdf",
+      "manuscript_reference": "supplement001.tex, \\label{fig:supp_no_subsequent_mlcw_timeseries}, 8-year S4--S6 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": 8,
+        "sections": ["S4", "S5", "S6"],
+        "months_since_common_end": [1, 80]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-23T16:54:08+08:00",
+      "sha256": "B1A5066127324D9351446EBA4CA2497062A57BA736CE2866878EB403D742AC56"
+    },
+    {
+      "figure_id": "fig_supp_no_subsequent_mlcw_running_errors",
+      "destination_path": "figures/fig_supp_no_subsequent_mlcw_running_errors.pdf",
+      "manuscript_reference": "supplement001.tex, \\label{fig:supp_no_subsequent_mlcw_running_errors}",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": [3, 5, 8],
+        "value_columns": ["monthly_mae_mm", "cum_rmse_mm"],
+        "months_since_common_end": [1, 80]
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-23T16:54:08+08:00",
+      "sha256": "7797442260EAFE3BC0A8881422D4CE25FF72592D87E4EABEAA70F2592E7AEE76"
     }
   ],
   "common_provenance": {
