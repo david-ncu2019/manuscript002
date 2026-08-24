@@ -19,8 +19,11 @@
 - Q11 and the fabricated-sinusoid comparison remain internal reviewer-response evidence and must not appear in Results or Discussion.
 - Report observations before interpretations. Do not introduce new numerical results in Discussion.
 - Do not claim that cGNSS or hydraulic head contributes unique information beyond seasonal variation. State only that the fitted model combined hydraulic head, vertical surface displacement, and seasonal variables.
+- Lithology is used only to interpret differences among depth sections. It is not a model input and must not be described as one in Results or Discussion.
 - Do not recommend a 3-, 5-, or 8-year initial record, a 6- or 12-month schedule, or permanent cessation of MLCW measurements.
 - Keep limitations in Subsection 5.3. Earlier Discussion subsections may qualify a claim but must not repeat the limitations catalogue.
+- Do not reintroduce the obsolete dataset-snapshot incomparability caveat. All three monitoring conditions use the same dataset snapshot and 38-predictor scope.
+- Do not restate or speculate about an S5 physical mechanism in Subsection 5.3.
 - Use two decimal places for ordinary deformation values. Use three decimal places for paired MAE differences and their 95% intervals because two decimal places would erase signs or produce misleading `0.00` values.
 - Add one `% NOTE: ... %` immediately below every new Discussion paragraph to state its intended message in plain Vietnamese for author review.
 - Preserve the current labels and citation keys. Add no citation unless the cited source has been checked for the exact claim.
@@ -101,7 +104,8 @@ git add -- sections/results004.tex sections/supplement001.tex figure_source_mani
 git commit -m "checkpoint: align no-subsequent-MLCW results with revised figures"
 ```
 
-If the ignored PDF is not staged, use `git add -f -- figures/fig_results_no_subsequent_mlcw_cumulative_error.pdf` and rerun the same commit. Do not add any other ignored PDF.
+% NOTE : Đã kiểm tra `git status --short` — file PDF này hiện đang được git theo dõi và đã sửa đổi (` M`), KHÔNG bị ignore/untracked như tiền đề của câu trên giả định. Vì vậy `git add -f` là không cần thiết trong tình huống hiện tại; `git add` thường là đủ. Giữ lại nhánh dự phòng này vô hại (chỉ kích hoạt khi tiền đề đúng), nhưng không nên dùng `-f` một cách mặc định. %
+% AUTHOR DECISION: Chấp nhận. File PDF đang được Git theo dõi, nên kế hoạch chỉ sử dụng `git add` thông thường và đã xóa nhánh dự phòng `git add -f`. %
 
 ### Task 2: Add the approved Q12 and Q13 evidence needed by Discussion 5.2
 
@@ -117,23 +121,29 @@ If the ignored PDF is not staged, use `git add -f -- figures/fig_results_no_subs
 
 Insert one paragraph after the existing paragraph that compares the 3-, 5-, and 8-year monthly error series. Its exact scientific content must be:
 
-- Comparison basis: the same six depth sections and the same 432 section-month observations from 05/2018 through 04/2024.
-- Direction convention: reduced-frequency scenario minus delayed monthly-record scenario.
+- Comparison basis: the same six depth sections and the same 432 matched section-month observations from 05/2018 through 04/2024. These 432 observations equal 72 common months multiplied by six sections. For each section, the comparison uses 72 of the 138 months reported for the full Results 4.1 evaluation.
+- Direction convention: reduced-frequency scenario minus delayed monthly-record scenario, which is exactly the CSV convention `Section 4.2 minus Section 4.1`.
 - Main pattern: four of the six 95% intervals for the MAE difference included zero, so those four comparisons did not establish a stable direction of change.
-- Exceptions: the 8-year initial record had higher MAE under both schedules, with differences of `0.015 [0.002, 0.028]` mm/month for six-month measurements and `0.024 [0.004, 0.043]` mm/month for twelve-month measurements.
+- Exceptions: relative to the delayed monthly-record reference, the 8-year initial record had higher MAE under both reduced-frequency schedules, with differences of `0.015 [0.002, 0.028]` mm/month for six-month measurements and `0.024 [0.004, 0.043]` mm/month for twelve-month measurements.
 - Boundary: an interval containing zero does not establish equivalence.
 - Reference the new supplementary table with `\Cref{supp-tab:supp_reduced_frequency_vs_delayed}`.
 - Add a Vietnamese `% NOTE` explaining that the paragraph compares reduced-frequency estimation with the delayed-delivery reference over identical observations.
 
+% NOTE : Đã đối chiếu trực tiếp với `paired_metric_differences.csv` — cả 6 giá trị chênh lệch MAE và khoảng tin cậy 95% liệt kê ở Bước 3 (bảng 6 dòng) đều khớp chính xác với file CSV, và nhận định "4/6 khoảng chứa số 0" đúng về mặt số học. Tuy nhiên có 3 điểm cần làm rõ trước khi viết prose: (1) "Direction convention: reduced-frequency minus delayed" tương đương với quy ước gốc trong CSV là "Section 4.2 minus Section 4.1" — cần nói rõ ánh xạ này trong bước viết caption, đừng để ngầm hiểu rồi lỡ đảo dấu. (2) n=432 ở đây là một **tập con bị giới hạn** (chỉ 05/2018–04/2024) của toàn bộ giai đoạn 138 tháng đã dùng trong bảng `tab:delayed_performance_interval` ở §4.1 (05/2013–10/2024). Nếu không nói rõ điều này trong caption bảng mới, người đọc sẽ thấy hai bảng dùng "n" khác nhau cho cùng một đại lượng mà không hiểu tại sao — cần thêm câu giải thích khoảng thời gian chung bị thu hẹp. (3) Câu "8-year initial record had higher MAE under both schedules" (dòng Exceptions) chưa nói rõ cao hơn **so với cái gì** — theo CSV, đây là so với giá trị tham chiếu delayed-monthly-record cố định (không phải so với trường hợp 5 năm hay 3 năm). Cần ghi rõ vế so sánh để không bị nhầm với cặp số 0.031/0.036 của Q13 (khác hoàn toàn, xem ghi chú ở Bước 2 dưới). %
+% AUTHOR DECISION: Chấp nhận với một sửa thuật ngữ. `n=432` là 72 tháng chung nhân với 6 sections, không phải một tập con của `n=138` theo cùng đơn vị. Kế hoạch nay ghi rõ 72 tháng trên mỗi section được lấy từ 138 tháng trên mỗi section của Results 4.1, quy ước dấu là Results 4.2 trừ Results 4.1, và hai trường hợp 8 năm được so với delayed monthly-record reference. %
+
 - [ ] **Step 2: Add the Q13 comparison to Results 4.2**
 
-Insert the next paragraph so it begins from the initial-record question created by the Q12 paragraph. Its exact scientific content must be:
+Revise and extend the existing Results 4.2 paragraph that currently concludes that extending the initial record beyond three years did not consistently improve monthly estimation. Do not add a second paragraph that repeats this conclusion. The revised paragraph must use only rows with `comparison_type=monthly` and must contain this exact scientific content:
 
 - Main pattern: monthly MAE did not decline monotonically from 3 to 5 to 8 years under either measurement schedule.
 - Representative evidence: the 8-year record had higher MAE than the 5-year record by `0.031 [0.014, 0.047]` mm/month under the six-month schedule and `0.036 [0.018, 0.052]` mm/month under the twelve-month schedule.
 - Boundary: these comparisons do not establish that 3 years is adequate, 5 years is preferable, or 8 years is excessive.
 - Reference the new supplementary table with `\Cref{supp-tab:supp_initial_history_differences}`.
 - Add a Vietnamese `% NOTE` explaining that more historical observations did not guarantee lower monthly error over the common evaluation period.
+
+% NOTE : Đã đối chiếu với `pairwise_history_differences.csv` — 6 giá trị và khoảng tin cậy ở Bước 4 đều khớp chính xác, và kết luận "không giảm đơn điệu 3→5→8 năm" đúng về số học. Hai điểm cần xử lý trước khi thực thi: (1) File CSV này có một khối dòng THỨ HAI mang `comparison_type=endpoint` (không phải `monthly`) nhưng dùng CÙNG nhãn contrast ("8y minus 5y", v.v.) với giá trị hoàn toàn khác (ví dụ 8y-5y endpoint ở khoảng 6 tháng = 0.116, không phải 0.031). Nếu người thực thi tự tra lại CSV thay vì chép nguyên số đã có sẵn trong kế hoạch này, rất dễ nhầm sang khối endpoint. Bước 4 và caption bảng `tab:supp_initial_history_differences` phải ghi rõ chữ "monthly" để chặn nhầm lẫn này. (2) `results004.tex` dòng 136 đã có sẵn câu kết luận gần như trùng ý ("extending the initial record beyond three years therefore did not consistently improve monthly estimation accuracy") — đoạn mới ở Bước 2 này cần quyết định rõ: gộp vào câu đã có, hay giữ tách biệt vì đoạn mới bổ sung con số ghép cặp (paired comparison) mà câu cũ không có. Đừng để hai câu lặp ý nhau mà không có phân công rõ ràng. %
+% AUTHOR DECISION: Chấp nhận. Chỉ các dòng `comparison_type=monthly` được dùng. Bằng chứng Q13 sẽ được gộp vào đoạn Results 4.2 hiện có thay vì tạo một đoạn lặp lại cùng kết luận. %
 
 - [ ] **Step 3: Add the complete Q12 supplementary table**
 
@@ -148,7 +158,7 @@ Add a table labeled `\label{tab:supp_reduced_frequency_vs_delayed}` with six row
 | 12 months | 5 years | -0.012 | [-0.042, 0.020] |
 | 12 months | 8 years | 0.024 | [0.004, 0.043] |
 
-The caption must define the difference as reduced-frequency minus delayed monthly-record estimation, state `n=432` matched section-month observations per row, and explain that an interval containing zero does not demonstrate equivalence.
+The caption must define the difference as reduced-frequency minus delayed monthly-record estimation, explicitly map this to `Results 4.2 minus Results 4.1`, and state that each row uses 432 matched section-month observations from the common 72-month period. It must explain that the delayed reference contributes 72 months per section from the full 138-month-per-section Results 4.1 evaluation and that an interval containing zero does not demonstrate equivalence.
 
 - [ ] **Step 4: Add the complete Q13 supplementary table**
 
@@ -163,7 +173,7 @@ Add a table labeled `\label{tab:supp_initial_history_differences}` with six rows
 | 12 months | 8 years minus 3 years | 0.022 | [0.002, 0.037] |
 | 12 months | 8 years minus 5 years | 0.036 | [0.018, 0.052] |
 
-The caption must define each value as the longer initial record minus the shorter initial record, state `n=432` matched section-month observations per comparison, and explain that negative values favor the longer record only in the limited sense of lower MAE.
+The caption must identify the table as monthly-error comparisons, define each value as the longer initial record minus the shorter initial record, state `n=432` matched section-month observations per comparison, and explain that negative values favor the longer record only in the limited sense of lower monthly MAE. It must also state that endpoint rows from the source CSV are not included in this table.
 
 - [ ] **Step 5: Verify source parity and LaTeX references**
 
@@ -370,6 +380,9 @@ Keep:
 
 Delete only the placeholder command. Do not change references in Results that point to this label.
 
+% NOTE : Vấn đề ưu tiên cao nhất phát hiện được — placeholder hiện tại ở `discuss003.tex` dòng 9 chứa 3 yêu cầu của tác giả mà Task 5 (Bước 2-4 dưới đây) KHÔNG thực hiện đầy đủ nếu chỉ theo đúng cấu trúc 3 đoạn của Correspondence 9: (1) placeholder cấm rõ "DO NOT REINTRODUCE A SNAPSHOT-INCOMPARABILITY CAVEAT HERE" — không xuất hiện ở đâu trong Global Constraints hay Task 5. (2) placeholder cấm rõ "THE S5 MECHANISM MUST NOT BE RESTATED HERE" — chỉ được nhắc ở Task 3 (cho 5.1), không được dẫn chiếu lại cho 5.3. (3) placeholder yêu cầu một đoạn về "MEASUREMENT-SCOPE LIMITS OF THE CGNSS, HYDRAULIC HEAD, AND LITHOLOGICAL RECORDS" — nhưng 3 đoạn thực tế ở Bước 2-4 (ranh giới một trạm/depth-section, association-vs-mechanism, ranh giới posterior uncertainty) không có đoạn nào về giới hạn phạm vi đo của cGNSS/mực nước ngầm/địa tầng. Đây là mâu thuẫn thật giữa hai nguồn đã duyệt trước đó (placeholder cũ và Correspondence 9 mới hơn) — cần tác giả quyết định tường minh: giữ nguyên 2 điều cấm làm ràng buộc bổ sung cho Task 5, và quyết định chủ đề đo lường cGNSS/GWL/địa tầng có bị bỏ có chủ đích hay cần thêm một bước thứ 4 vào Task 5. Không được để bị ghi đè âm thầm. %
+% AUTHOR DECISION: Giữ cả hai điều cấm như global constraints. Không tạo limitations paragraph thứ tư. Giới hạn phạm vi đo được lồng vào đoạn association-versus-mechanism. Lithology chỉ dùng để diễn giải các depth sections và không phải model input. %
+
 - [ ] **Step 2: State the single-site and depth-section boundary**
 
 Write one paragraph that:
@@ -388,6 +401,7 @@ Write one paragraph that:
 - states that Bayesian ridge coefficients describe associations in the Tuku calibration record;
 - explains that shrinkage stabilizes fitting but does not identify causal mechanisms;
 - notes that the regression does not replace a coupled groundwater-flow and aquifer-system-deformation model;
+- explains the different observational support of the supporting data in one connected sentence: cGNSS represents the integrated surface response, hydraulic head represents measured or interpolated groundwater conditions, and lithology provides context for interpreting depth sections but is not a model input;
 - prevents the coefficient discussion from being read as proof that a particular hydraulic-head or surface-displacement variable causes deformation in one section.
 
 Use `\citep{dormann_collinearity_2013, hastie_elements_2009}` only if needed to support the statistical boundary. Add a Vietnamese `% NOTE` explaining the distinction between association and mechanism.
@@ -522,3 +536,4 @@ Stage `writing_manu2.bib` only if Task 3 or Task 5 required an actual bibliograp
 - Q11 remains outside the manuscript.
 - Every Discussion claim is linked to evidence already reported or added to Results and Supplementary Materials before interpretation.
 - The plan contains no unresolved implementation placeholder.
+- The four assistant review notes have explicit author decisions. Q12 sample support, Q13 monthly-row filtering, Git tracking of Figure 13, and the measurement-scope limitation are resolved before execution.
