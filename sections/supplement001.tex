@@ -60,6 +60,46 @@ This section reports the full per-section, per-scenario monthly and endpoint err
 \begin{table}[H]
   \centering
   \small
+  \renewcommand{\arraystretch}{1.15}
+  \caption[Paired monthly-MAE differences between reduced-frequency and delayed MLCW estimation.]{Paired differences in monthly MAE (mm/month) between reduced-frequency estimation and delayed monthly-record estimation. Each difference is reduced-frequency estimation minus delayed monthly-record estimation, corresponding to Results 4.2 minus Results 4.1. Each row uses 432 matched section-month observations from the common 72-month period, 05/2018 through 04/2024. The delayed reference contributes 72 months per section from its full 138-month-per-section Results 4.1 evaluation. Both evaluations used the same input dataset and the same 38 predictors; the 72-month restriction compared identical section-month observations. An interval containing zero does not demonstrate equivalence.}
+  \label{tab:supp_reduced_frequency_vs_delayed}
+  \begin{tabular}{c|c|r|r}
+    \toprule
+    \multicolumn{1}{c|}{\textbf{MLCW interval}} & \multicolumn{1}{c|}{\textbf{Initial record}} & \multicolumn{1}{c|}{\textbf{MAE difference}} & \multicolumn{1}{c}{\textbf{95\% interval}} \\
+    \midrule
+    6 months & 3 years & $-0.007$ & $[-0.032,\ 0.026]$ \\
+    6 months & 5 years & $-0.016$ & $[-0.041,\ 0.009]$ \\
+    6 months & 8 years & $0.015$ & $[0.002,\ 0.028]$ \\
+    12 months & 3 years & $0.002$ & $[-0.030,\ 0.039]$ \\
+    12 months & 5 years & $-0.012$ & $[-0.042,\ 0.020]$ \\
+    12 months & 8 years & $0.024$ & $[0.004,\ 0.043]$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.15}
+  \caption[Paired monthly-MAE differences among initial-record lengths.]{Paired monthly-MAE differences (mm/month) among initial-record lengths. Each value is the longer initial record minus the shorter initial record, and each comparison uses $n=432$ matched section-month observations. Negative values favor the longer record only in the limited sense of lower monthly MAE. Endpoint rows from the source CSV are not included in this table.}
+  \label{tab:supp_initial_history_differences}
+  \begin{tabular}{c|c|r|r}
+    \toprule
+    \multicolumn{1}{c|}{\textbf{MLCW interval}} & \multicolumn{1}{c|}{\textbf{Initial-record contrast}} & \multicolumn{1}{c|}{\textbf{MAE difference}} & \multicolumn{1}{c}{\textbf{95\% interval}} \\
+    \midrule
+    6 months & 5 years minus 3 years & $-0.009$ & $[-0.035,\ 0.015]$ \\
+    6 months & 8 years minus 3 years & $0.021$ & $[-0.003,\ 0.042]$ \\
+    6 months & 8 years minus 5 years & $0.031$ & $[0.014,\ 0.047]$ \\
+    12 months & 5 years minus 3 years & $-0.014$ & $[-0.028,\ 0.004]$ \\
+    12 months & 8 years minus 3 years & $0.022$ & $[0.002,\ 0.037]$ \\
+    12 months & 8 years minus 5 years & $0.036$ & $[0.018,\ 0.052]$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
   \setlength{\tabcolsep}{5pt}
   \renewcommand{\arraystretch}{1.15}
   \caption[Endpoint errors by depth section under reduced MLCW measurement frequency.]{Endpoint MAE, RMSE, and mean signed error for each depth section, measurement interval, and initial-record length, evaluated over the shared 05/2018--04/2024 period. Each depth-section row contains 12 endpoint comparisons for the 6-month schedule and 6 for the 12-month schedule.}
