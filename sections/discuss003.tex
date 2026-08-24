@@ -1,7 +1,20 @@
 % Discussion draft. The detailed interpretation will be written after the
 % Results section has been completed and reviewed.
 
-\placeholder{DISCUSSION OF THE RESULTS FOR THE THREE MONITORING CONDITIONS AND THE FITTED COEFFICIENT PATTERNS. THIS SECTION WILL INTERPRET THE EVIDENCE REPORTED IN THE RESULTS WITHOUT INTRODUCING NEW NUMERICAL RESULTS.}
+Hydraulic head, vertical surface displacement, and seasonal observations supported monthly layerwise deformation estimation at Tuku under all three conditions of MLCW information. The evidence was strongest in S1--S4 and less uniform in S5--S6. Reduced MLCW information was not accompanied by the same immediate change in monthly error in every tested case, but it reduced the frequency of independent depth-specific checks on accumulated deformation.
+% NOTE: Đoạn mở đầu trả lời ba ý chính: các quan trắc hỗ trợ ước lượng hằng tháng, bằng chứng thay đổi theo độ sâu, và ít thông tin MLCW hơn đồng nghĩa với ít lần kiểm tra tích lũy độc lập theo độ sâu hơn. %
+
+\subsection{Layerwise monthly deformation estimation}
+\label{subsec:discussion_layerwise_estimation}
+
+Monthly estimation was stronger in S1--S4, where $R^2$ remained between 0.80 and 0.98 and MAE remained between 0.15 and 0.26~mm/month, than in S5--S6, where $R^2$ was 0.08--0.34 and MAE was 0.40--0.50~mm/month. The corresponding RMSE ranges, 0.21--0.31 and 0.62--0.66~mm/month, confirm that this difference was not confined to one point-error measure. Vertical surface displacement represents the integrated response of the monitored profile, whereas multilayer measurements distinguish deformation among depth sections, as demonstrated by \citet{hung_measuring_2021}. MLCW measurements can therefore show where a station-level signal does not describe the profile uniformly, and a station-wide average cannot represent every depth section equally.
+% NOTE: Đoạn này chỉ diễn giải ranh giới quan trắc theo độ sâu; không gán kết quả S5--S6 cho thiếu dữ liệu hydraulic head sâu hay một cơ chế trầm tích chưa được chứng minh. %
+
+The fitted relations also differed with depth. Current surface-displacement increments had repeated positive coefficient ranges in S1--S4 and S6, while hydraulic-head and seasonal coefficients varied more among sections. These patterns show that the fitted relations were not uniform across the monitored profile. When predictors contain overlapping information, coefficient shrinkage limits changes in coefficients with limited observational support and helps stabilize estimation \citep{dormann_collinearity_2013, hastie_elements_2009, mackay_bayesian_1992}. Coefficient signs and magnitudes nevertheless describe statistical associations in the Tuku record rather than physical causes.
+% NOTE: Đoạn này giải thích hành vi của mô hình và sự khác nhau giữa các section, nhưng không diễn giải coefficient như bằng chứng nhân quả. %
+
+Point error and interval performance describe different aspects of the estimates. Empirical coverage below 90\% means that the posterior predictive intervals contained fewer observations than their nominal level implies. Wider intervals can increase coverage but provide less precise information, so coverage and width must be interpreted together \citep{gneiting_probabilistic_2007}. S5 had a wider mean interval than S6, 1.85 versus 0.97~mm, and could therefore attain higher coverage despite larger point errors. This statistical relationship explains why the metric rankings differed, but it does not identify a physical mechanism or show that S5 was estimated more accurately than S6. Bayesian construction does not guarantee empirical 90\% coverage in a finite, temporally dependent observational record \citep{gelman_bayesian_2013}, making the joint interpretation of point and interval performance necessary when MLCW information is reduced.
+% NOTE: Khoảng rộng hơn có thể bao phủ nhiều quan trắc hơn nhưng kém chính xác hơn; vì vậy coverage và width phải được đọc cùng nhau, không dùng riêng coverage để kết luận S5 được ước lượng tốt hơn S6. %
 
 \subsection{Limitations and practical scope}
 \label{subsec:discussion_limitations}
