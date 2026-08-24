@@ -37,7 +37,11 @@
 - Modify `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\supplement001.tex` to provide the complete paired-comparison values supporting the concise Results statements.
 - Modify `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\discuss003.tex` to replace both placeholders with the complete Discussion.
 - Modify `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\writing_manu2.bib` only if a citation selected below is absent or malformed. The current bibliography already contains `hung_measuring_2021`, `burbey_extensometer_2020`, `mackay_bayesian_1992`, `dormann_collinearity_2013`, `hastie_elements_2009`, `gelman_bayesian_2013`, and `gneiting_probabilistic_2007`.
-- Do not modify `main.tex`; it already inputs `sections/results004`, `sections/discuss003`, and `sections/appendix002`.
+- Modify `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\main.tex` only for the exact commented-Abstract correction specified in Task 6. Do not change any other part of this file.
+- For build context, `main.tex` currently inputs `sections/studyarea002`, `sections/dataset003`, `sections/methods006`, `sections/results004`, `sections/discuss003`, and `sections/appendix002`. The inputs for `sections/intro001` and `sections/conclusion002` remain commented out.
+
+% NOTE : Đã đọc toàn bộ `main.tex` (vòng kiểm tra thứ 2). Danh sách 3 file ở dòng trên không đầy đủ — `main.tex` thật sự còn `\input` sống (không bị comment) thêm 3 file nữa: `sections/studyarea002` (dòng 101), `sections/dataset003` (dòng 102), và **`sections/methods006`** (dòng 106) — đúng là file Methods thật đang được biên dịch, và Task 6 của kế hoạch này có review file đó. Lệnh "Do not modify main.tex" vẫn đúng và không có bước nào trong kế hoạch bị sai logic, nhưng ai chỉ đọc lướt dòng này có thể hiểu nhầm là Methods không nằm trong tài liệu đang biên dịch. Đề nghị bổ sung đầy đủ danh sách 6 file `\input` sống (bỏ qua `intro001` dòng 97 và `conclusion002` dòng 118 — cả hai đang bị comment). Phát hiện phụ quan trọng hơn: phần Abstract (`main.tex` dòng 81) đang bị comment toàn bộ, nhưng bên trong nó vẫn còn câu "...hydraulic head changes, vertical surface displacement..., and **local sediment composition**" — mô tả lithology như một input của mô hình, trực tiếp mâu thuẫn với Global Constraint dòng 22 ("Lithology... is not a model input"). Câu này hiện đang trơ (comment) nên không gây lỗi bây giờ, nhưng kế hoạch chưa có bước nào để sửa nó khi Abstract được mở lại — nếu không xử lý, đây sẽ là một mâu thuẫn khoa học lọt vào bản nộp cuối cùng. %
+% AUTHOR DECISION: Chấp nhận cả hai điểm. File Map phải liệt kê đủ sáu file đang được `main.tex` nạp. Task 6 được phép sửa đúng một mệnh đề trong Abstract đang bị comment để thay `local sediment composition` bằng `seasonal terms`; không được sửa phần nào khác của `main.tex`. %
 
 ## Frozen Evidence Sources
 
@@ -158,7 +162,10 @@ Add a table labeled `\label{tab:supp_reduced_frequency_vs_delayed}` with six row
 | 12 months | 5 years | -0.012 | [-0.042, 0.020] |
 | 12 months | 8 years | 0.024 | [0.004, 0.043] |
 
-The caption must define the difference as reduced-frequency minus delayed monthly-record estimation, explicitly map this to `Results 4.2 minus Results 4.1`, and state that each row uses 432 matched section-month observations from the common 72-month period. It must explain that the delayed reference contributes 72 months per section from the full 138-month-per-section Results 4.1 evaluation and that an interval containing zero does not demonstrate equivalence.
+The caption must define the difference as reduced-frequency minus delayed monthly-record estimation, explicitly map this to `Results 4.2 minus Results 4.1`, and state that each row uses 432 matched section-month observations from the common 72-month period. It must explain that the delayed reference contributes 72 months per section from the full 138-month-per-section Results 4.1 evaluation and that an interval containing zero does not demonstrate equivalence. It must also state that both evaluations used the same input dataset and the same 38 predictors; the 72-month restriction was used only so that the same section-month observations were compared. Do not describe this restriction as a dataset difference or as a reason the evaluations may be incomparable.
+
+% NOTE : Cần một câu chặn tường minh ở đây (hoặc ở Bước 1): việc 72 trong 138 tháng được dùng làm giai đoạn chung KHÔNG được diễn đạt thành một dạng "caveat về khả năng so sánh" (comparability caveat) — vì Global Constraint dòng 25 vừa cấm hẳn việc tái sử dụng khái niệm "snapshot-incomparability" đã lỗi thời. Hiện tại cách viết ở dòng 124/161 đúng (khung "matched-window subset", không phải khác snapshot), nhưng đây chính là chỗ dễ nhất để người viết vô tình viết lại điều cấm dưới từ ngữ khác, ví dụ "vì chỉ 72/138 tháng được so sánh nên hai kết quả có thể không hoàn toàn so sánh được". Đề nghị thêm một câu rõ ràng: "the 72-month restriction is a matched-window design choice, not a dataset-snapshot difference; both evaluations use the same 38-predictor dataset snapshot." %
+% AUTHOR DECISION: Chấp nhận. Đây là lựa chọn một khoảng thời gian chung để đánh giá hai thiết kế trên cùng các section-month observations, không phải khác biệt về dataset. Caption phải nói rõ hai đánh giá dùng cùng input dataset và cùng 38 predictors, đồng thời không được biến giới hạn 72 tháng thành một caveat về khả năng so sánh. %
 
 - [ ] **Step 4: Add the complete Q13 supplementary table**
 
@@ -199,6 +206,7 @@ git commit -m "results: add matched comparisons for reduced MLCW information"
 ### Task 3: Write Discussion 5.1 on layerwise monthly deformation estimation
 
 **Files:**
+- Modify: `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\results004.tex`, only for the exact Results 4.1 cross-reference correction in Step 4.
 - Modify: `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\discuss003.tex`.
 
 **Interfaces:**
@@ -252,11 +260,27 @@ Write one paragraph that:
 - begins from the distinction between point error and interval performance established in Results 4.1;
 - states that coverage below 90% means the intervals contained fewer observations than their nominal level implies;
 - explains that increasing interval width may raise coverage but provides less precise information, so coverage and width must be read together;
+- uses the S5--S6 contrast as one bounded example of this statistical distinction: S5 had a wider mean interval than S6 (`1.85` versus `0.97` mm) and therefore could attain higher coverage despite larger point errors;
+- states that this contrast explains why the metric rankings differ but does not identify a physical mechanism or show that S5 was estimated more accurately than S6;
 - notes that Bayesian construction does not guarantee empirical 90% coverage in a finite, temporally dependent observational record;
 - cites `\citep{gneiting_probabilistic_2007, gelman_bayesian_2013}`;
 - ends by preparing the reduced-information question in Subsection 5.2.
 
 Do not list every section-level coverage value again. Add a Vietnamese `% NOTE` explaining the coverage-width tradeoff in plain language.
+
+Before writing this Discussion paragraph, make the following exact cross-reference correction in `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\results004.tex` at the sentence currently near line 43. Replace:
+
+```latex
+Possible sources of the coverage shortfall are considered in \Cref{subsec:discussion_limitations}.
+```
+
+with:
+
+```latex
+The relation between point error, interval width, and coverage is considered in \Cref{subsec:discussion_layerwise_estimation}.
+```
+
+This `results004.tex` edit belongs to Task 3 because Subsection 5.1 provides the promised interpretation. It must not be deferred to or hidden inside Task 5.
 
 - [ ] **Step 5: Audit and commit Subsection 5.1**
 
@@ -272,7 +296,7 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 Expected: the general Discussion placeholder is gone, the limitations placeholder remains for Task 5, and the manuscript compiles without undefined citations or references.
 
 ```powershell
-git add -- sections/discuss003.tex
+git add -- sections/results004.tex sections/discuss003.tex
 git commit -m "discussion: interpret depth-dependent monthly estimation"
 ```
 
@@ -378,7 +402,7 @@ Keep:
 \label{subsec:discussion_limitations}
 ```
 
-Delete only the placeholder command. Do not change references in Results that point to this label.
+Delete only the placeholder command. Do not change other references that correctly point to this label. The Results 4.1 coverage cross-reference is handled explicitly in Task 3 and must point to `subsec:discussion_layerwise_estimation`.
 
 % NOTE : Vấn đề ưu tiên cao nhất phát hiện được — placeholder hiện tại ở `discuss003.tex` dòng 9 chứa 3 yêu cầu của tác giả mà Task 5 (Bước 2-4 dưới đây) KHÔNG thực hiện đầy đủ nếu chỉ theo đúng cấu trúc 3 đoạn của Correspondence 9: (1) placeholder cấm rõ "DO NOT REINTRODUCE A SNAPSHOT-INCOMPARABILITY CAVEAT HERE" — không xuất hiện ở đâu trong Global Constraints hay Task 5. (2) placeholder cấm rõ "THE S5 MECHANISM MUST NOT BE RESTATED HERE" — chỉ được nhắc ở Task 3 (cho 5.1), không được dẫn chiếu lại cho 5.3. (3) placeholder yêu cầu một đoạn về "MEASUREMENT-SCOPE LIMITS OF THE CGNSS, HYDRAULIC HEAD, AND LITHOLOGICAL RECORDS" — nhưng 3 đoạn thực tế ở Bước 2-4 (ranh giới một trạm/depth-section, association-vs-mechanism, ranh giới posterior uncertainty) không có đoạn nào về giới hạn phạm vi đo của cGNSS/mực nước ngầm/địa tầng. Đây là mâu thuẫn thật giữa hai nguồn đã duyệt trước đó (placeholder cũ và Correspondence 9 mới hơn) — cần tác giả quyết định tường minh: giữ nguyên 2 điều cấm làm ràng buộc bổ sung cho Task 5, và quyết định chủ đề đo lường cGNSS/GWL/địa tầng có bị bỏ có chủ đích hay cần thêm một bước thứ 4 vào Task 5. Không được để bị ghi đè âm thầm. %
 % AUTHOR DECISION: Giữ cả hai điều cấm như global constraints. Không tạo limitations paragraph thứ tư. Giới hạn phạm vi đo được lồng vào đoạn association-versus-mechanism. Lithology chỉ dùng để diễn giải các depth sections và không phải model input. %
@@ -393,6 +417,13 @@ Write one paragraph that:
 - presents Tuku as a detailed single-site evaluation rather than a spatial-generalization study.
 
 Do not mention a future spatial-transfer manuscript. Add a Vietnamese `% NOTE` explaining that the paragraph limits generalization without dismissing the case study.
+
+Do not assign the S5--S6 contrast to missing deep hydraulic-head observations, sediment composition, or any other physical mechanism. Subsection 5.3 may use the contrast only as evidence that performance varied among depth sections.
+
+% NOTE : Task 3 Bước 2 (dòng 235) có một câu chặn rõ ràng: "Do not assign the S5--S6 pattern to missing deep hydraulic-head observations or a particular sediment mechanism unless that mechanism has already been demonstrated..." — nhưng Global Constraint dòng 26 ("Do not restate or speculate about an S5 physical mechanism in Subsection 5.3") nhắm thẳng vào 5.3, còn Bước 2 này của Task 5 lại không có câu chặn tương đương. Nguyên văn Bước 2 hiện chỉ yêu cầu "contrast between S1--S4 and S5--S6 already demonstrates heterogeneity" — không tự nó cấm người viết giải thích NGUYÊN NHÂN vật lý của sự khác biệt S5-S6. Đề nghị thêm đúng câu chặn cơ chế giống Task 3 Bước 2 vào đây, để Task 5 Bước 2 tự nó tuân thủ constraint dòng 26 chứ không phụ thuộc vào việc người viết nhớ áp dụng chéo. %
+% AUTHOR DECISION: Chấp nhận. Task 5 Bước 2 phải tự chứa câu chặn, không được suy đoán hoặc lặp lại cơ chế vật lý cho S5--S6. Sự khác biệt này chỉ được dùng để giới hạn khả năng khái quát hóa giữa các depth sections. %
+% NOTE : Phát hiện thêm liên quan: `results004.tex` dòng 43 có một câu hứa hẹn "Possible sources of the coverage shortfall are considered in `\Cref{subsec:discussion_limitations}`". Nhưng Task 5 Bước 4 (ranh giới posterior uncertainty) chỉ trả lời chung chung (đo lường, căn chỉnh thời gian, hydraulic head nội suy, dạng mô hình, phụ thuộc phần dư — không có gì riêng cho từng section), còn Task 3 Bước 4 lại cấm "Do not list every section-level coverage value again". Cụ thể là nghịch lý S5 (RMSE/MAE lớn nhất nhưng coverage cao hơn, 81.2%) so với S6 (sai số thấp hơn nhưng coverage thấp nhất, 65.9%) hiện không có đoạn nào trong kế hoạch trả lời — trong khi ghi chú `% NOTE` gốc của tác giả tại `results004.tex` dòng 44 đòi hỏi mọi quan sát kiểu này phải có câu trả lời "tại sao lại xảy ra" trong Discussion. Đây nằm ngay giữa ranh giới của constraint dòng 26 (không nói cơ chế S5) và nhiệm vụ của 5.3 (ranh giới coverage) — cần tác giả quyết định tường minh: bỏ ngỏ nghịch lý này, hay cần một câu xử lý có giới hạn (không mang tính cơ chế) ở đâu đó trong 5.1–5.3. %
+% AUTHOR DECISION: Giải thích nghịch lý S5--S6 trong Task 3 Bước 4 của Subsection 5.1 bằng quan hệ thống kê giữa point error, interval width, và coverage. S5 có mean interval width `1.85` mm, rộng hơn S6 (`0.97` mm), nên có thể đạt coverage cao hơn dù point error lớn hơn. Lời giải thích này không được chuyển thành một cơ chế vật lý. Task 3 phải sửa riêng cross-reference trong `results004.tex` từ `subsec:discussion_limitations` sang `subsec:discussion_layerwise_estimation`. %
 
 - [ ] **Step 3: Separate fitted association from physical mechanism**
 
@@ -448,6 +479,7 @@ git commit -m "discussion: define limitations and practical scope"
 ### Task 6: Run the Methods--Results--Discussion integration audit
 
 **Files:**
+- Modify: `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\main.tex`, only for the exact correction to the commented Abstract in Step 1.
 - Review: `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\methods006.tex`
 - Review: `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\results004.tex`
 - Review: `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\sections\discuss003.tex`
@@ -458,7 +490,23 @@ git commit -m "discussion: define limitations and practical scope"
 - Consumes: completed Discussion and supporting Results evidence.
 - Produces: a submission-ready Discussion that tells one story across Methods 3.4 and Results 4.1--4.3.
 
-- [ ] **Step 1: Audit one-to-one design coverage**
+- [ ] **Step 1: Correct the stale model-input statement in the commented Abstract**
+
+In `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1\main.tex`, change only the following phrase in the commented Abstract sentence currently near line 81:
+
+```latex
+hydraulic head changes, vertical surface displacement from a continuous Global Navigation Satellite System station, and local sediment composition
+```
+
+to:
+
+```latex
+hydraulic head changes, vertical surface displacement from a continuous Global Navigation Satellite System station, and seasonal terms
+```
+
+Do not uncomment, rewrite, or otherwise revise the Abstract in this task. Verify that the commented Abstract no longer describes lithology or sediment composition as a model input.
+
+- [ ] **Step 2: Audit one-to-one design coverage**
 
 Confirm manually and record in the execution summary:
 
@@ -470,7 +518,7 @@ Confirm manually and record in the execution summary:
 
 Expected: no substantial method is left uninterpreted and no Discussion claim lacks a reported result.
 
-- [ ] **Step 2: Run the scientific-writing audit**
+- [ ] **Step 3: Run the scientific-writing audit**
 
 Read the complete `results004.tex` and `discuss003.tex` in sequence. Verify:
 
@@ -483,17 +531,18 @@ Read the complete `results004.tex` and `discuss003.tex` in sequence. Verify:
 - limitations occur only in 5.3;
 - terminology remains consistent for MLCW measurements, finalized MLCW records, hydraulic head, vertical surface displacement, monthly deformation increments, cumulative error, coverage, and interval width.
 
-- [ ] **Step 3: Run text and reference checks**
+- [ ] **Step 4: Run text and reference checks**
 
 ```powershell
 rg -n "\\placeholder|TBD|TODO|pooled|ablation|spatial transfer|retain|weak|firstly|secondly|thirdly" sections/discuss003.tex
 rg -n "\\cite[p|t]?\{[^}]+\}|\\Cref\{[^}]+\}" sections/discuss003.tex
+rg -n "local sediment composition|sediment composition" main.tex
 git diff --check
 ```
 
-Expected: no unresolved placeholder or internal vocabulary remains. Every citation key exists in `writing_manu2.bib`, and every cross-reference resolves after the build.
+Expected: no unresolved placeholder or internal vocabulary remains. Every citation key exists in `writing_manu2.bib`, every cross-reference resolves after the build, and the commented Abstract no longer describes sediment composition as a model input.
 
-- [ ] **Step 4: Run the full manuscript and supplement builds**
+- [ ] **Step 5: Run the full manuscript and supplement builds**
 
 From `D:\112_PROJECT_002\.worktrees\manuscript_reduced_v1`:
 
@@ -508,7 +557,7 @@ pdflatex -interaction=nonstopmode -halt-on-error supplement.tex
 
 Expected: all commands exit with code 0; `main.log` contains no undefined citation or reference; new overfull boxes are corrected before completion. Pre-existing warnings must be reported separately rather than silently attributed to this work.
 
-- [ ] **Step 5: Review the PDFs**
+- [ ] **Step 6: Review the PDFs**
 
 Inspect `main.pdf` and the supplementary PDF for:
 
@@ -518,11 +567,11 @@ Inspect `main.pdf` and the supplementary PDF for:
 - citation rendering;
 - unresolved yellow placeholders elsewhere in the manuscript, reported but not edited unless they block the Discussion.
 
-- [ ] **Step 6: Create the final Discussion checkpoint**
+- [ ] **Step 7: Create the final Discussion checkpoint**
 
 ```powershell
 git status --short
-git add -- sections/results004.tex sections/supplement001.tex sections/discuss003.tex writing_manu2.bib
+git add -- main.tex sections/results004.tex sections/supplement001.tex sections/discuss003.tex writing_manu2.bib
 git diff --cached --check
 git commit -m "discussion: complete interpretation of reduced MLCW information"
 ```
@@ -536,4 +585,4 @@ Stage `writing_manu2.bib` only if Task 3 or Task 5 required an actual bibliograp
 - Q11 remains outside the manuscript.
 - Every Discussion claim is linked to evidence already reported or added to Results and Supplementary Materials before interpretation.
 - The plan contains no unresolved implementation placeholder.
-- The four assistant review notes have explicit author decisions. Q12 sample support, Q13 monthly-row filtering, Git tracking of Figure 13, and the measurement-scope limitation are resolved before execution.
+- Both review rounds have explicit author decisions. The live `main.tex` inputs, commented-Abstract terminology, Q12 sample support, Q13 monthly-row filtering, Figure 13 tracking, S5--S6 coverage interpretation, and measurement-scope limitation are resolved before execution.
