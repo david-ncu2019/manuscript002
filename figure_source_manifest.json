@@ -62,6 +62,38 @@
       "revision_note": "Y-axis label changed from 'Residuals (mm)' to 'Monthly error (mm)' (2026-08-20), same underlying signed-difference (estimated - observed) quantity, wording only. Supersedes the prior styling-pass revision_note (residuals label, circle-marker dotted lines, fixed x-limits, titled 2-column legend, per-section y-axis spec, shared apply_panel_style() tick-length increase) which remains accurate for all non-label aspects of this figure."
     },
     {
+      "figure_id": "fig_results_no_subsequent_mlcw_monthly_errors_s1_s3",
+      "destination_path": "figures/fig_results_no_subsequent_mlcw_monthly_errors_s1_s3.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_monthly_errors}, S1--S3 page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": [3, 5, 8],
+        "sections": ["S1", "S2", "S3"],
+        "months_since_common_end": [1, 80],
+        "value_definition": "y_pred_mm - y_true_mm"
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-24T16:15:24+08:00",
+      "sha256": "7567A3D7BAD5CEDC3481DE80A60A4BC297E6BA873004A8AE9C0A99EC8217556E",
+      "revision_note": "Monthly signed errors for all three initial-record lengths, shown with triangle markers and the established 3-, 5-, and 8-year colors. The script reads frozen results and does not fit or update a model."
+    },
+    {
+      "figure_id": "fig_results_no_subsequent_mlcw_monthly_errors_s4_s6",
+      "destination_path": "figures/fig_results_no_subsequent_mlcw_monthly_errors_s4_s6.pdf",
+      "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_monthly_errors}, S4--S6 continued page",
+      "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
+      "filters": {
+        "training_window_years": [3, 5, 8],
+        "sections": ["S4", "S5", "S6"],
+        "months_since_common_end": [1, 80],
+        "value_definition": "y_pred_mm - y_true_mm"
+      },
+      "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_timeseries_figures.py",
+      "generated_at": "2026-08-24T16:15:24+08:00",
+      "sha256": "052EABE1E258FE4421A75989D76A64AC3279CB1CF2CF2D90306C6CC9A962BB8D",
+      "revision_note": "Continuation page for monthly signed errors, using the same data definition, colors, and triangle markers as the S1--S3 page."
+    },
+    {
       "figure_id": "fig_results_no_subsequent_mlcw_cumulative_error",
       "destination_path": "figures/fig_results_no_subsequent_mlcw_cumulative_error.pdf",
       "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_cumulative_error}",
@@ -72,9 +104,9 @@
         "x_axis_column": "months_since_common_end"
       },
       "generating_script": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/scripts/run048_build_sec4_3_preview_figures.py",
-      "generated_at": "2026-08-20T16:43:23+08:00",
-      "sha256": "837B4673560950C6652A45D0F76D5664594519152D059E02CAE8B15DFB77BA4E",
-      "revision_note": "Plot title remains 'without subsequent MLCW measurements', and the x-axis label was shortened to 'Months after calibration'. Source table, filters, and data are unchanged from the prior generation."
+      "generated_at": "2026-08-24T16:54:31+08:00",
+      "sha256": "55FEBA36BC71A572A5D1F9937AB4760BA3AE970B92A801F4FB1D0FE47429763C",
+      "revision_note": "Removed the internal figure title; used one 'Initial records' legend title; increased the legend, axis-label, and section-title fonts; set plotted lines to 1.5 pt; matched tick-label fonts to the monthly-error figure; added 5-month minor x-axis ticks; set y-axis major and minor ticks at 5 and 1 mm; removed gridlines; and expanded the y-axis label in plain words. Source table, filters, and plotted values are unchanged."
     },
     {
       "figure_id": "fig_results_delayed_cycle_timeline",
@@ -125,9 +157,9 @@
       "revision_note": "Tick label fontsize increased by 2 (from TICK_FONT_SIZE - 1 to TICK_FONT_SIZE - 1 + 2, i.e. 11pt to 13pt) via this function's own axis.tick_params(labelsize=...) override, which sits after and overrides apply_panel_style()'s default y-tick styling for this figure only. Tick *length* (major/minor) still comes from the shared apply_panel_style() increase, since this figure's own override only sets labelsize, not length. R2/RMSE/MAE values and scatter content unchanged. No filter concept applies -- all 6 sections plotted from the full checkpoint with no subsetting beyond section membership."
     },
     {
-      "figure_id": "fig_results_no_subsequent_mlcw_timeseries_3yr_s1_s3",
-      "destination_path": "figures/fig_results_no_subsequent_mlcw_timeseries_3yr_s1_s3.pdf",
-      "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_timeseries}, S1--S3 page",
+      "figure_id": "fig_supp_no_subsequent_mlcw_timeseries_3yr_s1_s3",
+      "destination_path": "figures/fig_supp_no_subsequent_mlcw_timeseries_3yr_s1_s3.pdf",
+      "manuscript_reference": "supplement001.tex, \\label{fig:supp_no_subsequent_mlcw_timeseries}, 3-year S1--S3 page",
       "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
       "filters": {
         "training_window_years": 3,
@@ -139,9 +171,9 @@
       "sha256": "A97CC90485C5D30167AC0A9C20721DA112D1D10A20D41FE5367E87D90A1FD60E"
     },
     {
-      "figure_id": "fig_results_no_subsequent_mlcw_timeseries_3yr_s4_s6",
-      "destination_path": "figures/fig_results_no_subsequent_mlcw_timeseries_3yr_s4_s6.pdf",
-      "manuscript_reference": "results004.tex, \\label{fig:results_no_subsequent_mlcw_timeseries}, S4--S6 continued page",
+      "figure_id": "fig_supp_no_subsequent_mlcw_timeseries_3yr_s4_s6",
+      "destination_path": "figures/fig_supp_no_subsequent_mlcw_timeseries_3yr_s4_s6.pdf",
+      "manuscript_reference": "supplement001.tex, \\label{fig:supp_no_subsequent_mlcw_timeseries}, 3-year S4--S6 continued page",
       "source_table": "D:/1000_SCRIPTS/004_Project003/20260427_InSAR_MLCW_v3/007_tests/014_ml_nowcast/experiments/section_pooled/run_048/supplements/manuscript_results003_calendar_aligned_38predictors/results/sec4_3/results/sec4_3_permanent_stoppage_summary.csv",
       "filters": {
         "training_window_years": 3,
