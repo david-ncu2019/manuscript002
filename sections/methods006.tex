@@ -411,6 +411,10 @@ e_{s,I}
 
 Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE and RMSE for each depth section. The coefficient of determination was calculated for the monthly estimates but not for the endpoint observations, because each scenario contained relatively few cumulative measurements. Posterior predictive intervals for the monthly estimates were evaluated using empirical coverage and mean interval width.
 
+The summary errors alone did not show whether differences among the monitoring scenarios persisted across measurement cycles. Two additional comparisons therefore used the same 72 calendar months and the same six depth sections. The first compared each reduced-frequency scenario with delayed monthly-record estimation, while the second compared the 3-, 5-, and 8-year initial records within each measurement schedule. Matching the evaluated months and depth sections prevented differences in the available observations from being mistaken for effects of measurement frequency or initial-record length.
+
+Monthly errors within one measurement cycle were produced before the model was updated again. Complete cycles were therefore selected together when assessing the stability of each MAE difference, rather than treating individual section-month errors as independent observations. Repeated selection of these cycles produced a 95\% resampling interval for each difference. The two comparisons, their subtraction order, and the detailed resampling procedure are described in \Cref{app:paired_mae_comparisons}.
+
 \begin{figure}[htbp]
   \centering
   \resizebox{\linewidth}{!}{%
