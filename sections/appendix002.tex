@@ -1,56 +1,147 @@
-\section{Supplementary methodological details}
+\section{Supporting Details}
 \label{app:methods}
 
-\subsection{Final predictor inventory}
+\subsection{Predictor composition}
 \label{app:predictors}
 
-Each section model used 38 predictor variables, grouped below by the physical information they represent. Vertical surface displacement was represented by the current cGNSS increment, its second difference, and its one- and three-month lags. Hydraulic head was represented by the current head change, its second difference, its one-, three-, six-, twelve-, and twenty-four-month lags, three- and six-month rolling means of head change, and the absolute value of head change. Seasonal variation was represented by annual and semiannual sine and cosine terms, a dry-season indicator, and the interaction of head change with the dry-season indicator. Cross-section hydraulic conditions were represented by the current head change and its three- and six-month rolling means, computed separately for each of the six depth sections. Every predictor was available for the target month at the time each estimate was produced. The exact variable names, source columns, and lag definitions used to reproduce the analysis are recorded in the analysis repository's frozen feature manifest (internal identifier \texttt{feature\_manifest.json}, run \texttt{run\_048}); that manifest is the reproducibility record and is not reproduced verbatim here.
+Each depth-section model used 38 predictor variables drawn from four groups,
 
-\subsection{Model fitting and update settings}
-\label{app:model_settings}
-
-The reproducibility record will report the initial calibration period, the six-month block boundaries, the predictor scaling procedure, the fitted regression settings, and the rules used when an input observation was unavailable. \placeholder{INSERT VERIFIED MODEL SETTINGS AND SOFTWARE ENVIRONMENT FROM THE FINAL RUN}. These details will reproduce the reported estimates without interrupting the main methodological narrative.
-
-\subsection{Prediction interval calibration}
-\label{app:intervals}
-
-Because the independent section models were fitted using Bayesian ridge regression, the prediction intervals were derived analytically from the posterior predictive distribution. Unlike empirical quantile methods that require an accumulated error archive, the Bayesian formulation provided a theoretically justified interval for every point estimate beginning with the first evaluation block. The prior distribution and noise precision parameters were estimated directly from the available calibration data during each model update. The resulting posterior covariance matrix of the coefficients, combined with the estimated noise precision, defined the uncertainty for each subsequent prediction.
-
-\subsection{Reduced-frequency MLCW measurement settings}
-\label{app:sparse_measurement_settings}
-\label{app:no_update_settings}
-
-The reduced-frequency analysis contained six scenarios defined by measurement intervals of six or twelve months and initial calibration periods of 36, 60, or 96 consecutive months. The three calibration periods shared a common endpoint rather than a common start, so the 36- and 60-month periods began later than the 96-month period. Each scenario's subsequent evaluation continued through a shared field-measurement endpoint common to both measurement schedules, so the three initial-history lengths within one schedule underwent the same number of model updates at the same calendar dates; the six-month and twelve-month schedules were not required to share the same update count with each other, since sampling frequency was itself the quantity under comparison. Incomplete intervals at the end of the shared evaluation period were excluded.
-
-For depth section $s$ and measurement interval $I$, the endpoint observation was the accumulated MLCW deformation,
 \begin{equation}
-\Delta d_{s,I}
+\boldsymbol{x}_{s,k}
 =
-\sum_{k\in I}\Delta d_{s,k},
-\label{eq:interval_compaction}
+\left[
+\boldsymbol{x}^{\mathrm{surface}}_{k},
+\boldsymbol{x}^{\mathrm{head}}_{s,k},
+\boldsymbol{x}^{\mathrm{season}}_{s,k},
+\boldsymbol{x}^{\mathrm{profile}}_{k}
+\right]
+\in
+\mathbb{R}^{4+10+6+18}
+=
+\mathbb{R}^{38}.
+\label{eq:predictor_composition}
 \end{equation}
-where $k$ denotes a monthly epoch and $\Delta d_{s,k}$ denotes the observed monthly deformation increment retained for retrospective evaluation. The endpoint observation constrained the update before the next interval, whereas the individual values of $\Delta d_{s,k}$ within $I$ remained unavailable to the model. \placeholder{INSERT THE VERIFIED NUMERICAL FORMULATION AND WEIGHTING OF THE ENDPOINT CONSTRAINT FROM THE FROZEN IMPLEMENTATION}.
 
-The monthly error was
+The four surface-displacement variables were the current cGNSS increment, its second difference, and its one- and three-month lags. The ten hydraulic-head variables for the target section were the current change, its second difference, its one-, three-, six-, twelve-, and twenty-four-month lags, its three- and six-month rolling means, and its absolute value. The six seasonal variables comprised annual and semiannual sine and cosine terms, a dry-season indicator, and an interaction between head change and the dry-season indicator. The remaining 18 variables described hydraulic conditions across the monitored profile using the current head change and its three- and six-month rolling means for each of the six depth sections. Every predictor was available for month $k$ when its deformation increment was estimated. The frozen feature manifest for \texttt{run\_048} records the exact variable names and source columns.
+
+\subsection{Variability and temporal agreement}
+\label{app:variability_diagnostics}
+
+The error metrics in \Cref{tab:evaluation_metrics} summarize agreement between the observed and estimated monthly increments, but they do not separate differences in variability from differences in their temporal pattern. Two supporting diagnostics were therefore calculated for each depth section using the same $n_s=138$ paired values as the delayed-delivery evaluation. The observed and estimated sample standard deviations were
 
 \begin{equation}
-e_{s,k}
+\sigma_{s}^{\mathrm{obs}}
 =
-\widehat{\Delta d}_{s,k}
+\sqrt{
+\frac{1}{n_s-1}
+\sum_{k=1}^{n_s}
+\left(
+\Delta d_{s,k}-\overline{\Delta d}_{s}
+\right)^2
+},
+\qquad
+\sigma_{s}^{\mathrm{est}}
+=
+\sqrt{
+\frac{1}{n_s-1}
+\sum_{k=1}^{n_s}
+\left(
+\widehat{\Delta d}_{s,k}-\overline{\widehat{\Delta d}}_{s}
+\right)^2
+}.
+\label{eq:observed_estimated_variability}
+\end{equation}
+
+Their ratio was calculated as
+
+\begin{equation}
+R_{\sigma,s}
+=
+\frac{\sigma_{s}^{\mathrm{est}}}{\sigma_{s}^{\mathrm{obs}}}.
+\label{eq:variability_ratio}
+\end{equation}
+
+A value of $R_{\sigma,s}$ below one indicates that the estimates varied less than the observations, whereas a value above one indicates greater estimated variability. Temporal agreement was described by the Pearson correlation coefficient
+
+\begin{equation}
+\rho_s
+=
+\frac{
+\sum_{k=1}^{n_s}
+\left(
+\Delta d_{s,k}-\overline{\Delta d}_{s}
+\right)
+\left(
+\widehat{\Delta d}_{s,k}-\overline{\widehat{\Delta d}}_{s}
+\right)
+}{
+\sqrt{
+\sum_{k=1}^{n_s}
+\left(
+\Delta d_{s,k}-\overline{\Delta d}_{s}
+\right)^2
+}
+\sqrt{
+\sum_{k=1}^{n_s}
+\left(
+\widehat{\Delta d}_{s,k}-\overline{\widehat{\Delta d}}_{s}
+\right)^2
+}
+}.
+\label{eq:temporal_correlation}
+\end{equation}
+
+A larger positive $\rho_s$ indicates that the observed and estimated increments changed together more closely through time, but it does not establish agreement in magnitude. Reading $R_{\sigma,s}$ and $\rho_s$ together distinguishes estimates that reproduce the observed variability from estimates that reproduce only part of its temporal pattern.
+
+\subsection{Paired comparisons of monthly estimation error}
+\label{app:paired_mae_comparisons}
+
+Paired comparisons tested whether monthly MAE changed with MLCW measurement frequency or with the length of the initial record. Each pair used the same period from 05/2018 through 04/2024 and the same six depth sections, giving 432 matched section-month values.
+
+The comparison with delayed monthly-record estimation was defined as
+
+\begin{equation}
+\Delta \mathrm{MAE}_{\mathrm{reduced-delayed}}
+=
+\mathrm{MAE}_{\mathrm{reduced}}
 -
-\Delta d_{s,k}.
-\label{eq:appendix_monthly_error}
+\mathrm{MAE}_{\mathrm{delayed}}.
+\label{eq:mae_difference_reduced_delayed}
 \end{equation}
 
-The endpoint error was defined as accumulated estimated deformation minus accumulated observed deformation,
+A positive difference indicates a larger monthly MAE under reduced measurement frequency. A negative difference indicates a smaller monthly MAE. Within either reduced-frequency schedule, the effect of initial-record length was calculated as
+
 \begin{equation}
-e_{s,I}
+\Delta \mathrm{MAE}_{\mathrm{longer-shorter}}
 =
-\sum_{k\in I}\widehat{\Delta d}_{s,k}
+\mathrm{MAE}_{\mathrm{longer}}
 -
-\Delta d_{s,I}.
-\label{eq:endpoint_error}
+\mathrm{MAE}_{\mathrm{shorter}}.
+\label{eq:mae_difference_initial_records}
 \end{equation}
-Positive errors represented estimates that were more positive than the observed values. Monthly and endpoint MAE, RMSE, and mean signed error were reported by measurement interval, initial calibration period, and depth section, with pooled values calculated across all six sections. Endpoint totals were not evaluated with the coefficient of determination. The monthly prediction intervals described in \Cref{subsec:predictive_uncertainty} were calculated for the delayed-data analysis, the reduced-frequency analysis, and the analysis without subsequent MLCW measurements. Each interval came from the Bayesian ridge model fitted for that specific scenario; intervals were never combined across scenarios or across measurement schedules.
+
+Here, a negative difference indicates a smaller monthly MAE for the longer initial record, whereas a positive difference indicates a larger monthly MAE.
+
+Errors from one measurement cycle were produced before the next model update and were therefore resampled together. The 6-month schedule contained 12 complete cycles, with each cycle comprising six months across all six depth sections. The 12-month schedule contained six complete cycles, with each cycle comprising twelve months across the same sections. Complete cycles were sampled with replacement, the two MAEs were recalculated from the selected cycles, and their difference was recorded. This procedure preserved the temporal grouping of the monthly errors within each cycle \citep{lahiri_2003_bootstrap}.
+
+After 2,000 repetitions, the 95\% resampling interval was
+
+\begin{equation}
+\mathcal{I}_{0.95}
+=
+\left[
+Q_{0.025}
+\left(
+\left\{\Delta \mathrm{MAE}^{*(b)}\right\}_{b=1}^{2000}
+\right),
+Q_{0.975}
+\left(
+\left\{\Delta \mathrm{MAE}^{*(b)}\right\}_{b=1}^{2000}
+\right)
+\right],
+\label{eq:mae_resampling_interval}
+\end{equation}
+
+where $Q_p$ denotes percentile $p$ of the resampled MAE differences. Two positive bounds indicate a larger MAE for the first quantity in the subtraction, and two negative bounds indicate a smaller MAE. An interval containing zero does not establish a consistent direction of difference or equivalent performance.
 
 \FloatBarrier

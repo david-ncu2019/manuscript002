@@ -1,9 +1,36 @@
-\section{Reduced-frequency measurement sensitivity: full per-section detail}
+\section{Monthly estimation during delayed MLCW data delivery}
+\label{app:supp_delayed_delivery}
+
+The following table compares the variability and temporal agreement of the observed and estimated monthly deformation increments across the six depth sections. The quantities are defined in \Cref{main-app:variability_diagnostics}.
+
+% Source: run048_build_sec4_1_depth_variability_diagnostics.py
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{7pt}
+  \renewcommand{\arraystretch}{1.15}
+  \caption[Variability and temporal agreement by depth section.]{Variability and temporal agreement between observed and estimated monthly deformation increments during delayed MLCW data delivery. Each row summarizes 138 paired values. Standard deviations are in mm/month; the standard-deviation ratio and Pearson correlation coefficient are dimensionless.}
+  \label{tab:supp_delayed_variability_diagnostics}
+  \begin{tabular}{c|r|r|r|r}
+    \toprule
+    \textbf{Section} & \shortstack{\textbf{Observed}\\\textbf{SD}} & \shortstack{\textbf{Estimated}\\\textbf{SD}} & \shortstack{\textbf{SD}\\\textbf{ratio}} & \shortstack{\textbf{Temporal}\\\textbf{correlation}} \\
+    \midrule
+    S1 & 0.64 & 0.62 & 0.98 & 0.94 \\
+    S2 & 1.55 & 1.51 & 0.97 & 0.99 \\
+    S3 & 0.64 & 0.60 & 0.94 & 0.93 \\
+    S4 & 0.69 & 0.62 & 0.89 & 0.94 \\
+    S5 & 0.69 & 0.35 & 0.50 & 0.35 \\
+    S6 & 0.77 & 0.50 & 0.65 & 0.59 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\FloatBarrier
+
+\section{Estimation under reduced MLCW measurement frequency}
 \label{app:supp_reduced_frequency}
 
-This section reports the full per-section, per-scenario monthly and endpoint errors underlying the compact summary in the main text (\Cref{main-tab:results_reduced_frequency}). All six scenarios (3-, 5-, and 8-year initial records combined with 6- and 12-month field-measurement intervals) are evaluated over the identical shared period, 05/2018 through 04/2024, so that the three initial-record lengths are directly comparable within each measurement schedule.
-
-\placeholder{FIGURE PENDING: time-series figures for the 5-year and 8-year initial records, both 6-month and 12-month schedules, matching the format of the main-text 3-year figure -- regenerated from the calendar-aligned fit and not yet produced as of this draft.}
+The following tables provide monthly and endpoint errors for each depth section under the six reduced-frequency scenarios. All scenarios were evaluated from 05/2018 through 04/2024, allowing the three initial-record lengths to be compared over the same months within each measurement schedule.
 
 % Source: diag_28_sec4_meansd_tables.py (sec4_2_persection.csv)
 \begin{table}[H]
@@ -11,7 +38,7 @@ This section reports the full per-section, per-scenario monthly and endpoint err
   \footnotesize
   \setlength{\tabcolsep}{4pt}
   \renewcommand{\arraystretch}{1.15}
-  \caption[Monthly errors by depth section under reduced MLCW measurement frequency.]{Monthly $R^2$, MAE, RMSE, Coverage, Width, and mean signed error, one row per (interval, initial record, section); $n=72$ monthly estimates per row. Mean signed error follows $e=\hat{y}-y$; metrics per \Cref{main-tab:evaluation_metrics}.}
+  \caption[Monthly errors by depth section under reduced MLCW measurement frequency.]{Monthly estimation performance by depth section under reduced MLCW measurement frequency. Each row summarizes 72 monthly estimates. MAE, RMSE, mean signed error, and interval width are in mm/month; coverage is in percent. Metric definitions follow \Cref{main-tab:evaluation_metrics}.}
   \label{tab:supp_reduced_frequency_monthly_full}
   \begin{tabular}{c|c|c|r|r|r|r|r|r}
     \toprule
@@ -61,7 +88,7 @@ This section reports the full per-section, per-scenario monthly and endpoint err
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption[Paired monthly-MAE differences between reduced-frequency and delayed MLCW estimation.]{Paired differences in monthly MAE (mm/month) between reduced-frequency estimation and delayed monthly-record estimation. Each difference is reduced-frequency estimation minus delayed monthly-record estimation, corresponding to Results 4.2 minus Results 4.1. Each row uses 432 matched section-month observations from the common 72-month period, 05/2018 through 04/2024. The delayed reference contributes 72 months per section from its full 138-month-per-section Results 4.1 evaluation. Both evaluations used the same input dataset and the same 38 predictors; the 72-month restriction compared identical section-month observations. An interval containing zero does not demonstrate equivalence.}
+  \caption[Paired monthly-MAE differences between reduced-frequency and delayed MLCW estimation.]{Differences in monthly MAE (mm/month) between reduced-frequency and delayed monthly-record estimation. Positive values indicate larger errors under reduced measurement frequency. Each comparison uses 432 matched section-month values from 05/2018 through 04/2024. The 95\% resampling intervals are defined in \Cref{main-app:paired_mae_comparisons}.}
   \label{tab:supp_reduced_frequency_vs_delayed}
   \begin{tabular}{c|c|r|r}
     \toprule
@@ -81,7 +108,7 @@ This section reports the full per-section, per-scenario monthly and endpoint err
   \centering
   \small
   \renewcommand{\arraystretch}{1.15}
-  \caption[Paired monthly-MAE differences among initial-record lengths.]{Paired monthly-MAE differences (mm/month) among initial-record lengths. Each value is the longer initial record minus the shorter initial record, and each comparison uses $n=432$ matched section-month observations. Negative values favor the longer record only in the limited sense of lower monthly MAE. Endpoint rows from the source CSV are not included in this table.}
+  \caption[Paired monthly-MAE differences among initial-record lengths.]{Differences in monthly MAE (mm/month) among initial-record lengths. Each value is the longer record minus the shorter record, so negative values indicate a smaller error for the longer record. Each comparison uses 432 matched section-month values and the resampling procedure defined in \Cref{main-app:paired_mae_comparisons}.}
   \label{tab:supp_initial_history_differences}
   \begin{tabular}{c|c|r|r}
     \toprule
@@ -102,7 +129,7 @@ This section reports the full per-section, per-scenario monthly and endpoint err
   \small
   \setlength{\tabcolsep}{5pt}
   \renewcommand{\arraystretch}{1.15}
-  \caption[Endpoint errors by depth section under reduced MLCW measurement frequency.]{Endpoint MAE, RMSE, and mean signed error for each depth section, measurement interval, and initial-record length, evaluated over the shared 05/2018--04/2024 period. Each depth-section row contains 12 endpoint comparisons for the 6-month schedule and 6 for the 12-month schedule.}
+  \caption[Endpoint errors by depth section under reduced MLCW measurement frequency.]{Endpoint errors by depth section under reduced MLCW measurement frequency. MAE, RMSE, and mean signed error are in mm. Each row summarizes 12 endpoints under the 6-month schedule or 6 endpoints under the 12-month schedule during 05/2018--04/2024.}
   \label{tab:supp_reduced_frequency_endpoint_full}
   \begin{tabular}{c|c|c|r|r|r}
     \toprule
@@ -150,15 +177,15 @@ This section reports the full per-section, per-scenario monthly and endpoint err
 
 \FloatBarrier
 
-\section{Sensitivity without subsequent MLCW measurements: full per-section detail}
+\section{Estimation without subsequent MLCW measurements}
 \label{app:supp_no_subsequent_mlcw}
 
-This section reports the signed cumulative error, the running MAE and RMSE, and the horizon-normalized rate at the 80-month horizon underlying the compact absolute-error summary in the main text (\Cref{main-tab:results_no_subsequent_mlcw_h80}). The sign convention is $e=\hat{y}-y$ throughout, so a positive $E_{s,80}$ indicates estimates that accumulated above the observed cumulative deformation.
+The following figures and table provide the section-level estimates and errors during the 80 months after the common calibration endpoint.
 
 \begin{figure}[p]
   \centering
   \includegraphics[width=0.98\textwidth]{figures/fig_supp_no_subsequent_mlcw_timeseries_3yr_s1_s3.pdf}
-  \caption[Observed and estimated monthly deformation for three initial-record lengths.]{Observed and estimated monthly deformation increments for S1--S3 during the 80 months following the 3-year initial record. Black dashed lines show observations, blue dotted lines show estimates, and shaded bands show the 90\% Bayesian posterior predictive intervals. The following panels present the corresponding results for S4--S6 and for the 5- and 8-year initial records.}
+  \caption[Observed and estimated monthly deformation for three initial-record lengths.]{Observed and estimated monthly deformation increments during the 80 months without subsequent MLCW measurements. The panels cover all six depth sections after initial records of 3, 5, and 8 years. Black dashed lines show observations, blue dotted lines show estimates, and shaded bands show the 90\% Bayesian posterior predictive intervals.}
   \label{fig:supp_no_subsequent_mlcw_timeseries}
 \end{figure}
 
@@ -204,84 +231,13 @@ This section reports the signed cumulative error, the running MAE and RMSE, and 
   \label{fig:supp_no_subsequent_mlcw_running_errors}
 \end{figure}
 
-\begin{table}[H]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption[Signed cumulative deformation error without subsequent MLCW measurements.]{Signed cumulative deformation error $E_{s,80}$ in mm for each depth section after 80 months without subsequent MLCW measurements. The corresponding absolute values $A_{s,80}=|E_{s,80}|$ are reported in \Cref{main-tab:results_no_subsequent_mlcw_h80}.}
-  \label{tab:supp_no_subsequent_mlcw_signed_h80}
-  \begin{tabular}{l|r|r|r}
-    \toprule
-    \multicolumn{1}{c|}{\textbf{Section}} & \multicolumn{1}{c|}{\textbf{3-year initial record}} & \multicolumn{1}{c|}{\textbf{5-year initial record}} & \multicolumn{1}{c}{\textbf{8-year initial record}} \\
-    \midrule
-    S1 & 5.54 & 4.79 & 5.75 \\
-    S2 & 5.26 & 2.25 & 2.44 \\
-    S3 & 0.69 & $-3.53$ & $-0.14$ \\
-    S4 & 15.08 & 14.76 & 8.75 \\
-    S5 & $-7.32$ & 6.23 & $-4.42$ \\
-    S6 & 10.48 & 8.56 & 4.22 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption[Running monthly error at the 80-month horizon.]{Running $\mathrm{MAE}_{s,80}$ (mm/month, upper block) and $\mathrm{RMSE}_{s,80}$ (mm/month, lower block) for each depth section, summarizing the typical monthly estimation error from calibration through the 80-month horizon.}
-  \label{tab:supp_no_subsequent_mlcw_running_error_h80}
-  \begin{tabular}{l|r|r|r}
-    \toprule
-    \multicolumn{1}{c|}{\textbf{Section}} & \multicolumn{1}{c|}{\textbf{3-year initial record}} & \multicolumn{1}{c|}{\textbf{5-year initial record}} & \multicolumn{1}{c}{\textbf{8-year initial record}} \\
-    \midrule
-    \multicolumn{4}{@{}l}{\textit{$\mathrm{MAE}_{s,80}$ (mm/month)}} \\
-    S1 & 0.17 & 0.18 & 0.21 \\
-    S2 & 0.15 & 0.18 & 0.19 \\
-    S3 & 0.15 & 0.13 & 0.21 \\
-    S4 & 0.2 & 0.19 & 0.27 \\
-    S5 & 0.45 & 0.45 & 0.46 \\
-    S6 & 0.42 & 0.42 & 0.42 \\
-    \midrule
-    \multicolumn{4}{@{}l}{\textit{$\mathrm{RMSE}_{s,80}$ (mm/month)}} \\
-    S1 & 0.22 & 0.22 & 0.24 \\
-    S2 & 0.19 & 0.22 & 0.23 \\
-    S3 & 0.27 & 0.27 & 0.29 \\
-    S4 & 0.25 & 0.23 & 0.34 \\
-    S5 & 0.54 & 0.59 & 0.57 \\
-    S6 & 0.69 & 0.69 & 0.7 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \small
-  \renewcommand{\arraystretch}{1.15}
-  \caption[Horizon-normalized absolute cumulative error at the 80-month horizon.]{$R_{s,80}=A_{s,80}/80$ in mm/month for each depth section, expressing the absolute cumulative error per elapsed month.}
-  \label{tab:supp_no_subsequent_mlcw_rate_h80}
-  \begin{tabular}{l|r|r|r}
-    \toprule
-    \multicolumn{1}{c|}{\textbf{Section}} & \multicolumn{1}{c|}{\textbf{3-year initial record}} & \multicolumn{1}{c|}{\textbf{5-year initial record}} & \multicolumn{1}{c}{\textbf{8-year initial record}} \\
-    \midrule
-    S1 & 0.07 & 0.06 & 0.07 \\
-    S2 & 0.07 & 0.03 & 0.03 \\
-    S3 & 0.009 & 0.04 & 0.002 \\
-    S4 & 0.19 & 0.18 & 0.11 \\
-    S5 & 0.09 & 0.08 & 0.06 \\
-    S6 & 0.13 & 0.11 & 0.05 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-A small $R_{s,80}$ did not necessarily indicate that the absolute cumulative error stopped growing over the evaluation period. It indicated only that the average rate of accumulation over the full 80 months was small. Section~S4 had the largest horizon-normalized rate under every initial-record length, consistent with its comparatively large absolute cumulative errors in the main text.
-
 % Source: diag_28_sec4_meansd_tables.py (sec4_3_persection.csv)
 \begin{table}[H]
   \centering
   \small
   \setlength{\tabcolsep}{5pt}
   \renewcommand{\arraystretch}{1.15}
-  \caption[Monthly errors by depth section without subsequent MLCW measurements.]{Monthly $R^2$, MAE, RMSE, Coverage, and Width, one row per (initial record, section); $n=80$ monthly estimates per row. Metrics per \Cref{main-tab:evaluation_metrics}; full detail underlying \Cref{main-tab:results_no_subsequent_mlcw_interval}.}
+  \caption[Monthly errors by depth section without subsequent MLCW measurements.]{Monthly estimation performance by depth section during the 80 months without subsequent MLCW measurements. Each row summarizes 80 monthly estimates. MAE, RMSE, and interval width are in mm/month; coverage is in percent. Metric definitions follow \Cref{main-tab:evaluation_metrics}.}
   \label{tab:supp_no_subsequent_mlcw_monthly_full}
   \begin{tabular}{c|c|r|r|r|r|r}
     \toprule
