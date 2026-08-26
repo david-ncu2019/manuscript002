@@ -5,7 +5,6 @@
 \label{app:predictors}
 
 Each depth-section model used 38 predictor variables drawn from four groups,
-
 \begin{equation}
 \boldsymbol{x}_{s,k}
 =
@@ -28,7 +27,6 @@ The four surface-displacement variables were the current cGNSS increment, its se
 \label{app:variability_diagnostics}
 
 The error metrics in \Cref{tab:evaluation_metrics} summarize agreement between the observed and estimated monthly increments, but they do not separate differences in variability from differences in their temporal pattern. Two supporting diagnostics were therefore calculated for each depth section using the same $n_s=138$ paired values as the delayed-delivery evaluation. The observed and estimated sample standard deviations were
-
 \begin{equation}
 \sigma_{s}^{\mathrm{obs}}
 =
@@ -53,7 +51,6 @@ The error metrics in \Cref{tab:evaluation_metrics} summarize agreement between t
 \end{equation}
 
 Their ratio was calculated as
-
 \begin{equation}
 R_{\sigma,s}
 =
@@ -62,7 +59,6 @@ R_{\sigma,s}
 \end{equation}
 
 A value of $R_{\sigma,s}$ below one indicates that the estimates varied less than the observations, whereas a value above one indicates greater estimated variability. Temporal agreement was described by the Pearson correlation coefficient
-
 \begin{equation}
 \rho_s
 =
@@ -99,7 +95,6 @@ A larger positive $\rho_s$ indicates that the observed and estimated increments 
 Paired comparisons tested whether monthly MAE changed with MLCW measurement frequency or with the length of the initial record. Each pair used the same period from 05/2018 through 04/2024 and the same six depth sections, giving 432 matched section-month values.
 
 The comparison with delayed monthly-record estimation was defined as
-
 \begin{equation}
 \Delta \mathrm{MAE}_{\mathrm{reduced-delayed}}
 =
@@ -110,7 +105,6 @@ The comparison with delayed monthly-record estimation was defined as
 \end{equation}
 
 A positive difference indicates a larger monthly MAE under reduced measurement frequency. A negative difference indicates a smaller monthly MAE. Within either reduced-frequency schedule, the effect of initial-record length was calculated as
-
 \begin{equation}
 \Delta \mathrm{MAE}_{\mathrm{longer-shorter}}
 =
@@ -119,13 +113,11 @@ A positive difference indicates a larger monthly MAE under reduced measurement f
 \mathrm{MAE}_{\mathrm{shorter}}.
 \label{eq:mae_difference_initial_records}
 \end{equation}
-
 Here, a negative difference indicates a smaller monthly MAE for the longer initial record, whereas a positive difference indicates a larger monthly MAE.
 
 Errors from one measurement cycle were produced before the next model update and were therefore resampled together. The 6-month schedule contained 12 complete cycles, with each cycle comprising six months across all six depth sections. The 12-month schedule contained six complete cycles, with each cycle comprising twelve months across the same sections. Complete cycles were sampled with replacement, the two MAEs were recalculated from the selected cycles, and their difference was recorded. This procedure preserved the temporal grouping of the monthly errors within each cycle \citep{lahiri_2003_bootstrap}.
 
 After 2,000 repetitions, the 95\% resampling interval was
-
 \begin{equation}
 \mathcal{I}_{0.95}
 =
@@ -141,7 +133,6 @@ Q_{0.975}
 \right],
 \label{eq:mae_resampling_interval}
 \end{equation}
-
 where $Q_p$ denotes percentile $p$ of the resampled MAE differences. Two positive bounds indicate a larger MAE for the first quantity in the subtraction, and two negative bounds indicate a smaller MAE. An interval containing zero does not establish a consistent direction of difference or equivalent performance.
 
 \FloatBarrier
