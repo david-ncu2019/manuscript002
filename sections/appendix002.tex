@@ -4,7 +4,7 @@
 \subsection{Predictor composition}
 \label{app:predictors}
 
-Each depth-section model used 38 predictor variables drawn from four groups,
+The model for each depth section used 38 predictor variables drawn from four groups,
 \begin{equation}
 \boldsymbol{x}_{s,k}
 =
@@ -21,12 +21,12 @@ Each depth-section model used 38 predictor variables drawn from four groups,
 \label{eq:predictor_composition}
 \end{equation}
 
-The four surface-displacement variables were the current cGNSS increment, its second difference, and its one- and three-month lags. The ten hydraulic-head variables for the target section were the current change, its second difference, its one-, three-, six-, twelve-, and twenty-four-month lags, its three- and six-month rolling means, and its absolute value. The six seasonal variables comprised annual and semiannual sine and cosine terms, a dry-season indicator, and an interaction between head change and the dry-season indicator. The remaining 18 variables described hydraulic conditions across the monitored profile using the current head change and its three- and six-month rolling means for each of the six depth sections. Every predictor was available for month $k$ when its deformation increment was estimated. The frozen feature manifest for \texttt{run\_048} records the exact variable names and source columns.
+The four variables derived from surface displacement were the current cGNSS increment, its second difference, and its one- and three-month lags. The ten variables derived from hydraulic head in the target section were the current change, its second difference, its one-, three-, six-, twelve-, and twenty-four-month lags, its three- and six-month rolling means, and its absolute value. The six seasonal variables comprised annual and semiannual sine and cosine terms, a dry-season indicator, and an interaction between head change and the dry-season indicator. The remaining 18 variables described hydraulic conditions across the monitored profile using the current head change and its three- and six-month rolling means for each of the six depth sections. Every predictor was available for month $k$ when its deformation increment was estimated. The frozen feature manifest for \texttt{run\_048} records the exact variable names and source columns.
 
 \subsection{Variability and temporal agreement}
 \label{app:variability_diagnostics}
 
-The error metrics in \Cref{tab:evaluation_metrics} summarize agreement between the observed and estimated monthly increments, but they do not separate differences in variability from differences in their temporal pattern. Two supporting diagnostics were therefore calculated for each depth section using the same $n_s=138$ paired values as the delayed-delivery evaluation. The observed and estimated sample standard deviations were
+The error metrics in \Cref{tab:evaluation_metrics} summarize agreement between the observed and estimated monthly increments, but they do not separate differences in variability from differences in their temporal pattern. Two supporting diagnostics were therefore calculated for each depth section using the same $n_s=138$ paired values as the evaluation with delayed data delivery. The observed and estimated sample standard deviations were
 \begin{equation}
 \sigma_{s}^{\mathrm{obs}}
 =
@@ -92,9 +92,9 @@ A larger positive $\rho_s$ indicates that the observed and estimated increments 
 \subsection{Paired comparisons of monthly estimation error}
 \label{app:paired_mae_comparisons}
 
-Paired comparisons tested whether monthly MAE changed with MLCW measurement frequency or with the length of the initial record. Each pair used the same period from 05/2018 through 04/2024 and the same six depth sections, giving 432 matched section-month values.
+Paired comparisons tested whether monthly MAE changed with MLCW measurement frequency or with the length of the initial record. Each pair used the same period from 05/2018 through 04/2024 and the same six depth sections, giving 432 values matched by section and month.
 
-The comparison with delayed monthly-record estimation was defined as
+The comparison with estimation based on delayed monthly records was defined as
 \begin{equation}
 \Delta \mathrm{MAE}_{\mathrm{reduced-delayed}}
 =
@@ -104,7 +104,7 @@ The comparison with delayed monthly-record estimation was defined as
 \label{eq:mae_difference_reduced_delayed}
 \end{equation}
 
-A positive difference indicates a larger monthly MAE under reduced measurement frequency. A negative difference indicates a smaller monthly MAE. Within either reduced-frequency schedule, the effect of initial-record length was calculated as
+A positive difference indicates a larger monthly MAE under reduced measurement frequency. A negative difference indicates a smaller monthly MAE. Within either schedule with less frequent measurements, the effect of the length of the initial record was calculated as
 \begin{equation}
 \Delta \mathrm{MAE}_{\mathrm{longer-shorter}}
 =

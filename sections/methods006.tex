@@ -3,7 +3,7 @@ The analysis converted MLCW deformation, cGNSS displacement, and hydraulic head 
 \subsection{Preparation of model inputs}
 \label{subsec:predictor_preparation}
 
-Preparation of the model inputs began by aligning the MLCW and cGNSS displacement records, which were collected on different dates. A deformation time series model evaluated these records at common monthly dates and produced monthly increments. The MLCW increments formed the response, while cGNSS increments, section-specific hydraulic head changes, and seasonal terms formed the predictors.
+Preparation of the model inputs began by aligning the MLCW and cGNSS displacement records, which were collected on different dates. A deformation time series model evaluated these records at common monthly dates and produced monthly increments. The MLCW increments formed the response, while cGNSS increments, hydraulic head changes for individual sections, and seasonal terms formed the predictors.
 
 \subsubsection{Deformation time series model}
 \label{subsec:deformation_model}
@@ -46,8 +46,8 @@ Each depth section was calibrated and evaluated independently. Predictor centeri
     \textbf{Predictor group} & \textbf{Information represented} & \textbf{Role in the model} \\
     \midrule
     cGNSS displacement & Current and lagged vertical surface displacement & Deformation of the whole depth profile \\
-    Target-section hydraulic head & Current and lagged hydraulic head changes, target section & Hydraulic conditions in the section being estimated \\
-    Other-section hydraulic head & Current and lagged hydraulic head changes, other five sections & Hydraulic conditions in the other monitored depths \\
+    Hydraulic head in the target section & Current and lagged hydraulic head changes, target section & Hydraulic conditions in the section being estimated \\
+    Hydraulic head in other sections & Current and lagged hydraulic head changes, other five sections & Hydraulic conditions in the other monitored depths \\
     Seasonal terms & Annual and semiannual variation & Yearly cycle in deformation \\
     \bottomrule
   \end{tabularx}
@@ -175,13 +175,13 @@ The nominal 90\% posterior predictive interval, obtained as the central posterio
 
 This interval described the range of monthly deformation increments considered plausible under the fitted model. Because it was calculated directly from the posterior predictive distribution, an interval was available for every monthly estimate without requiring an archive of previous prediction errors.
 
-Interval performance was evaluated using empirical coverage and mean interval width, with \Cref{tab:evaluation_metrics} giving the notation, definition, and unit for every point-estimate and interval metric reported in \Cref{sec:results}. Empirical coverage measured the proportion of observed monthly increments enclosed by their corresponding intervals. Its agreement with the nominal 90\% level indicated how closely the intervals represented the uncertainty encountered during evaluation. Mean interval width described the range of plausible monthly increments around each estimate. Coverage and width were interpreted together because a narrower interval provided more precise information only when it continued to enclose the expected proportion of observations \citep{gneiting_probabilistic_2007, singh_uncertainty_2024}.
+Interval performance was evaluated using empirical coverage and mean interval width, with \Cref{tab:evaluation_metrics} giving the notation, definition, and unit for every metric based on point estimates or intervals reported in \Cref{sec:results}. Empirical coverage measured the proportion of observed monthly increments enclosed by their corresponding intervals. Its agreement with the nominal 90\% level indicated how closely the intervals represented the uncertainty encountered during evaluation. Mean interval width described the range of plausible monthly increments around each estimate. Coverage and width were interpreted together because a narrower interval provided more precise information only when it continued to enclose the expected proportion of observations \citep{gneiting_probabilistic_2007, singh_uncertainty_2024}.
 
 \begin{table}[!ht]
   \centering
   \small
   \renewcommand{\arraystretch}{1.3}
-  \caption[Evaluation metrics.]{Evaluation metrics used to summarize monthly and endpoint estimation performance. The monthly residual was $e_{s,k}=\widehat{\Delta d}_{s,k}-\Delta d_{s,k}$, the estimated minus the observed monthly deformation increment for section $s$ and month $k$, and $\overline{\Delta d_{s}}$ is the mean observed monthly increment for section $s$; this same residual convention is used again in \Cref{eq:sparse_monthly_error}. Each metric was calculated over the set of section-month (or section-endpoint) estimates stated in the corresponding table.}
+  \caption[Evaluation metrics.]{Evaluation metrics used to summarize monthly and endpoint estimation performance. The monthly residual was $e_{s,k}=\widehat{\Delta d}_{s,k}-\Delta d_{s,k}$, the estimated minus the observed monthly deformation increment for section $s$ and month $k$, and $\overline{\Delta d_{s}}$ is the mean observed monthly increment for section $s$; this same residual convention is used again in \Cref{eq:sparse_monthly_error}. Each metric was calculated over the estimates for the sections and months, or the sections and endpoints, stated in the corresponding table.}
   \label{tab:evaluation_metrics}
   \begin{tabular}{lp{0.24\textwidth}p{0.4\textwidth}l}
     \toprule
@@ -298,7 +298,7 @@ Point estimates were evaluated separately for each depth section using $R^2$, RM
       {Expanded historical records\\Next cycle};
   \end{tikzpicture}%
   }
-  \caption{Estimation and model updating during the temporary unavailability of finalized monthly depth-interval deformation records. Hydraulic head and vertical surface displacement remained available during this period. Filled blue markers denote available observations, open blue markers denote deformation records not yet available, and orange markers denote the records subsequently provided. The symbol $\widehat{\Delta d}_{s,k}$ denotes the estimated monthly deformation increment for section $s$. Dots indicate omitted records; marker counts and spacing are illustrative.}
+  \caption{Estimation and model updating during the temporary unavailability of finalized monthly deformation records for individual depth intervals. Hydraulic head and vertical surface displacement remained available during this period. Filled blue markers denote available observations, open blue markers denote deformation records not yet available, and orange markers denote the records subsequently provided. The symbol $\widehat{\Delta d}_{s,k}$ denotes the estimated monthly deformation increment for section $s$. Dots indicate omitted records; marker counts and spacing are illustrative.}
   \label{fig:delayed_observation_design}
 \end{figure}
 
@@ -309,7 +309,7 @@ Point estimates were evaluated separately for each depth section using $R^2$, RM
 
 Reduced MLCW measurement frequency was examined under hypothetical schedules in which MLCW observations became available only at the end of each measurement interval, while monthly GWL and cGNSS observations remained available throughout to estimate monthly deformation increments.
 Intervening monthly MLCW values were excluded from estimation and model updating. Instead, each interval contributed one cumulative MLCW deformation observation at its final month, when a new cumulative MLCW field measurement became available.
-The evaluated scenarios combined measurement intervals of 6 or 12 months with initial calibration periods containing 3, 5, or 8 years of consecutive monthly MLCW observations, all ending on the same calendar date, so the 3- and 5-year periods began later than the 8-year period rather than starting from the same date and ending earlier. This shared calibration endpoint let the three initial-history lengths be compared over an identical subsequent period, undergoing the same number of model updates at the same calendar dates within a given measurement schedule.
+The evaluated scenarios combined measurement intervals of 6 or 12 months with initial calibration periods containing 3, 5, or 8 years of consecutive monthly MLCW observations, all ending on the same calendar date, so the 3- and 5-year periods began later than the 8-year period rather than starting from the same date and ending earlier. This shared calibration endpoint let initial periods of three different lengths be compared over an identical subsequent period, undergoing the same number of model updates at the same calendar dates within a given measurement schedule.
 Because a 6-month schedule and a 12-month schedule complete different numbers of measurement intervals over the same period, the two schedules were compared using their own respective update cycles, while the 3-, 5-, and 8-year initial histories were compared against each other only after matching their update cycles and calendar dates.
 These durations defined the scenarios examined in this study rather than a requirement of the method.
 
@@ -411,9 +411,9 @@ e_{s,I}
 
 Monthly errors described how well the model distributed deformation within each interval, whereas endpoint errors described agreement with the cumulative field observation. Both error types were summarized using MAE and RMSE for each depth section. The coefficient of determination was calculated for the monthly estimates but not for the endpoint observations, because each scenario contained relatively few cumulative measurements. Posterior predictive intervals for the monthly estimates were evaluated using empirical coverage and mean interval width.
 
-The summary errors alone did not show whether differences among the monitoring scenarios persisted across measurement cycles. Two additional comparisons therefore used the same 72 calendar months and the same six depth sections. The first compared each reduced-frequency scenario with delayed monthly-record estimation, while the second compared the 3-, 5-, and 8-year initial records within each measurement schedule. Matching the evaluated months and depth sections prevented differences in the available observations from being mistaken for effects of measurement frequency or initial-record length.
+The summary errors alone did not show whether differences among the monitoring scenarios persisted across measurement cycles. Two additional comparisons therefore used the same 72 calendar months and the same six depth sections. The first compared each scenario with less frequent measurements against estimation with delayed monthly records, while the second compared initial records of 3, 5, and 8 years within each measurement schedule. Matching the evaluated months and depth sections prevented differences in the available observations from being mistaken for effects of measurement frequency or the length of the initial record.
 
-Monthly errors within one measurement cycle were produced before the model was updated again. Complete cycles were therefore selected together when assessing the stability of each MAE difference, rather than treating individual section-month errors as independent observations. Repeated selection of these cycles produced a 95\% resampling interval for each difference. The two comparisons, their subtraction order, and the detailed resampling procedure are described in \Cref{app:paired_mae_comparisons}.
+Monthly errors within one measurement cycle were produced before the model was updated again. Complete cycles were therefore selected together when assessing the stability of each MAE difference, rather than treating errors for individual sections and months as independent observations. Repeated selection of these cycles produced a 95\% resampling interval for each difference. The two comparisons, their subtraction order, and the detailed resampling procedure are described in \Cref{app:paired_mae_comparisons}.
 
 \begin{figure}[htbp]
   \centering
@@ -516,7 +516,7 @@ Monthly errors within one measurement cycle were produced before the model was u
 \subsubsection{Sensitivity without subsequent MLCW field measurements}
 \label{subsec:permanent_stoppage_sensitivity}
 
-The absence of subsequent MLCW measurements was examined using models calibrated once from initial records spanning 3, 5, or 8 years. All three calibration records ended on the same calendar date, so the 3- and 5-year records began later than the 8-year record, following the shared-endpoint design described in \Cref{subsec:sparse_measurement_sensitivity}. After each calibration record ended, monthly GWL and cGNSS observations continued to provide predictor values, but no later MLCW observations were added. The model coefficients and predictor scaling therefore remained fixed throughout the subsequent estimation period.
+The absence of subsequent MLCW measurements was examined using models calibrated once from initial records spanning 3, 5, or 8 years. All three calibration records ended on the same calendar date, so the 3- and 5-year records began later than the 8-year record, following the design with a common endpoint described in \Cref{subsec:sparse_measurement_sensitivity}. After each calibration record ended, monthly GWL and cGNSS observations continued to provide predictor values, but no later MLCW observations were added. The model coefficients and predictor scaling therefore remained fixed throughout the subsequent estimation period.
 
 The remaining historical MLCW observations allowed this hypothetical condition to be evaluated retrospectively. These observations were withheld from model fitting and were used only to compare the observed monthly deformation increments with the estimates generated after the calibration record. The monthly error $e_{s,k}$ was calculated as defined in \Cref{eq:sparse_monthly_error}.
 
@@ -579,7 +579,7 @@ The normalized value $R_{s,K}$ was interpreted together with $A_{s,K}$. Because 
 
 The frozen Bayesian ridge model also provided the posterior predictive interval defined in \Cref{subsec:predictive_uncertainty} for each monthly estimate. These intervals described uncertainty in individual monthly deformation increments throughout the estimation period. They were not accumulated into uncertainty bands for $E_{s,K}$ or $A_{s,K}$ because the dependence among prediction errors from successive months was not represented in the cumulative calculation.
 
-Because the three calibration records shared the same endpoint, all three left the same 80 months for retrospective evaluation, over the identical subsequent calendar period. The complete fit-once evaluation is illustrated in \Cref{fig:no_subsequent_mlcw_design}.
+Because the three calibration records shared the same endpoint, all three left the same 80 months for retrospective evaluation, over the identical subsequent calendar period. The complete evaluation, in which each model was fitted once, is illustrated in \Cref{fig:no_subsequent_mlcw_design}.
 
 \begin{figure}[htbp]
   \centering
@@ -654,7 +654,7 @@ Because the three calibration records shared the same endpoint, all three left t
   	\node[font=\small,text=black!70] at (6.20,-1.55) {No recalibration};
   \end{tikzpicture}
   }
-  \caption{Fit-once monthly deformation estimation under the hypothetical absence of subsequent depth-interval deformation measurements. Filled blue markers denote observations used for model calibration. Hydraulic head and vertical surface displacement remained available, while open gray markers denote monthly estimates $\widehat{\Delta d}_{s,k}$. Model coefficients and predictor scaling remained fixed throughout the estimation period. Dots indicate omitted records; marker counts and spacing are illustrative.}
+  \caption{Monthly deformation estimation under the hypothetical absence of subsequent deformation measurements for individual depth intervals. Filled blue markers denote observations used to fit each model once. Hydraulic head and vertical surface displacement remained available, while open gray markers denote monthly estimates $\widehat{\Delta d}_{s,k}$. Model coefficients and predictor scaling remained fixed throughout the estimation period. Dots indicate omitted records; marker counts and spacing are illustrative.}
   \label{fig:no_subsequent_mlcw_design}
 \end{figure}
 
