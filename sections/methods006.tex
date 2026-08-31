@@ -191,8 +191,8 @@ Interval performance was evaluated using empirical coverage and mean interval wi
     MAE & Mean absolute error & $\mathrm{MAE}=\dfrac{1}{n}\sum\left\lvert e_{s,k}\right\rvert$ & mm/month \\
     RMSE & Root mean square error & $\mathrm{RMSE}=\sqrt{\dfrac{1}{n}\sum e_{s,k}^{2}}$ & mm/month \\
     Mean error & Mean signed error & $\overline{e}=\dfrac{1}{n}\sum e_{s,k}$ & mm/month \\
-    Coverage & Prediction interval coverage probability (PICP) & Percentage of observations enclosed by the nominal 90\% posterior predictive interval & \% \\
-    Width & Mean prediction interval width (MPIW) & $\overline{W}=\dfrac{1}{n}\sum 2\left(1.645\,\sigma_{s,k}\right)$ & mm/month \\
+    Coverage & Prediction interval coverage probability & Percentage of observations enclosed by the nominal 90\% posterior predictive interval & \% \\
+    Width & Mean prediction interval width & $\overline{W}=\dfrac{1}{n}\sum 2\left(1.645\,\sigma_{s,k}\right)$ & mm/month \\
     Endpoint MAE & Endpoint mean absolute error & MAE between the cumulative estimate and the next cumulative MLCW field measurement & mm \\
     \bottomrule
   \end{tabular}
@@ -210,7 +210,7 @@ Temporary gaps in the availability of finalized monthly MLCW records were examin
 
 At the end of each estimation period, the corresponding monthly MLCW observations became available and were compared with the estimates. These observations were then added to the calibration record, after which the model was recalibrated for the next cycle. Repeating this sequence gradually expanded the calibration record while preserving temporal order because observations from a later period could not influence earlier estimates. One complete cycle is illustrated in \Cref{fig:delayed_observation_design}.
 
-Point estimates were evaluated separately for each depth section using the coefficient of determination ($R^2$), root mean square error (RMSE), and mean absolute error (MAE). Posterior predictive intervals were evaluated using empirical coverage and mean interval width, as described in \Cref{subsec:predictive_uncertainty}. Performance was also compared across successive months within each update cycle to determine whether estimation quality changed as the MLCW observation gap lengthened.
+Point estimates were evaluated separately for each depth section using $R^2$, RMSE, and MAE. Posterior predictive intervals were evaluated using empirical coverage and mean interval width, as described in \Cref{subsec:predictive_uncertainty}. Performance was also compared across successive months within each update cycle to determine whether estimation quality changed as the MLCW observation gap lengthened.
 
 \begin{figure}[htbp]
   \centering
