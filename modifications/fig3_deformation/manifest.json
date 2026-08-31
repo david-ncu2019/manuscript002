@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-01T07:43:42+08:00",
+  "purpose": "Regenerate Figure 3 with the manuscript-wide deformation terminology while preserving data and plotting behavior.",
+  "change_scope": {
+    "old_axis_label": "Compaction (mm)",
+    "new_axis_label": "Deformation (mm)",
+    "data_changed": false,
+    "sign_convention_changed": false,
+    "plot_style_changed": false,
+    "layout_changed": false
+  },
+  "source_files": [
+    {
+      "role": "borehole_lithology",
+      "path": "D:\\1000_SCRIPTS\\004_Project003\\20260427_InSAR_MLCW_v3\\007_tests\\014_ml_nowcast\\raw_data\\05_borehole_materials\\TUKU\\borehole.csv",
+      "sha256": "B65D0ED28AAF88C348D59CDF617A22669484466882BEF5A236ADB25B5C2AA9A5"
+    },
+    {
+      "role": "ring_by_ring_mlcw",
+      "path": "D:\\1000_SCRIPTS\\004_Project003\\20260427_InSAR_MLCW_v3\\001_data\\mlcw\\modeled\\TUKU_ringbyring.csv",
+      "sha256": "260EE9F4187F7A8B1024D1F5A84237D0608E343BBE101668079FAC9666076AD4"
+    }
+  ],
+  "legacy_assets": [
+    {
+      "role": "script",
+      "path": "D:\\112_PROJECT_002\\.worktrees\\manuscript_reduced_v1\\scripts\\plot_composite_ms2.py",
+      "sha256": "DC697ED83A711C667A5D294214299CB7F19663D3D829A159CC7D4784D216AE8E"
+    },
+    {
+      "role": "figure",
+      "path": "D:\\112_PROJECT_002\\.worktrees\\manuscript_reduced_v1\\figures\\fig_composite_ms2_dataset_TUKU.png",
+      "sha256": "B8EC8869B8EBBA7C6F57062DFF8F7985CCBEAFC337AB9601E28B46667E63F24A",
+      "pixel_dimensions": [3720, 3011]
+    }
+  ],
+  "active_assets": [
+    {
+      "role": "script",
+      "path": "D:\\112_PROJECT_002\\.worktrees\\manuscript_reduced_v1\\scripts\\plot_tuku_lithology_and_deformation.py",
+      "sha256": "92E22766B73BDB75CDF70507CB68322898BE52297079206D28F947B130280988"
+    },
+    {
+      "role": "figure",
+      "path": "D:\\112_PROJECT_002\\.worktrees\\manuscript_reduced_v1\\figures\\fig_dataset_tuku_lithology_and_deformation.png",
+      "sha256": "E5F2541F5F31B9129D9AE9E81ACE7113C621D04C735B4255BD89543A64D45A9C",
+      "pixel_dimensions": [3720, 3011]
+    }
+  ],
+  "execution": {
+    "working_directory": "D:\\112_PROJECT_002\\.worktrees\\manuscript_reduced_v1",
+    "environment": "fafalab2",
+    "command": "$env:PYTHONPATH=\"\"; $env:MPLBACKEND=\"Agg\"; conda run -n fafalab2 python scripts/plot_tuku_lithology_and_deformation.py",
+    "status": "success"
+  }
+}
